@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Concretes;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors
 {

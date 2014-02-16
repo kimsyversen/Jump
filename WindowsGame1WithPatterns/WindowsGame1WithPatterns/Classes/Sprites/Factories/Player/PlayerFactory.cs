@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Concretes;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player
 {

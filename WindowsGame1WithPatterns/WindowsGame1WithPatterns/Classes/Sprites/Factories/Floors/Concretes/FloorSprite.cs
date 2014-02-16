@@ -1,9 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 
-namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Concretes
+namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes
 {
     class FloorSprite : Sprite, IFloor
     {
