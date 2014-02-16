@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using WindowsGame1WithPatterns.Classes.Sprites;
+using WindowsGame1WithPatterns.Classes.Sprites.Factory;
 
 namespace WindowsGame1WithPatterns
 {
@@ -48,9 +49,10 @@ namespace WindowsGame1WithPatterns
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            SpriteFactory factory = new SpriteFactory();
+            var factory = new SpriteFactory();
 
-            factory.CreateFontSprite(this);
+            factory.CreatePlayerSprite(this);
+        
 
             // TODO: use this.Content to load your game content here
         }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace WindowsGame1WithPatterns.Classes.Sprites
+namespace WindowsGame1WithPatterns.Classes.Sprites.Factory
 {
     abstract class SpriteCreator
     {
