@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Concretes
+namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
 {
     class FontSprite : ISprite
     {

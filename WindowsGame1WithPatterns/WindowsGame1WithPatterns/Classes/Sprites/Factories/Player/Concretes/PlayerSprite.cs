@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Concretes
+namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 {
     class PlayerSprite : Sprite, IPlayer
     {

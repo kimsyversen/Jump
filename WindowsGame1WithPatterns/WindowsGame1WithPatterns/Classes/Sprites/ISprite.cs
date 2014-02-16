@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace WindowsGame1WithPatterns.Classes.Sprites.Factories
+namespace WindowsGame1WithPatterns.Classes.Sprites
 {
     interface ISprite
     {
