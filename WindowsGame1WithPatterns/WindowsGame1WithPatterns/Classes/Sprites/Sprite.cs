@@ -6,6 +6,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
 {
     abstract class Sprite
     {
+        //TODO: Følge konvensjonen her
         protected const int DefaultMillisecondsPerFrame = 16; //60 times per second
         protected int _collisionOffset; //pixels outside of texture to not collide with
         protected Point _frameCurrent; //Index (x,y) for current frame in spritesheet/sprite

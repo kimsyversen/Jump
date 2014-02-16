@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WindowsGame1WithPatterns.Classes.Sprites.Factory;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 
-namespace WindowsGame1WithPatterns.Classes.Sprites
+namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Concretes
 {
-    class FloorSprite : Sprite, ISprite
+    class FloorSprite : Sprite, IFloor
     {
         private Game _game;
 
@@ -26,6 +23,23 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         }
 
         public void CreateSprite()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vector2 Position
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
+        public string Name
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
+        public void Blabla()
         {
             throw new NotImplementedException();
         }
