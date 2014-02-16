@@ -2,7 +2,7 @@
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
 {
-    class FontSprite : ISprite
+    class FontSprite : IFont
     {
         private Game _game;
 
