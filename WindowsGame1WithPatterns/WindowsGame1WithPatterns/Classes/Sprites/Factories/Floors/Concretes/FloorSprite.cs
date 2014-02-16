@@ -1,0 +1,52 @@
+﻿using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
+
+namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Concretes
+{
+    class FloorSprite : Sprite, IFloor
+    {
+        private Game _game;
+
+        public FloorSprite(Game game)
+        {
+            _game = game;
+        }
+
+        public FloorSprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent, Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 speed, int collisionOffset, int timeSinceLastFrame) : base(texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, speed, collisionOffset, timeSinceLastFrame)
+        {
+        }
+
+        public FloorSprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent, Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 speed, int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame) : base(texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, speed, collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
+        {
+        }
+
+        public void CreateSprite()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Vector2 Position
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
+        public string Name
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
+        public void Blabla()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Vector2 Direction
+        {
+            get { throw new NotImplementedException(); }
+        }
+    }
+}

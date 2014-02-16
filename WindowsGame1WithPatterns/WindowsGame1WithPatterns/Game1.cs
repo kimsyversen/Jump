@@ -8,7 +8,10 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using WindowsGame1WithPatterns.Classes;
 using WindowsGame1WithPatterns.Classes.Sprites;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 
 namespace WindowsGame1WithPatterns
 {
@@ -45,12 +48,21 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void LoadContent()
         {
+            //TODO: May all factories be gathered under abstract factory?
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            SpriteFactory factory = new SpriteFactory();
+            var playerFactory = new PlayerFactory();
 
-            factory.CreateFontSprite(this);
+            var player = playerFactory.CreatePlayerOne(this);
+
+            var floorFactory = new FloorFactory();
+
+            var floor = floorFactory.CreateFontSprite(this);
+           
+
+            player.Name = "Asdf";
 
             // TODO: use this.Content to load your game content here
         }
