@@ -6,6 +6,8 @@ namespace WindowsGame1WithPatterns
 {
     class ConcreteColleague<T> : IColleague<T>
     {
+        //ConcreteColleague - communicates with other Colleagues through its Mediator
+        //This will be the sprite classes
         private  string _name;
         private ISprite _sprite;
 
