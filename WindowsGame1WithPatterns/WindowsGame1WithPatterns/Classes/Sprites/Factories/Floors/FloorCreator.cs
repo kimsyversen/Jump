@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors
 {
-    abstract  class FloorCreator
+    abstract class FloorCreator
     {
        public abstract IFloor CreateFontSprite();
     }

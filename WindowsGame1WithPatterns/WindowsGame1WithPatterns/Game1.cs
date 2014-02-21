@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using WindowsGame1WithPatterns.Classes;
 using WindowsGame1WithPatterns.Classes.Sprites;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 
@@ -70,11 +71,6 @@ namespace WindowsGame1WithPatterns
 
             playerA.SendMessage(mediator1, player);
             player.Name = "Asdf";
-
-
-           
-
-          
             // TODO: use this.Content to load your game content here
         }
 

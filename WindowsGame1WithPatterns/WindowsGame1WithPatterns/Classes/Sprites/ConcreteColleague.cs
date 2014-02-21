@@ -1,8 +1,6 @@
 ﻿using System;
-using WindowsGame1WithPatterns.Classes.Sprites;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 
-namespace WindowsGame1WithPatterns
+namespace WindowsGame1WithPatterns.Classes.Sprites
 {
     class ConcreteColleague<T> : IColleague<T>
     {

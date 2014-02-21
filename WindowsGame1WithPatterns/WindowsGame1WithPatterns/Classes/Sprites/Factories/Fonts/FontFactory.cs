@@ -18,7 +18,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts
 
         public override IFont CreateFont()
         {
-            return new FontSprite(_game);
+            return new FontSprite<IFont>(_game);
         }
     }
 }

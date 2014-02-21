@@ -1,4 +1,4 @@
-﻿namespace WindowsGame1WithPatterns
+﻿namespace WindowsGame1WithPatterns.Classes.Sprites
 {
     interface IColleague<T>
     {

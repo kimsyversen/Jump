@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace WindowsGame1WithPatterns
+namespace WindowsGame1WithPatterns.Classes.Sprites
 {
+    //ConcreteMediator - implements the Mediator interface and coordinates communication between Colleague objects. 
+    // It is aware of all the Colleagues and their purpose with regards to inter communication.
     class ConcreteMediator<T> : IMediator<T>
     {
         private  List<IColleague<T>> _colleagueList = new List<IColleague<T>>();

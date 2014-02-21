@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WindowsGame1WithPatterns
+namespace WindowsGame1WithPatterns.Classes.Sprites
 {
     //Mediator - defines the interface for communication between Colleague objects
     interface IMediator<T>
