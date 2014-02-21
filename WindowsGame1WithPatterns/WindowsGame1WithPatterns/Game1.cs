@@ -52,18 +52,29 @@ namespace WindowsGame1WithPatterns
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            SpriteFactory sf = new SpriteFactory(this);
 
-            var playerFactory = new PlayerFactory();
+            var playerFactory = sf.CreatePlayerFactory();
 
-            var player = playerFactory.CreatePlayerOne(this);
+            var player = playerFactory.CreatePlayerOne();
 
-            var floorFactory = new FloorFactory();
 
-            var floor = floorFactory.CreateFontSprite(this);
-           
+            var floorFactory = sf.CreateFloorFactory();
 
+            var floor = floorFactory.CreateFontSprite();
+
+            IColleague<ISprite> playerA = new ConcreteColleague<ISprite>(player);
+            IColleague<ISprite> floorA = new ConcreteColleague<ISprite>(floor);
+
+            IMediator<ISprite> mediator1 = new ConcreteMediator<ISprite>();
+
+            playerA.SendMessage(mediator1, player);
             player.Name = "Asdf";
 
+
+           
+
+          
             // TODO: use this.Content to load your game content here
         }
 

@@ -9,9 +9,16 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors
 {
     class FloorFactory : FloorCreator
     {
-        public override IFloor CreateFontSprite(Game game)
+        private Game _game;
+
+        public FloorFactory(Game game)
         {
-            return new FloorSprite(game);
+            _game = game;
+
+        }
+        public override IFloor CreateFontSprite()
+        {
+            return new FloorSprite(_game);
         }
     }
 }

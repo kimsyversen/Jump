@@ -9,9 +9,16 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts
 {
     class FontFactory : FontCreator
     {
-        public override IFont CreateFont(Game game)
+        private Game _game;
+
+        public FontFactory(Game game)
         {
-            return new FontSprite(game);
+            _game = game;
+        }
+
+        public override IFont CreateFont()
+        {
+            return new FontSprite(_game);
         }
     }
 }

@@ -8,6 +8,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors
 {
     abstract  class FloorCreator
     {
-       public abstract IFloor CreateFontSprite(Game game);
+       public abstract IFloor CreateFontSprite();
     }
 }

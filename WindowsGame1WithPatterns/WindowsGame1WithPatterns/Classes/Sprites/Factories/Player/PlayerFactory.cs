@@ -5,14 +5,21 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player
 {
     class PlayerFactory : PlayerCreator
     {
-        public override IPlayer CreatePlayerOne(Game game)
+        private Game _game;
+
+        public PlayerFactory(Game game)
         {
-            return new PlayerSprite(game);
+            _game = game;
         }
 
-        public override IPlayer CreatePlayerTwo(Game game)
+        public override IPlayer CreatePlayerOne()
         {
-            return new PlayerSprite(game);
+            return new PlayerSprite(_game);
+        }
+
+        public override IPlayer CreatePlayerTwo()
+        {
+            return new PlayerSprite(_game);
         }
     }
 }
