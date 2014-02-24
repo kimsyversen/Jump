@@ -64,12 +64,7 @@ namespace WindowsGame1WithPatterns
 
             var floor = floorFactory.CreateFontSprite();
 
-            IColleague<ISprite> playerA = new ConcreteColleague<ISprite>(player);
-            IColleague<ISprite> floorA = new ConcreteColleague<ISprite>(floor);
 
-            IMediator<ISprite> mediator1 = new ConcreteMediator<ISprite>();
-
-            playerA.SendMessage(mediator1, player);
             player.Name = "Asdf";
             // TODO: use this.Content to load your game content here
         }

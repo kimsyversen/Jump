@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 {
-    class PlayerSprite<T> : Sprite, IPlayer, IColleague<T>
+    class PlayerSprite<T> : Sprite, IPlayer
     {
         private Game _game;
         private string _name;
@@ -46,16 +46,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         public override Vector2 Direction
         {
             get { throw new System.NotImplementedException(); }
-        }
-
-        public void SendMessage(IMediator<T> mediator, T message)
-        {
-            mediator.DistributeMessage(this, message);
-        }
-
-        public void ReceiveMessage(T message)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
