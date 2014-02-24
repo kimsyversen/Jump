@@ -1,14 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
 {
-    class FontSprite<T> : IFont
+    class FontSprite : IFont
     {
+        //Reference to the game. Needed because we need to get some properties like size of screen
         private Game _game;
+        private int _score;
 
-        public FontSprite(Game game)
+        //Reference to the player associated with this font
+        private readonly IPlayer _subject;
+
+        public FontSprite(Game game, IPlayer playerSubject)
         {
             _game = game;
+            _subject = playerSubject;
+            _subject.RegisterObserver(this);
         }
 
         public void CreateSprite()
@@ -26,6 +34,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
         {
             get { throw new System.NotImplementedException(); }
             set { throw new System.NotImplementedException(); }
+        }
+
+        public void UpdateScore(int score)
+        {
+            _score++;
         }
     }
 }

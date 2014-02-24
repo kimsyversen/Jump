@@ -53,16 +53,15 @@ namespace WindowsGame1WithPatterns
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            SpriteFactory sf = new SpriteFactory(this);
+            var sf = new SpriteFactory(this);
 
             var playerFactory = sf.CreatePlayerFactory();
 
             var player = playerFactory.CreatePlayerOne();
 
+            var fontFactory = sf.CreateFontFactory();
 
-            var floorFactory = sf.CreateFloorFactory();
-
-            var floor = floorFactory.CreateFontSprite();
+            fontFactory.PlayerScoreFont(player);
 
 
             player.Name = "Asdf";

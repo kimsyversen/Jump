@@ -14,12 +14,12 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player
 
         public override IPlayer CreatePlayerOne()
         {
-            return new PlayerSprite<IPlayer>(_game);
+            return new PlayerSprite(_game);
         }
 
         public override IPlayer CreatePlayerTwo()
         {
-            return new PlayerSprite<IPlayer>(_game);
+            return new PlayerSprite(_game);
         }
     }
 }

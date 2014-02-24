@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts
 {
@@ -16,9 +17,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts
             _game = game;
         }
 
-        public override IFont CreateFont()
+        public override IFont PlayerScoreFont(IPlayer playerSubject)
         {
-            return new FontSprite<IFont>(_game);
+            return new FontSprite(_game, playerSubject);
         }
     }
 }
