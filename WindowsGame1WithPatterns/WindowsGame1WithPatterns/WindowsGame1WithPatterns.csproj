@@ -116,7 +116,7 @@
     <Compile Include="Classes\Sprites\Factories\Player\PlayerCreator.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\PlayerFactory.cs" />
     <Compile Include="Classes\Sprites\Factories\Floors\Concretes\FloorSprite.cs" />
-    <Compile Include="Classes\Sprites\Factories\Fonts\Concretes\FontSprite.cs" />
+    <Compile Include="Classes\Sprites\Factories\Fonts\Concretes\CoordinateFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\IPlayer.cs" />
     <Compile Include="Classes\Sprites\ISprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Concretes\PlayerSprite.cs" />

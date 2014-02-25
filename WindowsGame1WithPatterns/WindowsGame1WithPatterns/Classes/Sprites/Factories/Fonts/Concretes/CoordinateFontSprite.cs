@@ -5,7 +5,7 @@ using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
 {
-    class FontSprite : IFont
+    class CoordinateFontSprite : IFont
     {
         //Reference to the game. Needed because we need to get some properties like size of screen
         private Game _game;
@@ -15,7 +15,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
         private String _coordinateString;
         private Vector2 _coordinates;
 
-        public FontSprite(Game game, IPlayer playerSubject)
+        public CoordinateFontSprite(Game game, IPlayer playerSubject)
         {
             _game = game;
             _subject = playerSubject;
