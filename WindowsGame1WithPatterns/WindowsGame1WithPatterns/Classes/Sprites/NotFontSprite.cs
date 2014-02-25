@@ -35,7 +35,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             }
         }
 
-         protected NotFontSprite() {}
+        protected NotFontSprite() {}
         protected NotFontSprite(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
                                    Point sheetSize,
                                    float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 speed,

@@ -58,11 +58,8 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void LoadContent()
         {
-            //TODO: May all factories be gathered under abstract factory?
-
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
 
             _playerFactory = _spriteFactory.CreatePlayerFactory();
 
