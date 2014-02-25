@@ -24,7 +24,7 @@ namespace WindowsGame1WithPatterns
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        
         private SpriteFactory _spriteFactory;
         private PlayerFactory _playerFactory;
         private FontFactory _fontFactory;
@@ -74,10 +74,6 @@ namespace WindowsGame1WithPatterns
             var font = _fontFactory.PlayerScoreFont(player);
 
             _fonts.Add(font);
-
-            // TODO: use this.Content to load your game content here
-
-
             base.LoadContent();
         }
 
@@ -99,7 +95,7 @@ namespace WindowsGame1WithPatterns
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+                Exit();
 
             foreach (var player in _players)
                 player.Update(gameTime, Window.ClientBounds);

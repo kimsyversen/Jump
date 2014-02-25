@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Sprites\NotFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Movement\ICommand.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Movement\MoveCommand.cs" />
     <Compile Include="Classes\Sprites\Factories\Floors\FloorCreator.cs" />
@@ -117,11 +118,11 @@
     <Compile Include="Classes\Sprites\Factories\Fonts\IFont.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\PlayerCreator.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\PlayerFactory.cs" />
-    <Compile Include="Classes\Sprites\Factories\Floors\Concretes\FloorSprite.cs" />
+    <Compile Include="Classes\Sprites\Factories\Floors\Concretes\FloorNotFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Fonts\Concretes\CoordinateFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\IPlayer.cs" />
     <Compile Include="Classes\Sprites\ISprite.cs" />
-    <Compile Include="Classes\Sprites\Factories\Player\Concretes\PlayerSprite.cs" />
+    <Compile Include="Classes\Sprites\Factories\Player\Concretes\PlayerNotFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\SpriteCreator.cs" />
     <Compile Include="Classes\Sprites\Factories\SpriteFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,9 +166,6 @@
       <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

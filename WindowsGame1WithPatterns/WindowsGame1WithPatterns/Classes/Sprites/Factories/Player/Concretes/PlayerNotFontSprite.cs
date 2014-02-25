@@ -7,12 +7,12 @@ using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Movement;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 {
-    internal class PlayerSprite : Sprite, IPlayer
+    internal class PlayerNotFontSprite : NotFontSprite, IPlayer
     {
         private Game _game;
         private readonly List<IFont> _observers;
 
-        public PlayerSprite(Game game) : this(game.Content.Load<Texture2D>(@"Ball"), 
+        public PlayerNotFontSprite(Game game) : this(game.Content.Load<Texture2D>(@"Ball"), 
                 new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height / 2f), new Point(30, 30), new Point(0, 0),
                new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {
@@ -20,7 +20,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             _observers = new List<IFont>();
         }
 
-        public PlayerSprite(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
+        public PlayerNotFontSprite(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
                             Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects,
                             Vector2 speed, int collisionOffset, int timeSinceLastFrame)
             : base(
@@ -29,7 +29,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         {
         }
 
-        public PlayerSprite(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
+        public PlayerNotFontSprite(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
                             Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects,
                             Vector2 speed, int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame)
             : base(
