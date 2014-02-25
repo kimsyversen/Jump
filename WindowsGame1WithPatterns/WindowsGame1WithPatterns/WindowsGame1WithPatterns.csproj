@@ -107,8 +107,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ICommand.cs" />
-    <Compile Include="Classes\MoveCommand.cs" />
+    <Compile Include="Classes\Sprites\Factories\Player\Movement\ICommand.cs" />
+    <Compile Include="Classes\Sprites\Factories\Player\Movement\MoveCommand.cs" />
     <Compile Include="Classes\Sprites\Factories\Floors\FloorCreator.cs" />
     <Compile Include="Classes\Sprites\Factories\Floors\FloorFactory.cs" />
     <Compile Include="Classes\Sprites\Factories\Floors\IFloor.cs" />

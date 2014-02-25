@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using WindowsGame1WithPatterns.Classes.Sprites;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
+﻿using Microsoft.Xna.Framework;
 
-namespace WindowsGame1WithPatterns.Classes
+namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Movement
 {
     class MoveCommand : ICommand
     {
