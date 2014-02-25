@@ -12,7 +12,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
         private SpriteFont _font;
         //Reference to the player associated with this font
         private readonly IPlayer _subject;
-        private String _coordinateString;
+        private String _coordinateString ;
         private Vector2 _coordinates;
 
         public CoordinateFontSprite(Game game, IPlayer playerSubject)
@@ -35,7 +35,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
        0, _font.MeasureString(_coordinateString) / 2, 1.0f, SpriteEffects.None, 0.5f);
 
             
-           // base.Draw(gameTime); //Sprite bør endres litt sånn at den er tilpasset fontsprite OG players. Font trenger bare update, draw og pos, farge, effect + noen fler?
+            //TODO: Sprite bør endres litt sånn at den er tilpasset fontsprite OG players. Font trenger bare update, draw og pos, farge, effect + noen fler? IMplementere DrawString-metoden?
         }
 
         public void UpdateCoordinates(Vector2 coordinates)

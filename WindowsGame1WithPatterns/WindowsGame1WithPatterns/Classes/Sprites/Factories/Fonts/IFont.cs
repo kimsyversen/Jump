@@ -9,7 +9,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts
     //"Things fonts can do"
     interface IFont : ISprite
     {
-
         //Observer methods 
         void UpdateCoordinates(Vector2 coordinates);
     }
