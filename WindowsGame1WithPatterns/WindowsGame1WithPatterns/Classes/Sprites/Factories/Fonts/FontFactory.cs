@@ -17,9 +17,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts
             _game = game;
         }
 
-        public override IFont PlayerScoreFont(IPlayer playerSubject)
+        public override IFont PlayerScoreFont(IPlayer subject)
         {
-            return new FontSprite(_game, playerSubject);
+            return new CoordinateFontSprite(_game, subject);
         }
     }
 }

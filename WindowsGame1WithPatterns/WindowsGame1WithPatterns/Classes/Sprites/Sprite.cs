@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites
 {
-    abstract class Sprite
+    abstract class Sprite : ISprite
     {
         protected const int DefaultMillisecondsPerFrame = 16; //60 times per second
         protected int CollisionOffset; //pixels outside of texture to not collide with
@@ -23,7 +23,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         protected const int MinX = 0;
         protected const int MinY = 0;
         private Random _random;
-        public abstract Vector2 Direction { get; }
 
         public Rectangle CollisionRectangle
         {
@@ -61,7 +60,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             Rotate = rotate;
             Origin = origin;
         }
-        public virtual void Update(GameTime gameTime, Rectangle clientBounds)
+        public void Update(GameTime gameTime, Rectangle clientBounds)
         {
             //Animation
 
@@ -81,27 +80,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             ++FrameCurrent.Y;
             if (FrameCurrent.Y >= SheetSize.Y)
                 FrameCurrent.Y = 0;
-
-            //Make sure sprite is within screen
-            var maxX = clientBounds.Width - FrameSize.X;
-            var maxY = clientBounds.Height - FrameSize.Y;
-
-            //Left
-            if (SpritePosition.X < MinX)
-                SpritePosition.X = 0;
-
-            //Top
-            if (SpritePosition.Y < MinY)
-                SpritePosition.Y = 0;
-
-            //Right
-            if (SpritePosition.X > maxX)
-                SpritePosition.X = clientBounds.Width - FrameSize.X;
-
-            //Bottom
-            if (SpritePosition.Y > maxY)
-                SpritePosition.Y = clientBounds.Height - FrameSize.Y;
-
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)

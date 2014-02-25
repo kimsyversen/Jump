@@ -43,9 +43,10 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes
             throw new NotImplementedException();
         }
 
-        public override Vector2 Direction
+
+        public new void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            get { throw new NotImplementedException(); }
+            throw new NotImplementedException();
         }
     }
 }

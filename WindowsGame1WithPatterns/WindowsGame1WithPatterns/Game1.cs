@@ -12,6 +12,7 @@ using WindowsGame1WithPatterns.Classes;
 using WindowsGame1WithPatterns.Classes.Sprites;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 
 namespace WindowsGame1WithPatterns
@@ -24,6 +25,12 @@ namespace WindowsGame1WithPatterns
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private SpriteFactory _spriteFactory;
+        private PlayerFactory _playerFactory;
+        private FontFactory _fontFactory;
+
+        private List<IPlayer> _players;
+        private List<IFont> _fonts; 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -39,7 +46,9 @@ namespace WindowsGame1WithPatterns
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            _spriteFactory = new SpriteFactory(this);
+            _players = new List<IPlayer>();
+            _fonts = new List<IFont>();
             base.Initialize();
         }
 
@@ -53,19 +62,23 @@ namespace WindowsGame1WithPatterns
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            var sf = new SpriteFactory(this);
-
-            var playerFactory = sf.CreatePlayerFactory();
-
-            var player = playerFactory.CreatePlayerOne();
-
-            var fontFactory = sf.CreateFontFactory();
-
-            fontFactory.PlayerScoreFont(player);
 
 
-            player.Name = "Asdf";
+            _playerFactory = _spriteFactory.CreatePlayerFactory();
+
+            var player = _playerFactory.CreatePlayerOne();
+             _players.Add(player);
+
+            _fontFactory = _spriteFactory.CreateFontFactory();
+
+            var font = _fontFactory.PlayerScoreFont(player);
+
+            _fonts.Add(font);
+
             // TODO: use this.Content to load your game content here
+
+
+            base.LoadContent();
         }
 
         /// <summary>
@@ -88,7 +101,11 @@ namespace WindowsGame1WithPatterns
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            foreach (var player in _players)
+                player.Update(gameTime, Window.ClientBounds);
+
+            foreach (var font in _fonts)
+                font.Update(gameTime, Window.ClientBounds);
 
             base.Update(gameTime);
         }
@@ -103,7 +120,17 @@ namespace WindowsGame1WithPatterns
 
             // TODO: Add your drawing code here
 
-            base.Draw(gameTime);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+
+            foreach (var player in _players)
+                player.Draw(gameTime, spriteBatch);
+
+            foreach (var font in _fonts)
+                font.Draw(gameTime, spriteBatch);
+
+           spriteBatch.End();
+
+           base.Draw(gameTime);
         }
     }
 }
