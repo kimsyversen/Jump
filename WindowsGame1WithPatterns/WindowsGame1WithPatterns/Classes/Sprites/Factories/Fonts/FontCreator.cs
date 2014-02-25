@@ -10,6 +10,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts
     //List the different type of font that we want to screate
     abstract class FontCreator
     {
-        public abstract IFont PlayerScoreFont(IPlayer playerSubject);
+        public abstract IFont PlayerScoreFont(IPlayer subject);
     }
 }
