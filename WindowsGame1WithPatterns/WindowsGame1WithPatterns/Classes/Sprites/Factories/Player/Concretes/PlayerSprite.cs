@@ -43,29 +43,29 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                Speed.X = -playerSpeed;
-                SpritePosition.X += Speed.X;
+                var cmd = new MoveCommand(this, new Vector2(-playerSpeed, Speed.Y), new Vector2(SpritePosition.X += PlayerSpeed.X, SpritePosition.Y));
+                cmd.Execute();
                 NotifyObservers();
             }
                 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                Speed.X = playerSpeed;
-                SpritePosition.X += Speed.X;
+                var cmd = new MoveCommand(this, new Vector2(playerSpeed, Speed.Y), new Vector2(SpritePosition.X += PlayerSpeed.X, SpritePosition.Y));
+                cmd.Execute();
                 NotifyObservers();
             }
                 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                Speed.Y = -playerSpeed;
-                SpritePosition.Y += Speed.Y;
+                var cmd = new MoveCommand(this, new Vector2(Speed.X, -playerSpeed), new Vector2(SpritePosition.X, SpritePosition.Y += PlayerSpeed.Y));
+                cmd.Execute();
                 NotifyObservers();
             }
                 
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                Speed.Y = playerSpeed;
-                SpritePosition.Y += Speed.Y;
+                var cmd = new MoveCommand(this, new Vector2(Speed.X, +playerSpeed), new Vector2(SpritePosition.X, SpritePosition.Y += PlayerSpeed.Y));
+                cmd.Execute();
                 NotifyObservers();
             }
 
@@ -99,7 +99,26 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             //Let the sprite class do it
             base.Draw(gameTime,spriteBatch);
         }
+        
+
+        public Vector2 PlayerSpeed
+        {
+            get { return Speed; }
+            set { Speed = value; }
+        }
+
+        public Vector2 PlayerPosition
+        {
+            get { return SpritePosition; }
+            set { SpritePosition = value; }
+        }
+
         #region ObserverPatternRelated
+
+        public void UpdateBlabla()
+        {
+            throw new System.NotImplementedException();
+        }
 
         public void RegisterObserver(IFont observer)
         {
@@ -114,7 +133,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         public void NotifyObservers()
         {
              foreach (var observer in _observers)
-             observer.UpdateCoordinates(this.SpritePosition);
+                observer.UpdateCoordinates(this.SpritePosition);
         }
 
         #endregion

@@ -7,6 +7,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player
     //"Things" that only players can do
     interface IPlayer : ISprite
     {
+        Vector2 PlayerSpeed { get; set; }
+        Vector2 PlayerPosition { get; set; }
 
         //A player may have observers (fonts that shall be updated, ex. score)
         void RegisterObserver(IFont observer);

@@ -13,7 +13,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         protected int MillisecondsPerFrame; //Milliseconds between framechanges
         protected Vector2 SpritePosition; // SpritePosition of sprite
         protected Point SheetSize; // Number of columns/rows in sprite sheet
-        protected Vector2 Speed; // Speed of sprite
+        protected Vector2 Speed; // PlayerSpeed of sprite
         protected int TimeSinceLastFrame = 0; //Milliseconds since last frame was drawn
         protected Texture2D Texture;
         protected SpriteEffects SpriteEffects;
