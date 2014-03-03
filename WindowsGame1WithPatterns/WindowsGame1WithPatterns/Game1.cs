@@ -98,8 +98,10 @@ namespace WindowsGame1WithPatterns
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        private bool hitPlatform = false; 
+        /// 
+        private bool _platformHit = false;
+
+        private IFloor _platform;
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
@@ -112,22 +114,21 @@ namespace WindowsGame1WithPatterns
 
                 foreach (var floor in _floors)
                 {
-                    Console.WriteLine(floor.ToString());
-                    if (player.Collide.Intersects(floor.Collide) && hitPlatform == false)
+                    
+                    if (player.Collide.Intersects(floor.Collide) && _platformHit == false)
                     {
+                        Console.WriteLine(floor.ToString());
                         player.HasJumped = false;
-                        hitPlatform = true;
-                        // player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, 0f);       
+                        _platformHit = true;
+                        _platform = floor;
                     }
-                    if (hitPlatform && !player.Collide.Intersects(floor.Collide))
+                    if (_platformHit && !player.Collide.Intersects(floor.Collide) && floor == _platform)
                     {
-                        hitPlatform = false;
+                        _platformHit = false;
                         player.HasJumped = true;
                     }
                     
                 }
-                    
-                //player.PlayerPosition.Y>(floor.FloorPosition.Y + floor.FloorTexture.Height-5)
             }
 
             foreach (var font in _fonts)
