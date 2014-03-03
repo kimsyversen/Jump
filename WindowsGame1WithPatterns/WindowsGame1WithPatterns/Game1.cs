@@ -28,9 +28,11 @@ namespace WindowsGame1WithPatterns
         private SpriteFactory _spriteFactory;
         private PlayerFactory _playerFactory;
         private FontFactory _fontFactory;
+        private FloorFactory _floorFactory;
 
         private List<IPlayer> _players;
-        private List<IFont> _fonts; 
+        private List<IFont> _fonts;
+        private List<IFloor> _floors; 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -49,6 +51,7 @@ namespace WindowsGame1WithPatterns
             _spriteFactory = new SpriteFactory(this);
             _players = new List<IPlayer>();
             _fonts = new List<IFont>();
+            _floors = new List<IFloor>();
             base.Initialize();
         }
 
@@ -63,7 +66,13 @@ namespace WindowsGame1WithPatterns
 
             _playerFactory = _spriteFactory.CreatePlayerFactory();
 
+            _floorFactory = _spriteFactory.CreateFloorFactory();
+
+            var floor = _floorFactory.CreateFloorSprite();
+            _floors.Add(floor);
+
             var player = _playerFactory.CreatePlayerOne();
+            
              _players.Add(player);
 
             _fontFactory = _spriteFactory.CreateFontFactory();
@@ -95,10 +104,21 @@ namespace WindowsGame1WithPatterns
                 Exit();
 
             foreach (var player in _players)
+            {
                 player.Update(gameTime, Window.ClientBounds);
+
+                foreach (var floor in _floors)
+                    if (player.Collide.Intersects(floor.Collide))
+                    {
+                        player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, 0f);
+                    }
+            }
 
             foreach (var font in _fonts)
                 font.Update(gameTime, Window.ClientBounds);
+
+            foreach (var floor in _floors)
+                floor.Update(gameTime, Window.ClientBounds);
 
             base.Update(gameTime);
         }
@@ -120,6 +140,9 @@ namespace WindowsGame1WithPatterns
 
             foreach (var font in _fonts)
                 font.Draw(gameTime, spriteBatch);
+
+            foreach (var floor in _floors)
+                floor.Draw(gameTime, spriteBatch);
 
            spriteBatch.End();
 

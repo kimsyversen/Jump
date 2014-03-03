@@ -8,8 +8,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes
     {
         private Game _game;
 
-     
+
         public FloorNotFontSprite(Game game)
+            : this(game.Content.Load<Texture2D>(@"stikker"),
+                new Vector2(game.Window.ClientBounds.Width / 2f, (game.Window.ClientBounds.Height / 2f)+100), new Point(100, 20), new Point(0, 0),
+                new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {
             _game = game;
         }
@@ -22,37 +25,16 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes
         {
         }
 
-        public void CreateSprite()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Vector2 Position
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
-
-        public string Name
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
-
-        public void Blabla()
-        {
-            throw new NotImplementedException();
-        }
-
+         public Rectangle Collide { get { return CollisionRectangle; } set; }
 
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            throw new NotImplementedException();
+            
         }
 
         public new void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            base.Draw(gameTime, spriteBatch);
         }
     }
 }
