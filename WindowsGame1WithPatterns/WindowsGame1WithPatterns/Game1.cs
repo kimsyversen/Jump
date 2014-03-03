@@ -112,6 +112,7 @@ namespace WindowsGame1WithPatterns
 
                 foreach (var floor in _floors)
                 {
+                    Console.WriteLine(floor.ToString());
                     if (player.Collide.Intersects(floor.Collide) && hitPlatform == false)
                     {
                         player.HasJumped = false;

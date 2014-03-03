@@ -7,7 +7,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes
     class FloorNotFontSprite : NotFontSprite, IFloor
     {
         private Game _game;
-
+        
 
         public FloorNotFontSprite(Game game, float x, float y, int width, int height)
             : this(game.Content.Load<Texture2D>(@"stikker"),
@@ -51,6 +51,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes
         public new void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             base.Draw(gameTime, spriteBatch);
+        }
+
+        public override String ToString()
+        {
+            return "Position: " + this.FloorPosition.X.ToString();
         }
     }
 }
