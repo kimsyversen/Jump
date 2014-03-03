@@ -11,6 +11,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
     {
         private Game _game;
         private readonly List<IFont> _observers;
+        bool hasJumped;
+        bool hasHitTheWall;
 
         public PlayerNotFontSprite(Game game) : this(game.Content.Load<Texture2D>(@"Ball"), 
                 new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height / 2f), new Point(30, 30), new Point(0, 0),
@@ -18,7 +20,12 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         {
             _game = game;
             _observers = new List<IFont>();
+            hasJumped = true;
+            hasHitTheWall = false;
         }
+
+
+
 
         public PlayerNotFontSprite(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
                             Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects,
@@ -37,59 +44,51 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                 collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
         }
-
+        const float playerSpeed = 4.0f;
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            const float playerSpeed = 4.0f;
+           
 
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.D) && hasHitTheWall == false)Speed.X = 3f;
+            else if (Keyboard.GetState().IsKeyDown(Keys.A) && hasHitTheWall == false) Speed.X = -3f; else if (hasHitTheWall == false) Speed.X = 0f;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && hasJumped == false)
             {
-                var cmd = new MoveCommand(this, new Vector2(-playerSpeed, Speed.Y), new Vector2(SpritePosition.X += PlayerSpeed.X, SpritePosition.Y));
-                cmd.Execute();
-                NotifyObservers();
+                SpritePosition.Y -= 10f;
+                Speed.Y = -20f;
+                hasJumped = true;
             }
-                
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (hasJumped == true)
             {
-                var cmd = new MoveCommand(this, new Vector2(playerSpeed, Speed.Y), new Vector2(SpritePosition.X += PlayerSpeed.X, SpritePosition.Y));
-                cmd.Execute();
-                NotifyObservers();
+                float i = 1;
+                Speed.Y += 0.15f + i;
             }
-                
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (SpritePosition.Y + Texture.Height > clientBounds.Height)
             {
-                var cmd = new MoveCommand(this, new Vector2(Speed.X, -playerSpeed), new Vector2(SpritePosition.X, SpritePosition.Y += PlayerSpeed.Y));
-                cmd.Execute();
-                NotifyObservers();
-            }
-                
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                var cmd = new MoveCommand(this, new Vector2(Speed.X, +playerSpeed), new Vector2(SpritePosition.X, SpritePosition.Y += PlayerSpeed.Y));
-                cmd.Execute();
-                NotifyObservers();
+                hasJumped = false;
+                hasHitTheWall = false;
             }
 
-            //Make sure sprite is within screen
-            var maxX = clientBounds.Width - FrameSize.X;
-            var maxY = clientBounds.Height - FrameSize.Y;
+            if (hasJumped == false)
+                Speed.Y = 0f;
 
-            //Left
-            if (SpritePosition.X < MinX)
-                SpritePosition.X = 0;
+            if (SpritePosition.X <= 0)
+            {
+                Speed.X = +10f;
+                Speed.Y = -10f;
+                hasHitTheWall = true;
+            }
+            if (SpritePosition.X >= (clientBounds.Width - Texture.Width))
+            {
+                Speed.X = -10f;
+                Speed.Y = -10f;
+                hasHitTheWall = true;
+            }
 
-            //Top
-            if (SpritePosition.Y < MinY)
-                SpritePosition.Y = 0;
-
-            //Right
-            if (SpritePosition.X > maxX)
-                SpritePosition.X = clientBounds.Width - FrameSize.X;
-
-            //Bottom
-            if (SpritePosition.Y > maxY)
-                SpritePosition.Y = clientBounds.Height - FrameSize.Y;
-
+            //Bruker MoveCommand for flyttingen, og gir beskjed til observer
+            var cmd = new MoveCommand(this, new Vector2(Speed.X, Speed.Y), new Vector2(SpritePosition.X + Speed.X, SpritePosition.Y + Speed.Y));
+            cmd.Execute();
+            NotifyObservers();
 
             //Animate sprite
             base.Update(gameTime, clientBounds);
