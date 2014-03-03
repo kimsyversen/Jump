@@ -9,9 +9,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes
         private Game _game;
 
 
-        public FloorNotFontSprite(Game game)
+        public FloorNotFontSprite(Game game, float x, float y, int width, int height)
             : this(game.Content.Load<Texture2D>(@"stikker"),
-                new Vector2(game.Window.ClientBounds.Width / 2f, (game.Window.ClientBounds.Height / 2f)+100), new Point(100, 20), new Point(0, 0),
+                new Vector2(x, y), new Point(width, height), new Point(0, 0),
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {
             _game = game;
@@ -25,7 +25,23 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes
         {
         }
 
-         public Rectangle Collide { get { return CollisionRectangle; } set; }
+        public Rectangle Collide
+        {
+            get { return CollisionRectangle; }
+           
+        }
+
+        public Vector2 FloorPosition
+        {
+            get { return SpritePosition; }
+            set { SpritePosition = value; }
+        }
+
+        public Texture2D FloorTexture
+        {
+            get { return Texture; }
+            set { Texture = value; }
+        }
 
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {

@@ -9,8 +9,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player
     {
         Vector2 PlayerSpeed { get; set; }
         Vector2 PlayerPosition { get; set; }
+        bool HasJumped { get; set; }
 
         Rectangle Collide { get; }
+
+       
 
         //A player may have observers (fonts that shall be updated, ex. score)
         void RegisterObserver(IFont observer);

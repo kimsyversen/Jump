@@ -69,8 +69,10 @@ namespace WindowsGame1WithPatterns
             _floorFactory = _spriteFactory.CreateFloorFactory();
 
             var floor = _floorFactory.CreateFloorSprite();
+            var floor2 = _floorFactory.CreateFloorSprite1();
             _floors.Add(floor);
-
+            _floors.Add(floor2);
+            
             var player = _playerFactory.CreatePlayerOne();
             
              _players.Add(player);
@@ -97,6 +99,7 @@ namespace WindowsGame1WithPatterns
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        private bool hitPlatform = false; 
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
@@ -108,10 +111,22 @@ namespace WindowsGame1WithPatterns
                 player.Update(gameTime, Window.ClientBounds);
 
                 foreach (var floor in _floors)
-                    if (player.Collide.Intersects(floor.Collide))
+                {
+                    if (player.Collide.Intersects(floor.Collide) && hitPlatform == false)
                     {
-                        player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, 0f);
+                        player.HasJumped = false;
+                        hitPlatform = true;
+                        // player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, 0f);       
                     }
+                    if (hitPlatform && !player.Collide.Intersects(floor.Collide))
+                    {
+                        hitPlatform = false;
+                        player.HasJumped = true;
+                    }
+                    
+                }
+                    
+                //player.PlayerPosition.Y>(floor.FloorPosition.Y + floor.FloorTexture.Height-5)
             }
 
             foreach (var font in _fonts)
