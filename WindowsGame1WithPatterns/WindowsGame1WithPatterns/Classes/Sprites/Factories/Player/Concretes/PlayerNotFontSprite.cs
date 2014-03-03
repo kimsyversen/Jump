@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Movement;
+using System;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 {
@@ -44,13 +45,13 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                 collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
         }
-        const float playerSpeed = 4.0f;
+        const float playerSpeed = 3.0f;
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {
-           
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D) && hasHitTheWall == false)Speed.X = 3f;
-            else if (Keyboard.GetState().IsKeyDown(Keys.A) && hasHitTheWall == false) Speed.X = -3f; else if (hasHitTheWall == false) Speed.X = 0f;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D) && hasHitTheWall == false) Speed.X = playerSpeed;
+            else if (Keyboard.GetState().IsKeyDown(Keys.A) && hasHitTheWall == false) Speed.X = -playerSpeed; else if (hasHitTheWall == false) Speed.X = 0f;
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && hasJumped == false)
             {
@@ -74,15 +75,22 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
             if (SpritePosition.X <= 0)
             {
-                Speed.X = +10f;
-                Speed.Y = -10f;
-                hasHitTheWall = true;
+                if(hasJumped == true){
+                    Speed.X = playerSpeed;
+                    Speed.Y = -playerSpeed - 5;
+                    hasHitTheWall = true;
+                }else SpritePosition.X =0;
+                
             }
             if (SpritePosition.X >= (clientBounds.Width - Texture.Width))
             {
-                Speed.X = -10f;
-                Speed.Y = -10f;
-                hasHitTheWall = true;
+                if (hasJumped == true)
+                {
+                    Speed.X = -playerSpeed;
+                    Speed.Y = -playerSpeed - 5;
+                    hasHitTheWall = true;
+                }
+                else SpritePosition.X = clientBounds.Width - Texture.Width;   
             }
 
             //Bruker MoveCommand for flyttingen, og gir beskjed til observer
