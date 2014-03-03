@@ -46,6 +46,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         {
         }
         const float playerSpeed = 3.0f;
+
+        
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {
 
@@ -59,7 +61,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                 Speed.Y = -20f;
                 _hasJumped = true;
             }
-            if (_hasJumped == true)
+            if (_hasJumped)
             {
                 float i = 1;
                 Speed.Y += 0.15f + i;
@@ -112,7 +114,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         public Vector2 PlayerSpeed
         {
             get { return Speed; }
-            set { Speed = value; }
+            set { Speed = value;
+            }
         }
 
         public Vector2 PlayerPosition
@@ -120,7 +123,14 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             get { return SpritePosition; }
             set { SpritePosition = value; }
         }
-        public Rectangle Collide { get { return CollisionRectangle; } private set; }
+
+        public bool HasJumped
+        {
+            get { return _hasJumped; }
+            set { _hasJumped = value; }
+        }
+
+        public Rectangle Collide { get { return CollisionRectangle; }}
         #region ObserverPatternRelated
 
  
