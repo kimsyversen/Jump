@@ -73,7 +73,10 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             }
 
             if (_hasJumped == false)
-                Speed.Y = 0f;
+            {
+                Speed.Y = 0f;   
+            }
+                
 
             if (SpritePosition.X <= 0)
             {
@@ -128,6 +131,12 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         {
             get { return _hasJumped; }
             set { _hasJumped = value; }
+        }
+
+        public bool HasHitTheWall
+        {
+            get { return _hasHitTheWall; }
+            set { _hasHitTheWall = value; }
         }
 
         public Rectangle Collide { get { return CollisionRectangle; }}

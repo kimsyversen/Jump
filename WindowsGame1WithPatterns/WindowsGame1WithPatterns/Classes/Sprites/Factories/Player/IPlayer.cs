@@ -10,6 +10,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player
         Vector2 PlayerSpeed { get; set; }
         Vector2 PlayerPosition { get; set; }
         bool HasJumped { get; set; }
+        bool HasHitTheWall { get; set; }
 
         Rectangle Collide { get; }
 

@@ -70,8 +70,10 @@ namespace WindowsGame1WithPatterns
 
             var floor = _floorFactory.CreateFloorSprite();
             var floor2 = _floorFactory.CreateFloorSprite1();
+            var floor3 = _floorFactory.CreateFloorSprite2();
             _floors.Add(floor);
             _floors.Add(floor2);
+            _floors.Add(floor3);
             
             var player = _playerFactory.CreatePlayerOne();
             
@@ -119,6 +121,7 @@ namespace WindowsGame1WithPatterns
                     {
                         Console.WriteLine(floor.ToString());
                         player.HasJumped = false;
+                        player.HasHitTheWall = false;
                         _platformHit = true;
                         _platform = floor;
                     }
