@@ -110,6 +110,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Sprites\Factories\Player\EKeys.cs" />
+    <Compile Include="Classes\Sprites\Factories\Player\KeyController.cs" />
     <Compile Include="Classes\Sprites\NotFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Movement\ICommand.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Movement\MoveCommand.cs" />
