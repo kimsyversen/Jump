@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
 
@@ -11,8 +12,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player
         Vector2 PlayerPosition { get; set; }
         bool HasJumped { get; set; }
         bool HasHitTheWall { get; set; }
-
+        bool HasHitPlatform { get; set; }
+        IFloor OnFloor { get; set; }
         Rectangle Collide { get; }
+        float GetY { get; set; }
+        Texture2D PlayerTexture { get; }
 
        
 

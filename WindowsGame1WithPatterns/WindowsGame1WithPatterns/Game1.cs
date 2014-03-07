@@ -24,6 +24,7 @@ namespace WindowsGame1WithPatterns
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
         
         private SpriteFactory _spriteFactory;
         private PlayerFactory _playerFactory;
@@ -76,9 +77,10 @@ namespace WindowsGame1WithPatterns
             _floors.Add(floor3);
             
             var player = _playerFactory.CreatePlayerOne();
+            var player2 = _playerFactory.CreatePlayerTwo();
             
              _players.Add(player);
-
+             _players.Add(player2);
             _fontFactory = _spriteFactory.CreateFontFactory();
 
             var font = _fontFactory.PlayerScoreFont(player);
@@ -101,9 +103,9 @@ namespace WindowsGame1WithPatterns
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// 
-        private bool _platformHit = false;
-
-        private IFloor _platform;
+        /// 
+   
+        private int teller = 0;
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
@@ -113,27 +115,38 @@ namespace WindowsGame1WithPatterns
             foreach (var player in _players)
             {
                 player.Update(gameTime, Window.ClientBounds);
-
+                
                 foreach (var floor in _floors)
                 {
                     
-                    if (player.Collide.Intersects(floor.Collide) && _platformHit == false)
+                    if (player.Collide.Intersects(floor.Collide) && player.HasHitPlatform == false && (player.GetY + player.PlayerTexture.Height)<floor.FloorPosition.Y)
                     {
+                        //Må passe på at spilleren blir tegnet på toppen av platformen
+                        Vector2 newPosition = new Vector2(player.PlayerPosition.X, (floor.FloorPosition.Y-player.PlayerTexture.Height+1));
+                        player.PlayerPosition = newPosition;
+
                         Console.WriteLine(floor.ToString());
                         player.HasJumped = false;
                         player.HasHitTheWall = false;
-                        _platformHit = true;
-                        _platform = floor;
+                        player.HasHitPlatform = true;
+                        player.GetY = Window.ClientBounds.Height;
+                        player.OnFloor = floor;
                     }
-                    if (_platformHit && !player.Collide.Intersects(floor.Collide) && floor == _platform)
+                    //Sjekker om spilleren hat gått av platformen
+                    if (player.HasHitPlatform && !player.Collide.Intersects(floor.Collide) && floor == player.OnFloor)
                     {
-                        _platformHit = false;
+                        player.HasHitPlatform = false;
                         player.HasJumped = true;
+                       // teller = 1;
                     }
                     
                 }
             }
-
+            if (teller == 1)
+            {
+                _floors.Add(_floorFactory.CreateFloorSpriteInputs(50, 50, 100, 5));
+                teller++;
+            }
             foreach (var font in _fonts)
                 font.Update(gameTime, Window.ClientBounds);
 

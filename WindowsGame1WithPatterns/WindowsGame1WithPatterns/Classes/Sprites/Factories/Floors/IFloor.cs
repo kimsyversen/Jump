@@ -14,6 +14,5 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors
         Vector2 FloorPosition { get; set; }
         Texture2D FloorTexture { get; set; }
 
-
     }
 }

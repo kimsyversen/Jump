@@ -55,7 +55,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes
 
         public override String ToString()
         {
-            return "Position: " + this.FloorPosition.X.ToString();
+            return "X Position: " + this.FloorPosition.X.ToString() + ", Y position: " + this.FloorPosition.Y.ToString();
         }
     }
 }
