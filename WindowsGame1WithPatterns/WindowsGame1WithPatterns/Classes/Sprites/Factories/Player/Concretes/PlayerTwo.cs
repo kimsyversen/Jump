@@ -166,6 +166,12 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         public float GetY { get { Console.Write(y); return y; } set { y = value; } }
         public Texture2D PlayerTexture { get { return this.Texture; } }
 
+        public IPlatform PlayerOnPlatform
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
         #region ObserverPatternRelated
 
         public void RegisterFontObserver(IFont observer)

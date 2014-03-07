@@ -13,7 +13,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
     {
         private Game _game;
         private readonly List<IFont> _fontObservers;
-
+        private IPlatform _platformPlayerIsOn;
 
         private bool _hasJumped;
         private bool _hasHitTheWall;
@@ -70,8 +70,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             //Outside Y bottom
             if (Position.Y + Texture.Height >= clientBounds.Height)
             {
-                WhatIsDis = clientBounds.Height;
-
                 Position.Y = clientBounds.Height - Texture.Height;
                 Velocity.Y = 0;
                 _canJump = true;
@@ -217,7 +215,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             base.Draw(gameTime, spriteBatch);
         }
 
-
         public Vector2 PlayerSpeed
         {
             get { return Velocity; }
@@ -260,6 +257,12 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         public Rectangle DetectCollision { get { return CollisionRectangle; } }
         public float GetY { get { Console.Write(WhatIsDis); return WhatIsDis; } set { WhatIsDis = value; } }
         public Texture2D PlayerTexture { get { return this.Texture; } }
+
+        public IPlatform PlayerOnPlatform
+        {
+            get { return _platformPlayerIsOn; }
+            set { _platformPlayerIsOn = value; }
+        }
 
         #region ObserverPatternRelated
 

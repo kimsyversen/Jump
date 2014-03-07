@@ -17,7 +17,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player
         Rectangle DetectCollision { get; }
         float GetY { get; set; }
         Texture2D PlayerTexture { get; }
-
+        IPlatform PlayerOnPlatform { get; set; }
        
 
         //A player may have observers (fonts that shall be updated, ex. score)

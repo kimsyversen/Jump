@@ -33,7 +33,7 @@ namespace WindowsGame1WithPatterns
 
         private List<IPlayer> _players;
         private List<IFont> _fonts;
-        private List<IPlatform> _floors; 
+        private List<IPlatform> _platforms; 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -52,7 +52,7 @@ namespace WindowsGame1WithPatterns
             _spriteFactory = new SpriteFactory(this);
             _players = new List<IPlayer>();
             _fonts = new List<IFont>();
-            _floors = new List<IPlatform>();
+            _platforms = new List<IPlatform>();
             base.Initialize();
         }
 
@@ -79,9 +79,9 @@ namespace WindowsGame1WithPatterns
             var floor = _platformFactory.CreatePlatformSprite(player);
             var floor2 = _platformFactory.CreateFloorSprite1(player);
             var floor3 = _platformFactory.CreateFloorSprite2(player);
-            _floors.Add(floor);
-            _floors.Add(floor2);
-            _floors.Add(floor3);
+            _platforms.Add(floor);
+            _platforms.Add(floor2);
+            _platforms.Add(floor3);
             
       
             _fontFactory = _spriteFactory.CreateFontFactory();
@@ -117,12 +117,15 @@ namespace WindowsGame1WithPatterns
             {
                 player.Update(gameTime, Window.ClientBounds);
 
-
-                foreach (var floor in _floors)
+                foreach (var platform in _platforms)
                 {
-                    if (player.DetectCollision.Intersects(floor.DetectCollition))
+                    if (player.DetectCollision.Intersects(platform.DetectCollition) && player.HasHitTheWall == false)
+                    {
+                        Console.WriteLine(platform.ToString());
+                        player.PlayerPosition = new Vector2(player.PlayerPosition.X, (platform.FloorPosition.Y - player.PlayerTexture.Height + 1));
                         player.HasHitPlatform = true;
-                   
+                        player.PlayerOnPlatform = platform;
+                    }
                 }
             }
 
@@ -130,7 +133,7 @@ namespace WindowsGame1WithPatterns
             {
                 player.Update(gameTime, Window.ClientBounds);
                 
-                foreach (var floor in _floors)
+                foreach (var floor in _platforms)
                 {
                     
                     if (player.DetectCollision.Intersects(floor.DetectCollision) && player.HasHitPlatform == false && (player.GetY + player.PlayerTexture.Height)<floor.FloorPosition.Y)
@@ -157,7 +160,7 @@ namespace WindowsGame1WithPatterns
             }
             if (teller == 1)
             {
-                _floors.Add(_platformFactory.CreateFloorSpriteInputs(50, 50, 100, 5));
+                _platforms.Add(_platformFactory.CreateFloorSpriteInputs(50, 50, 100, 5));
                 teller++;
             }*/
 
@@ -165,7 +168,7 @@ namespace WindowsGame1WithPatterns
             foreach (var font in _fonts)
                 font.Update(gameTime, Window.ClientBounds);
 
-            foreach (var floor in _floors)
+            foreach (var floor in _platforms)
                 floor.Update(gameTime, Window.ClientBounds);
 
             base.Update(gameTime);
@@ -189,7 +192,7 @@ namespace WindowsGame1WithPatterns
             foreach (var font in _fonts)
                 font.Draw(gameTime, spriteBatch);
 
-            foreach (var floor in _floors)
+            foreach (var floor in _platforms)
                 floor.Draw(gameTime, spriteBatch);
 
            spriteBatch.End();
