@@ -9,7 +9,7 @@ using System;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 {
-    internal class PlayerNotFontSprite : NotFontSprite, IPlayer
+    internal class PlayerTwo : NotFontSprite, IPlayer
     {
         private Game _game;
         private readonly List<IFont> _observers;
@@ -19,12 +19,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private bool _platformHit = false;
         private IFloor _platform;
         private float y;
-        private Keys left;
-        private Keys right;
-        private Keys up;
+        private KeyController _keyController;
 
-        //private KeyController _keyController;
-        public PlayerNotFontSprite(Game game, bool newPlayer)
+        public PlayerTwo(Game game, bool newPlayer)
             : this(game.Content.Load<Texture2D>(@"Ball"),
                 new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height / 2f), new Point(30, 30), new Point(0, 0),
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
@@ -34,37 +31,23 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             _hasJumped = true;
             _hasHitTheWall = false;
             _player = newPlayer;
-           // _keyController = new KeyController(Keys.A, Keys.D, Keys.Space);
-
-
-            if (_player)
-            {
-                left = Keys.A;
-                right = Keys.D;
-                up = Keys.W;
-            }
-            else
-            {
-                left = Keys.Left;
-                right = Keys.Right;
-                up = Keys.Up;
-            }
+            _keyController = new KeyController(Keys.Left, Keys.Right, Keys.Up);
         }
 
-        public PlayerNotFontSprite(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
+        public PlayerTwo(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
                             Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects,
-                            Vector2 speed, int collisionOffset, int timeSinceLastFrame)
+                            Vector2 velocity, int collisionOffset, int timeSinceLastFrame)
             : base(
-                texture, spritePosition, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, speed,
+                texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity,
                 collisionOffset, timeSinceLastFrame)
         {
         }
 
-        public PlayerNotFontSprite(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
+        public PlayerTwo(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
                             Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects,
-                            Vector2 speed, int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame)
+                            Vector2 velocity, int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame)
             : base(
-                texture, spritePosition, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, speed,
+                texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity,
                 collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
         }
@@ -73,64 +56,60 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {
+            if (Keyboard.GetState().IsKeyDown(_keyController.Right) && _hasHitTheWall == false) Velocity.X = playerSpeed;
+            else if (Keyboard.GetState().IsKeyDown(_keyController.Left) && _hasHitTheWall == false) Velocity.X = -playerSpeed;
+            else if (_hasHitTheWall == false) Velocity.X = 0f;
 
-
-            if (Keyboard.GetState().IsKeyDown(right) && _hasHitTheWall == false) Speed.X = playerSpeed;
-            else if (Keyboard.GetState().IsKeyDown(left) && _hasHitTheWall == false) Speed.X = -playerSpeed;
-            else if (_hasHitTheWall == false) Speed.X = 0f;
-
-            if (Keyboard.GetState().IsKeyDown(up) && _hasJumped == false)
+            if (Keyboard.GetState().IsKeyDown(_keyController.Jump) && _hasJumped == false)
             {
-                SpritePosition.Y -= 10f;
-                Speed.Y = -20f;
+                Position.Y -= 10f;
+                Velocity.Y = -20f;
                 _hasJumped = true;
             }
 
             if (_hasJumped)
             {
                 float i = 1;
-                Speed.Y += 0.15f + i;
-                if (SpritePosition.Y < y) y = SpritePosition.Y;
+                Velocity.Y += 0.15f + i;
+                if (Position.Y < y) y = Position.Y;
             }
-            if (SpritePosition.Y + Texture.Height >= clientBounds.Height)
+            if (Position.Y + Texture.Height >= clientBounds.Height)
             {
                 y = clientBounds.Height;
                 _hasJumped = false;
                 _hasHitTheWall = false;
-                SpritePosition.Y = clientBounds.Height - Texture.Height;
+                Position.Y = clientBounds.Height - Texture.Height;
             }
 
             if (_hasJumped == false)
+                Velocity.Y = 0f;
+  
+            if (Position.X <= 0)
             {
-                Speed.Y = 0f;
-            }
-
-
-            if (SpritePosition.X <= 0)
-            {
-                if (_hasJumped == true)
+                if (_hasJumped)
                 {
-                    Speed.X = playerSpeed;
-                    Speed.Y = -playerSpeed - 5;
+                    Velocity.X = playerSpeed;
+                    Velocity.Y = -playerSpeed - 5;
                     _hasHitTheWall = true;
                 }
-                else SpritePosition.X = 0;
+                else Position.X = 0;
 
             }
-            if (SpritePosition.X >= (clientBounds.Width - Texture.Width))
+            if (Position.X >= (clientBounds.Width - Texture.Width))
             {
-                if (_hasJumped == true)
+                if (_hasJumped)
                 {
-                    Speed.X = -playerSpeed;
-                    Speed.Y = -playerSpeed - 5;
+                    Velocity.X = -playerSpeed;
+                    Velocity.Y = -playerSpeed - 5;
                     _hasHitTheWall = true;
                 }
-                else SpritePosition.X = clientBounds.Width - Texture.Width;
+                else Position.X = clientBounds.Width - Texture.Width;
             }
 
             //Bruker MoveCommand for flyttingen, og gir beskjed til observer
-            var cmd = new MoveCommand(this, new Vector2(Speed.X, Speed.Y), new Vector2(SpritePosition.X + Speed.X, SpritePosition.Y + Speed.Y));
+            var cmd = new MoveCommand(this, new Vector2(Velocity.X, Velocity.Y), new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y));
             cmd.Execute();
+            //kan gjøres i movecommand?
             NotifyObservers();
 
             //Animate sprite
@@ -146,17 +125,17 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
         public Vector2 PlayerSpeed
         {
-            get { return Speed; }
+            get { return Velocity; }
             set
             {
-                Speed = value;
+                Velocity = value;
             }
         }
 
         public Vector2 PlayerPosition
         {
-            get { return SpritePosition; }
-            set { SpritePosition = value; }
+            get { return Position; }
+            set { Position = value; }
         }
 
         public bool HasJumped
@@ -189,9 +168,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
         #region ObserverPatternRelated
 
-
-
-
         public void RegisterObserver(IFont observer)
         {
             _observers.Add(observer);
@@ -205,7 +181,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         public void NotifyObservers()
         {
             foreach (var observer in _observers)
-                observer.UpdateCoordinates(this.SpritePosition);
+                observer.UpdateCoordinates(this.Position);
         }
 
         #endregion

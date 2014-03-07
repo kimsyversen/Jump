@@ -15,7 +15,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         protected int MillisecondsPerFrame; //Milliseconds between framechanges
         protected Texture2D Texture;
         protected Point SheetSize; // Number of columns/rows in sprite sheet
-        protected Vector2 Speed; // PlayerSpeed of sprite
+        protected Vector2 Velocity; // PlayerSpeed of sprite
         protected int TimeSinceLastFrame = 0; //Milliseconds since last frame was drawn
         protected const int MinX = 0;
         protected const int MinY = 0;
@@ -27,8 +27,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             {
                 return new Rectangle
                     (
-                    (int)SpritePosition.X + CollisionOffset,
-                    (int)SpritePosition.Y + CollisionOffset,
+                    (int)Position.X + CollisionOffset,
+                    (int)Position.Y + CollisionOffset,
                     FrameSize.X - (CollisionOffset * 2),
                     FrameSize.Y - (CollisionOffset * 2)
                     );
@@ -36,29 +36,29 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         }
 
         protected NotFontSprite() {}
-        protected NotFontSprite(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
+        protected NotFontSprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
                                    Point sheetSize,
-                                   float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 speed,
+                                   float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity,
                                    int collisionOffset, int timeSinceLastFrame)
             : this(
-                texture, spritePosition, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, speed,
+                texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity,
                 collisionOffset, timeSinceLastFrame, DefaultMillisecondsPerFrame)
         {
             
         }
 
-        protected NotFontSprite(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
+        protected NotFontSprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
                                    Point sheetSize,
-                                   float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 speed,
+                                   float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity,
                                    int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame)
         {
             CollisionOffset = collisionOffset;
             FrameCurrent = frameCurrent;
             FrameSize = frameSize;
             MillisecondsPerFrame = millisecondsPerFrame;
-            SpritePosition = spritePosition;
+            Position = position;
             SheetSize = sheetSize;
-            Speed = speed;
+            Velocity = velocity;
             Texture = texture;
             TimeSinceLastFrame = timeSinceLastFrame;
             SpriteEffects = spriteEffects;
@@ -93,7 +93,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         {
             spriteBatch.Draw(
                 Texture,
-                SpritePosition,
+                Position,
                 new Rectangle(FrameCurrent.X * FrameSize.X, FrameCurrent.Y * FrameSize.Y, FrameSize.X, FrameSize.Y),
                 Color.White, Rotate, Origin,
                 Scale, SpriteEffects, 0);

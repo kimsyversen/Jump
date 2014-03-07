@@ -10,8 +10,10 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
         //Reference to the game. Needed because we need to get some properties like size of screen
         private Game _game;
         private SpriteFont _font;
+
         //Reference to the player associated with this font
         private readonly IPlayer _subject;
+        
         private String _coordinateString ;
         private Vector2 _coordinates;
 
@@ -20,6 +22,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
             _game = game;
             _subject = playerSubject;
             _subject.RegisterObserver(this);
+
+            
             _font = game.Content.Load<SpriteFont>("Coordinates");
             _coordinateString = "moved yet";
             Color = Color.LightGreen;
@@ -27,7 +31,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
             Origin = _font.MeasureString(_coordinateString) / 2;
             Scale = 1.0f;
             SpriteEffects = SpriteEffects.None;
-            SpritePosition = new Vector2(_game.Window.ClientBounds.Width - _font.MeasureString(_coordinateString).X,
+            Position = new Vector2(_game.Window.ClientBounds.Width - _font.MeasureString(_coordinateString).X,
                                          0 + _font.MeasureString(_coordinateString).Y);
         }
 
@@ -43,7 +47,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(_font, _coordinateString, SpritePosition, Color, Rotate, Origin , Scale, SpriteEffects, 0.5f);
+            spriteBatch.DrawString(_font, _coordinateString, Position, Color, Rotate, Origin , Scale, SpriteEffects, 0.5f);
         }
 
     }

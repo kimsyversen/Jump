@@ -110,7 +110,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Sprites\Factories\Player\EKeys.cs" />
+    <Compile Include="Classes\Sprites\Factories\Player\Concretes\PlayerTwo.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\KeyController.cs" />
     <Compile Include="Classes\Sprites\NotFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Movement\ICommand.cs" />
@@ -127,7 +127,7 @@
     <Compile Include="Classes\Sprites\Factories\Fonts\Concretes\CoordinateFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\IPlayer.cs" />
     <Compile Include="Classes\Sprites\ISprite.cs" />
-    <Compile Include="Classes\Sprites\Factories\Player\Concretes\PlayerNotFontSprite.cs" />
+    <Compile Include="Classes\Sprites\Factories\Player\Concretes\PlayerOne.cs" />
     <Compile Include="Classes\Sprites\Factories\SpriteCreator.cs" />
     <Compile Include="Classes\Sprites\Factories\SpriteFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -171,9 +171,6 @@
       <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

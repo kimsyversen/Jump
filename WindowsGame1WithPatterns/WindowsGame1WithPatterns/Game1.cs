@@ -77,10 +77,10 @@ namespace WindowsGame1WithPatterns
             _floors.Add(floor3);
             
             var player = _playerFactory.CreatePlayerOne();
-            var player2 = _playerFactory.CreatePlayerTwo();
+            //var player2 = _playerFactory.CreatePlayerTwo();
             
              _players.Add(player);
-             _players.Add(player2);
+            // _players.Add(player2);
             _fontFactory = _spriteFactory.CreateFontFactory();
 
             var font = _fontFactory.PlayerScoreFont(player);
@@ -102,8 +102,6 @@ namespace WindowsGame1WithPatterns
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
-        /// 
-        /// 
    
         private int teller = 0;
         protected override void Update(GameTime gameTime)
@@ -139,7 +137,6 @@ namespace WindowsGame1WithPatterns
                         player.HasJumped = true;
                        // teller = 1;
                     }
-                    
                 }
             }
             if (teller == 1)
