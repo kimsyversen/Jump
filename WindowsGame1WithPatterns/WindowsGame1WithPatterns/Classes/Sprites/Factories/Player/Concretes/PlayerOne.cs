@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Movement;
 using System;
 
@@ -12,27 +12,25 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
     internal class PlayerOne : NotFontSprite, IPlayer
     {
         private Game _game;
-        private readonly List<IFont> _observers;
+        private readonly List<IFont> _fontObservers;
+
+
         private bool _hasJumped;
         private bool _hasHitTheWall;
         private readonly bool _player;
         private bool _platformHit = false;
-        private IFloor _platform;
+        private IPlatform _platform;
         private float WhatIsDis;
         private KeyController _keyController;
 
-        const float DefaultPlayerSpeed = 3.0f;
-        private const float DefaultPlayerSpeedIncrease = 0.4f;
-
-
-        bool _canJump = true; //Is the character jumping?
-        float startY, jumpspeed = 0; //startY to tell us //where it lands, 
-
+  
         const float gravity = 3f;
 
         private float moveSpeed = 4f;
         private float jumpSpeed = 250f;
-        private bool jump = false;
+        private bool _canJump = false;
+
+
 
         public PlayerOne(Game game, bool newPlayer)
             : this(game.Content.Load<Texture2D>(@"Ball"),
@@ -40,7 +38,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(10, 10), 0, 100)
         {
             _game = game;
-            _observers = new List<IFont>();
+            _fontObservers = new List<IFont>();
             _hasJumped = true;
             _hasHitTheWall = false;
             _player = newPlayer;
@@ -65,7 +63,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                 collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
         }
-        
 
 
         public new void Update(GameTime gameTime, Rectangle clientBounds)
@@ -73,6 +70,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             //Outside Y bottom
             if (Position.Y + Texture.Height >= clientBounds.Height)
             {
+                WhatIsDis = clientBounds.Height;
+
                 Position.Y = clientBounds.Height - Texture.Height;
                 Velocity.Y = 0;
                 _canJump = true;
@@ -103,12 +102,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             {
                 Velocity.Y = -jumpSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 _canJump = false;
-
+                HasHitPlatform = false;
             }
             
             //If player is in air, let the player fall down because of gravity
             Velocity.Y += gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
 
             if (!_canJump)
                 Velocity.Y += gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -117,8 +115,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
             //Position increases with velocity over time
             Position += Velocity;
-
-
 
 
 
@@ -154,15 +150,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                                 Position.X = clientBounds.Width - Texture.Width;
                         }
 
-            
-                        if (Keyboard.GetState().IsKeyDown(_keyController.Right) && _hasHitTheWall == false) 
-                            Velocity.X = _defaultPlayerSpeed;
-                        else if (Keyboard.GetState().IsKeyDown(_keyController.Left) && _hasHitTheWall == false)
-                            Velocity.X = -_defaultPlayerSpeed;
-                        else if (_hasHitTheWall == false) 
-                            Velocity.X = 0f;
 
-                        //Player cannot jump
+                        
                         if (Keyboard.GetState().IsKeyDown(_keyController.Jump) && _hasJumped == false)
                         {
                             Velocity = new Vector2(Velocity.X, Velocity.Y -20);
@@ -216,7 +205,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             //Bruker MoveCommand for flyttingen, og gir beskjed til observer
             var cmd = new MoveCommand(this, new Vector2(Velocity.X, Velocity.Y), new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y));
             cmd.Execute();
-            NotifyObservers();
+            NotifyFontObservers();
 
             //Animate sprite
             base.Update(gameTime, clientBounds);
@@ -262,33 +251,34 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             set { _platformHit = value; }
         }
 
-        public IFloor OnFloor
+        public IPlatform OnPlatform
         {
             get { return _platform; }
             set { _platform = value; }
         }
 
-        public Rectangle Collide { get { return CollisionRectangle; } }
+        public Rectangle DetectCollision { get { return CollisionRectangle; } }
         public float GetY { get { Console.Write(WhatIsDis); return WhatIsDis; } set { WhatIsDis = value; } }
         public Texture2D PlayerTexture { get { return this.Texture; } }
 
         #region ObserverPatternRelated
 
-        public void RegisterObserver(IFont observer)
+        public void RegisterFontObserver(IFont observer)
         {
-            _observers.Add(observer);
+            _fontObservers.Add(observer);
         }
 
-        public void RemoveObserver(IFont observer)
+        public void RemoveFontObserver(IFont observer)
         {
-            _observers.Remove(observer);
+            _fontObservers.Remove(observer);
         }
 
-        public void NotifyObservers()
+        public void NotifyFontObservers()
         {
-            foreach (var observer in _observers)
+            foreach (var observer in _fontObservers)
                 observer.UpdateCoordinates(this.Position);
         }
+
 
         #endregion
     }

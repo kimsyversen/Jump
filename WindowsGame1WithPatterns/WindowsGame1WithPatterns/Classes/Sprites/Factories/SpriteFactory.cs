@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories
@@ -24,9 +24,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories
             return new PlayerFactory(_game);
         }
 
-        public override FloorFactory CreateFloorFactory()
+        public override PlatformFactory CreateFloorFactory()
         {
-            return new FloorFactory(_game);
+            return new PlatformFactory(_game);
         }
     }
 }

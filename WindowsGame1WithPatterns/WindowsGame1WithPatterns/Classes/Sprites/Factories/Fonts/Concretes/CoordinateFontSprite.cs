@@ -21,7 +21,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
         {
             _game = game;
             _subject = playerSubject;
-            _subject.RegisterObserver(this);
+            _subject.RegisterFontObserver(this);
 
             
             _font = game.Content.Load<SpriteFont>("Coordinates");

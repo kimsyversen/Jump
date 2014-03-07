@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Movement;
 using System;
 
@@ -17,7 +17,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private bool _hasHitTheWall;
         private readonly bool _player;
         private bool _platformHit = false;
-        private IFloor _platform;
+        private IPlatform _platform;
         private float y;
         private KeyController _keyController;
 
@@ -110,7 +110,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             var cmd = new MoveCommand(this, new Vector2(Velocity.X, Velocity.Y), new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y));
             cmd.Execute();
             //kan gjøres i movecommand?
-            NotifyObservers();
+            NotifyFontObservers();
 
             //Animate sprite
             base.Update(gameTime, clientBounds);
@@ -156,32 +156,47 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             set { _platformHit = value; }
         }
 
-        public IFloor OnFloor
+        public IPlatform OnPlatform
         {
             get { return _platform; }
             set { _platform = value; }
         }
 
-        public Rectangle Collide { get { return CollisionRectangle; } }
+        public Rectangle DetectCollision { get { return CollisionRectangle; } }
         public float GetY { get { Console.Write(y); return y; } set { y = value; } }
         public Texture2D PlayerTexture { get { return this.Texture; } }
 
         #region ObserverPatternRelated
 
-        public void RegisterObserver(IFont observer)
+        public void RegisterFontObserver(IFont observer)
         {
             _observers.Add(observer);
         }
 
-        public void RemoveObserver(IFont observer)
+        public void RemoveFontObserver(IFont observer)
         {
             _observers.Remove(observer);
         }
 
-        public void NotifyObservers()
+        public void NotifyFontObservers()
         {
             foreach (var observer in _observers)
                 observer.UpdateCoordinates(this.Position);
+        }
+
+        public void RegisterPlatformObserver(IPlatform observer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemovePlatformObserver(IPlatform observer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void NotifyPlatformObservers()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
