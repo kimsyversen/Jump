@@ -35,11 +35,6 @@ namespace WindowsGame1WithPatterns
 
 
         private Manager _manager;
-
-     
-
-        
-
         private KeyboardConfiguration _keyboard;
       
         public Game1()

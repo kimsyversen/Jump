@@ -35,6 +35,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             : base(game)
         {
             _manager = manager;
+          
         }
 
         public override void Initialize()
@@ -69,6 +70,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             //Without, it would just switch fast between menu and game
             _newKeyState = Keyboard.GetState();
 
+            //Stay inside the indexes that exist in the list
             if (SelectedIndex < _fonts.Count && SelectedIndex >= 0)
             {
                 if (_newKeyState.IsKeyDown(Keys.Down) && !_oldKeyState.IsKeyDown(Keys.Down))
@@ -115,18 +117,13 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             var count = 0;
             foreach (var font in _fonts)
             {
-                font.Color1 = count == SelectedIndex ? Color.Red : Color.Black;
-        
+                font.Color1 = count == SelectedIndex ? Color.Red : Color.Black;      
                 _spriteBatch.DrawString(font.Font, font.FontText, font.Position1, font.Color1);
-
                 count++;
             }
-
             _spriteBatch.End();
 
             base.Draw(gameTime);
         }
-
-
     }
 }

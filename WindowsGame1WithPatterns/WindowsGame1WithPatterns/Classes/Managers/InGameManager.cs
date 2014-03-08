@@ -91,7 +91,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers
                     if (player.Collide.Intersects(floor.Collide) && player.HasHitPlatform == false && (player.GetY + player.PlayerTexture.Height) < floor.FloorPosition.Y)
                     {
                         //Må passe på at spilleren blir tegnet på toppen av platformen
-                        player.PlayerPosition = new Vector2(player.PlayerPosition.X, (floor.FloorPosition.Y - player.PlayerTexture.Height + 1)); ;
+                        player.PlayerPosition = new Vector2(player.PlayerPosition.X, (floor.FloorPosition.Y - player.PlayerTexture.Height + 1));
 
                         Console.WriteLine(floor.ToString());
                         player.HasJumped = false;
