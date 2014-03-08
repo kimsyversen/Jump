@@ -22,29 +22,25 @@ namespace WindowsGame1WithPatterns.Classes.Managers.GameStates
             throw new NotImplementedException();
         }
 
+        private void SwitchState(bool value)
+        {
+            _manager.InMenuManager.Visible = !value;
+            _manager.InMenuManager.Visible = !value;
+
+            _manager.InGameManager.Visible = value;
+            _manager.InGameManager.Visible = value;
+        }
+
         public void InGame()
         {
-           
-         
-
             _manager.SetState(_manager.InMenuState);
-            _manager.InMenuManager.Visible = false;
-            _manager.InMenuManager.Visible = false;
-
-            _manager.InGameManager.Visible = true;
-            _manager.InGameManager.Visible = true;
-
-          
+            SwitchState(true);
         }
 
         public void InMenu()
         {
             _manager.SetState(_manager.InGameState);
-            _manager.InMenuManager.Visible = true;
-            _manager.InMenuManager.Visible = true;
-
-            _manager.InGameManager.Visible = false;
-            _manager.InGameManager.Visible = false;
+            SwitchState(false);
         }
     }
 }

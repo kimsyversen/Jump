@@ -91,15 +91,11 @@ namespace WindowsGame1WithPatterns
 
             //User is pressing Escape down
             if (_newKeyState.IsKeyDown(_keyboard.Back) && !_oldKeyState.IsKeyDown(_keyboard.Back))
-                    // If not down last update, key has just been pressed.
-                if (!_oldKeyState.IsKeyDown(_keyboard.Back))
-                {
-                    if (_manager.CurrentState == _manager.InGameState)
-                        _manager.InMenu();
-                    else if (_manager.CurrentState == _manager.InMenuState)
-                        _manager.InGame();
-                }
-            //Store the old state
+                // If not down last update, key has just been pressed.
+                if (_manager.CurrentState == _manager.InGameState)
+                    _manager.InMenu();
+                else if (_manager.CurrentState == _manager.InMenuState)
+                    _manager.InGame();
             
             base.Update(gameTime);
 

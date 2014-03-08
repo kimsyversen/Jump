@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WindowsGame1WithPatterns.Classes.KeyboardConfiguration.KeyboardConfiguration" Collapsed="true">
+    <Position X="13.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAIAAgAAAAAAAAAAAAAAAAAEAAAACACAAAAAAAI=</HashCode>
+      <FileName>Classes\KeyboardConfiguration\KeyboardConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Managers.GameStates.GameOverState" Collapsed="true">
+    <Position X="24.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Managers\GameStates\GameOverState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Managers.GameStates.InGameState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAEAAAAAAAAAQAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Managers\GameStates\InGameState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Managers.GameStates.InMenuState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAEAAAAAAAAAQAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Managers\GameStates\InMenuState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Managers.InGameManager" Collapsed="true">
+    <Position X="21" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAAAAAAAAAAwABAAAAAQQAABCAAEAJAIAAAAAAAAQ=</HashCode>
+      <FileName>Classes\Managers\InGameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Managers.InMenuManager" Collapsed="true">
+    <Position X="23.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAAAAAAAAAAwBAAAAEEQAAAAGAAAAAAIAAAAAAAAQ=</HashCode>
+      <FileName>Classes\Managers\InMenuManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Managers.Manager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEhAACAAAEAAAAQAAEACAgACAQCAAAAAAAAIAAABA=</HashCode>
+      <FileName>Classes\Managers\Manager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes.FloorNotFontSprite" Collapsed="true">
+    <Position X="9.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACAAAAAAgAEAAAAAAQAAAAAAAAAAAAAAAQAAAQ=</HashCode>
+      <FileName>Classes\Sprites\Factories\Floors\Concretes\FloorNotFontSprite.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.FloorCreator" Collapsed="true">
+    <Position X="9.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Sprites\Factories\Floors\FloorCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.FloorFactory" Collapsed="true">
+    <Position X="9.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Classes\Sprites\Factories\Floors\FloorFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.CoordinateFontSprite" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAABAIAgAAAAAAAAAAACCAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Classes\Sprites\Factories\Fonts\Concretes\CoordinateFontSprite.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts.ExitGameFont" Collapsed="true">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Sprites\Factories\Fonts\Concretes\MenuFonts\ExitGameFont.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts.NewGameFont" Collapsed="true">
+    <Position X="5.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Classes\Sprites\Factories\Fonts\Concretes\MenuFonts\NewGameFont.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts.SimpleFont" Collapsed="true">
+    <Position X="4.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAACAAAAAAAAAEAACAAA=</HashCode>
+      <FileName>Classes\Sprites\Factories\Fonts\Concretes\MenuFonts\SimpleFont.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.FontCreator" Collapsed="true">
+    <Position X="6.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Classes\Sprites\Factories\Fonts\FontCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.FontFactory" Collapsed="true">
+    <Position X="6.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAQAQ=</HashCode>
+      <FileName>Classes\Sprites\Factories\Fonts\FontFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes.PlayerOne" Collapsed="true">
+    <Position X="7.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAAwgEAgAAoAAQCAACARAAAAgIAABIAAAAAQoAAw=</HashCode>
+      <FileName>Classes\Sprites\Factories\Player\Concretes\PlayerOne.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.PlayerCreator" Collapsed="true">
+    <Position X="3.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Sprites\Factories\Player\PlayerCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.PlayerFactory" Collapsed="true">
+    <Position X="3.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Classes\Sprites\Factories\Player\PlayerFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Movement.MoveCommand" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAACAAAAAAAAAAABAAAgAAAAAA=</HashCode>
+      <FileName>Classes\Sprites\Factories\Player\Movement\MoveCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.SpriteCreator" Collapsed="true">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAIAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Sprites\Factories\SpriteCreator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.SpriteFactory" Collapsed="true">
+    <Position X="0.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAIAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Classes\Sprites\Factories\SpriteFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.NotFontSprite" Collapsed="true">
+    <Position X="8.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAABAwwAAAAgAAAAACAAAEABAAAAAAACIAAAAEAAE=</HashCode>
+      <FileName>Classes\Sprites\NotFontSprite.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Sprite" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAEAAAAAAAAgAAIEAAAAEAAAAAAAAAAAgAgAIAA=</HashCode>
+      <FileName>Classes\Sprites\Sprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Game1">
+    <Position X="12.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEEAAAAAAAwAAAAEAEQAAAAEAAAgAAAAAAAAAAAQ=</HashCode>
+      <FileName>Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindowsGame1WithPatterns.Program" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="WindowsGame1WithPatterns.Classes.Managers.GameStates.IGameStates" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAEAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Managers\GameStates\IGameStates.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.IFloor" Collapsed="true">
+    <Position X="0.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Classes\Sprites\Factories\Floors\IFloor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.IFont" Collapsed="true">
+    <Position X="3" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Sprites\Factories\Fonts\IFont.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.IPlayer" Collapsed="true">
+    <Position X="5.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAgAAIAAAAAAAARAAAAgIAABIAAAAAAoAAg=</HashCode>
+      <FileName>Classes\Sprites\Factories\Player\IPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Movement.ICommand" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Sprites\Factories\Player\Movement\ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="WindowsGame1WithPatterns.Classes.Sprites.ISprite" Collapsed="true">
+    <Position X="3" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Sprites\ISprite.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="WindowsGame1WithPatterns.Classes.GameState">
+    <Position X="9" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAEAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\GameState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

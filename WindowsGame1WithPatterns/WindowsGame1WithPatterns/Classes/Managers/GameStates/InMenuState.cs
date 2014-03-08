@@ -25,17 +25,21 @@ namespace WindowsGame1WithPatterns.Classes.Managers.GameStates
 
             //Used to change font in menu from new game to resume
             _manager.GameInProgress = 1;
-
-            _manager.InMenuManager.Visible = false;
-            _manager.InMenuManager.Visible = false;
-
-            _manager.InGameManager.Visible = true;
-            _manager.InGameManager.Visible = true;
+            SwitchState(true);
         }
 
         public void InMenu()
         {
             _manager.SetState(_manager.InMenuState);
+        }
+
+        private void SwitchState(bool value)
+        {
+            _manager.InMenuManager.Visible = !value;
+            _manager.InMenuManager.Visible = !value;
+
+            _manager.InGameManager.Visible = value;
+            _manager.InGameManager.Visible = value;
         }
     }
 }
