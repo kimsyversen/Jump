@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using WindowsGame1WithPatterns.Classes;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Managers;
+using WindowsGame1WithPatterns.Classes.Menu;
 using WindowsGame1WithPatterns.Classes.Sprites;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
@@ -32,12 +33,14 @@ namespace WindowsGame1WithPatterns
 
         private KeyboardState _oldKeyState;
         private KeyboardState _newKeyState;
+
+
         enum GameState { InMenu, InGame, GameOver }; 
 
-        GameState _currentGameState = GameState.InGame;
+        GameState _currentGameState = GameState.InMenu;
 
         private KeyboardConfiguration _keyboard;
-        
+        private MainMenu mainMenu;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -60,6 +63,11 @@ namespace WindowsGame1WithPatterns
 
             _oldKeyState = Keyboard.GetState();
 
+            mainMenu = new MainMenu("Menu Title");
+            mainMenu.AddMenuItem("Start Game", b => { if (b == Buttons.A) { _currentGameState = GameState.InGame; } });
+            mainMenu.AddMenuItem("Options", b => { if (b == Buttons.A) { _currentGameState = GameState.InMenu; } });
+            mainMenu.AddMenuItem("Exit", b => { if (b == Buttons.A) { Exit(); } });
+
             _keyboard = new KeyboardConfiguration(Keys.None, Keys.Up, Keys.None, Keys.Enter, Keys.Escape, Keys.None, Keys.None);
             base.Initialize();
         }
@@ -72,7 +80,6 @@ namespace WindowsGame1WithPatterns
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
 
             base.LoadContent();
         }
@@ -123,7 +130,6 @@ namespace WindowsGame1WithPatterns
                         // it has just been released.
                         // the player just pressed down
                         SwitchState();
-                    
 
             switch (_currentGameState)
             {

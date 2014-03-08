@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using WindowsGame1WithPatterns.Classes.Menu;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
@@ -33,6 +34,10 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             _players = new List<IPlayer>();
             _fonts = new List<IFont>();
             _floors = new List<IFloor>();
+
+
+           
+
             base.Initialize(); 
         }
         protected override void LoadContent()
