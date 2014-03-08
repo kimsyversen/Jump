@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using WindowsGame1WithPatterns.Classes;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Managers;
-using WindowsGame1WithPatterns.Classes.Menu;
+
 using WindowsGame1WithPatterns.Classes.Sprites;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
@@ -28,19 +28,20 @@ namespace WindowsGame1WithPatterns
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private InGameManager _inGameManager;
-        private MenuManager _menuManager;
+
 
         private KeyboardState _oldKeyState;
         private KeyboardState _newKeyState;
 
 
-        enum GameState { InMenu, InGame, GameOver }; 
+        private Manager _manager;
 
-        GameState _currentGameState = GameState.InMenu;
+     
+
+        
 
         private KeyboardConfiguration _keyboard;
-        private MainMenu mainMenu;
+      
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -55,18 +56,15 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void Initialize()
         {
-            _inGameManager = new InGameManager(this);
+            
+            //_inGameManager = new InGameManager(this);
+            //_menuManager = new MenuManager(this);
+            _manager = new Manager(this);
 
-            _menuManager = new MenuManager(this);
-            Components.Add(_inGameManager);
-            Components.Add(_menuManager);
+           // Components.Add(_inGameManager);
+          //  Components.Add(_menuManager);
 
             _oldKeyState = Keyboard.GetState();
-
-            mainMenu = new MainMenu("Menu Title");
-            mainMenu.AddMenuItem("Start Game", b => { if (b == Buttons.A) { _currentGameState = GameState.InGame; } });
-            mainMenu.AddMenuItem("Options", b => { if (b == Buttons.A) { _currentGameState = GameState.InMenu; } });
-            mainMenu.AddMenuItem("Exit", b => { if (b == Buttons.A) { Exit(); } });
 
             _keyboard = new KeyboardConfiguration(Keys.None, Keys.Up, Keys.None, Keys.Enter, Keys.Escape, Keys.None, Keys.None);
             base.Initialize();
@@ -98,22 +96,9 @@ namespace WindowsGame1WithPatterns
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
 
-        public void SwitchState(bool value)
-        {
-            _inGameManager.Visible = !value;
-            _inGameManager.Enabled = !value;
-            _menuManager.Visible = value;
-            _menuManager.Enabled = value;
-        }
+       
 
-        public void SwitchState()
-        {
-            if (_currentGameState == GameState.InGame)
-                _currentGameState = GameState.InMenu;
-            else if (_currentGameState == GameState.InMenu)
-                _currentGameState = GameState.InGame;
-        }
-
+  
         protected override void Update(GameTime gameTime)
         {
             //Need to to this because updating of frames happens faster than a user releases a key
@@ -124,20 +109,22 @@ namespace WindowsGame1WithPatterns
             if (_newKeyState.IsKeyDown(_keyboard.Back) && !_oldKeyState.IsKeyDown(_keyboard.Back))
                     // If not down last update, key has just been pressed.
                 if (!_oldKeyState.IsKeyDown(_keyboard.Back))
-                        SwitchState();
+                        _manager.SwitchState();
                     else
                         // Key was down last update, but not down now, so
                         // it has just been released.
                         // the player just pressed down
-                        SwitchState();
+                    _manager.SwitchState();
 
-            switch (_currentGameState)
+            switch (_manager.CurrentGameState)
             {
                 case GameState.InMenu:
-                    SwitchState(true);
+                    if(_manager.OldGameState != GameState.InMenu)
+                        _manager.SwitchState(true);
                     break;
                 case GameState.InGame:
-                    SwitchState(false);
+                    if (_manager.OldGameState != GameState.InGame)
+                        _manager.SwitchState(false);
                     break;
                 case GameState.GameOver:
                     break;

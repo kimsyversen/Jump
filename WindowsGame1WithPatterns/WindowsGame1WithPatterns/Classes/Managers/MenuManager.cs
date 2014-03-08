@@ -17,26 +17,36 @@ namespace WindowsGame1WithPatterns.Classes.Managers
         SpriteBatch _spriteBatch;
         private FontFactory _fontFactory;
 
-        private List<SpriteFont> _fonts;
+        private List<SimpleFont> _fonts;
 
-        private SpriteFont _newGameFont;
-        private SpriteFont _exitFont;
+        private SimpleFont _newGameFont;
+        private SimpleFont _exitFont;
 
         public int SelectedIndex = 0;
 
         private KeyboardState _oldKeyState;
         private KeyboardState _newKeyState;
 
-        public MenuManager(Game game) : base(game)
+        private GameState _currentGameState;
+
+        private Manager _manager;
+
+        public MenuManager(Game game, Manager manager)
+            : base(game)
         {
+            _manager = manager;
         }
 
         public override void Initialize()
         {   
             _spriteFactory = new SpriteFactory(Game);
-            _fonts = new List<SpriteFont>();
-            _newGameFont = Game.Content.Load<SpriteFont>("Menu/NewGame");
-            _exitFont = Game.Content.Load<SpriteFont>("Menu/Exit");
+            _fonts = new List<SimpleFont>();
+            _newGameFont = new SimpleFont(Game, Game.Content.Load<SpriteFont>("Menu/NewGame"), "New Game", Color.Black,
+                                          new Vector2(Game.Window.ClientBounds.Width / 2f,
+                                                      Game.Window.ClientBounds.Height / 3f));
+            _exitFont = new SimpleFont(Game, Game.Content.Load<SpriteFont>("Menu/Exit"), "Exit", Color.Black,
+                                          new Vector2(Game.Window.ClientBounds.Width / 2f,
+                                                      Game.Window.ClientBounds.Height / 2f));
 
             _fonts.Add(_newGameFont);
             _fonts.Add(_exitFont);
@@ -55,47 +65,43 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
                 Game.Exit();
 
-
             //Need to to this because updating of frames happens faster than a user releases a key
             //Without, it would just switch fast between menu and game
             _newKeyState = Keyboard.GetState();
 
             if (SelectedIndex < _fonts.Count && SelectedIndex >= 0)
             {
-                
-
-
                 if (_newKeyState.IsKeyDown(Keys.Down) && !_oldKeyState.IsKeyDown(Keys.Down))
-                    // If not down last update, key has just been pressed.
+                    // Make sure SelectedIndex is not larger than the number of items in the menu
                     if (!_oldKeyState.IsKeyDown(Keys.Down))
-                        Console.WriteLine("Pressed key down");
-                    else
-                        // Key was down last update, but not down now, so
-                        // it has just been released.
-                        // the player just pressed down
-                        SelectedIndex++;
-
+                        if (_fonts.Count < SelectedIndex)
+                            SelectedIndex++;
+                        else
+                            SelectedIndex = _fonts.Count - 1;
+        
                 if (_newKeyState.IsKeyDown(Keys.Up) && !_oldKeyState.IsKeyDown(Keys.Up))
-                    // If not down last update, key has just been pressed.
+                    // Make sure SelectedIndex is not smaller than the number of items in the menu
                     if (!_oldKeyState.IsKeyDown(Keys.Up))
-                        Console.WriteLine("Pressed key up");
-                    else
-                        // Key was down last update, but not down now, so
-                        // it has just been released.
-                        // the player just pressed down
-                        SelectedIndex--;
+                        if (_fonts.Count < SelectedIndex)
+                            SelectedIndex--;
+                        else
+                            SelectedIndex = 0;
 
+                if (_newKeyState.IsKeyDown(Keys.Enter) && !_oldKeyState.IsKeyDown(Keys.Enter))
+                    // Make sure SelectedIndex is not smaller than the number of items in the menu
+                    
+                    if (!_oldKeyState.IsKeyDown(Keys.Enter))
+                    {
+                        //StartGame
+                        if (SelectedIndex == 0)
+                            _manager.SwitchState(false); 
+                        else if(SelectedIndex == 1)
+                            Game.Exit();
+                    }           
             }
-     
-
-            //Change color on font with selectedIndex
-               
-           
 
             //Store the old state
             _oldKeyState = _newKeyState;
-        
-
             base.Update(gameTime);
         }
 
@@ -105,8 +111,16 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            _spriteBatch.DrawString(_newGameFont, "New Game", new Vector2(Game.Window.ClientBounds.Width / 2f, Game.Window.ClientBounds.Height / 4f) , Color.Red);
-            _spriteBatch.DrawString(_newGameFont, "Exit", new Vector2(Game.Window.ClientBounds.Width / 2f, Game.Window.ClientBounds.Height / 3f), Color.Black);
+            //Change color on font with selectedIndex
+            var count = 0;
+            foreach (var font in _fonts)
+            {
+                font.Color1 = count == SelectedIndex ? Color.Red : Color.Black;
+        
+                _spriteBatch.DrawString(font.Font, font.FontText, font.Position1, font.Color1);
+
+                count++;
+            }
 
             _spriteBatch.End();
 

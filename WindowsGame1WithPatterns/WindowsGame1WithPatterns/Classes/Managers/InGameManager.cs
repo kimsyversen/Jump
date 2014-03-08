@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using WindowsGame1WithPatterns.Classes.Menu;
+
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
@@ -21,11 +21,13 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
         private List<IPlayer> _players;
         private List<IFont> _fonts;
-        private List<IFloor> _floors; 
-        
-        public InGameManager(Game game) : base(game)
-        {
+        private List<IFloor> _floors;
 
+        private Manager _manager;
+        
+        public InGameManager(Game game, Manager manager) : base(game)
+        {
+            _manager = manager;
         }
 
         public override void Initialize()
