@@ -12,7 +12,7 @@ namespace WindowsGame1WithPatterns.Classes
 
         public SimpleFont(Game game, SpriteFont font, String fontText, Color color, Vector2 position)
         {
-            _font = game.Content.Load<SpriteFont>("Coordinates");
+            _font = font;
             _fontText = fontText;
             Color = color;
             Rotate = 0;

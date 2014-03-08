@@ -113,6 +113,9 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             var count = 0;
             foreach (var font in _fonts)
             {
+                if (count == 0 && _manager.GameInProgress == 1)
+                    font.FontText = "Resume game";
+                    
                 font.Color1 = count == SelectedIndex ? Color.Red : Color.Black;      
                 _spriteBatch.DrawString(font.Font, font.FontText, font.Position1, font.Color1);
                 count++;

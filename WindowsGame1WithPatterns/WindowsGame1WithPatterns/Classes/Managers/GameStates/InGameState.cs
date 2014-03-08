@@ -12,6 +12,9 @@ namespace WindowsGame1WithPatterns.Classes.Managers.GameStates
         public InGameState(Manager manager)
         {
             _manager = manager;
+
+           
+           
         }
 
         public void GameOver()
@@ -21,7 +24,9 @@ namespace WindowsGame1WithPatterns.Classes.Managers.GameStates
 
         public void InGame()
         {
-            
+           
+         
+
             _manager.SetState(_manager.InMenuState);
             _manager.InMenuManager.Visible = false;
             _manager.InMenuManager.Visible = false;
