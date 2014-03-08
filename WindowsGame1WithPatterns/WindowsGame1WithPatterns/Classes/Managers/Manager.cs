@@ -11,6 +11,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers
     class Manager : DrawableGameComponent, IGameStates
     {
         public int GameInProgress { get; set; }
+
         public IGameStates InGameState
         {
             get { return _inGameState; }

@@ -1,15 +1,14 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WindowsGame1WithPatterns.Classes.Sprites;
 
-namespace WindowsGame1WithPatterns.Classes
+namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts
 {
     class SimpleFont : Sprite
     {
         private SpriteFont _font;
         private String _fontText;
-
+        public SimpleFont() {}
         public SimpleFont(Game game, SpriteFont font, String fontText, Color color, Vector2 position)
         {
             _font = font;

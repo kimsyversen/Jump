@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts
@@ -11,5 +12,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts
     abstract class FontCreator
     {
         public abstract IFont PlayerScoreFont(IPlayer subject);
+
+
+        public abstract SimpleFont MenuNewGameFont();
+        public abstract SimpleFont ExitGameFont();
     }
 }

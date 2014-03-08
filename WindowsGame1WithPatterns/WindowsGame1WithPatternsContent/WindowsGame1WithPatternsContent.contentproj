@@ -70,8 +70,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menu\Exit.spritefont">
-      <Name>Exit</Name>
+    <Compile Include="Menu\ExitGame.spritefont">
+      <Name>ExitGame</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>

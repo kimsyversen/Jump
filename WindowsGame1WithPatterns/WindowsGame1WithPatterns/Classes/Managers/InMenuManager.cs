@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts;
 
 namespace WindowsGame1WithPatterns.Classes.Managers
 {
@@ -15,8 +16,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers
         private SpriteFactory _spriteFactory;
 
         SpriteBatch _spriteBatch;
-        private FontFactory _fontFactory;
-
         private List<SimpleFont> _fonts;
 
         private SimpleFont _newGameFont;
@@ -26,8 +25,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
         private KeyboardState _oldKeyState;
         private KeyboardState _newKeyState;
-
-        private GameState _currentGameState;
 
         private Manager _manager;
 
@@ -39,14 +36,13 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
         public override void Initialize()
         {   
-            _spriteFactory = new SpriteFactory(Game);
             _fonts = new List<SimpleFont>();
-            _newGameFont = new SimpleFont(Game, Game.Content.Load<SpriteFont>("Menu/NewGame"), "New Game", Color.Black,
-                                          new Vector2(Game.Window.ClientBounds.Width / 2f,
-                                                      Game.Window.ClientBounds.Height / 3f));
-            _exitFont = new SimpleFont(Game, Game.Content.Load<SpriteFont>("Menu/Exit"), "Exit", Color.Black,
-                                          new Vector2(Game.Window.ClientBounds.Width / 2f,
-                                                      Game.Window.ClientBounds.Height / 2f));
+            _spriteFactory = new SpriteFactory(Game);
+
+            var fontFactory = _spriteFactory.CreateFontFactory();
+
+            _newGameFont = fontFactory.MenuNewGameFont();
+            _exitFont = fontFactory.ExitGameFont();
 
             _fonts.Add(_newGameFont);
             _fonts.Add(_exitFont);
@@ -96,7 +92,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers
                 }
 
                 if (_newKeyState.IsKeyDown(Keys.Escape) && !_oldKeyState.IsKeyDown(Keys.Escape))
-                    _manager.InGame(); //FIX: BUG  
+                    _manager.InGame(); //FIX: BUG  må huske gamle state, ellerno
             }
             //Store the old state
             _oldKeyState = _newKeyState;
@@ -113,7 +109,8 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             var count = 0;
             foreach (var font in _fonts)
             {
-                if (count == 0 && _manager.GameInProgress == 1)
+                //Logic for resume game
+                if (font == _newGameFont && _manager.GameInProgress == 1)
                     font.FontText = "Resume game";
                     
                 font.Color1 = count == SelectedIndex ? Color.Red : Color.Black;      

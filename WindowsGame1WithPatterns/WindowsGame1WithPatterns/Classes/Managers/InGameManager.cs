@@ -11,6 +11,7 @@ using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 
 namespace WindowsGame1WithPatterns.Classes.Managers
 {
+    //TODO: RYDDE OPP.
     class InGameManager : Microsoft.Xna.Framework.DrawableGameComponent
     {
         SpriteBatch _spriteBatch;
