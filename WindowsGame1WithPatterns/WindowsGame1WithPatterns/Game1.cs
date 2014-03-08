@@ -25,6 +25,9 @@ namespace WindowsGame1WithPatterns
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        enum GameState { Start, InGame, GameOver }; 
+        GameState currentGameState = GameState.InGame;
+
         
         private SpriteFactory _spriteFactory;
         private PlayerFactory _playerFactory;
@@ -104,8 +107,20 @@ namespace WindowsGame1WithPatterns
         /// </summary>
    
         private int teller = 0;
+        
         protected override void Update(GameTime gameTime)
         {
+            switch (currentGameState)
+            {
+                case GameState.Start: 
+                    break;
+                case GameState.InGame: 
+                    break;
+                case GameState.GameOver:
+                    break;
+            }
+
+
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
@@ -113,14 +128,14 @@ namespace WindowsGame1WithPatterns
             foreach (var player in _players)
             {
                 player.Update(gameTime, Window.ClientBounds);
-                
+
                 foreach (var floor in _floors)
                 {
-                    
-                    if (player.Collide.Intersects(floor.Collide) && player.HasHitPlatform == false && (player.GetY + player.PlayerTexture.Height)<floor.FloorPosition.Y)
+
+                    if (player.Collide.Intersects(floor.Collide) && player.HasHitPlatform == false && (player.GetY + player.PlayerTexture.Height) < floor.FloorPosition.Y)
                     {
                         //Må passe på at spilleren blir tegnet på toppen av platformen
-                        Vector2 newPosition = new Vector2(player.PlayerPosition.X, (floor.FloorPosition.Y-player.PlayerTexture.Height+1));
+                        Vector2 newPosition = new Vector2(player.PlayerPosition.X, (floor.FloorPosition.Y - player.PlayerTexture.Height + 1));
                         player.PlayerPosition = newPosition;
 
                         Console.WriteLine(floor.ToString());
@@ -135,7 +150,7 @@ namespace WindowsGame1WithPatterns
                     {
                         player.HasHitPlatform = false;
                         player.HasJumped = true;
-                       // teller = 1;
+                        // teller = 1;
                     }
                 }
             }
@@ -153,30 +168,44 @@ namespace WindowsGame1WithPatterns
             base.Update(gameTime);
         }
 
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            
 
             // TODO: Add your drawing code here
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            switch (currentGameState)
+            {
+                case GameState.Start:
+                    break;
+                case GameState.InGame:
+                    GraphicsDevice.Clear(Color.CornflowerBlue);
+                    spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            foreach (var player in _players)
-                player.Draw(gameTime, spriteBatch);
+                foreach (var player in _players)
+                    player.Draw(gameTime, spriteBatch);
 
-            foreach (var font in _fonts)
-                font.Draw(gameTime, spriteBatch);
+                foreach (var font in _fonts)
+                    font.Draw(gameTime, spriteBatch);
 
-            foreach (var floor in _floors)
-                floor.Draw(gameTime, spriteBatch);
+                foreach (var floor in _floors)
+                    floor.Draw(gameTime, spriteBatch);
 
-           spriteBatch.End();
+            spriteBatch.End();
+                    break;
+                case GameState.GameOver:
+                    break;
+            }
 
-           base.Draw(gameTime);
+
+            
+
+            base.Draw(gameTime);
         }
     }
 }
