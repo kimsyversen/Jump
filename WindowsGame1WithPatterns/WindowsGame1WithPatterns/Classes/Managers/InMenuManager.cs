@@ -10,7 +10,7 @@ using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
 
 namespace WindowsGame1WithPatterns.Classes.Managers
 {
-    class MenuManager : Microsoft.Xna.Framework.DrawableGameComponent
+    class InMenuManager : Microsoft.Xna.Framework.DrawableGameComponent
     {
         private SpriteFactory _spriteFactory;
 
@@ -31,11 +31,10 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
         private Manager _manager;
 
-        public MenuManager(Game game, Manager manager)
+        public InMenuManager(Game game, Manager manager)
             : base(game)
         {
             _manager = manager;
-          
         }
 
         public override void Initialize()
@@ -51,7 +50,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
             _fonts.Add(_newGameFont);
             _fonts.Add(_exitFont);
-
             base.Initialize(); 
         }
 
@@ -75,7 +73,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             {
                 if (_newKeyState.IsKeyDown(Keys.Down) && !_oldKeyState.IsKeyDown(Keys.Down))
                     // Make sure SelectedIndex is not larger than the number of items in the menu
-                    if (!_oldKeyState.IsKeyDown(Keys.Down))
                         if (_fonts.Count < SelectedIndex)
                             SelectedIndex++;
                         else
@@ -83,25 +80,24 @@ namespace WindowsGame1WithPatterns.Classes.Managers
         
                 if (_newKeyState.IsKeyDown(Keys.Up) && !_oldKeyState.IsKeyDown(Keys.Up))
                     // Make sure SelectedIndex is not smaller than the number of items in the menu
-                    if (!_oldKeyState.IsKeyDown(Keys.Up))
                         if (_fonts.Count < SelectedIndex)
                             SelectedIndex--;
                         else
                             SelectedIndex = 0;
 
                 if (_newKeyState.IsKeyDown(Keys.Enter) && !_oldKeyState.IsKeyDown(Keys.Enter))
-                    // Make sure SelectedIndex is not smaller than the number of items in the menu
-                    
-                    if (!_oldKeyState.IsKeyDown(Keys.Enter))
-                    {
-                        //StartGame
-                        if (SelectedIndex == 0)
-                            _manager.SwitchState(false); 
-                        else if(SelectedIndex == 1)
-                            Game.Exit();
-                    }           
-            }
+                {
+                    //StartGame
+                    if (SelectedIndex == 0)
+                        _manager.InGame();
+                        //Exit //TODO: Fix statiske verdier
+                    else if (SelectedIndex == 1)
+                        Game.Exit();
+                }
 
+                if (_newKeyState.IsKeyDown(Keys.Escape) && !_oldKeyState.IsKeyDown(Keys.Escape))
+                    _manager.InGame(); //FIX: BUG  
+            }
             //Store the old state
             _oldKeyState = _newKeyState;
             base.Update(gameTime);

@@ -28,8 +28,6 @@ namespace WindowsGame1WithPatterns
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-
-
         private KeyboardState _oldKeyState;
         private KeyboardState _newKeyState;
 
@@ -51,13 +49,7 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void Initialize()
         {
-            
-            //_inGameManager = new InGameManager(this);
-            //_menuManager = new MenuManager(this);
             _manager = new Manager(this);
-
-           // Components.Add(_inGameManager);
-          //  Components.Add(_menuManager);
 
             _oldKeyState = Keyboard.GetState();
 
@@ -91,9 +83,6 @@ namespace WindowsGame1WithPatterns
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
 
-       
-
-  
         protected override void Update(GameTime gameTime)
         {
             //Need to to this because updating of frames happens faster than a user releases a key
@@ -104,29 +93,14 @@ namespace WindowsGame1WithPatterns
             if (_newKeyState.IsKeyDown(_keyboard.Back) && !_oldKeyState.IsKeyDown(_keyboard.Back))
                     // If not down last update, key has just been pressed.
                 if (!_oldKeyState.IsKeyDown(_keyboard.Back))
-                        _manager.SwitchState();
-                    else
-                        // Key was down last update, but not down now, so
-                        // it has just been released.
-                        // the player just pressed down
-                    _manager.SwitchState();
-
-            switch (_manager.CurrentGameState)
-            {
-                case GameState.InMenu:
-                    if(_manager.OldGameState != GameState.InMenu)
-                        _manager.SwitchState(true);
-                    break;
-                case GameState.InGame:
-                    if (_manager.OldGameState != GameState.InGame)
-                        _manager.SwitchState(false);
-                    break;
-                case GameState.GameOver:
-                    break;
-            }
-
+                {
+                    if (_manager.CurrentState == _manager.InGameState)
+                        _manager.InMenu();
+                    else if (_manager.CurrentState == _manager.InMenuState)
+                        _manager.InGame();
+                }
             //Store the old state
-            _oldKeyState = _newKeyState;
+            
             base.Update(gameTime);
 
         }

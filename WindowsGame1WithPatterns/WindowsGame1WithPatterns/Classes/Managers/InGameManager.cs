@@ -37,9 +37,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             _fonts = new List<IFont>();
             _floors = new List<IFloor>();
 
-
-           
-
             base.Initialize(); 
         }
         protected override void LoadContent()

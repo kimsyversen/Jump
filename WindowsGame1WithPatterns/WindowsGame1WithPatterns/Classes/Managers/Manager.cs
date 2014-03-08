@@ -4,70 +4,76 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using WindowsGame1WithPatterns.Classes.Managers;
+using WindowsGame1WithPatterns.Classes.Managers.GameStates;
 
 namespace WindowsGame1WithPatterns.Classes.Managers
 {
-    class Manager : DrawableGameComponent
+    class Manager : DrawableGameComponent, IGameStates
     {
+        public IGameStates InGameState
+        {
+            get { return _inGameState; }
+        }
+
+        public IGameStates InMenuState
+        {
+            get { return _inMenuState; } 
+        }
+
+        public IGameStates CurrentState
+        {
+            get { return _currentState; }
+        }
+
+        private IGameStates _inGameState;
+        private IGameStates _inMenuState;
+        private IGameStates _currentState;
+
         private InGameManager _inGameManager;
-        private MenuManager _menuManager;
-        private GameState _currentGameState;
-        private GameState _oldGameState;
+        private InMenuManager _inMenuManager;
+
         public InGameManager InGameManager
         {
             get { return _inGameManager; }
             set { _inGameManager = value; }
         }
-        public MenuManager MenuManager
+        public InMenuManager InMenuManager
         {
-            get { return _menuManager; }
-            set { _menuManager = value; }
-        }
-        public GameState CurrentGameState
-        {
-            get { return _currentGameState; }
-            set { _currentGameState = value; }
+            get { return _inMenuManager; }
+            set { _inMenuManager = value; }
         }
 
-        public GameState OldGameState
-        {
-            get { return _oldGameState; }
-            set { _oldGameState = value; }
-        }
-
-        public Manager(Game game)
-            : base(game)
+        public Manager(Game game) : base(game)
         {
             _inGameManager = new InGameManager(Game, this);
-            _menuManager =  new MenuManager(Game, this);
-            _currentGameState = GameState.InMenu;
+            _inMenuManager =  new InMenuManager(Game, this);
+
+            _inGameState = new InGameState(this);
+            _inMenuState = new InMenuState(this);
+            _currentState = _inMenuState;
 
             Game.Components.Add(_inGameManager);
-            Game.Components.Add(_menuManager);
-        }
-        
-        // Used to remember old state so a new state isnt switched in Game.cs constantly
-        public void SwitchState()
-        {
-            if (_currentGameState == GameState.InGame)
-            {
-                _currentGameState = GameState.InMenu;
-                _oldGameState = GameState.InGame;
-            }
-
-            else if (_currentGameState == GameState.InMenu)
-            {
-                _currentGameState = GameState.InGame;
-                _oldGameState = GameState.InMenu;
-            }
+            Game.Components.Add(_inMenuManager);
         }
 
-        public void SwitchState(bool value)
+        public void SetState(IGameStates state)
         {
-            _inGameManager.Visible = !value;
-            _inGameManager.Enabled = !value;
-            _menuManager.Visible = value;
-            _menuManager.Enabled = value;
+            _currentState = state;
+        }
+
+        public void GameOver()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InGame()
+        {
+           _currentState.InGame();
+        }
+
+        public void InMenu()
+        {
+            _currentState.InMenu();
         }
     }
 }

@@ -110,8 +110,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Managers\GameStates\GameOverState.cs" />
+    <Compile Include="Classes\Managers\GameStates\IGameStates.cs" />
+    <Compile Include="Classes\Managers\GameStates\InGameState.cs" />
+    <Compile Include="Classes\Managers\GameStates\InMenuState.cs" />
     <Compile Include="Classes\Managers\Manager.cs" />
-    <Compile Include="Classes\Managers\MenuManager.cs" />
+    <Compile Include="Classes\Managers\InMenuManager.cs" />
     <Compile Include="Classes\KeyboardConfiguration\KeyboardConfiguration.cs" />
     <Compile Include="Classes\Sprites\NotFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Movement\ICommand.cs" />
