@@ -21,18 +21,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private float WhatIsDis;
         private KeyController _keyController;
 
-        const float DefaultPlayerSpeed = 3.0f;
-        private const float DefaultPlayerSpeedIncrease = 0.4f;
-
-
-        bool _canJump = true; //Is the character jumping?
-        float startY, jumpspeed = 0; //startY to tell us //where it lands, 
-
-        const float gravity = 3f;
 
         private float moveSpeed = 4f;
-        private float jumpSpeed = 250f;
-        private bool jump = false;
+
 
         public PlayerOne(Game game, bool newPlayer)
             : this(game.Content.Load<Texture2D>(@"Ball"),
@@ -65,8 +56,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                 collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
         }
-
-
 
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {
