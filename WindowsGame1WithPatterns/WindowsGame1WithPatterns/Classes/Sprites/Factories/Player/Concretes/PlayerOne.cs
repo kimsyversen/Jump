@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,7 +20,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private bool _platformHit = false;
         private IFloor _platform;
         private float WhatIsDis;
-        private KeyController _keyController;
+        private KeyboardConfiguration.KeyboardConfiguration _keyboardConfiguration;
 
 
         private float moveSpeed = 4f;
@@ -35,7 +36,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             _hasJumped = true;
             _hasHitTheWall = false;
             _player = newPlayer;
-            _keyController = new KeyController(Keys.A, Keys.D, Keys.Space);
+            _keyboardConfiguration = new KeyboardConfiguration.KeyboardConfiguration(Keys.A, Keys.None, Keys.D, Keys.None, Keys.Escape, Keys.Enter, Keys.Space);
 
         }
 
@@ -59,11 +60,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            if (Keyboard.GetState().IsKeyDown(_keyController.Right) && _hasHitTheWall == false) Velocity.X = moveSpeed;
-            else if (Keyboard.GetState().IsKeyDown(_keyController.Left) && _hasHitTheWall == false) Velocity.X = -moveSpeed;
+            if (Keyboard.GetState().IsKeyDown(_keyboardConfiguration.Right) && _hasHitTheWall == false) Velocity.X = moveSpeed;
+            else if (Keyboard.GetState().IsKeyDown(_keyboardConfiguration.Left) && _hasHitTheWall == false) Velocity.X = -moveSpeed;
             else if (_hasHitTheWall == false) Velocity.X = 0f;
 
-            if (Keyboard.GetState().IsKeyDown(_keyController.Jump) && _hasJumped == false)
+            if (Keyboard.GetState().IsKeyDown(_keyboardConfiguration.Jump) && _hasJumped == false)
             {
                 Position.Y -= 10f;
                 Velocity.Y = -20f;

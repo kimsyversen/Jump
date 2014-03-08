@@ -112,7 +112,7 @@
   <ItemGroup>
     <Compile Include="Classes\Managers\MenuManager.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Concretes\PlayerTwo.cs" />
-    <Compile Include="Classes\Sprites\Factories\Player\KeyController.cs" />
+    <Compile Include="Classes\KeyboardConfiguration\KeyboardConfiguration.cs" />
     <Compile Include="Classes\Sprites\NotFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Movement\ICommand.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Movement\MoveCommand.cs" />

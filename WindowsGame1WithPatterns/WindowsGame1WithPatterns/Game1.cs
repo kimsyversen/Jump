@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using WindowsGame1WithPatterns.Classes;
+using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Managers;
 using WindowsGame1WithPatterns.Classes.Sprites;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
@@ -35,6 +36,7 @@ namespace WindowsGame1WithPatterns
 
         GameState _currentGameState = GameState.InGame;
 
+        private KeyboardConfiguration _keyboard;
         
         public Game1()
         {
@@ -57,6 +59,8 @@ namespace WindowsGame1WithPatterns
             Components.Add(_menuManager);
 
             _oldKeyState = Keyboard.GetState();
+
+            _keyboard = new KeyboardConfiguration(Keys.None, Keys.Up, Keys.None, Keys.Enter, Keys.Escape, Keys.None, Keys.None);
             base.Initialize();
         }
 
@@ -110,9 +114,9 @@ namespace WindowsGame1WithPatterns
             _newKeyState = Keyboard.GetState();
 
             //User is pressing Escape down
-            if(_newKeyState.IsKeyDown(Keys.Escape) && !_oldKeyState.IsKeyDown(Keys.Escape))
+            if (_newKeyState.IsKeyDown(_keyboard.Back) && !_oldKeyState.IsKeyDown(_keyboard.Back))
                     // If not down last update, key has just been pressed.
-                    if (!_oldKeyState.IsKeyDown(Keys.Escape))
+                if (!_oldKeyState.IsKeyDown(_keyboard.Back))
                         SwitchState();
                     else
                         // Key was down last update, but not down now, so
