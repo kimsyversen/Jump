@@ -65,153 +65,63 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                 collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
         }
-        
+
 
 
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            //Outside Y bottom
+            if (Keyboard.GetState().IsKeyDown(_keyController.Right) && _hasHitTheWall == false) Velocity.X = moveSpeed;
+            else if (Keyboard.GetState().IsKeyDown(_keyController.Left) && _hasHitTheWall == false) Velocity.X = -moveSpeed;
+            else if (_hasHitTheWall == false) Velocity.X = 0f;
+
+            if (Keyboard.GetState().IsKeyDown(_keyController.Jump) && _hasJumped == false)
+            {
+                Position.Y -= 10f;
+                Velocity.Y = -20f;
+                _hasJumped = true;
+            }
+
+            if (_hasJumped)
+            {
+                float i = 1;
+                Velocity.Y += 0.15f + i;
+                if (Position.Y < WhatIsDis) WhatIsDis = Position.Y;
+            }
             if (Position.Y + Texture.Height >= clientBounds.Height)
             {
+                WhatIsDis = clientBounds.Height;
+                _hasJumped = false;
+                _hasHitTheWall = false;
                 Position.Y = clientBounds.Height - Texture.Height;
-                Velocity.Y = 0;
-                _canJump = true;
             }
-                
-            //Outside Y top
-            if (Position.Y + Texture.Height <= 0)
-                Position.Y = clientBounds.Height - Texture.Height;
 
-            //Outside X to right
-            if (Position.X >= (clientBounds.Width - Texture.Width))
-                Position.X = clientBounds.Width - Texture.Width;
-
-            //Outside X to left
-            if (Position.X <= clientBounds.Width - clientBounds.Width)
-                Position.X = clientBounds.Width - clientBounds.Width;
-
-            //Increase velocity if player goes left or right. If none, velocity is zero 
-            if (Keyboard.GetState().IsKeyDown(_keyController.Right))
-                Velocity.X += moveSpeed * (float) gameTime.ElapsedGameTime.TotalSeconds;
-            else if (Keyboard.GetState().IsKeyDown(_keyController.Left))
-                Velocity.X -= moveSpeed * (float) gameTime.ElapsedGameTime.TotalSeconds;
-            else
-                Velocity.X = 0;
-
-            //if player jumps, change velocity
-            if (Keyboard.GetState().IsKeyDown(_keyController.Jump) && _canJump)
+            if (_hasJumped == false)
             {
-                Velocity.Y = -jumpSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                _canJump = false;
+                Velocity.Y = 0f;
+            }
+
+
+            if (Position.X <= 0)
+            {
+                if (_hasJumped == true)
+                {
+                    Velocity.X = moveSpeed;
+                    Velocity.Y = -moveSpeed - 5;
+                    _hasHitTheWall = true;
+                }
+                else Position.X = 0;
 
             }
-            
-            //If player is in air, let the player fall down because of gravity
-            Velocity.Y += gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-
-            if (!_canJump)
-                Velocity.Y += gravity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            else
-                Velocity.Y = 0f;
-
-            //Position increases with velocity over time
-            Position += Velocity;
-
-
-
-
-
-            /*
-                        if (Position.Y + Texture.Height >= clientBounds.Height)
-                        {
-                            WhatIsDis = clientBounds.Height;
-                            _hasJumped = false;
-                            _hasHitTheWall = false;
-                            Position.Y = clientBounds.Height - Texture.Height;
-                        }
-
-                        if (Position.X <= (clientBounds.Width - clientBounds.Width))
-                        {
-                            if (_hasJumped)
-                            {
-                                Velocity.X = DefaultPlayerSpeed;
-                                // Velocity.Y = -_defaultPlayerSpeed - 5;
-                                _hasHitTheWall = true;
-                            }
-                            else Position.X = 0;
-
-                        }
-                        if (Position.X >= (clientBounds.Width - Texture.Width))
-                        {
-                            if (_hasJumped)
-                            {
-                                Velocity.X = -DefaultPlayerSpeed;
-                                //Velocity.Y = -_defaultPlayerSpeed - 5;
-                                _hasHitTheWall = true;
-                            }
-                            else
-                                Position.X = clientBounds.Width - Texture.Width;
-                        }
-
-            
-                        if (Keyboard.GetState().IsKeyDown(_keyController.Right) && _hasHitTheWall == false) 
-                            Velocity.X = _defaultPlayerSpeed;
-                        else if (Keyboard.GetState().IsKeyDown(_keyController.Left) && _hasHitTheWall == false)
-                            Velocity.X = -_defaultPlayerSpeed;
-                        else if (_hasHitTheWall == false) 
-                            Velocity.X = 0f;
-
-                        //Player cannot jump
-                        if (Keyboard.GetState().IsKeyDown(_keyController.Jump) && _hasJumped == false)
-                        {
-                            Velocity = new Vector2(Velocity.X, Velocity.Y -20);
-                            Position.Y -= 10f;
-                            Position = new Vector2(Position.X, Position.Y - 10f);
-                            _hasJumped = true;
-                        }
-
-                        if (_hasJumped)
-                        {
-                            Velocity.Y += _defaultPlayerSpeedIncrease;
-                            if (Position.Y < WhatIsDis) 
-                                WhatIsDis = Position.Y;
-                        }
-
-                        //Make sure sprite dont fall down into eternity
-                        if (Position.Y + Texture.Height >= clientBounds.Height)
-                        {
-                            WhatIsDis = clientBounds.Height;
-                            _hasJumped = false;
-                            _hasHitTheWall = false;
-                            Position.Y = clientBounds.Height - Texture.Height;
-                        }
-
-                        if (_hasJumped == false)
-                            Velocity.Y = 0f;
-
-                        if (Position.X <= (clientBounds.Width - clientBounds.Width))
-                        {
-                            if (_hasJumped)
-                            {
-                                Velocity.X = _defaultPlayerSpeed;
-                               // Velocity.Y = -_defaultPlayerSpeed - 5;
-                                _hasHitTheWall = true;
-                            }
-                            else Position.X = 0;
-
-                        }
-                        if (Position.X >= (clientBounds.Width - Texture.Width))
-                        {
-                            if (_hasJumped)
-                            {
-                                Velocity.X = -_defaultPlayerSpeed;
-                                //Velocity.Y = -_defaultPlayerSpeed - 5;
-                                _hasHitTheWall = true;
-                            }
-                            else 
-                                Position.X = clientBounds.Width - Texture.Width;
-                        }*/
+            if (Position.X >= (clientBounds.Width - Texture.Width))
+            {
+                if (_hasJumped == true)
+                {
+                    Velocity.X = -moveSpeed;
+                    Velocity.Y = -moveSpeed - 5;
+                    _hasHitTheWall = true;
+                }
+                else Position.X = clientBounds.Width - Texture.Width;
+            }
 
             //Bruker MoveCommand for flyttingen, og gir beskjed til observer
             var cmd = new MoveCommand(this, new Vector2(Velocity.X, Velocity.Y), new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y));
