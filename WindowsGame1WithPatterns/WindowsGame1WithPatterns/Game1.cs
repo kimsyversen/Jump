@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using WindowsGame1WithPatterns.Classes;
+using WindowsGame1WithPatterns.Classes.Managers;
 using WindowsGame1WithPatterns.Classes.Sprites;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
@@ -25,18 +26,12 @@ namespace WindowsGame1WithPatterns
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private InGameManager _inGameManager;
+
         enum GameState { Start, InGame, GameOver }; 
         GameState currentGameState = GameState.InGame;
 
         
-        private SpriteFactory _spriteFactory;
-        private PlayerFactory _playerFactory;
-        private FontFactory _fontFactory;
-        private FloorFactory _floorFactory;
-
-        private List<IPlayer> _players;
-        private List<IFont> _fonts;
-        private List<IFloor> _floors; 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -51,11 +46,8 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            _spriteFactory = new SpriteFactory(this);
-            _players = new List<IPlayer>();
-            _fonts = new List<IFont>();
-            _floors = new List<IFloor>();
+            _inGameManager = new InGameManager(this);
+            Components.Add(_inGameManager);
             base.Initialize();
         }
 
@@ -68,27 +60,7 @@ namespace WindowsGame1WithPatterns
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _playerFactory = _spriteFactory.CreatePlayerFactory();
 
-            _floorFactory = _spriteFactory.CreateFloorFactory();
-
-            var floor = _floorFactory.CreateFloorSprite();
-            var floor2 = _floorFactory.CreateFloorSprite1();
-            var floor3 = _floorFactory.CreateFloorSprite2();
-            _floors.Add(floor);
-            _floors.Add(floor2);
-            _floors.Add(floor3);
-            
-            var player = _playerFactory.CreatePlayerOne();
-            //var player2 = _playerFactory.CreatePlayerTwo();
-            
-             _players.Add(player);
-            // _players.Add(player2);
-            _fontFactory = _spriteFactory.CreateFontFactory();
-
-            var font = _fontFactory.PlayerScoreFont(player);
-
-            _fonts.Add(font);
             base.LoadContent();
         }
 
@@ -106,68 +78,16 @@ namespace WindowsGame1WithPatterns
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
    
-        private int teller = 0;
-        
+
         protected override void Update(GameTime gameTime)
         {
-            switch (currentGameState)
-            {
-                case GameState.Start: 
-                    break;
-                case GameState.InGame: 
-                    break;
-                case GameState.GameOver:
-                    break;
-            }
-
-
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
 
-            foreach (var player in _players)
-            {
-                player.Update(gameTime, Window.ClientBounds);
-
-                foreach (var floor in _floors)
-                {
-
-                    if (player.Collide.Intersects(floor.Collide) && player.HasHitPlatform == false && (player.GetY + player.PlayerTexture.Height) < floor.FloorPosition.Y)
-                    {
-                        //Må passe på at spilleren blir tegnet på toppen av platformen
-                        Vector2 newPosition = new Vector2(player.PlayerPosition.X, (floor.FloorPosition.Y - player.PlayerTexture.Height + 1));
-                        player.PlayerPosition = newPosition;
-
-                        Console.WriteLine(floor.ToString());
-                        player.HasJumped = false;
-                        player.HasHitTheWall = false;
-                        player.HasHitPlatform = true;
-                        player.GetY = Window.ClientBounds.Height;
-                        player.OnFloor = floor;
-                    }
-                    //Sjekker om spilleren hat gått av platformen
-                    if (player.HasHitPlatform && !player.Collide.Intersects(floor.Collide) && floor == player.OnFloor)
-                    {
-                        player.HasHitPlatform = false;
-                        player.HasJumped = true;
-                        // teller = 1;
-                    }
-                }
-            }
-            if (teller == 1)
-            {
-                _floors.Add(_floorFactory.CreateFloorSpriteInputs(50, 50, 100, 5));
-                teller++;
-            }
-            foreach (var font in _fonts)
-                font.Update(gameTime, Window.ClientBounds);
-
-            foreach (var floor in _floors)
-                floor.Update(gameTime, Window.ClientBounds);
-
             base.Update(gameTime);
-        }
 
+        }
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -175,36 +95,6 @@ namespace WindowsGame1WithPatterns
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            
-
-            // TODO: Add your drawing code here
-
-            switch (currentGameState)
-            {
-                case GameState.Start:
-                    break;
-                case GameState.InGame:
-                    GraphicsDevice.Clear(Color.CornflowerBlue);
-                    spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-
-                foreach (var player in _players)
-                    player.Draw(gameTime, spriteBatch);
-
-                foreach (var font in _fonts)
-                    font.Draw(gameTime, spriteBatch);
-
-                foreach (var floor in _floors)
-                    floor.Draw(gameTime, spriteBatch);
-
-            spriteBatch.End();
-                    break;
-                case GameState.GameOver:
-                    break;
-            }
-
-
-            
-
             base.Draw(gameTime);
         }
     }

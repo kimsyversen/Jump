@@ -134,7 +134,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
         public new void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            //Let the sprite class do it
             base.Draw(gameTime, spriteBatch);
         }
 
@@ -142,10 +141,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         public Vector2 PlayerSpeed
         {
             get { return Velocity; }
-            set
-            {
-                Velocity = value;
-            }
+            set { Velocity = value; }
         }
 
         public Vector2 PlayerPosition
