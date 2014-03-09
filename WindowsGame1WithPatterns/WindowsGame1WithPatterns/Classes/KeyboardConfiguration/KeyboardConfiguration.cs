@@ -2,6 +2,7 @@
 
 namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
 {
+    //TODO: Not in use per 9 mars 2014, will maybe be removed later
     class KeyboardConfiguration
     {
         public Keys Left { get; set; }

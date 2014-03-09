@@ -7,7 +7,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers.GameStates
 {
     public interface IGameStates
     {
-        void GameOver();
+        void InGameOver();
         void InGame();
         void InMenu();
     }

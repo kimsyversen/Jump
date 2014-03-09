@@ -15,9 +15,10 @@ namespace WindowsGame1WithPatterns.Classes.Managers.GameStates
             _manager = manager;
         }
 
-        public void GameOver()
+        public void InGameOver()
         {
-            throw new NotImplementedException();
+            //TODO: This, is normally a bad design choise. I've made a compromise here.
+            Debug.WriteLine("This is not possible.");
         }
 
         public void InGame()
@@ -26,7 +27,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers.GameStates
 
             //Used to change font in menu from new game to resume
             _manager.GameInProgress = 1;
-
             _manager.SetState(_manager.InGameState);
 
         }

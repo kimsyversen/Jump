@@ -111,11 +111,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\KeyboardConfiguration\KeyboardManager.cs" />
-    <Compile Include="Classes\Managers\GameStates\GameOverState.cs" />
+    <Compile Include="Classes\Managers\GameStates\InGameOverState.cs" />
     <Compile Include="Classes\Managers\GameStates\IGameStates.cs" />
     <Compile Include="Classes\Managers\GameStates\InGameState.cs" />
     <Compile Include="Classes\Managers\GameStates\InMenuState.cs" />
-    <Compile Include="Classes\Managers\IManager.cs" />
+    <Compile Include="Classes\Managers\Interfaces\IManager.cs" />
+    <Compile Include="Classes\Managers\InGameOverManager.cs" />
     <Compile Include="Classes\Managers\Manager.cs" />
     <Compile Include="Classes\Managers\InMenuManager.cs" />
     <Compile Include="Classes\KeyboardConfiguration\KeyboardConfiguration.cs" />

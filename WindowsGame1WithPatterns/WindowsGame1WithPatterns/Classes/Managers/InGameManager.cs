@@ -76,10 +76,9 @@ namespace WindowsGame1WithPatterns.Classes.Managers
         {
             if (KeyboardManager.IsKeyDown(Keys.Escape))
                 _manager.InMenu();
-                //if (_manager.CurrentState == _manager.InGameState)
-                //    _manager.InMenu();
-                //else if (_manager.CurrentState == _manager.InMenuState)
-                //    _manager.InGame();
+
+            if (KeyboardManager.IsKeyDown(Keys.P))
+                _manager.InGameOver();
 
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)

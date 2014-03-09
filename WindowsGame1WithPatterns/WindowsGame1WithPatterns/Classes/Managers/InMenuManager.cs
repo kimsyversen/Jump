@@ -18,15 +18,11 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
         SpriteBatch _spriteBatch;
         private List<SimpleFont> _fonts;
-
         private SimpleFont _newGameFont;
         private SimpleFont _exitFont;
-
+        private Manager _manager;
         public int SelectedIndex = 0;
 
-        private Manager _manager;
-        private KeyboardState _oldKeyState;
-        private KeyboardState _newKeyState;
         public InMenuManager(Game game, Manager manager)
             : base(game)
         {
@@ -55,12 +51,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
         public override void Update(GameTime gameTime)
         {
-            //_newKeyState = Keyboard.GetState();
-
-            // Allows the game to exit
-            if (KeyboardManager.IsKeyDown(Keys.Z))
-                Game.Exit();
-
             //Stay inside the indexes that exist in the list
             if (SelectedIndex < _fonts.Count && SelectedIndex >= 0)
             {
@@ -77,7 +67,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers
                             SelectedIndex--;
                         else
                             SelectedIndex = 0;
-               // if (_newKeyState.IsKeyDown(Keys.Enter) && !_oldKeyState.IsKeyDown(Keys.Enter)) 
 
                 if (KeyboardManager.KeyJustPressed(Keys.Enter))
                 {
@@ -88,9 +77,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers
                         Game.Exit();
                 }
             }
-            //Store the old state
-            //_oldKeyState = _newKeyState;
-            //KeyboardManager.RefreshPreviousKeyState();
             base.Update(gameTime);
         }
 
