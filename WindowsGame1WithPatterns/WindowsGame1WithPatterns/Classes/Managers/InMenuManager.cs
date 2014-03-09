@@ -5,13 +5,14 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts;
 
 namespace WindowsGame1WithPatterns.Classes.Managers
 {
-    class InMenuManager : Microsoft.Xna.Framework.DrawableGameComponent
+    class InMenuManager : DrawableGameComponent, IManager
     {
         private SpriteFactory _spriteFactory;
 
@@ -23,11 +24,9 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
         public int SelectedIndex = 0;
 
+        private Manager _manager;
         private KeyboardState _oldKeyState;
         private KeyboardState _newKeyState;
-
-        private Manager _manager;
-
         public InMenuManager(Game game, Manager manager)
             : base(game)
         {
@@ -56,46 +55,42 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
         public override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (Keyboard.GetState().IsKeyDown(Keys.Z))
-                Game.Exit();
+            //_newKeyState = Keyboard.GetState();
 
-            //Need to to this because updating of frames happens faster than a user releases a key
-            //Without, it would just switch fast between menu and game
-            _newKeyState = Keyboard.GetState();
+            // Allows the game to exit
+            if (KeyboardManager.IsKeyDown(Keys.Z))
+                Game.Exit();
 
             //Stay inside the indexes that exist in the list
             if (SelectedIndex < _fonts.Count && SelectedIndex >= 0)
             {
-                if (_newKeyState.IsKeyDown(Keys.Down) && !_oldKeyState.IsKeyDown(Keys.Down))
+                if (KeyboardManager.IsKeyDown(Keys.Down))
                     // Make sure SelectedIndex is not larger than the number of items in the menu
                         if (_fonts.Count < SelectedIndex)
                             SelectedIndex++;
                         else
                             SelectedIndex = _fonts.Count - 1;
-        
-                if (_newKeyState.IsKeyDown(Keys.Up) && !_oldKeyState.IsKeyDown(Keys.Up))
+
+                if (KeyboardManager.IsKeyDown(Keys.Up))
                     // Make sure SelectedIndex is not smaller than the number of items in the menu
                         if (_fonts.Count < SelectedIndex)
                             SelectedIndex--;
                         else
                             SelectedIndex = 0;
+               // if (_newKeyState.IsKeyDown(Keys.Enter) && !_oldKeyState.IsKeyDown(Keys.Enter)) 
 
-                if (_newKeyState.IsKeyDown(Keys.Enter) && !_oldKeyState.IsKeyDown(Keys.Enter))
+                if (KeyboardManager.KeyJustPressed(Keys.Enter))
                 {
-                    //StartGame
+                    //StartGame, switch state to InGame
                     if (SelectedIndex == 0)
                         _manager.InGame();
-                        //Exit //TODO: Fix statiske verdier
-                    else if (SelectedIndex == 1)
+                    else if (SelectedIndex == 1) //TODO: Fix statiske verdier
                         Game.Exit();
                 }
-
-                if (_newKeyState.IsKeyDown(Keys.Escape) && !_oldKeyState.IsKeyDown(Keys.Escape))
-                    _manager.InGame(); //FIX: BUG  må huske gamle state, ellerno
             }
             //Store the old state
-            _oldKeyState = _newKeyState;
+            //_oldKeyState = _newKeyState;
+            //KeyboardManager.RefreshPreviousKeyState();
             base.Update(gameTime);
         }
 
@@ -118,8 +113,13 @@ namespace WindowsGame1WithPatterns.Classes.Managers
                 count++;
             }
             _spriteBatch.End();
-
             base.Draw(gameTime);
+        }
+
+        public void Enable(bool value)
+        {
+            Visible = value;
+            Enabled = value;
         }
     }
 }

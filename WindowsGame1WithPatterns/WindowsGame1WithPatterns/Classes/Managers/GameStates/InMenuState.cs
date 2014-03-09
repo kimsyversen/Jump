@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -21,25 +22,20 @@ namespace WindowsGame1WithPatterns.Classes.Managers.GameStates
 
         public void InGame()
         {
-            _manager.SetState(_manager.InGameState);
+            Debug.WriteLine("From " + GetType().Name + " Setting state to InGameState");
 
             //Used to change font in menu from new game to resume
             _manager.GameInProgress = 1;
-            SwitchState(true);
+
+            _manager.SetState(_manager.InGameState);
+
         }
 
         public void InMenu()
         {
+            Debug.WriteLine("From " + GetType().Name + " Setting state to InMenuState");
             _manager.SetState(_manager.InMenuState);
         }
 
-        private void SwitchState(bool value)
-        {
-            _manager.InMenuManager.Visible = !value;
-            _manager.InMenuManager.Visible = !value;
-
-            _manager.InGameManager.Visible = value;
-            _manager.InGameManager.Visible = value;
-        }
     }
 }

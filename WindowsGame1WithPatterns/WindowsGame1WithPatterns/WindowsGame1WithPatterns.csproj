@@ -110,10 +110,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\KeyboardConfiguration\KeyboardManager.cs" />
     <Compile Include="Classes\Managers\GameStates\GameOverState.cs" />
     <Compile Include="Classes\Managers\GameStates\IGameStates.cs" />
     <Compile Include="Classes\Managers\GameStates\InGameState.cs" />
     <Compile Include="Classes\Managers\GameStates\InMenuState.cs" />
+    <Compile Include="Classes\Managers\IManager.cs" />
     <Compile Include="Classes\Managers\Manager.cs" />
     <Compile Include="Classes\Managers\InMenuManager.cs" />
     <Compile Include="Classes\KeyboardConfiguration\KeyboardConfiguration.cs" />
@@ -138,7 +140,6 @@
     <Compile Include="Classes\Sprites\Factories\SpriteCreator.cs" />
     <Compile Include="Classes\Sprites\Factories\SpriteFactory.cs" />
     <Compile Include="Classes\Managers\InGameManager.cs" />
-    <Compile Include="Classes\GameState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

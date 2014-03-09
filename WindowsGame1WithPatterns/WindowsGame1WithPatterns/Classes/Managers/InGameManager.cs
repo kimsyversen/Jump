@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
@@ -12,7 +12,7 @@ using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 namespace WindowsGame1WithPatterns.Classes.Managers
 {
     //TODO: RYDDE OPP.
-    class InGameManager : Microsoft.Xna.Framework.DrawableGameComponent
+    class InGameManager : DrawableGameComponent, IManager
     {
         SpriteBatch _spriteBatch;
         private SpriteFactory _spriteFactory;
@@ -74,6 +74,12 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
         public override void Update(GameTime gameTime)
         {
+            if (KeyboardManager.IsKeyDown(Keys.Escape))
+                _manager.InMenu();
+                //if (_manager.CurrentState == _manager.InGameState)
+                //    _manager.InMenu();
+                //else if (_manager.CurrentState == _manager.InMenuState)
+                //    _manager.InGame();
 
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
@@ -103,7 +109,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers
                     {
                         player.HasHitPlatform = false;
                         player.HasJumped = true;
-                        // teller = 1;
                     }
                 }
             }
@@ -144,6 +149,11 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+        public void Enable(bool value)
+        {
+            Visible = value;
+            Enabled = value;
         }
     }
 

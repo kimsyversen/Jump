@@ -25,19 +25,13 @@ namespace WindowsGame1WithPatterns
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-
-        private KeyboardState _oldKeyState;
-        private KeyboardState _newKeyState;
-
-
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
         private Manager _manager;
-        private KeyboardConfiguration _keyboard;
-      
+ 
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -50,10 +44,6 @@ namespace WindowsGame1WithPatterns
         protected override void Initialize()
         {
             _manager = new Manager(this);
-
-            _oldKeyState = Keyboard.GetState();
-
-            _keyboard = new KeyboardConfiguration(Keys.None, Keys.Up, Keys.None, Keys.Enter, Keys.Escape, Keys.None, Keys.None);
             base.Initialize();
         }
 
@@ -64,7 +54,7 @@ namespace WindowsGame1WithPatterns
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             base.LoadContent();
         }
@@ -85,20 +75,11 @@ namespace WindowsGame1WithPatterns
 
         protected override void Update(GameTime gameTime)
         {
-            //Need to to this because updating of frames happens faster than a user releases a key
-            //Without, it would just switch fast between menu and game
-            _newKeyState = Keyboard.GetState();
+            KeyboardManager.RefreshCurrentKeyState();
 
-            //User is pressing Escape down
-            if (_newKeyState.IsKeyDown(_keyboard.Back) && !_oldKeyState.IsKeyDown(_keyboard.Back))
-                // If not down last update, key has just been pressed.
-                if (_manager.CurrentState == _manager.InGameState)
-                    _manager.InMenu();
-                else if (_manager.CurrentState == _manager.InMenuState)
-                    _manager.InGame();
+           
             
             base.Update(gameTime);
-
         }
 
         /// <summary>

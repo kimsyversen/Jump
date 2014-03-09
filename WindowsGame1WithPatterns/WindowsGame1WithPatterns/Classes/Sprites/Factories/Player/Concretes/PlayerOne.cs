@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-
+using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,9 +20,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private bool _platformHit = false;
         private IFloor _platform;
         private float WhatIsDis;
-        private KeyboardConfiguration.KeyboardConfiguration _keyboardConfiguration;
-
-
         private float moveSpeed = 4f;
 
 
@@ -36,8 +33,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             _hasJumped = true;
             _hasHitTheWall = false;
             _player = newPlayer;
-            _keyboardConfiguration = new KeyboardConfiguration.KeyboardConfiguration(Keys.A, Keys.None, Keys.D, Keys.None, Keys.Escape, Keys.Enter, Keys.Space);
-
         }
 
         public PlayerOne(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
@@ -60,11 +55,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            if (Keyboard.GetState().IsKeyDown(_keyboardConfiguration.Right) && _hasHitTheWall == false) Velocity.X = moveSpeed;
-            else if (Keyboard.GetState().IsKeyDown(_keyboardConfiguration.Left) && _hasHitTheWall == false) Velocity.X = -moveSpeed;
+            if (KeyboardManager.IsKeyDown(Keys.D) && _hasHitTheWall == false) Velocity.X = moveSpeed;
+            else if (KeyboardManager.IsKeyDown(Keys.A) && _hasHitTheWall == false) Velocity.X = -moveSpeed;
             else if (_hasHitTheWall == false) Velocity.X = 0f;
 
-            if (Keyboard.GetState().IsKeyDown(_keyboardConfiguration.Jump) && _hasJumped == false)
+            if (KeyboardManager.IsKeyDown(Keys.Space) && _hasJumped == false)
             {
                 Position.Y -= 10f;
                 Velocity.Y = -20f;

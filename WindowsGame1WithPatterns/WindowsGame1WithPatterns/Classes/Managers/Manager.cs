@@ -11,7 +11,14 @@ namespace WindowsGame1WithPatterns.Classes.Managers
     class Manager : DrawableGameComponent, IGameStates
     {
         public int GameInProgress { get; set; }
+        private readonly IGameStates _inGameState;
+        private readonly IGameStates _inMenuState;
+        private IGameStates _currentState;
 
+        private InGameManager _inGameManager;
+        private InMenuManager _inMenuManager;
+
+        #region properties
         public IGameStates InGameState
         {
             get { return _inGameState; }
@@ -27,12 +34,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             get { return _currentState; }
         }
 
-        private IGameStates _inGameState;
-        private IGameStates _inMenuState;
-        private IGameStates _currentState;
 
-        private InGameManager _inGameManager;
-        private InMenuManager _inMenuManager;
 
         public InGameManager InGameManager
         {
@@ -44,7 +46,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             get { return _inMenuManager; }
             set { _inMenuManager = value; }
         }
-
+        #endregion
         public Manager(Game game) : base(game)
         {
             _inGameManager = new InGameManager(Game, this);
@@ -52,15 +54,31 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
             _inGameState = new InGameState(this);
             _inMenuState = new InMenuState(this);
-            _currentState = _inMenuState;
 
+            //Add components to game loop
             Game.Components.Add(_inGameManager);
             Game.Components.Add(_inMenuManager);
+
+            //Start game in menustate
+            SetState(_inMenuState);
+            InMenu();
         }
 
+        //Sets the new state, displays/hides the right manager
         public void SetState(IGameStates state)
         {
             _currentState = state;
+
+            if (_currentState == InGameState)
+            {
+                _inMenuManager.Enable(false);
+                _inGameManager.Enable(true);
+            }
+            else if (_currentState == InMenuState)
+            {
+                _inMenuManager.Enable(true);
+                _inGameManager.Enable(false);
+            }
         }
 
         public void GameOver()
@@ -77,5 +95,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers
         {
             _currentState.InMenu();
         }
+
+
     }
 }
