@@ -18,7 +18,8 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
         private InGameManager _inGameManager;
         private InMenuManager _inMenuManager;
-        private InGameOverManager _inGameOverManager;
+        private readonly InGameOverManager _inGameOverManager;
+
         #region properties
         public IGameStates InGameState
         {
@@ -108,7 +109,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers
         {
             _currentState.InMenu();
         }
-
 
         public void Enable(bool value)
         {

@@ -6,14 +6,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
-using WindowsGame1WithPatterns.Classes.Managers.Interfaces;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts;
 
-namespace WindowsGame1WithPatterns.Classes.Managers
+namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
 {
-    class InMenuManager : DrawableGameComponent, IManager
+    class MenuManager : StateManager
     {
         private SpriteFactory _spriteFactory;
 
@@ -21,17 +19,16 @@ namespace WindowsGame1WithPatterns.Classes.Managers
         private List<SimpleFont> _fonts;
         private SimpleFont _newGameFont;
         private SimpleFont _exitFont;
-        private Manager _manager;
+
         public int SelectedIndex = 0;
 
-        public InMenuManager(Game game, Manager manager)
-            : base(game)
+        public MenuManager(Game game) : base(game)
         {
-            _manager = manager;
+            
         }
 
         public override void Initialize()
-        {   
+        {
             _fonts = new List<SimpleFont>();
             _spriteFactory = new SpriteFactory(Game);
 
@@ -42,7 +39,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
             _fonts.Add(_newGameFont);
             _fonts.Add(_exitFont);
-            base.Initialize(); 
+            base.Initialize();
         }
 
         protected override void LoadContent()
@@ -57,17 +54,17 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             {
                 if (KeyboardManager.IsKeyDown(Keys.Down))
                     // Make sure SelectedIndex is not larger than the number of items in the menu
-                        if (_fonts.Count < SelectedIndex)
-                            SelectedIndex++;
-                        else
-                            SelectedIndex = _fonts.Count - 1;
+                    if (_fonts.Count < SelectedIndex)
+                        SelectedIndex++;
+                    else
+                        SelectedIndex = _fonts.Count - 1;
 
                 if (KeyboardManager.IsKeyDown(Keys.Up))
                     // Make sure SelectedIndex is not smaller than the number of items in the menu
-                        if (_fonts.Count < SelectedIndex)
-                            SelectedIndex--;
-                        else
-                            SelectedIndex = 0;
+                    if (_fonts.Count < SelectedIndex)
+                        SelectedIndex--;
+                    else
+                        SelectedIndex = 0;
 
                 if (KeyboardManager.KeyJustPressed(Keys.Enter))
                 {
@@ -94,8 +91,8 @@ namespace WindowsGame1WithPatterns.Classes.Managers
                 //Logic for resume game
                 if (font == _newGameFont && _manager.GameInProgress == 1)
                     font.FontText = "Resume game";
-                    
-                font.Color1 = count == SelectedIndex ? Color.Red : Color.Black;      
+
+                font.Color1 = count == SelectedIndex ? Color.Red : Color.Black;
                 _spriteBatch.DrawString(font.Font, font.FontText, font.Position1, font.Color1);
                 count++;
             }
@@ -103,10 +100,11 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             base.Draw(gameTime);
         }
 
-        public void Enable(bool value)
+
+        public override StateManager ChangeState()
         {
-            Visible = value;
-            Enabled = value;
+            
         }
+
     }
 }
