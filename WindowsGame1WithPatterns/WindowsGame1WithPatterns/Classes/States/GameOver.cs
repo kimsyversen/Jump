@@ -1,8 +1,8 @@
 ﻿using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes;
 
 namespace WindowsGame1WithPatterns.Classes.States
 {
@@ -14,8 +14,7 @@ namespace WindowsGame1WithPatterns.Classes.States
         public GameOver(Microsoft.Xna.Framework.Game game, string managerId)
             : base(game, managerId, GameStates.GameOver)
         {
-            _gameOverFont = new SimpleFont(game, game.Content.Load<SpriteFont>("Menu/GameOver/GameOver"),
-                                        "Game over! Press K to restart", Color.Black,
+            _gameOverFont = new SimpleFont(game, "Game over! Press K to restart", Color.Black,
                                         new Vector2(game.Window.ClientBounds.Width / 2f,
                                                     game.Window.ClientBounds.Height / 2f));
         }

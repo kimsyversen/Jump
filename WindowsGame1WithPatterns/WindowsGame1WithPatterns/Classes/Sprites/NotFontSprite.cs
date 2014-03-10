@@ -67,6 +67,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             Origin = origin;
         }
 
+        /// <summary>
+        /// Handles update of animation of sprites
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="clientBounds"></param>
         public void Update(GameTime gameTime, Rectangle clientBounds)
         {
             //Animation

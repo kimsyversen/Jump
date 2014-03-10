@@ -49,13 +49,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Coordinates.spritefont">
-      <Name>Coordinates</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="stikker.png">
       <Name>stikker</Name>
       <Importer>TextureImporter</Importer>
@@ -63,25 +56,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menu\NewGame.spritefont">
-      <Name>NewGame</Name>
+    <Compile Include="SimpleFont.spritefont">
+      <Name>SimpleFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menu\ExitGame.spritefont">
-      <Name>ExitGame</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Menu\GameOver\GameOver.spritefont">
-      <Name>GameOver</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
+    <Folder Include="Menu\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

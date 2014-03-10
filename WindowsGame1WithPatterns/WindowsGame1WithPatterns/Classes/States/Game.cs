@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -17,21 +17,22 @@ namespace WindowsGame1WithPatterns.Classes.States
         private SpriteFactory _spriteFactory;
         private PlayerFactory _playerFactory;
         private FontFactory _fontFactory;
-        private FloorFactory _floorFactory;
+        private PlatformFactory _platformFactory;
 
         private List<IPlayer> _players;
         private List<IFont> _fonts;
-        private List<IFloor> _floors;
+        private List<IPlatform> _floors;
 
         public Game(Microsoft.Xna.Framework.Game game, string managerId) : base(game, managerId, GameStates.InGame)
         {
         }
+
         public override void Initialize()
         {
             _spriteFactory = new SpriteFactory(Game);
             _players = new List<IPlayer>();
             _fonts = new List<IFont>();
-            _floors = new List<IFloor>();
+            _floors = new List<IPlatform>();
 
             base.Initialize();
         }
@@ -42,11 +43,11 @@ namespace WindowsGame1WithPatterns.Classes.States
 
             _playerFactory = _spriteFactory.CreatePlayerFactory();
 
-            _floorFactory = _spriteFactory.CreateFloorFactory();
+            _platformFactory = _spriteFactory.CreatePlatformFactory();
 
-            var floor = _floorFactory.CreateFloorSprite();
-            var floor2 = _floorFactory.CreateFloorSprite1();
-            var floor3 = _floorFactory.CreateFloorSprite2();
+            var floor = _platformFactory.CreateFloorSprite();
+            var floor2 = _platformFactory.CreateFloorSprite1();
+            var floor3 = _platformFactory.CreateFloorSprite2();
             _floors.Add(floor);
             _floors.Add(floor2);
             _floors.Add(floor3);
@@ -65,7 +66,7 @@ namespace WindowsGame1WithPatterns.Classes.States
             base.LoadContent();
         }
 
-        private int teller = 0;
+        
 
         public override void Update(GameTime gameTime)
         {
@@ -96,20 +97,15 @@ namespace WindowsGame1WithPatterns.Classes.States
                         player.HasHitTheWall = false;
                         player.HasHitPlatform = true;
                         player.GetY = Game.Window.ClientBounds.Height;
-                        player.OnFloor = floor;
+                        player.OnPlatform = floor;
                     }
                     //Sjekker om spilleren hat gått av platformen
-                    if (player.HasHitPlatform && !player.Collide.Intersects(floor.Collide) && floor == player.OnFloor)
+                    if (player.HasHitPlatform && !player.Collide.Intersects(floor.Collide) && floor == player.OnPlatform)
                     {
                         player.HasHitPlatform = false;
                         player.HasJumped = true;
                     }
                 }
-            }
-            if (teller == 1)
-            {
-                _floors.Add(_floorFactory.CreateFloorSpriteInputs(50, 50, 100, 5));
-                teller++;
             }
             foreach (var font in _fonts)
                 font.Update(gameTime, Game.Window.ClientBounds);

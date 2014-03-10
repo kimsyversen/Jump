@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes;
 
 namespace WindowsGame1WithPatterns.Classes.States
 {
@@ -17,8 +17,11 @@ namespace WindowsGame1WithPatterns.Classes.States
         private SimpleFont _exitFont;
         public int SelectedIndex = 0;
 
+        private Microsoft.Xna.Framework.Game _game;
+
         public MenuManager(Microsoft.Xna.Framework.Game game, string managerId) : base(game, managerId, GameStates.MainMenu)
         {
+            _game = game;
         }
 
         public override void Initialize()
@@ -28,11 +31,16 @@ namespace WindowsGame1WithPatterns.Classes.States
 
             var fontFactory = _spriteFactory.CreateFontFactory();
 
-            _newGameFont = fontFactory.MenuNewGameFont();
-            _exitFont = fontFactory.ExitGameFont();
+            _newGameFont = fontFactory.Font("New Game", Color.Black,
+                                            new Vector2(_game.Window.ClientBounds.Width / 2f,
+                                                        _game.Window.ClientBounds.Height / 2f));
+            _exitFont = fontFactory.Font("Exit", Color.Black,
+                                            new Vector2(_game.Window.ClientBounds.Width / 2f,
+                                                        _game.Window.ClientBounds.Height / 3f));
 
             _fonts.Add(_newGameFont);
             _fonts.Add(_exitFont);
+
             base.Initialize();
         }
 
@@ -80,6 +88,7 @@ namespace WindowsGame1WithPatterns.Classes.States
 
             //TODO: Change color on font with selectedIndex
             foreach (var font in _fonts)
+                
                 _spriteBatch.DrawString(font.Font, font.FontText, font.Position1, font.Color1);
 
             _spriteBatch.End();

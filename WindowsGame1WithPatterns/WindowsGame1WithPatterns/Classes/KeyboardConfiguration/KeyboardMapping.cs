@@ -2,8 +2,10 @@
 
 namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
 {
-    //TODO: Not in use per 9 mars 2014, will maybe be removed later
-    class KeyboardConfiguration
+    /// <summary>
+    /// Used to create key mappings for players
+    /// </summary>
+    class KeyboardMapping
     {
         public Keys Left { get; set; }
         public Keys Right { get; set; }
@@ -15,8 +17,16 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
 
         public Keys Jump { get; set; }
 
-       
-        public KeyboardConfiguration(Keys left, Keys up, Keys right, Keys down)
+        public KeyboardMapping(Keys left, Keys right, Keys jump)
+        {
+            Left = left;
+            Right = right;
+            Back = Keys.Escape;
+            Enter = Keys.Enter;
+            Jump = jump;
+        }
+
+        public KeyboardMapping(Keys left, Keys up, Keys right, Keys down)
         {
             Left = left;
             Up = up;
@@ -27,7 +37,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
             Jump = Keys.None;
         }
 
-        public KeyboardConfiguration(Keys left, Keys up, Keys right, Keys down, Keys back, Keys enter, Keys jump)
+        public KeyboardMapping(Keys left, Keys up, Keys right, Keys down, Keys back, Keys enter, Keys jump)
         {
             Left = left;
             Up = up;

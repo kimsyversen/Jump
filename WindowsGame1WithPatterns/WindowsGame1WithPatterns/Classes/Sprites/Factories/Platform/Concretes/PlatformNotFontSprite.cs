@@ -2,14 +2,14 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes
+namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform.Concretes
 {
-    class FloorNotFontSprite : NotFontSprite, IFloor
+    class PlatformNotFontSprite : NotFontSprite, IPlatform
     {
         private Game _game;
         
 
-        public FloorNotFontSprite(Game game, float x, float y, int width, int height)
+        public PlatformNotFontSprite(Game game, float x, float y, int width, int height)
             : this(game.Content.Load<Texture2D>(@"stikker"),
                 new Vector2(x, y), new Point(width, height), new Point(0, 0),
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
@@ -17,11 +17,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors.Concretes
             _game = game;
         }
 
-        public FloorNotFontSprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent, Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity, int collisionOffset, int timeSinceLastFrame) : base(texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity, collisionOffset, timeSinceLastFrame)
+        public PlatformNotFontSprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent, Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity, int collisionOffset, int timeSinceLastFrame) : base(texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity, collisionOffset, timeSinceLastFrame)
         {
         }
 
-        public FloorNotFontSprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent, Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity, int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame) : base(texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity, collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
+        public PlatformNotFontSprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent, Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity, int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame) : base(texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity, collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
         }
 
