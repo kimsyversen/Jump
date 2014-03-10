@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts;
 
-namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
+namespace WindowsGame1WithPatterns.Classes.States
 {
-    class GameOverManager : StateManager
+    class GameOver : State
     {
         private SimpleFont _gameOverFont;
         private SpriteBatch _spriteBatch;
 
-        public GameOverManager(Game game, string managerId)
-            : base(game, managerId, States.GameOver)
+        public GameOver(Microsoft.Xna.Framework.Game game, string managerId)
+            : base(game, managerId, GameStates.GameOver)
         {
             _gameOverFont = new SimpleFont(game, game.Content.Load<SpriteFont>("Menu/GameOver/GameOver"),
                                         "Game over! Press K to restart", Color.Black,
@@ -33,7 +28,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
         public override void Update(GameTime gameTime)
         {
             if (KeyboardManager.KeyJustPressed(Keys.K))
-                ChangeStateTo(States.MainMenu);
+                ChangeStateTo(GameStates.MainMenu);
 
             base.Update(gameTime);
 

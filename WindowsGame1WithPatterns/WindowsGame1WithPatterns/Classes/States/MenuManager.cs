@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+﻿using System.Collections.Generic;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes.MenuFonts;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
-namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
+namespace WindowsGame1WithPatterns.Classes.States
 {
-    class MenuManager : StateManager
+    class MenuManager : State
     {
         private SpriteFactory _spriteFactory;
         SpriteBatch _spriteBatch;
@@ -20,7 +17,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
         private SimpleFont _exitFont;
         public int SelectedIndex = 0;
 
-        public MenuManager(Game game, string managerId) : base(game, managerId, States.MainMenu)
+        public MenuManager(Microsoft.Xna.Framework.Game game, string managerId) : base(game, managerId, GameStates.MainMenu)
         {
         }
 
@@ -67,7 +64,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
                 {
                     //StartGame, switch state to InGame
                     if (SelectedIndex == 0)
-                        ChangeStateTo(States.InGame);
+                        ChangeStateTo(GameStates.InGame);
                     else if (SelectedIndex == 1) //TODO: Fix statiske verdier
                         Game.Exit();
                 }

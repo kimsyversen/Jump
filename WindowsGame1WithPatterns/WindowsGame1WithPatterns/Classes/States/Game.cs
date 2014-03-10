@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
-namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
+namespace WindowsGame1WithPatterns.Classes.States
 {
-    class GameManager : StateManager
+    class Game : State
     {
         private SpriteBatch _spriteBatch;
         private SpriteFactory _spriteFactory;
@@ -23,7 +23,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
         private List<IFont> _fonts;
         private List<IFloor> _floors;
 
-        public GameManager(Game game, string managerId) : base(game, managerId, States.InGame)
+        public Game(Microsoft.Xna.Framework.Game game, string managerId) : base(game, managerId, GameStates.InGame)
         {
         }
         public override void Initialize()
@@ -70,10 +70,10 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
         public override void Update(GameTime gameTime)
         {
             if (KeyboardManager.IsKeyDown(Keys.Escape))
-                ChangeStateTo(States.MainMenu);
+                ChangeStateTo(GameStates.MainMenu);
 
             if (KeyboardManager.IsKeyDown(Keys.P))
-                ChangeStateTo(States.GameOver);
+                ChangeStateTo(GameStates.GameOver);
 
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)

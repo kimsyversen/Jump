@@ -111,12 +111,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\KeyboardConfiguration\KeyboardManager.cs" />
-    <Compile Include="Classes\Managers\GameManager.cs" />
-    <Compile Include="Classes\Managers\GameOverManager.cs" />
-    <Compile Include="Classes\Managers\MainManager.cs" />
-    <Compile Include="Classes\Managers\MenuManager.cs" />
+    <Compile Include="Classes\States\Game.cs" />
+    <Compile Include="Classes\States\GameOver.cs" />
+    <Compile Include="Classes\States\StateManager.cs" />
+    <Compile Include="Classes\States\MenuManager.cs" />
     <Compile Include="Classes\KeyboardConfiguration\KeyboardConfiguration.cs" />
-    <Compile Include="Classes\Managers\StateManager.cs" />
+    <Compile Include="Classes\States\State.cs" />
     <Compile Include="Classes\Sprites\Factories\Fonts\Concretes\MenuFonts\ExitGameFont.cs" />
     <Compile Include="Classes\Sprites\Factories\Fonts\Concretes\MenuFonts\NewGameFont.cs" />
     <Compile Include="Classes\Sprites\NotFontSprite.cs" />
