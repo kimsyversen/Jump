@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WindowsGame1WithPatterns.Classes.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -10,7 +11,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using WindowsGame1WithPatterns.Classes;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
-using WindowsGame1WithPatterns.Classes.Managers;
 using WindowsGame1WithPatterns.Classes.Sprites;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;

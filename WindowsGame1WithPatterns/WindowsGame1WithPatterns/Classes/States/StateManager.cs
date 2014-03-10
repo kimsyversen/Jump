@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace WindowsGame1WithPatterns.Classes.Managers
+namespace WindowsGame1WithPatterns.Classes.States
 {
     /// <summary>
     /// Manager for sub-classes of the state class
@@ -52,9 +52,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             CurrentState = new MenuManager(Game, _stateManagerId);
             new Game(Game, _stateManagerId);
             new GameOver(Game, _stateManagerId);
-
-            //Start the game in the menu
-            //CurrentState = _menu;
 
             //Since all managers are default off, enable the one that shall be started
             CurrentState.Enable(true);

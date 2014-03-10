@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace WindowsGame1WithPatterns.Classes.Managers
+namespace WindowsGame1WithPatterns.Classes.States
 {
     class GameOver : State
     {

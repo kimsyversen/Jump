@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
-namespace WindowsGame1WithPatterns.Classes.Managers
+namespace WindowsGame1WithPatterns.Classes.States
 {
     /// <summary>
     /// Abstract state class
