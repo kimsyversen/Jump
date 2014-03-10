@@ -14,17 +14,14 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
     class MenuManager : StateManager
     {
         private SpriteFactory _spriteFactory;
-
         SpriteBatch _spriteBatch;
         private List<SimpleFont> _fonts;
         private SimpleFont _newGameFont;
         private SimpleFont _exitFont;
-
         public int SelectedIndex = 0;
 
-        public MenuManager(Game game) : base(game)
+        public MenuManager(Game game, string managerId, string stateId) : base(game, managerId, stateId)
         {
-            
         }
 
         public override void Initialize()
@@ -70,7 +67,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
                 {
                     //StartGame, switch state to InGame
                     if (SelectedIndex == 0)
-                        _manager.InGame();
+                        ChangeStateTo("InGame");
                     else if (SelectedIndex == 1) //TODO: Fix statiske verdier
                         Game.Exit();
                 }
@@ -89,8 +86,8 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
             foreach (var font in _fonts)
             {
                 //Logic for resume game
-                if (font == _newGameFont && _manager.GameInProgress == 1)
-                    font.FontText = "Resume game";
+                //if (font == _newGameFont && _manager.GameInProgress == 1)
+                //    font.FontText = "Resume game";
 
                 font.Color1 = count == SelectedIndex ? Color.Red : Color.Black;
                 _spriteBatch.DrawString(font.Font, font.FontText, font.Position1, font.Color1);
@@ -98,12 +95,6 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
             }
             _spriteBatch.End();
             base.Draw(gameTime);
-        }
-
-
-        public override StateManager ChangeState()
-        {
-            
         }
 
     }

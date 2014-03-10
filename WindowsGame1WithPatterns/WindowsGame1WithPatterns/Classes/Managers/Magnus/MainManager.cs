@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 
+
 namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
 {
     class MainManager : DrawableGameComponent
@@ -13,15 +14,21 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
         private StateManager _menuManager;
         private StateManager _gameManager;
 
-        public MainManager(Game game) : base(game){}
+        private string _managerId;
+        private static int _uniqueManagerId;
+
+        public MainManager(Game game) : base(game)
+        {
+            _managerId = (_uniqueManagerId++).ToString();
+        }
 
         /// <summary>
         /// Set values that shall be initialized here
         /// </summary>
         public override void Initialize()
         {
-            _menuManager = new MenuManager(Game);
-            _gameManager = new GameManager(Game);
+            _menuManager = new MenuManager(Game, _managerId, "MenuManager");
+            _gameManager = new GameManager(Game, _managerId, "GameManager");
 
             //Start the game in the menu
             CurrentStateManager = _menuManager;
@@ -39,7 +46,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
    
         private void CheckForNewState()
         {
-            var newState = CurrentStateManager.ChangeState();
+            var newState = CurrentStateManager.ChangeState;
 
             if (newState != null)
             {
