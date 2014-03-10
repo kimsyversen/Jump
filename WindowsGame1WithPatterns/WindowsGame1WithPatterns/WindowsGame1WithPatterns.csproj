@@ -110,6 +110,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CameraConfiguration\CameraManager.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\KeyController.cs" />
     <Compile Include="Classes\Sprites\NotFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Movement\ICommand.cs" />

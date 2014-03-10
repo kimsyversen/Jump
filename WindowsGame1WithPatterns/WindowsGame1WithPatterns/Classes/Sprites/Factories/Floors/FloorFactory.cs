@@ -23,16 +23,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors
             return new FloorNotFontSprite(_game, _game.Window.ClientBounds.Width/2f, (_game.Window.ClientBounds.Height / 2f) + 100, 100, 5);
         }
 
-        public  IFloor CreateFloorSprite1()
-        {
-            return new FloorNotFontSprite(_game, (_game.Window.ClientBounds.Width / 2f)-200, (_game.Window.ClientBounds.Height / 2f) + 100, 100, 5);
-        }
-
-        public IFloor CreateFloorSprite2()
-        {
-            return new FloorNotFontSprite(_game, (_game.Window.ClientBounds.Width / 2f) -200, (_game.Window.ClientBounds.Height / 2f)-20, 100, 5);
-        }
-
         public IFloor CreateFloorSpriteInputs(float startX, float startY, int width, int height)
         {
             return new FloorNotFontSprite(_game, startX, startY, width, height);

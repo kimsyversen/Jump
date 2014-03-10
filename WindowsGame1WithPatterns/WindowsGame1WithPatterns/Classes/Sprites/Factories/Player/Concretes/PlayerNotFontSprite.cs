@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
@@ -23,6 +24,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private Keys left;
         private Keys right;
         private Keys up;
+        private SoundEffect effect;
 
         //private KeyController _keyController;
         public PlayerNotFontSprite(Game game, bool newPlayer)
@@ -34,6 +36,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             _observers = new List<IFont>();
             _hasJumped = true;
             _hasHitTheWall = false;
+            effect = game.Content.Load<SoundEffect>("Jump");
            // _keyController = new KeyController(Keys.A, Keys.D, Keys.Space);
 
 
@@ -84,6 +87,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                 SpritePosition.Y -= _jumpHeight;
                 Speed.Y = -20f;
                 _hasJumped = true;
+                effect.Play();
             }
 
             if (_hasJumped)
@@ -188,7 +192,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         }
 
         public Rectangle Collide { get { return CollisionRectangle; } }
-        public float GetY { get { Console.Write(_heightOfJump); return _heightOfJump; } }
+        public float GetY { get { return _heightOfJump; } }
         public Texture2D PlayerTexture { get { return this.Texture; } }
 
         #region ObserverPatternRelated
