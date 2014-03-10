@@ -9,12 +9,11 @@ using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 
-namespace WindowsGame1WithPatterns.Classes.Managers
+namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
 {
-    //TODO: RYDDE OPP.
-    class InGameManager : DrawableGameComponent, IManager
+    class GameManager : StateManager
     {
-        SpriteBatch _spriteBatch;
+        private SpriteBatch _spriteBatch;
         private SpriteFactory _spriteFactory;
         private PlayerFactory _playerFactory;
         private FontFactory _fontFactory;
@@ -24,13 +23,9 @@ namespace WindowsGame1WithPatterns.Classes.Managers
         private List<IFont> _fonts;
         private List<IFloor> _floors;
 
-        private Manager _manager;
-        
-        public InGameManager(Game game, Manager manager) : base(game)
+        public GameManager(Game game, string managerId) : base(game, managerId, States.InGame)
         {
-            _manager = manager;
         }
-
         public override void Initialize()
         {
             _spriteFactory = new SpriteFactory(Game);
@@ -38,7 +33,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             _fonts = new List<IFont>();
             _floors = new List<IFloor>();
 
-            base.Initialize(); 
+            base.Initialize();
         }
         protected override void LoadContent()
         {
@@ -75,10 +70,10 @@ namespace WindowsGame1WithPatterns.Classes.Managers
         public override void Update(GameTime gameTime)
         {
             if (KeyboardManager.IsKeyDown(Keys.Escape))
-                _manager.InMenu();
+                ChangeStateTo(States.MainMenu);
 
             if (KeyboardManager.IsKeyDown(Keys.P))
-                _manager.InGameOver();
+                ChangeStateTo(States.GameOver);
 
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
@@ -149,11 +144,5 @@ namespace WindowsGame1WithPatterns.Classes.Managers
 
             base.Draw(gameTime);
         }
-        public void Enable(bool value)
-        {
-            Visible = value;
-            Enabled = value;
-        }
     }
-
 }

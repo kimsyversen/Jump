@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using WindowsGame1WithPatterns.Classes;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Managers;
-
+using WindowsGame1WithPatterns.Classes.Managers.Magnus;
 using WindowsGame1WithPatterns.Classes.Sprites;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
@@ -27,12 +27,13 @@ namespace WindowsGame1WithPatterns
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Manager _manager;
+        private MainManager _manager;
  
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            
         }
 
         /// <summary>
@@ -43,7 +44,8 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void Initialize()
         {
-            _manager = new Manager(this);
+            _manager = new MainManager(this);
+
             base.Initialize();
         }
 
@@ -55,7 +57,6 @@ namespace WindowsGame1WithPatterns
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             base.LoadContent();
         }
 
@@ -76,9 +77,6 @@ namespace WindowsGame1WithPatterns
         protected override void Update(GameTime gameTime)
         {
             KeyboardManager.RefreshCurrentKeyState();
-
-           
-            
             base.Update(gameTime);
         }
 
