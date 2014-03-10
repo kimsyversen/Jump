@@ -1,59 +1,97 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using System.Collections;
-using System.Diagnostics;
+﻿using Microsoft.Xna.Framework;
 
-namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
+namespace WindowsGame1WithPatterns.Classes.Managers
 {
-    abstract class StateManager : DrawableGameComponent
+    /// <summary>
+    /// Manager for sub-classes of the state class
+    /// </summary>
+    class StateManager : DrawableGameComponent
     {
-        private static Dictionary<string, StateManager> StateManagers = new Dictionary<string, StateManager>();
-        private string _managerId;
-        private StateManager _changeState;
+        /// <summary>
+        /// Placeholder for the current state
+        /// </summary>
+        protected State CurrentState;
 
-        public StateManager ChangeState
-        {
-            get
-            {
-                StateManager changingState = _changeState;
-                _changeState = null;
-                return changingState;
-            }
-            private set
-            {
-                _changeState = value; 
-            }
-        }
+        /// <summary>
+        /// Id to unequely identify the state manager
+        /// </summary>
+        private string _stateManagerId;
 
-        protected StateManager(Game game, string managerId, States stateId) : base(game)
+        /// <summary>
+        /// An incrementing static integer to give all StateManagers uneque names
+        /// </summary>
+        private static int _uniqueManagerId;
+
+        /// <summary>
+        /// StateManagers constructor
+        /// </summary>
+        /// <param name="game">Referance to the game</param>
+        public StateManager(Microsoft.Xna.Framework.Game game) : base(game)
         {
-            //Add component to game loop.
+            //Add StateManagers to game components
             game.Components.Add(this);
-
-            //All components is default off
-            Enable(false);
-            //Add newly created managers to the list (GameManager, MenuManager etc)
-            StateManagers.Add(string.Concat(managerId, stateId.ToString()), this);
-
-            _managerId = managerId;
         }
 
-        public void Enable(bool value)
+        /// <summary>
+        /// Method to initialize the values before gameloop begins
+        /// </summary>
+        public override void Initialize()
         {
-            Visible = value;
-            Enabled = value;
+            //StateManagers is not ment to be visible, so the draw method
+            //will be disabled.
+            Visible = false;
+
+            //Give the manager its uneque ID, and increment the naming
+            //integer for the next manager to registrer its name.
+            _stateManagerId = (_uniqueManagerId++).ToString(); 
+
+            //Create all the states needed under the manager but remember 
+            //the state the manager should start in. The StateManager
+            //dont need to know about any of the other states but the
+            //current state. The State class takes care of the rest.
+            CurrentState = new MenuManager(Game, _stateManagerId);
+            new Game(Game, _stateManagerId);
+            new GameOver(Game, _stateManagerId);
+
+            //Start the game in the menu
+            //CurrentState = _menu;
+
+            //Since all managers are default off, enable the one that shall be started
+            CurrentState.Enable(true);
+
+            base.Initialize();
         }
 
-        protected void ChangeStateTo(States stateId)
+        /// <summary>
+        /// Method to constantly check for new states
+        /// </summary>
+        /// <param name="gameTime">Game time</param>
+        public override void Update(GameTime gameTime)
         {
-            ChangeState = StateManagers[string.Concat(_managerId, stateId.ToString())];
+            CheckForNewState();
+            base.Update(gameTime);
         }
 
-        protected enum States
+        /// <summary>
+        /// Ask the current state if the state needs to be changed
+        /// and change the state accordingly
+        /// </summary>
+        private void CheckForNewState()
         {
-            InGame,
-            MainMenu,
-            GameOver,
+            //Holds the instance of the state that is to
+            //be changed to.
+            var newState = CurrentState.ChangeState;
+
+            //If the newState is null, there will not be any state change,
+            //and therefor we will return
+            if (newState == null) return;
+
+            //Disable the current state
+            CurrentState.Enable(false);
+            //Change the state to the new state
+            CurrentState = newState;
+            //Enable the new state
+            CurrentState.Enable(true);
         }
     }
 }
