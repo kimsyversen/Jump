@@ -31,7 +31,7 @@ namespace WindowsGame1WithPatterns.Classes.States
 
             var fontFactory = _spriteFactory.CreateFontFactory();
 
-            _newGameFont = fontFactory.Font("New Game", Color.Black,
+            _newGameFont = fontFactory.Font("New GameManager", Color.Black,
                                             new Vector2(_game.Window.ClientBounds.Width / 2f,
                                                         _game.Window.ClientBounds.Height / 2f));
             _exitFont = fontFactory.Font("Exit", Color.Black,

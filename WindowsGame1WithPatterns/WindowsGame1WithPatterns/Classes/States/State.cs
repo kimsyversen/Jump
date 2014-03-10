@@ -57,7 +57,7 @@ namespace WindowsGame1WithPatterns.Classes.States
 
             //All components is default off
             Enable(false);
-            //Add newly created managers to the list (Game, MenuManager etc)
+            //Add newly created managers to the list (GameManager, MenuManager etc)
             States.Add(string.Concat(managerId, gameStateId.ToString()), this);
 
             //Store the managerId for lookup in the dictionary
