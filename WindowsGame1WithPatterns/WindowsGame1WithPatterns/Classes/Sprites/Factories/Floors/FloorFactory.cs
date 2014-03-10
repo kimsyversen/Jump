@@ -20,7 +20,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors
         }
         public override IFloor CreateFloorSprite()
         {
-            return new FloorNotFontSprite(_game, _game.Window.ClientBounds.Width/2f, (_game.Window.ClientBounds.Height / 2f) + 100, 100, 5);
+            return new FloorNotFontSprite(_game, 0, (_game.Window.ClientBounds.Height)-5, _game.Window.ClientBounds.Width, 5);
         }
 
         public IFloor CreateFloorSpriteInputs(float startX, float startY, int width, int height)

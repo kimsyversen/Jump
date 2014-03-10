@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using WindowsGame1WithPatterns.Classes.CameraConfiguration;
+//using WindowsGame1WithPatterns.Classes.CameraConfiguration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -16,7 +16,7 @@ using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
-
+using WindowsGame1WithPatterns.Classes.CameraConfiguration;
 namespace WindowsGame1WithPatterns
 {
     /// <summary>
@@ -26,13 +26,14 @@ namespace WindowsGame1WithPatterns
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        
         
         private SpriteFactory _spriteFactory;
         private PlayerFactory _playerFactory;
         private FontFactory _fontFactory;
         private FloorFactory _floorFactory;
         private CameraManager camera;
+        private List<Vector2> playerPosition;
 
         private List<IPlayer> _players;
         private List<IFont> _fonts;
@@ -40,7 +41,11 @@ namespace WindowsGame1WithPatterns
         private int height = 0;
         public Game1()
         {
+            
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 754;
+            graphics.PreferredBackBufferWidth = 450;
+            graphics.ApplyChanges();
             Content.RootDirectory = "Content";
         }
 
@@ -57,6 +62,7 @@ namespace WindowsGame1WithPatterns
             _players = new List<IPlayer>();
             _fonts = new List<IFont>();
             _floors = new List<IFloor>();
+            playerPosition = new List<Vector2>();
             base.Initialize();
         }
 
@@ -84,9 +90,9 @@ namespace WindowsGame1WithPatterns
             _fontFactory = _spriteFactory.CreateFontFactory();
 
             var font = _fontFactory.PlayerScoreFont(player);
-            camera = new CameraManager(GraphicsDevice.Viewport);
+            camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, graphics.PreferredBackBufferHeight);
             _fonts.Add(font);
-            generatePlatforms(15,200);
+            generatePlatforms(100,100,250);
             base.LoadContent();
         }
 
@@ -106,22 +112,26 @@ namespace WindowsGame1WithPatterns
         /// 
         /// 
 
-        private void test()
+       /* private void test(List<IPlayer> players)
         {
-
-           // camera.
-        }
+            for(int i=0; i<players.Count; i++)
+                if(players[i].
+            }
+           
+        }*/
 
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
-            //camera.Update(_players[0].PlayerPosition,Window.ClientBounds.Width,height);
+            
             foreach (var player in _players)
             {
                 player.Update(gameTime, Window.ClientBounds);
-                
+                playerPosition.Add(player.PlayerPosition);
+                camera.Update(playerPosition, Window.ClientBounds.Width, height);
+               // Console.WriteLine("Height: " + height + ", Width: " + Window.ClientBounds.Width);
                 foreach (var floor in _floors)
                 {
                     //Sjekker om spilleren har truffet en platform
@@ -136,6 +146,7 @@ namespace WindowsGame1WithPatterns
                     }                    
                 }
             }
+            playerPosition = new List<Vector2>();
             foreach (var font in _fonts)
                 font.Update(gameTime, Window.ClientBounds);
 
@@ -151,17 +162,17 @@ namespace WindowsGame1WithPatterns
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         /// 
         
-        protected void generatePlatforms(int antall, int maxDistance)
+        protected void generatePlatforms(int antall, int minDistance,int maxDistance)
         {
             Random rnd = new Random();
             int teller = 0;
             IFloor floor;
             int hoyde = 50;
             height = hoyde * antall;
-            Console.WriteLine(height);
+            //Console.WriteLine(height);
             while (teller < antall)
             {
-                int y = rnd.Next(20, maxDistance);
+                int y = rnd.Next(minDistance, maxDistance);
                 int test = rnd.Next(1, 3);
                 if (test == 1)
                 {
@@ -196,12 +207,12 @@ namespace WindowsGame1WithPatterns
 
             // TODO: Add your drawing code here
 
-           /* spriteBatch.Begin(SpriteSortMode.Deferred,
+           spriteBatch.Begin(SpriteSortMode.Deferred,
                         BlendState.AlphaBlend,
                         null, null, null, null,
-                        camera.Transform);*/
+                        camera.Transform);
 
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            //spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             foreach (var player in _players)
                 player.Draw(gameTime, spriteBatch);
 
