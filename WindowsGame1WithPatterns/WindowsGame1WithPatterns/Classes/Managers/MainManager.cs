@@ -13,13 +13,15 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
 
         private StateManager _menuManager;
         private StateManager _gameManager;
+        private StateManager _gameOverManager;
 
         private string _managerId;
         private static int _uniqueManagerId;
 
         public MainManager(Game game) : base(game)
         {
-            _managerId = (_uniqueManagerId++).ToString();
+            game.Components.Add(this);
+            _managerId = (_uniqueManagerId++).ToString(); 
         }
 
         /// <summary>
@@ -27,14 +29,16 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
         /// </summary>
         public override void Initialize()
         {
-            _menuManager = new MenuManager(Game, _managerId, "MenuManager");
-            _gameManager = new GameManager(Game, _managerId, "GameManager");
+            _menuManager = new MenuManager(Game, _managerId);
+            _gameManager = new GameManager(Game, _managerId);
+            _gameOverManager = new GameOverManager(Game, _managerId);
 
             //Start the game in the menu
             CurrentStateManager = _menuManager;
 
             //Since all managers are default off, enable the one that shall be started
             CurrentStateManager.Enable(true);
+
             base.Initialize();
         }
 

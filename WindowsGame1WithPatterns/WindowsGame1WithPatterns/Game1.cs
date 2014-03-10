@@ -45,6 +45,7 @@ namespace WindowsGame1WithPatterns
         protected override void Initialize()
         {
             _manager = new MainManager(this);
+
             base.Initialize();
         }
 
@@ -56,7 +57,6 @@ namespace WindowsGame1WithPatterns
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             base.LoadContent();
         }
 

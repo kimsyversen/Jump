@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using System.Collections;
+using System.Diagnostics;
 
 namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
 {
@@ -24,13 +25,15 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
             }
         }
 
-        protected StateManager(Game game, string managerId, string stateId) : base(game)
+        protected StateManager(Game game, string managerId, States stateId) : base(game)
         {
+            //Add component to game loop.
+            game.Components.Add(this);
+
             //All components is default off
-            Visible = false;
-            Enabled = false;
+            Enable(false);
             //Add newly created managers to the list (GameManager, MenuManager etc)
-            StateManagers.Add(string.Concat(managerId, stateId), this);
+            StateManagers.Add(string.Concat(managerId, stateId.ToString()), this);
 
             _managerId = managerId;
         }
@@ -41,9 +44,16 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
             Enabled = value;
         }
 
-        protected void ChangeStateTo(string stateId)
+        protected void ChangeStateTo(States stateId)
         {
-            ChangeState = StateManagers[string.Concat(_managerId, stateId)];
+            ChangeState = StateManagers[string.Concat(_managerId, stateId.ToString())];
+        }
+
+        protected enum States
+        {
+            InGame,
+            MainMenu,
+            GameOver,
         }
     }
 }

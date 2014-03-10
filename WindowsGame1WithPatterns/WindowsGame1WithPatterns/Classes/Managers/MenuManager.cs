@@ -20,7 +20,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
         private SimpleFont _exitFont;
         public int SelectedIndex = 0;
 
-        public MenuManager(Game game, string managerId, string stateId) : base(game, managerId, stateId)
+        public MenuManager(Game game, string managerId) : base(game, managerId, States.MainMenu)
         {
         }
 
@@ -67,7 +67,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
                 {
                     //StartGame, switch state to InGame
                     if (SelectedIndex == 0)
-                        ChangeStateTo("InGame");
+                        ChangeStateTo(States.InGame);
                     else if (SelectedIndex == 1) //TODO: Fix statiske verdier
                         Game.Exit();
                 }
@@ -81,18 +81,10 @@ namespace WindowsGame1WithPatterns.Classes.Managers.Magnus
 
             _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
 
-            //Change color on font with selectedIndex
-            var count = 0;
+            //TODO: Change color on font with selectedIndex
             foreach (var font in _fonts)
-            {
-                //Logic for resume game
-                //if (font == _newGameFont && _manager.GameInProgress == 1)
-                //    font.FontText = "Resume game";
-
-                font.Color1 = count == SelectedIndex ? Color.Red : Color.Black;
                 _spriteBatch.DrawString(font.Font, font.FontText, font.Position1, font.Color1);
-                count++;
-            }
+
             _spriteBatch.End();
             base.Draw(gameTime);
         }
