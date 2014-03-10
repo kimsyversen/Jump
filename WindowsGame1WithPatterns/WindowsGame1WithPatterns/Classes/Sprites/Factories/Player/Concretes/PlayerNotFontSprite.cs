@@ -15,10 +15,10 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private readonly List<IFont> _observers;
         private bool _hasJumped;
         private bool _hasHitTheWall;
-        private readonly bool _player;
         private bool _platformHit = false;
         private IFloor _platform;
-        private float y;
+        private float _heightOfJump;
+        private float _gravity = 0.15f;
         private Keys left;
         private Keys right;
         private Keys up;
@@ -33,11 +33,10 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             _observers = new List<IFont>();
             _hasJumped = true;
             _hasHitTheWall = false;
-            _player = newPlayer;
            // _keyController = new KeyController(Keys.A, Keys.D, Keys.Space);
 
 
-            if (_player)
+            if (newPlayer)
             {
                 left = Keys.A;
                 right = Keys.D;
@@ -89,12 +88,12 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             if (_hasJumped)
             {
                 float i = 1;
-                Speed.Y += 0.15f + i;
-                if (SpritePosition.Y < y) y = SpritePosition.Y;
+                Speed.Y += _gravity + i;
+                if (SpritePosition.Y < _heightOfJump) _heightOfJump = SpritePosition.Y;
             }
             if (SpritePosition.Y + Texture.Height >= clientBounds.Height)
             {
-                y = clientBounds.Height;
+                _heightOfJump = clientBounds.Height;
                 _hasJumped = false;
                 _hasHitTheWall = false;
                 SpritePosition.Y = clientBounds.Height - Texture.Height;
@@ -184,7 +183,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         }
 
         public Rectangle Collide { get { return CollisionRectangle; } }
-        public float GetY { get { Console.Write(y); return y; } set { y = value; } }
+        public float GetY { get { Console.Write(_heightOfJump); return _heightOfJump; } set { _heightOfJump = value; } }
         public Texture2D PlayerTexture { get { return this.Texture; } }
 
         #region ObserverPatternRelated

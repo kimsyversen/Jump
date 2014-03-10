@@ -129,7 +129,7 @@ namespace WindowsGame1WithPatterns
                         player.HasJumped = false;
                         player.HasHitTheWall = false;
                         player.HasHitPlatform = true;
-                        player.GetY = Window.ClientBounds.Height;
+                        player.GetY = floor.FloorPosition.Y;
                         player.OnFloor = floor;
                     }
                     //Sjekker om spilleren hat gått av platformen
@@ -138,8 +138,7 @@ namespace WindowsGame1WithPatterns
                         player.HasHitPlatform = false;
                         player.HasJumped = true;
                        // teller = 1;
-                    }
-                    
+                    }                    
                 }
             }
             if (teller == 1)
