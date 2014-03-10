@@ -18,7 +18,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private bool _platformHit = false;
         private IFloor _platform;
         private float _heightOfJump;
-        private float _gravity = 0.15f;
+        private float _gravity = 1.15f;
+        private float _jumpHeight = 10f;
         private Keys left;
         private Keys right;
         private Keys up;
@@ -74,13 +75,13 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         {
 
 
-            if (Keyboard.GetState().IsKeyDown(right) && _hasHitTheWall == false) Speed.X = playerSpeed;
-            else if (Keyboard.GetState().IsKeyDown(left) && _hasHitTheWall == false) Speed.X = -playerSpeed;
-            else if (_hasHitTheWall == false) Speed.X = 0f;
+            if (Keyboard.GetState().IsKeyDown(right) && !_hasHitTheWall) Speed.X = playerSpeed;
+            else if (Keyboard.GetState().IsKeyDown(left) && !_hasHitTheWall) Speed.X = -playerSpeed;
+            else if (!_hasHitTheWall) Speed.X = 0f;
 
             if (Keyboard.GetState().IsKeyDown(up) && _hasJumped == false)
             {
-                SpritePosition.Y -= 10f;
+                SpritePosition.Y -= _jumpHeight;
                 Speed.Y = -20f;
                 _hasJumped = true;
             }
@@ -88,7 +89,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             if (_hasJumped)
             {
                 float i = 1;
-                Speed.Y += _gravity + i;
+                Speed.Y += _gravity;
                 if (SpritePosition.Y < _heightOfJump) _heightOfJump = SpritePosition.Y;
             }
             if (SpritePosition.Y + Texture.Height >= clientBounds.Height)
@@ -158,32 +159,36 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             set { SpritePosition = value; }
         }
 
-        public bool HasJumped
+        public void LandedOnPlatForm(IFloor floor)
         {
-            get { return _hasJumped; }
-            set { _hasJumped = value; }
+            //Må passe på at spilleren blir tegnet på toppen av platformen
+            Vector2 newPosition = new Vector2(PlayerPosition.X, (floor.FloorPosition.Y - this.Texture.Height + 1));
+            PlayerPosition = newPosition;
+
+            _hasJumped = false;
+            _hasHitTheWall = false;
+            _platformHit = true;
+            _heightOfJump = floor.FloorPosition.Y;
+            _platform = floor;
         }
 
-        public bool HasHitTheWall
+        public void WalkedOfPlatform()
         {
-            get { return _hasHitTheWall; }
-            set { _hasHitTheWall = value; }
+            _platformHit = false;
+            _hasJumped = true;
         }
-
         public bool HasHitPlatform
         {
             get { return _platformHit; }
-            set { _platformHit = value; }
         }
 
         public IFloor OnFloor
         {
             get { return _platform; }
-            set { _platform = value; }
         }
 
         public Rectangle Collide { get { return CollisionRectangle; } }
-        public float GetY { get { Console.Write(_heightOfJump); return _heightOfJump; } set { _heightOfJump = value; } }
+        public float GetY { get { Console.Write(_heightOfJump); return _heightOfJump; } }
         public Texture2D PlayerTexture { get { return this.Texture; } }
 
         #region ObserverPatternRelated

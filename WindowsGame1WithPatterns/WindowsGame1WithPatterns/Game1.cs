@@ -118,26 +118,16 @@ namespace WindowsGame1WithPatterns
                 
                 foreach (var floor in _floors)
                 {
-                    
+                    //Sjekker om spilleren har truffet en platform
                     if (player.Collide.Intersects(floor.Collide) && player.HasHitPlatform == false && (player.GetY + player.PlayerTexture.Height)<floor.FloorPosition.Y)
                     {
-                        //Må passe på at spilleren blir tegnet på toppen av platformen
-                        Vector2 newPosition = new Vector2(player.PlayerPosition.X, (floor.FloorPosition.Y-player.PlayerTexture.Height+1));
-                        player.PlayerPosition = newPosition;
-
-                        Console.WriteLine(floor.ToString());
-                        player.HasJumped = false;
-                        player.HasHitTheWall = false;
-                        player.HasHitPlatform = true;
-                        player.GetY = floor.FloorPosition.Y;
-                        player.OnFloor = floor;
+                        player.LandedOnPlatForm(floor);
                     }
-                    //Sjekker om spilleren hat gått av platformen
+                    //Sjekker om spilleren har gått av platformen
                     if (player.HasHitPlatform && !player.Collide.Intersects(floor.Collide) && floor == player.OnFloor)
                     {
-                        player.HasHitPlatform = false;
-                        player.HasJumped = true;
-                       // teller = 1;
+                        player.WalkedOfPlatform();
+                        teller = 1;
                     }                    
                 }
             }
