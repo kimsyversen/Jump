@@ -31,7 +31,7 @@ namespace WindowsGame1WithPatterns.Classes.States
 
             var fontFactory = _spriteFactory.CreateFontFactory();
 
-            _newGameFont = fontFactory.Font("New GameManager", Color.Black,
+            _newGameFont = fontFactory.Font("New Game", Color.Black,
                                             new Vector2(_game.Window.ClientBounds.Width / 2f,
                                                         _game.Window.ClientBounds.Height / 2f));
             _exitFont = fontFactory.Font("Exit", Color.Black,
@@ -88,7 +88,6 @@ namespace WindowsGame1WithPatterns.Classes.States
 
             //TODO: Change color on font with selectedIndex
             foreach (var font in _fonts)
-                
                 _spriteBatch.DrawString(font.Font, font.FontText, font.Position1, font.Color1);
 
             _spriteBatch.End();

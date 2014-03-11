@@ -50,7 +50,7 @@ namespace WindowsGame1WithPatterns.Classes.States
         /// <param name="game">Referance to the game</param>
         /// <param name="managerId">Unique ID to the manager of this state</param>
         /// <param name="gameStateId">Unique enum under the manager used to identify the state</param>
-        protected State(Microsoft.Xna.Framework.Game game, string managerId, GameStates gameStateId) : base(game)
+        protected State(Game game, string managerId, GameStates gameStateId) : base(game)
         {
             //Add component to game loop.
             game.Components.Add(this);
