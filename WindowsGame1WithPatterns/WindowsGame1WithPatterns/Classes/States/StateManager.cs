@@ -50,7 +50,7 @@ namespace WindowsGame1WithPatterns.Classes.States
             //dont need to know about any of the other states but the
             //current state. The State class takes care of the rest.
             CurrentState = new MenuManager(Game, _stateManagerId);
-            new Game(Game, _stateManagerId);
+            new GameManager(Game, _stateManagerId);
             new GameOver(Game, _stateManagerId);
 
             //Since all managers are default off, enable the one that shall be started
@@ -62,7 +62,7 @@ namespace WindowsGame1WithPatterns.Classes.States
         /// <summary>
         /// Method to constantly check for new states
         /// </summary>
-        /// <param name="gameTime">Game time</param>
+        /// <param name="gameTime">GameManager time</param>
         public override void Update(GameTime gameTime)
         {
             CheckForNewState();

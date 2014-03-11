@@ -14,7 +14,7 @@ namespace WindowsGame1WithPatterns.Classes.States
         public GameOver(Microsoft.Xna.Framework.Game game, string managerId)
             : base(game, managerId, GameStates.GameOver)
         {
-            _gameOverFont = new SimpleFont(game, "Game over! Press K to restart", Color.Black,
+            _gameOverFont = new SimpleFont(game, "GameManager over! Press K to restart", Color.Black,
                                         new Vector2(game.Window.ClientBounds.Width / 2f,
                                                     game.Window.ClientBounds.Height / 2f));
         }

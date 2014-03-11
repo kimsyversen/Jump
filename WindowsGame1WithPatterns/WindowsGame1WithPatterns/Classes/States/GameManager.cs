@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WindowsGame1WithPatterns.Classes.States
 {
-    class Game : State
+    class GameManager : State
     {
         private SpriteBatch _spriteBatch;
         private SpriteFactory _spriteFactory;
@@ -23,7 +23,7 @@ namespace WindowsGame1WithPatterns.Classes.States
         private List<IFont> _fonts;
         private List<IPlatform> _floors;
 
-        public Game(Microsoft.Xna.Framework.Game game, string managerId) : base(game, managerId, GameStates.InGame)
+        public GameManager(Microsoft.Xna.Framework.Game game, string managerId) : base(game, managerId, GameStates.InGame)
         {
         }
 

@@ -27,7 +27,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
             _fontText = fontText;
             Color = color;
             Rotate = 0;
-            Origin = Vector2.Zero;
+            Origin = new Vector2(_font.MeasureString(_fontText).X / 2f, _font.MeasureString(_fontText).Y / 2f);
             Scale = 1.0f;
             SpriteEffects = SpriteEffects.None;
             Position = position;
