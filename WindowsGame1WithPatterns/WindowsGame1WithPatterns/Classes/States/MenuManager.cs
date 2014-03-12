@@ -11,7 +11,6 @@ namespace WindowsGame1WithPatterns.Classes.States
     class MenuManager : State
     {
         private SpriteFactory _spriteFactory;
-        SpriteBatch _spriteBatch;
         private List<SimpleFont> _fonts;
         private SimpleFont _newGameFont;
         private SimpleFont _exitFont;
@@ -19,7 +18,8 @@ namespace WindowsGame1WithPatterns.Classes.States
 
         private Microsoft.Xna.Framework.Game _game;
 
-        public MenuManager(Microsoft.Xna.Framework.Game game, string managerId) : base(game, managerId, GameStates.MainMenu)
+        public MenuManager(Game game, SpriteBatch spriteBatch, string managerId) 
+            : base(game, spriteBatch, managerId, GameStates.MainMenu)
         {
             _game = game;
         }
@@ -31,7 +31,7 @@ namespace WindowsGame1WithPatterns.Classes.States
 
             var fontFactory = _spriteFactory.CreateFontFactory();
 
-            _newGameFont = fontFactory.Font("New GameManager", Color.Black,
+            _newGameFont = fontFactory.Font("New Game", Color.Black,
                                             new Vector2(_game.Window.ClientBounds.Width / 2f,
                                                         _game.Window.ClientBounds.Height / 2f));
             _exitFont = fontFactory.Font("Exit", Color.Black,
@@ -46,7 +46,6 @@ namespace WindowsGame1WithPatterns.Classes.States
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
         public override void Update(GameTime gameTime)
@@ -88,7 +87,6 @@ namespace WindowsGame1WithPatterns.Classes.States
 
             //TODO: Change color on font with selectedIndex
             foreach (var font in _fonts)
-                
                 _spriteBatch.DrawString(font.Font, font.FontText, font.Position1, font.Color1);
 
             _spriteBatch.End();

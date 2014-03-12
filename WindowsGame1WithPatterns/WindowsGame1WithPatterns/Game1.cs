@@ -42,7 +42,9 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void Initialize()
         {
-            _manager = new StateManager(this);
+            // Create a new SpriteBatch, which can be used to draw textures.
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _manager = new StateManager(this, _spriteBatch);
 
             base.Initialize();
         }
@@ -53,8 +55,6 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
             base.LoadContent();
         }
 

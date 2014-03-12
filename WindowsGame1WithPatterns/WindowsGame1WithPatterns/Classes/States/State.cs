@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace WindowsGame1WithPatterns.Classes.States
 {
@@ -25,6 +26,21 @@ namespace WindowsGame1WithPatterns.Classes.States
         private State _changeState;
 
         /// <summary>
+        /// Will hold any child components of the screen
+        /// </summary>
+        private List<GameComponent> _components = new List<GameComponent>();
+        
+        /// <summary>
+        /// Will hold the current Game object
+        /// </summary>
+        protected Game _game;
+
+        /// <summary>
+        /// Will be able to use to draw in inherited classes
+        /// </summary>
+        protected SpriteBatch _spriteBatch;
+
+        /// <summary>
         /// ChangeState is the property that the state manager gets
         /// to change the state. When a state (sub-class of this) 
         /// wants to change the state, it calls the method ChangeStateTo
@@ -45,33 +61,96 @@ namespace WindowsGame1WithPatterns.Classes.States
         }
 
         /// <summary>
+        /// Used in child classes and classes that use the screen to 
+        /// get the list of components of the screen
+        /// </summary>
+        public List<GameComponent> Components
+        {
+            get { return _components; }
+        }
+
+        /// <summary>
         /// State constructor
         /// </summary>
         /// <param name="game">Referance to the game</param>
         /// <param name="managerId">Unique ID to the manager of this state</param>
         /// <param name="gameStateId">Unique enum under the manager used to identify the state</param>
-        protected State(Microsoft.Xna.Framework.Game game, string managerId, GameStates gameStateId) : base(game)
+        protected State(Game game, SpriteBatch spriteBatch, 
+            string managerId, GameStates gameStateId) 
+            : base(game)
         {
-            //Add component to game loop.
-            game.Components.Add(this);
-
-            //All components is default off
-            Enable(false);
             //Add newly created managers to the list (GameManager, MenuManager etc)
             States.Add(string.Concat(managerId, gameStateId.ToString()), this);
 
             //Store the managerId for lookup in the dictionary
             _managerId = managerId;
+
+            //Keep a referance to the game and spriteBatch so that sub classes 
+            //can access them
+            _game = game;
+            _spriteBatch = spriteBatch;
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
         }
 
         /// <summary>
-        /// Enable or disable the states draw and update method
+        /// Update the components if they are enabled
         /// </summary>
-        /// <param name="value">When true the state is enabled, when false the state is disabled</param>
-        public void Enable(bool value)
+        /// <param name="gameTime">Game time</param>
+        public override void Update(GameTime gameTime)
         {
-            Visible = value;
-            Enabled = value;
+            base.Update(gameTime);
+            foreach (GameComponent component in _components)
+                if (component.Enabled)
+                    component.Update(gameTime);
+        }
+
+        /// <summary>
+        /// Draw the component if it is of type DrawableGameComponent and
+        /// is visible
+        /// </summary>
+        /// <param name="gameTime">Game time</param>
+        public override void Draw(GameTime gameTime)
+        {
+            base.Draw(gameTime);
+            foreach (GameComponent component in _components)
+                if (component is DrawableGameComponent &&
+                    ((DrawableGameComponent)component).Visible)
+                    ((DrawableGameComponent)component).Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Used to set the component to be enabled and visible
+        /// </summary>
+        public virtual void Show()
+        {
+            this.Visible = true;
+            this.Enabled = true;
+            foreach (GameComponent component in _components)
+            {
+                component.Enabled = true;
+                if (component is DrawableGameComponent)
+                    ((DrawableGameComponent)component).Visible = true;
+            }
+        }
+
+        /// <summary>
+        /// Sets the Enable and Visible properties to false so the 
+        /// component will not be updated or drawn
+        /// </summary>
+        public virtual void Hide()
+        {
+            this.Visible = false;
+            this.Enabled = false;
+            foreach (GameComponent component in _components)
+            {
+                component.Enabled = false;
+                if (component is DrawableGameComponent)
+                    ((DrawableGameComponent)component).Visible = false;
+            }
         }
 
         /// <summary>

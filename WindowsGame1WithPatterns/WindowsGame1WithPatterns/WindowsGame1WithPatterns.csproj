@@ -111,7 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\KeyboardConfiguration\KeyboardManager.cs" />
-    <Compile Include="Classes\Menu\Menu.cs" />
+    <Compile Include="Classes\Menu\MenuComponent.cs" />
     <Compile Include="Classes\States\GameManager.cs" />
     <Compile Include="Classes\States\GameOver.cs" />
     <Compile Include="Classes\States\StateManager.cs" />
