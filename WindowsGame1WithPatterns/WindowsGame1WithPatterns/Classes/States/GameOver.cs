@@ -9,10 +9,9 @@ namespace WindowsGame1WithPatterns.Classes.States
     class GameOver : State
     {
         private SimpleFont _gameOverFont;
-        private SpriteBatch _spriteBatch;
 
-        public GameOver(Microsoft.Xna.Framework.Game game, string managerId)
-            : base(game, managerId, GameStates.GameOver)
+        public GameOver(Game game, SpriteBatch _spriteBatch, string managerId)
+            : base(game, _spriteBatch, managerId, GameStates.GameOver)
         {
             _gameOverFont = new SimpleFont(game, "GameManager over! Press K to restart", Color.Black,
                                         new Vector2(game.Window.ClientBounds.Width / 2f,
@@ -21,7 +20,6 @@ namespace WindowsGame1WithPatterns.Classes.States
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
         public override void Update(GameTime gameTime)

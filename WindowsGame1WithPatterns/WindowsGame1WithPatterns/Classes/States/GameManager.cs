@@ -13,7 +13,6 @@ namespace WindowsGame1WithPatterns.Classes.States
 {
     class GameManager : State
     {
-        private SpriteBatch _spriteBatch;
         private SpriteFactory _spriteFactory;
         private PlayerFactory _playerFactory;
         private FontFactory _fontFactory;
@@ -23,7 +22,7 @@ namespace WindowsGame1WithPatterns.Classes.States
         private List<IFont> _fonts;
         private List<IPlatform> _floors;
 
-        public GameManager(Microsoft.Xna.Framework.Game game, string managerId) : base(game, managerId, GameStates.InGame)
+        public GameManager(Game game, SpriteBatch spriteBatch, string managerId) : base(game, spriteBatch, managerId, GameStates.InGame)
         {
         }
 
@@ -38,9 +37,6 @@ namespace WindowsGame1WithPatterns.Classes.States
         }
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
             _playerFactory = _spriteFactory.CreatePlayerFactory();
 
             _platformFactory = _spriteFactory.CreatePlatformFactory();

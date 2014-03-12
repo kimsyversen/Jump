@@ -1,16 +1,22 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace WindowsGame1WithPatterns.Classes.States
 {
     /// <summary>
     /// Manager for sub-classes of the state class
     /// </summary>
-    class StateManager : DrawableGameComponent
+    class StateManager : GameComponent
     {
+        /// <summary>
+        /// Used to send down to the states
+        /// </summary>
+        private SpriteBatch _spriteBatch;
+
         /// <summary>
         /// Placeholder for the current state
         /// </summary>
-        protected State CurrentState;
+        private State _currentState;
 
         /// <summary>
         /// Id to unequely identify the state manager
@@ -26,8 +32,13 @@ namespace WindowsGame1WithPatterns.Classes.States
         /// StateManagers constructor
         /// </summary>
         /// <param name="game">Referance to the game</param>
-        public StateManager(Microsoft.Xna.Framework.Game game) : base(game)
+        public StateManager(Game game, SpriteBatch spriteBatch) : base(game)
         {
+            _spriteBatch = spriteBatch;
+            //Give the manager its uneque ID, and increment the naming
+            //integer for the next manager to registrer its name.
+            _stateManagerId = (_uniqueManagerId++).ToString();
+
             //Add StateManagers to game components
             game.Components.Add(this);
         }
@@ -37,24 +48,27 @@ namespace WindowsGame1WithPatterns.Classes.States
         /// </summary>
         public override void Initialize()
         {
-            //StateManagers is not ment to be visible, so the draw method
-            //will be disabled.
-            Visible = false;
-
-            //Give the manager its uneque ID, and increment the naming
-            //integer for the next manager to registrer its name.
-            _stateManagerId = (_uniqueManagerId++).ToString(); 
-
             //Create all the states needed under the manager but remember 
             //the state the manager should start in. The StateManager
             //dont need to know about any of the other states but the
             //current state. The State class takes care of the rest.
-            CurrentState = new MenuManager(Game, _stateManagerId);
-            new GameManager(Game, _stateManagerId);
-            new GameOver(Game, _stateManagerId);
+            var menuManager = new MenuManager(Game, _spriteBatch, _stateManagerId);
+            menuManager.Hide();
+            Game.Components.Add(menuManager);
 
-            //Since all managers are default off, enable the one that shall be started
-            CurrentState.Enable(true);
+            var gameManager = new GameManager(Game, _spriteBatch, _stateManagerId);
+            gameManager.Hide();
+            Game.Components.Add(gameManager);
+
+            var gameOverManager = new GameOver(Game, _spriteBatch, _stateManagerId);
+            gameOverManager.Hide();
+            Game.Components.Add(gameOverManager);
+
+            _currentState = menuManager;
+
+            //At this point all states shall be hidden which is the responsibility 
+            //of the programmer, therefore show the current state
+            _currentState.Show();
 
             base.Initialize();
         }
@@ -77,18 +91,18 @@ namespace WindowsGame1WithPatterns.Classes.States
         {
             //Holds the instance of the state that is to
             //be changed to.
-            var newState = CurrentState.ChangeState;
+            var newState = _currentState.ChangeState;
 
             //If the newState is null, there will not be any state change,
             //and therefor we will return
             if (newState == null) return;
 
             //Disable the current state
-            CurrentState.Enable(false);
+            _currentState.Hide();
             //Change the state to the new state
-            CurrentState = newState;
+            _currentState = newState;
             //Enable the new state
-            CurrentState.Enable(true);
+            _currentState.Show();
         }
     }
 }
