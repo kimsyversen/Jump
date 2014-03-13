@@ -14,6 +14,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
     /// </summary>
     static class InputManager
     {
+        //TODO: Burde denne kanskje gjøres om til singleton? 
         private static KeyboardState _currentKeyboardState;
         private static KeyboardState _previousKeyboardState;
 

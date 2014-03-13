@@ -115,6 +115,8 @@
     <Compile Include="Classes\KeyboardConfiguration\InputManager.cs" />
     <Compile Include="Classes\KeyboardConfiguration\KeyboardManager.cs" />
     <Compile Include="Classes\Components\MenuComponent.cs" />
+    <Compile Include="Classes\KeyboardConfiguration\MKeyboardMapping.cs" />
+    <Compile Include="Classes\FileIO\SerializableDictionary.cs" />
     <Compile Include="Classes\Screens\GameManager.cs" />
     <Compile Include="Classes\Screens\GameOver.cs" />
     <Compile Include="Classes\Screens\MainMenu.cs" />
