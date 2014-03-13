@@ -2,12 +2,14 @@
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using System;
 
 namespace WindowsGame1WithPatterns.FileIO
 {
     /// <summary>
     /// Class with the responsibility to save and load XML 
-    /// files from and to object instances
+    /// files from and to object instances. Classes that use this
+    /// MUST be public!!!
     /// </summary>
     public static class Serializer
     {
@@ -32,6 +34,7 @@ namespace WindowsGame1WithPatterns.FileIO
             catch
             {
                 throw;
+ 
             }
         }
 

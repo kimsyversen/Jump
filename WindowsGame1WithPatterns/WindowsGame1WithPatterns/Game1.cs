@@ -25,13 +25,15 @@ namespace WindowsGame1WithPatterns
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private StateManager _manager;
+        private StateManager _stateManager;
+        private InputManager _inputManager;
  
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            
+
+            //MKeyboardMapping asd = new MKeyboardMapping(@"C:\Users\Magnus Sandgren\Documents\KeyboardMappings.xml");
         }
 
         /// <summary>
@@ -44,7 +46,8 @@ namespace WindowsGame1WithPatterns
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _manager = new StateManager(this, _spriteBatch);
+            _stateManager = new StateManager(this, _spriteBatch);
+            _inputManager = InputManager.Instance;
 
             base.Initialize();
         }
@@ -73,11 +76,11 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void Update(GameTime gameTime)
         {
-            InputManager.Begin();
+            _inputManager.Begin();
             //TODO: Fjern KeyboardManager og bruk InputManager
             KeyboardManager.RefreshCurrentKeyState();
             base.Update(gameTime);
-            InputManager.End();
+            _inputManager.End();
         }
 
         /// <summary>

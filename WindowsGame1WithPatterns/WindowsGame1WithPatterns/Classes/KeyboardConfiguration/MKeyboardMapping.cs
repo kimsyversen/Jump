@@ -10,15 +10,19 @@ using System.IO;
 
 namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
 {
-    class MKeyboardMapping
+    //TODO: Tenke mer på mapping mellom virituelle vs ordentlige keys og lage et system for det
+    /// <summary>
+    /// Class is still under development... (Magnus)
+    /// </summary>
+    public abstract class MKeyboardMapping
     {
-        protected SerializableDictionary<GameKey, Keys> _keyboardMaps = new SerializableDictionary<GameKey, Keys>();
+        protected SerializableDictionary<GameKey, Keys> _keyboardMaps;
         protected string _keyboardMapFilePath;
 
         public MKeyboardMapping(string keyboardMapFilePath)
         {
-            _keyboardMapFilePath = Path.Combine(Environment.CurrentDirectory, keyboardMapFilePath);
-            _keyboardMapFilePath = @"C:\Users\Magnus Sandgren\Documents\Visual Studio 2010\Projects\Jump\WindowsGame1WithPatterns\WindowsGame1WithPatterns\bin\x86\Debug\KeyboardMappings.xml";
+            _keyboardMaps = new SerializableDictionary<GameKey, Keys>();
+            _keyboardMapFilePath = keyboardMapFilePath;
             Load();
         }
 
@@ -30,7 +34,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         /// <returns>True if the key has been pressed between frames, else false</returns>
         public bool IsKeyPressed(GameKey key)
         {
-            return InputManager.IsKeyPressed(_keyboardMaps[key]);
+            return InputManager.Instance.IsKeyPressed(_keyboardMaps[key]);
         }
 
         /// <summary>
@@ -41,7 +45,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         /// <returns>True if the key has been released between frames, else false</returns>
         public bool IsKeyReleased(GameKey key)
         {
-            return InputManager.IsKeyReleased(_keyboardMaps[key]);
+            return InputManager.Instance.IsKeyReleased(_keyboardMaps[key]);
         }
 
 
@@ -54,7 +58,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Could not load keyboard maping file (dous it exist?). Exception message:");
+                Debug.WriteLine("Could not load keyboard maping file (does it exist and is the class calling serialize public?). Exception message:");
                 Debug.WriteLine(e.Message);
                 Debug.WriteLine("Reseting keyboard layout and saving it to the xmlSaveFile.");
                 ResetToDefaultMap();
