@@ -31,7 +31,7 @@ namespace ScreenManager
         private KeyboardState oldKeyboardState;
 
         //Will be used for drawing the text of the menu
-        private SpriteBatch spriteBatch;
+        private SpriteBatch _spriteBatch;
         private SpriteFont spriteFont;
 
         //Will be used to position the menu on the screen
@@ -81,7 +81,7 @@ namespace ScreenManager
             string[] menuItems)
             : base(game)
         {
-            this.spriteBatch = spriteBatch;
+            this._spriteBatch = spriteBatch;
             this.spriteFont = spriteFont;
             this.menuItems = menuItems;
             MeasureMenu();
@@ -155,7 +155,8 @@ namespace ScreenManager
             Vector2 location = position;
             //Will be used to determine what color to draw the text
             Color tint;
-
+            
+            _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             //Loops through all of the menu items check if the index, i, is equal to selectedIndex. 
             for (int i = 0; i < menuItems.Length; i++)
             {
@@ -167,7 +168,7 @@ namespace ScreenManager
                     tint = normal;
 
                 //Draw the string
-                spriteBatch.DrawString(
+                _spriteBatch.DrawString(
                     spriteFont,
                     menuItems[i],
                     location,
@@ -176,6 +177,7 @@ namespace ScreenManager
                 //Set the Y location for the next menu item to be drawn
                 location.Y += spriteFont.LineSpacing + menuItemSpaceing;
             }
+            _spriteBatch.End();
         }
     }
 }

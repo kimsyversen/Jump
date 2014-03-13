@@ -27,7 +27,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private readonly KeyboardMapping _keyboardMapping;
 
         public Player(Game game, KeyboardMapping keyboardMapping)
-            : this(game.Content.Load<Texture2D>(@"Ball"),
+            : this(game.Content.Load<Texture2D>(@"Figure\Ball"),
                 new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height ), new Point(30, 30), new Point(0, 0),
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(10, 10), 0, 100)
         {

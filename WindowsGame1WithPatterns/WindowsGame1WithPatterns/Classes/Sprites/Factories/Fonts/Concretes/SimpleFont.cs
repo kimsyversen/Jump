@@ -23,7 +23,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
 
         public SimpleFont(Game game, String fontText, Color color, Vector2 position)
         {
-            _font = game.Content.Load<SpriteFont>("SimpleFont");
+            _font = game.Content.Load<SpriteFont>(@"Font\SimpleFont");
             _fontText = fontText;
             Color = color;
             Rotate = 0;

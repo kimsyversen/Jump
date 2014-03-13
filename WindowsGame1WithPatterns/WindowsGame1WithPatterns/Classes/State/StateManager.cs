@@ -52,7 +52,7 @@ namespace WindowsGame1WithPatterns.Classes.States
             //the state the manager should start in. The StateManager
             //dont need to know about any of the other states but the
             //current state. The State class takes care of the rest.
-            var menuManager = new MenuManager(Game, _spriteBatch, _stateManagerId);
+            var menuManager = new MainMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
             menuManager.Hide();
             Game.Components.Add(menuManager);
 
