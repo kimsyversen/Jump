@@ -67,7 +67,7 @@ namespace WindowsGame1WithPatterns.Classes.States
         public override void Update(GameTime gameTime)
         {
             if (KeyboardManager.IsKeyDown(Keys.Escape))
-                ChangeStateTo(GameStates.MainMenu);
+                ChangeStateTo(GameStates.InGameMenu);
 
             if (KeyboardManager.IsKeyDown(Keys.P))
                 ChangeStateTo(GameStates.GameOver);

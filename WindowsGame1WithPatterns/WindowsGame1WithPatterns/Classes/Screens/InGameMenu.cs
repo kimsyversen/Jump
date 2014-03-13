@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WindowsGame1WithPatterns.Classes.States;
 using ScreenManager;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using WindowsGame1WithPatterns.Classes.States;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework.Input;
 
 namespace WindowsGame1WithPatterns.Classes.Screens
 {
-    class OptionsMenu : State
+    class InGameMenu : State
     {
         /// <summary>
         /// Will handle the menu for the game
@@ -39,15 +39,15 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         }
 
         //Constructor...
-        public OptionsMenu(Game game,
+        public InGameMenu(Game game,
             SpriteBatch spriteBatch,
             string managerId,
             SpriteFont spriteFont,
             Texture2D image)
-            : base(game, spriteBatch, managerId, GameStates.Options)
+            : base(game, spriteBatch, managerId, GameStates.InGameMenu)
         {
             //Create menu item list
-            string[] menuItems = { "Option menu 1: Not yet implemented", "Option menu 2: Not yet implemented", "Option menu 3: Not yet implemented", "Option menu 4: Not yet implemented" };
+            string[] menuItems = {"Resume game", "Exit to main menu"};
             //Instantiate the MenuComponent
             _menuComponent = new MenuComponent(game,
                 spriteBatch,
@@ -77,15 +77,10 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 switch (SelectedIndex)
                 {
                     case 0:
-                        ChangeStateTo(GameStates.MainMenu);
+                        ChangeStateTo(GameStates.InGame);
                         break;
                     case 1:
-                        ChangeStateTo(GameStates.MainMenu);
-                        break;
-                    case 2:
-                        ChangeStateTo(GameStates.MainMenu);
-                        break;
-                    case 3:
+                        //TODO: turn off the draw of the game state
                         ChangeStateTo(GameStates.MainMenu);
                         break;
                     default:
@@ -106,6 +101,5 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             _spriteBatch.End();
             base.Draw(gameTime);
         }
-
     }
 }

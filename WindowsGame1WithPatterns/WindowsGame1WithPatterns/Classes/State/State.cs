@@ -176,6 +176,7 @@ namespace WindowsGame1WithPatterns.Classes.States
             GameOver,
             Highscore,
             Options,
+            InGameMenu,
         }
     }
 }

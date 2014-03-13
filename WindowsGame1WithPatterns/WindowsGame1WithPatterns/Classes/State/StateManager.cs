@@ -73,7 +73,11 @@ namespace WindowsGame1WithPatterns.Classes.States
             gameManager.Hide();
             Game.Components.Add(gameManager);
 
-            
+            //This must be added last on the Game.Components list because it
+            //needs to be the last ting to be drawn. 
+            var inGameMenuManager = new InGameMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
+            inGameMenuManager.Hide();
+            Game.Components.Add(inGameMenuManager);
 
             _currentState = menuManager;
 

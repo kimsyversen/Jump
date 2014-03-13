@@ -120,6 +120,7 @@
     <Compile Include="Classes\Screens\GameManager.cs" />
     <Compile Include="Classes\Screens\GameOver.cs" />
     <Compile Include="Classes\Screens\HighscoreMenu.cs" />
+    <Compile Include="Classes\Screens\InGameMenu.cs" />
     <Compile Include="Classes\Screens\MainMenu.cs" />
     <Compile Include="Classes\Screens\OptionsMenu.cs" />
     <Compile Include="Classes\State\StateManager.cs" />
