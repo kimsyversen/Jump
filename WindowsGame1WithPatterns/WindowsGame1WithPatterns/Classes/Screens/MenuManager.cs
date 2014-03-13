@@ -16,12 +16,9 @@ namespace WindowsGame1WithPatterns.Classes.States
         private SimpleFont _exitFont;
         public int SelectedIndex = 0;
 
-        private Microsoft.Xna.Framework.Game _game;
-
         public MenuManager(Game game, SpriteBatch spriteBatch, string managerId) 
             : base(game, spriteBatch, managerId, GameStates.MainMenu)
         {
-            _game = game;
         }
 
         public override void Initialize()

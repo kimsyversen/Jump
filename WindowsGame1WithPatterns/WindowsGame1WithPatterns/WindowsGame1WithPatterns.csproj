@@ -17,7 +17,8 @@
     <XnaCrossPlatformGroupID>f79e1915-ab62-4342-80fa-6f6d6ad77032</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
-    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <Thumbnail>
+    </Thumbnail>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -110,14 +111,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\FileIO\Serializer.cs" />
+    <Compile Include="Classes\KeyboardConfiguration\InputManager.cs" />
     <Compile Include="Classes\KeyboardConfiguration\KeyboardManager.cs" />
-    <Compile Include="Classes\Menu\MenuComponent.cs" />
-    <Compile Include="Classes\States\GameManager.cs" />
-    <Compile Include="Classes\States\GameOver.cs" />
-    <Compile Include="Classes\States\StateManager.cs" />
-    <Compile Include="Classes\States\MenuManager.cs" />
+    <Compile Include="Classes\Components\MenuComponent.cs" />
+    <Compile Include="Classes\Screens\GameManager.cs" />
+    <Compile Include="Classes\Screens\GameOver.cs" />
+    <Compile Include="Classes\Screens\MainMenu.cs" />
+    <Compile Include="Classes\State\StateManager.cs" />
+    <Compile Include="Classes\Screens\MenuManager.cs" />
     <Compile Include="Classes\KeyboardConfiguration\KeyboardMapping.cs" />
-    <Compile Include="Classes\States\State.cs" />
+    <Compile Include="Classes\State\State.cs" />
     <Compile Include="Classes\Sprites\NotFontSprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Movement\ICommand.cs" />
     <Compile Include="Classes\Sprites\Factories\Player\Movement\MoveCommand.cs" />
@@ -144,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
-    <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WindowsGame1WithPatternsContent\WindowsGame1WithPatternsContent.contentproj">

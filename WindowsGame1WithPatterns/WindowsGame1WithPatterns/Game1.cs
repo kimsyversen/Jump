@@ -71,11 +71,13 @@ namespace WindowsGame1WithPatterns
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
-
         protected override void Update(GameTime gameTime)
         {
+            InputManager.Begin();
+            //TODO: Fjern KeyboardManager og bruk InputManager
             KeyboardManager.RefreshCurrentKeyState();
             base.Update(gameTime);
+            InputManager.End();
         }
 
         /// <summary>
@@ -84,6 +86,11 @@ namespace WindowsGame1WithPatterns
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            //TODO: Kanakje gjøre slik at spritebatch.begin og end skal være i game.cs og kun der? Slik:
+            //GraphicsDevice.Clear(Color.AntiqueWhite);
+            //_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+            //base.Draw(gameTime);
+            //_spriteBatch.End();
             base.Draw(gameTime);
         }
     }

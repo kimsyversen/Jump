@@ -1,3 +1,4 @@
-Content\Ball.xnb
-Content\stikker.xnb
-Content\SimpleFont.xnb
+Content\Font\SimpleFont.xnb
+Content\Figure\Ball.xnb
+Content\Figure\stikker.xnb
+Content\Figure\GameThumbnail.xnb

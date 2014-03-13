@@ -10,7 +10,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform.Concretes
         
 
         public PlatformNotFontSprite(Game game, float x, float y, int width, int height)
-            : this(game.Content.Load<Texture2D>(@"stikker"),
+            : this(game.Content.Load<Texture2D>(@"Figure\stikker"),
                 new Vector2(x, y), new Point(width, height), new Point(0, 0),
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {

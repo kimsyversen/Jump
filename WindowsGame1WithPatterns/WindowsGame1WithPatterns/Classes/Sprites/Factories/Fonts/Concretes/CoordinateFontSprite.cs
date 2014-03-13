@@ -24,7 +24,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
             _subject.RegisterObserver(this);
 
             
-            _font = game.Content.Load<SpriteFont>("SimpleFont");
+            _font = game.Content.Load<SpriteFont>(@"Font\SimpleFont");
             _coordinateString = "moved yet";
             Color = Color.LightGreen;
             Rotate = 0;
