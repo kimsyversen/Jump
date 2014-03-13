@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using WindowsGame1WithPatterns.Classes.Screens;
 
 namespace WindowsGame1WithPatterns.Classes.States
 {
@@ -56,13 +57,23 @@ namespace WindowsGame1WithPatterns.Classes.States
             menuManager.Hide();
             Game.Components.Add(menuManager);
 
+            var optionsManager = new OptionsMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\Ball"));
+            optionsManager.Hide();
+            Game.Components.Add(optionsManager);
+
+            var gameOverManager = new GameOver(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\Ball"));
+            gameOverManager.Hide();
+            Game.Components.Add(gameOverManager);
+
+            var highscoreManager = new HighscoreMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\Ball"));
+            highscoreManager.Hide();
+            Game.Components.Add(highscoreManager);
+
             var gameManager = new GameManager(Game, _spriteBatch, _stateManagerId);
             gameManager.Hide();
             Game.Components.Add(gameManager);
 
-            var gameOverManager = new GameOver(Game, _spriteBatch, _stateManagerId);
-            gameOverManager.Hide();
-            Game.Components.Add(gameOverManager);
+            
 
             _currentState = menuManager;
 

@@ -10,68 +10,106 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 
 namespace ScreenManager
 {
+    /// <summary>
+    /// Class that takes care of a list of choises, highlights the choise the player has selected
+    /// and expose the choise to other classes. Also known as a menu...
+    /// </summary>
     public class MenuComponent : DrawableGameComponent
     {
-        //Will hold the items for the menu and which 
-        //item is currently selected
-        private string[] menuItems;
-        private int selectedIndex;
+        /// <summary>
+        /// Will hold the items for the menu
+        /// </summary>
+        private string[] _menuItems;
 
-        //Color to draw the normal menu items
-        private Color normal = Color.White;
-        //Color to draw the currently selected menu item
-        private Color hilite = Color.Yellow;
+        /// <summary>
+        /// Will hold the index fot the item currently selected
+        /// </summary>
+        private int _selectedIndex;
 
-        //Will hold the current state of the keyboard and the 
-        //state of the keyboard in the previous frame of the game
-        private KeyboardState keyboardState;
-        private KeyboardState oldKeyboardState;
+        /// <summary>
+        /// Color to draw the normal menu items
+        /// </summary>
+        private Color _normal = Color.White;
 
-        //Will be used for drawing the text of the menu
+        /// <summary>
+        /// Color to draw the currently selected menu item
+        /// </summary>
+        private Color _hilite = Color.Yellow;
+
+        /// <summary>
+        /// Will be used for drawing the text of the menu
+        /// </summary>
         private SpriteBatch _spriteBatch;
-        private SpriteFont spriteFont;
 
-        //Will be used to position the menu on the screen
-        private Vector2 position;
-        private float width = 0f;
-        private float height = 0f;
-        private float menuItemSpaceing = 0f;
+        /// <summary>
+        /// Sprite front for the text of the menu items
+        /// </summary>
+        private SpriteFont _spriteFont;
 
-        //Property for selectedIndex variable with validation
-        //checking on the set. 
+        /// <summary>
+        /// Will be used to position the menu on the screen
+        /// </summary>
+        private Vector2 _position;
+
+        /// <summary>
+        /// Will hold the calculated width of the menu
+        /// </summary>
+        private float _width = 0f;
+
+        /// <summary>
+        /// Will hold the calculated hight of the menu
+        /// </summary>
+        private float _height = 0f;
+
+        /// <summary>
+        /// The spaceing between each menu item
+        /// </summary>
+        private float _menuItemSpaceing = 0f;
+
+        /// <summary>
+        /// Property for selectedIndex variable with validation
+        /// checking on the set. 
+        /// </summary>
         public int SelectedIndex
         {
-            get { return selectedIndex; }
+            get { return _selectedIndex; }
             set
             {
-                selectedIndex = value;
-                if (selectedIndex < 0)
-                    selectedIndex = 0;
-                if (selectedIndex >= menuItems.Length)
-                    selectedIndex = menuItems.Length - 1;
+                _selectedIndex = value;
+                if (_selectedIndex < 0)
+                    _selectedIndex = 0;
+                if (_selectedIndex >= _menuItems.Length)
+                    _selectedIndex = _menuItems.Length - 1;
             }
         }
 
-        //Property for position variable
+        /// <summary>
+        /// Get or set the position of the menu
+        /// </summary>
         public Vector2 Position
         {
-            get { return position; }
-            set { position = value; }
+            get { return _position; }
+            set { _position = value; }
         }
 
-        //Get property for the width variable
+        /// <summary>
+        /// Get property for the width variable
+        /// </summary>
         public float Width
         {
-            get { return width; }
+            get { return _width; }
         }
 
-        //Get property for the height variable
+        /// <summary>
+        /// Get property for the height variable
+        /// </summary>
         public float Height
         {
-            get { return height; }
+            get { return _height; }
         }
 
         //Constructor...
@@ -82,69 +120,64 @@ namespace ScreenManager
             : base(game)
         {
             this._spriteBatch = spriteBatch;
-            this.spriteFont = spriteFont;
-            this.menuItems = menuItems;
+            this._spriteFont = spriteFont;
+            this._menuItems = menuItems;
             MeasureMenu();
         }
 
-        //Mesure menu to position it on the center of the screen
+        /// <summary>
+        /// Mesure menu to position it on the center of the screen
+        /// </summary>
         private void MeasureMenu()
         {
             //Reset the height and width
-            height = 0;
-            width = 0;
-            foreach (string item in menuItems)
+            _height = 0;
+            _width = 0;
+            foreach (string item in _menuItems)
             {
-                Vector2 size = spriteFont.MeasureString(item);
-                if (size.X > width)
-                    width = size.X;
+                Vector2 size = _spriteFont.MeasureString(item);
+                if (size.X > _width)
+                    _width = size.X;
 
-                height += spriteFont.LineSpacing + menuItemSpaceing;
+                _height += _spriteFont.LineSpacing + _menuItemSpaceing;
             }
 
-            position = new Vector2(
-                (Game.Window.ClientBounds.Width - width) / 2,
-                (Game.Window.ClientBounds.Height - height) / 2);
+            _position = new Vector2(
+                (Game.Window.ClientBounds.Width - _width) / 2,
+                (Game.Window.ClientBounds.Height - _height) / 2);
         }
 
-        //Check if theKey is pressed between frames
-        //True: it is
-        //False: it is not
-        private bool CheckKey(Keys theKey)
-        {
-            return keyboardState.IsKeyUp(theKey) &&
-                oldKeyboardState.IsKeyDown(theKey);
-        }
-
+        /// <summary>
+        /// Update the position of the selected menu item
+        /// </summary>
+        /// <param name="gameTime">Game time</param>
         public override void Update(GameTime gameTime)
         {
-            //Get the keyboard state
-            keyboardState = Keyboard.GetState();
-
-            //If the key is pressed down, move selected index down the
+            //If the down key is pressed, move selected index down the
             //menu by increesing the index. If the last menu item is 
             //selected when down key is pressed, the next selected item
             //will be the first in the list. The oposite description holds
             //for the second if statement
-            if (CheckKey(Keys.Down))
+            if (InputManager.Instance.IsKeyPressed(Keys.Down))
             {
-                selectedIndex++;
-                if (selectedIndex == menuItems.Length)
-                    selectedIndex = 0;
+                _selectedIndex++;
+                if (_selectedIndex == _menuItems.Length)
+                    _selectedIndex = 0;
             }
-            if (CheckKey(Keys.Up))
+            if (InputManager.Instance.IsKeyPressed(Keys.Up))
             {
-                selectedIndex--;
-                if (selectedIndex < 0)
-                    selectedIndex = menuItems.Length - 1;
+                _selectedIndex--;
+                if (_selectedIndex < 0)
+                    _selectedIndex = _menuItems.Length - 1;
             }
 
             base.Update(gameTime);
-
-            //Remember the old keyboard state for the next iteration
-            oldKeyboardState = keyboardState;
         }
 
+        /// <summary>
+        /// Draw the menu
+        /// </summary>
+        /// <param name="gameTime">Game time</param>
         public override void Draw(GameTime gameTime)
         {
             //Draw the base first so that the menu will be drawn on top of everything else
@@ -152,33 +185,32 @@ namespace ScreenManager
 
             //Will hold where to draw the next line of the menu and is set 
             //initially to the position field that was calculated in MeasureMenu
-            Vector2 location = position;
+            Vector2 location = _position;
             //Will be used to determine what color to draw the text
             Color tint;
             
             _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             //Loops through all of the menu items check if the index, i, is equal to selectedIndex. 
-            for (int i = 0; i < menuItems.Length; i++)
+            for (int i = 0; i < _menuItems.Length; i++)
             {
                 //If i is equal to selectedIndex: set tint to hilite so the item will be hilited.
                 //Other wise: set tint to normal because it is regular text.
-                if (i == selectedIndex)
-                    tint = hilite;
+                if (i == _selectedIndex)
+                    tint = _hilite;
                 else
-                    tint = normal;
+                    tint = _normal;
 
                 //Draw the string
                 _spriteBatch.DrawString(
-                    spriteFont,
-                    menuItems[i],
+                    _spriteFont,
+                    _menuItems[i],
                     location,
                     tint);
 
                 //Set the Y location for the next menu item to be drawn
-                location.Y += spriteFont.LineSpacing + menuItemSpaceing;
+                location.Y += _spriteFont.LineSpacing + _menuItemSpaceing;
             }
             _spriteBatch.End();
         }
     }
 }
-

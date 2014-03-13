@@ -8,23 +8,51 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
 {
     //Sorce: http://xboxforums.create.msdn.com/forums/p/37393/217007.aspx
     /// <summary>
-    /// The Keyboard.GetState() and Mouse.GetState() are expencive to run.
+    /// The Keyboard.GetState() and Mouse.GetState() are expensive to run.
     /// This class is to minimize the use of the GetState method and to help 
     /// in checking for keystrokes between frames.
     /// </summary>
-    static class InputManager
+    class InputManager
     {
-        //TODO: Burde denne kanskje gjøres om til singleton? 
-        private static KeyboardState _currentKeyboardState;
-        private static KeyboardState _previousKeyboardState;
+        /// <summary>
+        /// Sorce: http://csharpindepth.com/Articles/General/Singleton.aspx
+        /// Singleton implementation 
+        /// </summary>
+        #region Singleton
+        private static readonly Lazy<InputManager> lazy =
+        new Lazy<InputManager>(() => new InputManager());
+    
+        public static InputManager Instance { get { return lazy.Value; } }
 
-        private static MouseState _currentMouseState;
-        private static MouseState _previousMouseState;
+        private InputManager()
+        {
+        }
+        #endregion
+
+        /// <summary>
+        /// Will hold the keyboard state of the current frame
+        /// </summary>
+        private KeyboardState _currentKeyboardState;
+
+        /// <summary>
+        /// Will hold the keyboard state of the previous frame
+        /// </summary>
+        private KeyboardState _previousKeyboardState;
+
+        /// <summary>
+        /// Will hold the mouse state of the current frame
+        /// </summary>
+        private MouseState _currentMouseState;
+
+        /// <summary>
+        /// Will hold the mouse state of the previous frame
+        /// </summary>
+        private MouseState _previousMouseState;
 
         /// <summary>
         /// Get the current MouseState for the frame
         /// </summary>
-        public static MouseState CurrentMouseState
+        public MouseState CurrentMouseState
         {
             get { return _currentMouseState; }
         }
@@ -32,7 +60,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         /// <summary>
         /// Get the MouseState for the previus frame
         /// </summary>
-        public static MouseState PreviousMouseState
+        public MouseState PreviousMouseState
         {
             get { return _previousMouseState; }
         }
@@ -43,7 +71,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         /// </summary>
         /// <param name="key">The key to check</param>
         /// <returns>True if the key has been pressed between frames, else false</returns>
-        public static bool IsKeyPressed(Keys key)  
+        public bool IsKeyPressed(Keys key)  
         {
             return _currentKeyboardState.IsKeyDown(key) && _previousKeyboardState.IsKeyUp(key);
         }
@@ -54,7 +82,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         /// </summary>
         /// <param name="key">The key to check</param>
         /// <returns>True if the key has been released between frames, else false</returns>
-        public static bool IsKeyReleased(Keys key)
+        public bool IsKeyReleased(Keys key)
         {
             return _previousKeyboardState.IsKeyDown(key) && _currentKeyboardState.IsKeyUp(key);
         }
@@ -63,7 +91,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         /// Method to get the current input States of keyboard and mouse
         /// This method should be the first method to run in Game1.Update.
         /// </summary>
-        public static void Begin()  
+        public void Begin()  
         {
             _currentKeyboardState = Keyboard.GetState();
             _currentMouseState = Mouse.GetState();
@@ -73,7 +101,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         /// Method to remember the current input States of keyboard and mouse to the next frame.
         /// This method should be the last method to run in Game1.Update.
         /// </summary>
-        public static void End()  
+        public void End()  
         {
             _previousKeyboardState = _currentKeyboardState;
             _previousMouseState = _currentMouseState;
