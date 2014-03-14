@@ -109,7 +109,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
 
         /// <summary>
         /// Method to get the current input States of keyboard and mouse
-        /// This method should be the first method to run in GameManager.Update.
+        /// This method should be the first method to run in SingleplayerManager.Update.
         /// </summary>
         public void Begin()  
         {
@@ -119,7 +119,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
  
         /// <summary>
         /// Method to remember the current input States of keyboard and mouse to the next frame.
-        /// This method should be the last method to run in GameManager.Update.
+        /// This method should be the last method to run in SingleplayerManager.Update.
         /// </summary>
         public void End()  
         {
