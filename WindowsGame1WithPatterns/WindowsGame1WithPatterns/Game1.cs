@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 //using WindowsGame1WithPatterns.Classes.CameraConfiguration;
+using System.Windows.Forms;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -17,6 +18,9 @@ using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
 using WindowsGame1WithPatterns.Classes.CameraConfiguration;
+using ButtonState = Microsoft.Xna.Framework.Input.ButtonState;
+
+
 namespace WindowsGame1WithPatterns
 {
     /// <summary>
@@ -26,43 +30,51 @@ namespace WindowsGame1WithPatterns
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+        private Texture2D background;
+        private Rectangle mainFrame;
         
         private SpriteFactory _spriteFactory;
         private PlayerFactory _playerFactory;
         private FontFactory _fontFactory;
         private FloorFactory _floorFactory;
-        private CameraManager camera;
-        private List<Vector2> playerPosition;
+        private CameraManager _camera;
+        private List<Vector2> _playerPosition;
 
         private List<IPlayer> _players;
         private List<IFont> _fonts;
         private List<IFloor> _floors;
-        private int height = 0;
+
+        //For platform generation and camera following
+        private int _heightOfBoard = 0;
+        private int _minPlatFormWidth = 100;
+        private const int _minDistance = 20;
+        private int _maxDistance = 100;
+        private int _numberOfPlatforms = 20;
+        private const int HeightBetweenPlatforms = 70;
+        private int _level = 1;
+        
+
+        private const int DifficulityFactor = 20;
+
         public Game1()
         {
             
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 754;
+            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             graphics.PreferredBackBufferWidth = 450;
             graphics.ApplyChanges();
             Content.RootDirectory = "Content";
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
+
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+
             _spriteFactory = new SpriteFactory(this);
             _players = new List<IPlayer>();
             _fonts = new List<IFont>();
             _floors = new List<IFloor>();
-            playerPosition = new List<Vector2>();
+            _playerPosition = new List<Vector2>();
             base.Initialize();
         }
 
@@ -90,9 +102,12 @@ namespace WindowsGame1WithPatterns
             _fontFactory = _spriteFactory.CreateFontFactory();
 
             var font = _fontFactory.PlayerScoreFont(player);
-            camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, graphics.PreferredBackBufferHeight);
+            _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, graphics.PreferredBackBufferHeight);
             _fonts.Add(font);
-            generatePlatforms(100,100,250);
+            GeneratePlatforms(_numberOfPlatforms,_minDistance,_maxDistance,_minPlatFormWidth);
+
+            background = Content.Load<Texture2D>("bg");
+            mainFrame = new Rectangle(0,-100000, GraphicsDevice.Viewport.Width, 110000);
             base.LoadContent();
         }
 
@@ -105,20 +120,6 @@ namespace WindowsGame1WithPatterns
             // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// 
-        /// 
-
-       /* private void test(List<IPlayer> players)
-        {
-            for(int i=0; i<players.Count; i++)
-                if(players[i].
-            }
-           
-        }*/
 
         protected override void Update(GameTime gameTime)
         {
@@ -129,15 +130,15 @@ namespace WindowsGame1WithPatterns
             foreach (var player in _players)
             {
                 player.Update(gameTime, Window.ClientBounds);
-                playerPosition.Add(player.PlayerPosition);
-                camera.Update(playerPosition, Window.ClientBounds.Width, height);
-               // Console.WriteLine("Height: " + height + ", Width: " + Window.ClientBounds.Width);
+                _playerPosition.Add(player.PlayerPosition);
+                _camera.Update(_playerPosition, Window.ClientBounds.Width, _heightOfBoard);
                 foreach (var floor in _floors)
                 {
                     //Sjekker om spilleren har truffet en platform
                     if (player.Collide.Intersects(floor.Collide) && player.HasHitPlatform == false && (player.GetY + player.PlayerTexture.Height)<floor.FloorPosition.Y)
                     {
                         player.LandedOnPlatForm(floor);
+                        _camera.StartCam = true;
                     }
                     //Sjekker om spilleren har gått av platformen
                     if (player.HasHitPlatform && !player.Collide.Intersects(floor.Collide) && floor == player.OnFloor)
@@ -145,8 +146,22 @@ namespace WindowsGame1WithPatterns
                         player.WalkedOfPlatform();
                     }                    
                 }
+
+                //Sjekker om alle spillerne er utenfor brettet/synsvinkel
+                if (GameOver(_players, _camera.Center))
+                {
+                    
+                    Console.WriteLine("GameOver, you reached level: " + _level);
+                    _camera.StartCam = false;
+                }
+
+                //Sjekker om spilleren er ferdig med en level, isåfall starter en ny, vanskeligere en.
+                if (player.PlayerPosition.Y < _floors[_floors.Count - 1].FloorPosition.Y)
+                {
+                    LevelUp();
+                }
             }
-            playerPosition = new List<Vector2>();
+            _playerPosition = new List<Vector2>();
             foreach (var font in _fonts)
                 font.Update(gameTime, Window.ClientBounds);
 
@@ -156,39 +171,57 @@ namespace WindowsGame1WithPatterns
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        /// 
-        
-        protected void generatePlatforms(int antall, int minDistance,int maxDistance)
+  
+        protected void LevelUp()
+        {
+            if(_minPlatFormWidth>10)
+                _minPlatFormWidth = _minPlatFormWidth - (int)DifficulityFactor/2;
+
+           /* if(_minDistance<200)
+            _minDistance = _minDistance + DifficulityFactor;*/
+
+            if(_maxDistance<225)
+                _maxDistance = _maxDistance + DifficulityFactor;
+
+            _numberOfPlatforms = _numberOfPlatforms + (int)DifficulityFactor/4;
+
+            GeneratePlatforms(_numberOfPlatforms, _minDistance, _maxDistance, _minPlatFormWidth);
+            _level++;
+        }
+        protected void GeneratePlatforms(int antall, int minDistance,int maxDistance, int minWidth)
         {
             Random rnd = new Random();
             int teller = 0;
-            IFloor floor;
-            int hoyde = 50;
-            height = hoyde * antall;
-            //Console.WriteLine(height);
+            
             while (teller < antall)
             {
-                int y = rnd.Next(minDistance, maxDistance);
+                IFloor floor;
+                int x = rnd.Next(minDistance, maxDistance);
+                int width = rnd.Next(minWidth, 100);
                 int test = rnd.Next(1, 3);
-                if (test == 1)
+
+                if (teller + 1 == antall)
                 {
-                    floor = _floorFactory.CreateFloorSpriteInputs(_floors[_floors.Count - 1].FloorPosition.X - y,
-                        _floors[_floors.Count - 1].FloorPosition.Y - hoyde, 100, 5);
+                    floor = _floorFactory.CreateFloorSpriteInputs(1,
+                       _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, Window.ClientBounds.Width - 1, 5);
+                }
+                else if (test == 1)
+                {
+                    floor = _floorFactory.CreateFloorSpriteInputs(_floors[_floors.Count - 1].FloorPosition.X - x,
+                        _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, width, 5);
                 }
                 else
                 {
-                    floor = _floorFactory.CreateFloorSpriteInputs(_floors[_floors.Count - 1].FloorPosition.X + y, _floors[_floors.Count - 1].FloorPosition.Y - hoyde, 100, 5);
+                    floor = _floorFactory.CreateFloorSpriteInputs(_floors[_floors.Count - 1].FloorPosition.X + x, _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, width, 5);
                 }
+                
                 if (!CheckOutsideRange(floor))
                 {
                     _floors.Add(floor);
                     teller++;
                 }         
-            }            
+            }
+            _heightOfBoard = HeightBetweenPlatforms*_floors.Count;
         }
 
         private bool CheckOutsideRange(IFloor floor)
@@ -200,18 +233,27 @@ namespace WindowsGame1WithPatterns
             return false;
         }
 
-        // Høyde: 50, lengste hopp: 220
+        private bool GameOver(List<IPlayer> players, Vector2 center)
+        {
+            foreach (IPlayer p in players)
+            {
+                if (!(p.PlayerPosition.Y> center.Y + Window.ClientBounds.Height / 2))
+                {
+                    return false;
+                }              
+            }
+            return true;
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-
            spriteBatch.Begin(SpriteSortMode.Deferred,
                         BlendState.AlphaBlend,
                         null, null, null, null,
-                        camera.Transform);
-
+                        _camera.Transform);
+            spriteBatch.Draw(background,mainFrame,Color.White);
             //spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             foreach (var player in _players)
                 player.Draw(gameTime, spriteBatch);

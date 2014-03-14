@@ -10,6 +10,12 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
     public class CameraManager
     {
         private float velocity;
+        private bool startCam = false;
+  
+        public bool StartCam
+        {
+            set { startCam = value; }
+        }
         public float Velocity
         {
             get { return velocity; }
@@ -21,7 +27,7 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
             get { return transform; }
         }
         private Vector2 center;
-        private Vector2 Center
+        public Vector2 Center
         {
             get { return center; }
         }
@@ -38,7 +44,8 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         }
 
         //private Vector2 vector;
-        private bool test = false;
+        private bool faster = false;
+        private int test = 0;
         public void Update(List<Vector2> position, int xOffset, int yOffset)
         {
             center.X = viewport.Width / 2;
@@ -47,8 +54,7 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
                 center.Y = position[0].Y - (viewport.Height / 2) + 50;
                 counter--;
             }
-            Console.WriteLine(yOffset);
-            if (center.Y < viewport.Height + viewport.Height/2 - yOffset)
+            if (center.Y < viewport.Height + viewport.Height/2 - yOffset-40)
             {
                 velocity = 0f;
                 return;
@@ -56,16 +62,27 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
            
             foreach (Vector2 p in position)
             {
-                if (p.Y < center.Y - 200)
+                if (p.Y < center.Y - 350)
                 {
-                    test = true;
+                    test = 2;
                     break;
                 }
-                test = false;
+                if (p.Y < center.Y - 200)
+                {
+                    test = 1;
+                    faster = true;
+                    break;
+                }
+                faster = false;
+                test = 0;
             }
-            if(test)velocity = -1.2f;
-            else velocity = -0.8f;
-            
+            if (test == 2) velocity = -2.7f;
+            else if (test == 1) velocity = -2.0f;
+            else velocity = -1.2f;
+           /* if(faster)velocity = -2.0f;
+            else velocity = -1.2f;*/
+
+            if(startCam)
             center.Y += velocity;
             
             transform = Matrix.CreateTranslation(new Vector3(-center.X + (viewport.Width / 2),

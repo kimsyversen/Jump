@@ -27,9 +27,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private SoundEffect effect;
 
         //private KeyController _keyController;
-        public PlayerNotFontSprite(Game game, bool newPlayer)
-            : this(game.Content.Load<Texture2D>(@"Ball"),
-                new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height - 30), new Point(30, 30), new Point(0, 0),
+        public PlayerNotFontSprite(Game game, bool newPlayer, String filnavn)
+            : this(game.Content.Load<Texture2D>(filnavn),
+                new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height - 48), new Point(48, 48), new Point(0, 0),
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {
             _game = game;
@@ -37,7 +37,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             _hasJumped = true;
             _hasHitTheWall = false;
             effect = game.Content.Load<SoundEffect>("Jump");
-           // _keyController = new KeyController(Keys.A, Keys.D, Keys.Space);
 
 
             if (newPlayer)
