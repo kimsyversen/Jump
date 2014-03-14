@@ -27,7 +27,7 @@ namespace WindowsGame1WithPatterns
         private SpriteBatch _spriteBatch;
         private StateManager _stateManager;
         private InputManager _inputManager;
-
+        private int _desktopOffset = 150;
         public GraphicsDeviceManager Graphics
         {
             get { return _graphics; }
@@ -37,8 +37,8 @@ namespace WindowsGame1WithPatterns
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            _graphics.PreferredBackBufferWidth = 450;
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - _desktopOffset;
+            
             _graphics.ApplyChanges();
             //MKeyboardMapping asd = new MKeyboardMapping(@"C:\Users\Magnus Sandgren\Documents\KeyboardMappings.xml");
         }
@@ -84,8 +84,7 @@ namespace WindowsGame1WithPatterns
         protected override void Update(GameTime gameTime)
         {
             _inputManager.Begin();
-            //TODO: Fjern KeyboardManager og bruk InputManager
-            KeyboardManager.RefreshCurrentKeyState();
+
             base.Update(gameTime);
             _inputManager.End();
         }

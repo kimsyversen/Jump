@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -26,8 +27,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private Keys up;
         private SoundEffect effect;
 
+        private KeyboardMapping _keyboardMapping;
         //private KeyController _keyController;
-        public Player(Game game, bool newPlayer, String filnavn)
+        public Player(Game game, String filnavn, KeyboardMapping keyboardMapping)
             : this(game.Content.Load<Texture2D>(filnavn),
                 new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height - 48), new Point(48, 48), new Point(0, 0),
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
@@ -37,20 +39,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             _hasJumped = true;
             _hasHitTheWall = false;
             effect = game.Content.Load<SoundEffect>("Audio/Jump");
+            _keyboardMapping = keyboardMapping;
 
 
-            if (newPlayer)
-            {
-                left = Keys.A;
-                right = Keys.D;
-                up = Keys.W;
-            }
-            else
-            {
-                left = Keys.Left;
-                right = Keys.Right;
-                up = Keys.Up;
-            }
         }
 
         public Player(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
@@ -77,11 +68,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         {
 
 
-            if (Keyboard.GetState().IsKeyDown(right) && !_hasHitTheWall) Velocity.X = playerSpeed;
-            else if (Keyboard.GetState().IsKeyDown(left) && !_hasHitTheWall) Velocity.X = -playerSpeed;
+            if (InputManager.Instance.IsKeyPressed(_keyboardMapping.Right) && !_hasHitTheWall) Velocity.X = playerSpeed;
+            else if (InputManager.Instance.IsKeyPressed(_keyboardMapping.Left) && !_hasHitTheWall) Velocity.X = -playerSpeed;
             else if (!_hasHitTheWall) Velocity.X = 0f;
 
-            if (Keyboard.GetState().IsKeyDown(up) && _hasJumped == false)
+            if (InputManager.Instance.IsKeyPressed(_keyboardMapping.Jump) && _hasJumped == false)
             {
                 Position.Y -= _jumpHeight;
                 Velocity.Y = -20f;
@@ -91,7 +82,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
             if (_hasJumped)
             {
-                float i = 1;
                 Velocity.Y += _gravity;
                 if (Position.Y < _heightOfJump) _heightOfJump = Position.Y;
             }

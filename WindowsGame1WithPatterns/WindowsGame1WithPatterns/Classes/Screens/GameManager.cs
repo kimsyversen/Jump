@@ -66,10 +66,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         public GameManager(Game game, SpriteBatch spriteBatch, string managerId, GraphicsDeviceManager graphics)
             : base(game, spriteBatch, managerId, GameStates.InGame)
         {
-            //graphics = new GraphicsDeviceManager(_game);
-           /* graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-            graphics.PreferredBackBufferWidth = 450;
-            graphics.ApplyChanges();  */
             _graphics = graphics;
         }
 
@@ -107,9 +103,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             _players.Add(player2);
             _fontFactory = _spriteFactory.CreateFontFactory();
 
-            var font = _fontFactory.PlayerScoreFont(player);
             _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, _graphics.PreferredBackBufferHeight);
-            _fonts.Add(font);
+          
             GeneratePlatforms(_numberOfPlatforms, _minDistance, _maxDistance, _minPlatFormWidth);
 
             background = _game.Content.Load<Texture2D>("bg");
@@ -129,7 +124,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         public override void Update(GameTime gameTime)
         {
-           if(InputManager.Instance.IsKeyPressed(Keys.Escape))ChangeStateTo(GameStates.InGameMenu);
+           if(InputManager.Instance.IsKeyPressed(Keys.Escape))
+               ChangeStateTo(GameStates.InGameMenu);
 
             foreach (var player in _players)
             {
@@ -146,9 +142,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                     }
                     //Sjekker om spilleren har gått av platformen
                     if (player.HasHitPlatform && !player.Collide.Intersects(floor.Collide) && floor == player.OnFloor)
-                    {
                         player.WalkedOfPlatform();
-                    }
+                    
                 }
 
                 //Sjekker om alle spillerne er utenfor brettet/synsvinkel
@@ -160,9 +155,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
                 //Sjekker om spilleren er ferdig med en level, isåfall starter en ny, vanskeligere en.
                 if (player.PlayerPosition.Y < _floors[_floors.Count - 1].FloorPosition.Y)
-                {
                     LevelUp();
-                }
+                
             }
             _playerPosition = new List<Vector2>();
             foreach (var font in _fonts)
@@ -178,7 +172,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         protected void LevelUp()
         {
             if (_minPlatFormWidth > 10)
-                _minPlatFormWidth = _minPlatFormWidth - (int)DifficulityFactor / 2;
+                _minPlatFormWidth = _minPlatFormWidth - DifficulityFactor / 2;
 
             /* if(_minDistance<200)
              _minDistance = _minDistance + DifficulityFactor;*/
@@ -186,7 +180,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             if (_maxDistance < 225)
                 _maxDistance = _maxDistance + DifficulityFactor;
 
-            _numberOfPlatforms = _numberOfPlatforms + (int)DifficulityFactor / 4;
+            _numberOfPlatforms = _numberOfPlatforms + DifficulityFactor / 4;
 
             GeneratePlatforms(_numberOfPlatforms, _minDistance, _maxDistance, _minPlatFormWidth);
 
@@ -196,7 +190,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         }
         protected void GeneratePlatforms(int antall, int minDistance, int maxDistance, int minWidth)
         {
-            Random rnd = new Random();
+            var rnd = new Random();
             int teller = 0;
 
             while (teller < antall)
@@ -207,19 +201,15 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 int test = rnd.Next(1, 3);
 
                 if (teller + 1 == antall)
-                {
                     floor = _platformFactory.CreateFloorSpriteInputs(1,
                        _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, _game.Window.ClientBounds.Width - 1, 5);
-                }
+                
                 else if (test == 1)
-                {
                     floor = _platformFactory.CreateFloorSpriteInputs(_floors[_floors.Count - 1].FloorPosition.X - x,
                         _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, width, 5);
-                }
+                
                 else
-                {
                     floor = _platformFactory.CreateFloorSpriteInputs(_floors[_floors.Count - 1].FloorPosition.X + x, _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, width, 5);
-                }
 
                 if (!CheckOutsideRange(floor))
                 {
@@ -233,21 +223,16 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         private bool CheckOutsideRange(IPlatform floor)
         {
             if (floor.FloorPosition.X <= 0 || floor.FloorPosition.X + floor.FloorTexture.Width >= _game.Window.ClientBounds.Width)
-            {
                 return true;
-            }
+            
             return false;
         }
 
         private bool GameOver(List<IPlayer> players, Vector2 center)
         {
             foreach (IPlayer p in players)
-            {
-                if (!(p.PlayerPosition.Y > center.Y + _game.Window.ClientBounds.Height / 2))
-                {
+                if (!(p.PlayerPosition.Y > center.Y + _game.Window.ClientBounds.Height / 2f))
                     return false;
-                }
-            }
             return true;
         }
 
@@ -260,7 +245,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                          null, null, null, null,
                          _camera.Transform);
             spriteBatch.Draw(background, mainFrame, Color.White);
-            //spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
+
             foreach (var player in _players)
                 player.Draw(gameTime, spriteBatch);
 
