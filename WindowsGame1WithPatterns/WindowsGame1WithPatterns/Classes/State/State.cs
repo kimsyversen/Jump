@@ -73,6 +73,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         /// State constructor
         /// </summary>
         /// <param name="game">Referance to the game</param>
+        /// <param name="spriteBatch">Referance to the spriteBatch</param>
         /// <param name="managerId">Unique ID to the manager of this state</param>
         /// <param name="gameStateId">Unique enum under the manager used to identify the state</param>
         protected State(Game game, SpriteBatch spriteBatch, 

@@ -1,6 +1,10 @@
 Content\Figure\Ball.xnb
 Content\Figure\stikker.xnb
 Content\Figure\GameThumbnail.xnb
+<<<<<<< HEAD
+=======
+Content\Font\SimpleFont.xnb
+>>>>>>> c77a891d527e0434edaec12d10fa38033228cb6b
 Content\bg.xnb
 Content\Figure\greenstoy.xnb
 Content\Figure\lilastoy.xnb
