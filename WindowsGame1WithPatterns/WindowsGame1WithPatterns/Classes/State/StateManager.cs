@@ -9,11 +9,11 @@ namespace WindowsGame1WithPatterns.Classes.State
     /// </summary>
     class StateManager : GameComponent
     {
-        private GraphicsDeviceManager _graphics;
         /// <summary>
-        /// Store the game object
+        /// Used to be sendt down to the states
         /// </summary>
-        private Game _game;
+        private GraphicsDeviceManager _graphics;
+
         /// <summary>
         /// Used to send down to the states
         /// </summary>
@@ -38,10 +38,11 @@ namespace WindowsGame1WithPatterns.Classes.State
         /// StateManagers constructor
         /// </summary>
         /// <param name="game">Referance to the game</param>
+        /// <param name="spriteBatch">Referance to the spriteBatch</param>
+        /// <param name="graphics">Referance to the graphics</param>
         public StateManager(Game game, SpriteBatch spriteBatch, GraphicsDeviceManager graphics) : base(game)
         {
-            _graphics = graphics; 
-            _game = game;
+            _graphics = graphics;
 
             _spriteBatch = spriteBatch;
             //Give the manager its uneque ID, and increment the naming
