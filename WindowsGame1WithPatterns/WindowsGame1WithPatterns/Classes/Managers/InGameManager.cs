@@ -8,6 +8,7 @@ using WindowsGame1WithPatterns.Classes.Sprites.Factories;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Floors;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
+using WindowsGame1WithPatterns.Classes.CameraConfiguration;
 
 namespace WindowsGame1WithPatterns.Classes.Managers
 {
@@ -15,6 +16,7 @@ namespace WindowsGame1WithPatterns.Classes.Managers
     class InGameManager : DrawableGameComponent, IManager
     {
         SpriteBatch _spriteBatch;
+        CameraManager camera;
         private SpriteFactory _spriteFactory;
         private PlayerFactory _playerFactory;
         private FontFactory _fontFactory;
@@ -52,12 +54,26 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             var floor = _floorFactory.CreateFloorSprite();
             var floor2 = _floorFactory.CreateFloorSprite1();
             var floor3 = _floorFactory.CreateFloorSprite2();
+            var floor4 = _floorFactory.CreateFloorSprite3();
+            var floor5 = _floorFactory.CreateFloorSprite4();
+            var floor6 = _floorFactory.CreateFloorSprite5();
+            var floor7 = _floorFactory.CreateFloorSprite6();
+            var floor8 = _floorFactory.CreateFloorSprite7();
+            var floor9 = _floorFactory.CreateFloorSprite8();
             _floors.Add(floor);
             _floors.Add(floor2);
             _floors.Add(floor3);
+            _floors.Add(floor4);
+            _floors.Add(floor5);
+            _floors.Add(floor6);
+            _floors.Add(floor7);
+            _floors.Add(floor8); 
+            _floors.Add(floor9);
 
             var player = _playerFactory.CreatePlayerOne();
             //var player2 = _playerFactory.CreatePlayerTwo();
+
+            camera = new CameraManager(GraphicsDevice.Viewport);
 
             _players.Add(player);
             // _players.Add(player2);
@@ -83,6 +99,8 @@ namespace WindowsGame1WithPatterns.Classes.Managers
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Game.Exit();
+
+
 
             foreach (var player in _players)
             {
@@ -111,6 +129,9 @@ namespace WindowsGame1WithPatterns.Classes.Managers
                     }
                 }
             }
+            //Camera inputs: player position, xOffset, yOffset
+            camera.Update(_players[0].PlayerPosition, 557, 1100);
+
             if (teller == 1)
             {
                 _floors.Add(_floorFactory.CreateFloorSpriteInputs(50, 50, 100, 5));
@@ -134,16 +155,19 @@ namespace WindowsGame1WithPatterns.Classes.Managers
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-
-            foreach (var player in _players)
-                player.Draw(gameTime, _spriteBatch);
+            _spriteBatch.Begin(SpriteSortMode.Deferred,
+                        BlendState.AlphaBlend,
+                        null, null, null, null,
+                        camera.Transform);
 
             foreach (var font in _fonts)
                 font.Draw(gameTime, _spriteBatch);
 
             foreach (var floor in _floors)
                 floor.Draw(gameTime, _spriteBatch);
+
+            foreach (var player in _players)
+                player.Draw(gameTime, _spriteBatch);
 
             _spriteBatch.End();
 

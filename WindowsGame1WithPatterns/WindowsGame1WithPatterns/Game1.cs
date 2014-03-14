@@ -33,6 +33,10 @@ namespace WindowsGame1WithPatterns
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            // Adjust game window size
+            _graphics.PreferredBackBufferHeight = 900;
+            _graphics.PreferredBackBufferWidth = 557;
         }
 
         /// <summary>
