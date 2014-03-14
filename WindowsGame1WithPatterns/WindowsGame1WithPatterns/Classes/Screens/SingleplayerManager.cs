@@ -29,9 +29,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-     class GameManager : State.State//, Microsoft.Xna.Framework
+     class SingleplayerManager : State.State//, Microsoft.Xna.Framework
     {
-        GraphicsDeviceManager graphics;
+        private GraphicsDeviceManager _graphics;
         SpriteBatch spriteBatch;
         private Texture2D background;
         private Rectangle mainFrame;
@@ -55,16 +55,18 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         private int _maxDistance = 100;
         private int _numberOfPlatforms = 20;
         private const int HeightBetweenPlatforms = 70;
+         
+        //TODO: REMOVE?
         private int _level = 1;
-        private GraphicsDeviceManager _graphics;
+     
 
 
         private const int DifficulityFactor = 20;
 
 
 
-        public GameManager(Game game, SpriteBatch spriteBatch, string managerId, GraphicsDeviceManager graphics)
-            : base(game, spriteBatch, managerId, GameStates.InGame)
+        public SingleplayerManager(Game game, SpriteBatch spriteBatch, string managerId, GraphicsDeviceManager graphics)
+            : base(game, spriteBatch, managerId, GameStates.SingleplayerManager)
         {
             _graphics = graphics;
         }
@@ -97,10 +99,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             _floors.Add(floor);
 
             var player = _playerFactory.CreatePlayerOne();
-            var player2 = _playerFactory.CreatePlayerTwo();
 
             _players.Add(player);
-            _players.Add(player2);
+         
             _fontFactory = _spriteFactory.CreateFontFactory();
 
             _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, _graphics.PreferredBackBufferHeight);

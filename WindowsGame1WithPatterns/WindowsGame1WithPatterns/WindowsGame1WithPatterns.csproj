@@ -118,11 +118,13 @@
     <Compile Include="Classes\Components\MenuComponent.cs" />
     <Compile Include="Classes\KeyboardConfiguration\MKeyboardMapping.cs" />
     <Compile Include="Classes\FileIO\SerializableDictionary.cs" />
-    <Compile Include="Classes\Screens\GameManager.cs" />
+    <Compile Include="Classes\Screens\MultiplayerManager.cs" />
+    <Compile Include="Classes\Screens\SingleplayerManager.cs" />
     <Compile Include="Classes\Screens\GameOver.cs" />
     <Compile Include="Classes\Screens\HighscoreMenu.cs" />
     <Compile Include="Classes\Screens\InGameMenu.cs" />
     <Compile Include="Classes\Screens\MainMenu.cs" />
+    <Compile Include="Classes\Screens\ChoosePlayerManager.cs" />
     <Compile Include="Classes\Screens\OptionsMenu.cs" />
     <Compile Include="Classes\State\StateManager.cs" />
     <Compile Include="Classes\KeyboardConfiguration\KeyboardMapping.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Classes\Sprites\Sprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Fonts\Concretes\SimpleFont.cs" />
+    <Compile Include="StateMan.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -80,7 +80,7 @@ namespace WindowsGame1WithPatterns.Classes.State
             string managerId, GameStates gameStateId) 
             : base(game)
         {
-            //Add newly created managers to the list (GameManager, MenuManager etc)
+            //Add newly created managers to the list (SingleplayerManager, MenuManager etc)
             States.Add(string.Concat(managerId, gameStateId.ToString()), this);
 
             //Store the managerId for lookup in the dictionary
@@ -178,6 +178,9 @@ namespace WindowsGame1WithPatterns.Classes.State
             Highscore,
             Options,
             InGameMenu,
+            MultiplayerManager,
+            SingleplayerManager,
+            ChoosePlayerManager,
         }
     }
 }

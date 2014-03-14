@@ -75,7 +75,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 switch (SelectedIndex)
                 {
                     case 0:
-                        ChangeStateTo(GameStates.InGame);
+                        ChangeStateTo(GameStates.ChoosePlayerManager);
                         break;
                     case 1:
                         ChangeStateTo(GameStates.Highscore);
@@ -86,10 +86,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                     case 3:
                         Game.Exit();
                         break;
-                    default:
-                        break;
                 }
-                //Reset the 
+                //Reset the menu
                 SelectedIndex = 0;
             }
             base.Update(gameTime);

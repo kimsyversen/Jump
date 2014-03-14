@@ -78,15 +78,30 @@ namespace WindowsGame1WithPatterns.Classes.State
             highscoreManager.Hide();
             Game.Components.Add(highscoreManager);
 
-            var gameManager = new GameManager(Game, _spriteBatch, _stateManagerId, _graphics);
+            var gameManager = new SingleplayerManager(Game, _spriteBatch, _stateManagerId, _graphics);
             gameManager.Hide();
             Game.Components.Add(gameManager);
+
+
+
+            var choosePlayerManager = new ChoosePlayerManager(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
+            choosePlayerManager.Hide();
+            Game.Components.Add(choosePlayerManager);
+
+            var multiplayerManager = new MultiplayerManager(Game, _spriteBatch, _stateManagerId, _graphics);
+            multiplayerManager.Hide();
+            Game.Components.Add(multiplayerManager);
+
+
+
 
             //This must be added last on the Game.Components list because it
             //needs to be the last ting to be drawn. 
             var inGameMenuManager = new InGameMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
             inGameMenuManager.Hide();
             Game.Components.Add(inGameMenuManager);
+
+
 
             _currentState = menuManager;
 
@@ -100,7 +115,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         /// <summary>
         /// Method to constantly check for new states
         /// </summary>
-        /// <param name="gameTime">GameManager time</param>
+        /// <param name="gameTime">SingleplayerManager time</param>
         public override void Update(GameTime gameTime)
         {
             CheckForNewState();
