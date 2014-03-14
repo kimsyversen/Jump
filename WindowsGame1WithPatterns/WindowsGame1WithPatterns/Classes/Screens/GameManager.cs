@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace WindowsGame1WithPatterns.Classes.States
+namespace WindowsGame1WithPatterns.Classes.Screens
 {
-    class GameManager : State
+    class GameManager : State.State
     {
         private SpriteFactory _spriteFactory;
         private PlayerFactory _playerFactory;

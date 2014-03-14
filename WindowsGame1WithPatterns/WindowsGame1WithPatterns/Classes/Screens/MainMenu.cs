@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ScreenManager;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+﻿using WindowsGame1WithPatterns.Classes.Components;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace WindowsGame1WithPatterns.Classes.States
+namespace WindowsGame1WithPatterns.Classes.Screens
 {
     /// <summary>
     /// Class to handle the GUI and logic of the main menu of the game
     /// </summary>
-    class MainMenu : State
+    class MainMenu : State.State
     {
         /// <summary>
         /// Will handle the menu for the game
@@ -93,6 +89,8 @@ namespace WindowsGame1WithPatterns.Classes.States
                     default:
                         break;
                 }
+                //Reset the 
+                SelectedIndex = 0;
             }
             base.Update(gameTime);
         }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
+namespace WindowsGame1WithPatterns.Classes.FileIO
 {
     //Sorce: http://stackoverflow.com/questions/12554186/how-to-serialize-deserialize-to-dictionaryint-string-from-custom-xml-not-us
     [XmlRoot("dictionary")]

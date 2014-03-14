@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WindowsGame1WithPatterns.Classes.FileIO;
 using Microsoft.Xna.Framework.Input;
-using WindowsGame1WithPatterns.FileIO;
 using System.Xml.Serialization;
 using System.Diagnostics;
 using System.IO;

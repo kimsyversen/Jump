@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ScreenManager;
+using WindowsGame1WithPatterns.Classes.Components;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using WindowsGame1WithPatterns.Classes.States;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework.Input;
 
 namespace WindowsGame1WithPatterns.Classes.Screens
 {
-    class OptionsMenu : State
+    class OptionsMenu : State.State
     {
         /// <summary>
         /// Will handle the menu for the game

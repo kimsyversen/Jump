@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WindowsGame1WithPatterns.Classes.States;
-using ScreenManager;
+using WindowsGame1WithPatterns.Classes.Components;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
@@ -11,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WindowsGame1WithPatterns.Classes.Screens
 {
-    class HighscoreMenu : State
+    class HighscoreMenu : State.State
     {
         /// <summary>
         /// Will handle the menu for the game

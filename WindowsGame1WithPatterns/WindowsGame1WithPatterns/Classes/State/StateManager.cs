@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using WindowsGame1WithPatterns.Classes.Screens;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WindowsGame1WithPatterns.Classes.Screens;
 
-namespace WindowsGame1WithPatterns.Classes.States
+namespace WindowsGame1WithPatterns.Classes.State
 {
     /// <summary>
     /// Manager for sub-classes of the state class

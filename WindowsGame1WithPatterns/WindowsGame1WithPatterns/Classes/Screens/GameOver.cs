@@ -1,13 +1,12 @@
-﻿using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
+﻿using WindowsGame1WithPatterns.Classes.Components;
+using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes;
-using ScreenManager;
 
-namespace WindowsGame1WithPatterns.Classes.States
+namespace WindowsGame1WithPatterns.Classes.Screens
 {
-    class GameOver : State
+    class GameOver : State.State
     {
         /// <summary>
         /// Will handle the menu for the game

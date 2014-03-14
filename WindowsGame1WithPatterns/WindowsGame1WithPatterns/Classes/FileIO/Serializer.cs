@@ -2,9 +2,8 @@
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using System;
 
-namespace WindowsGame1WithPatterns.FileIO
+namespace WindowsGame1WithPatterns.Classes.FileIO
 {
     /// <summary>
     /// Class with the responsibility to save and load XML 
