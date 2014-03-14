@@ -153,6 +153,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 //Sjekker om alle spillerne er utenfor brettet/synsvinkel
                 if (GameOver(_players, _camera.Center))
                 {
+                    ChangeStateTo(GameStates.GameOver);
 
                     Console.WriteLine("GameOver, you reached level: " + _level);
                     _camera.StartCam = false;
