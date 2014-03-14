@@ -10,13 +10,13 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player
     {
         Vector2 PlayerSpeed { get; set; }
         Vector2 PlayerPosition { get; set; }
-        bool HasJumped { get; set; }
-        bool HasHitTheWall { get; set; }
-        bool HasHitPlatform { get; set; }
-        IPlatform OnPlatform { get; set; }
+        bool HasHitPlatform { get; }
+        IPlatform OnFloor { get; }
         Rectangle Collide { get; }
-        float GetY { get; set; }
+        float GetY { get; }
         Texture2D PlayerTexture { get; }
+        void LandedOnPlatForm(IPlatform floor);
+        void WalkedOfPlatform();
 
        
 

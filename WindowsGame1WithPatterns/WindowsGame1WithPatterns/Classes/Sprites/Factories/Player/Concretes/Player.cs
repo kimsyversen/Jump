@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
+using WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Movement;
 using System;
 
@@ -18,171 +18,119 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private bool _hasHitTheWall;
         private bool _platformHit = false;
         private IPlatform _platform;
-        private float WhatIsDis;
-        private float moveSpeed = 4f;
+        private float _heightOfJump;
+        private float _gravity = 1.15f;
+        private float _jumpHeight = 10f;
+        private Keys left;
+        private Keys right;
+        private Keys up;
+        private SoundEffect effect;
 
-        /// <summary>
-        /// Keymappings for the player
-        /// </summary>
-        private readonly KeyboardMapping _keyboardMapping;
-
-        public Player(Game game, KeyboardMapping keyboardMapping)
-            : this(game.Content.Load<Texture2D>(@"Figure\Ball"),
-                new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height ), new Point(30, 30), new Point(0, 0),
-                new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(10, 10), 0, 100)
+        //private KeyController _keyController;
+        public Player(Game game, bool newPlayer, String filnavn)
+            : this(game.Content.Load<Texture2D>(filnavn),
+                new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height - 48), new Point(48, 48), new Point(0, 0),
+                new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {
             _game = game;
             _observers = new List<IFont>();
             _hasJumped = true;
             _hasHitTheWall = false;
-     
-            _keyboardMapping = keyboardMapping;
+            effect = game.Content.Load<SoundEffect>("Audio/Jump");
+
+
+            if (newPlayer)
+            {
+                left = Keys.A;
+                right = Keys.D;
+                up = Keys.W;
+            }
+            else
+            {
+                left = Keys.Left;
+                right = Keys.Right;
+                up = Keys.Up;
+            }
         }
 
-        /// <summary>
-        /// Standard constructor
-        /// </summary>
-        /// <param name="texture"></param>
-        /// <param name="position"></param>
-        /// <param name="frameSize"></param>
-        /// <param name="frameCurrent"></param>
-        /// <param name="sheetSize"></param>
-        /// <param name="rotate"></param>
-        /// <param name="origin"></param>
-        /// <param name="scale"></param>
-        /// <param name="spriteEffects"></param>
-        /// <param name="velocity"></param>
-        /// <param name="collisionOffset"></param>
-        /// <param name="timeSinceLastFrame"></param>
-        public Player(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
+        public Player(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
                             Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects,
-                            Vector2 velocity, int collisionOffset, int timeSinceLastFrame)
+                            Vector2 speed, int collisionOffset, int timeSinceLastFrame)
             : base(
-                texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity,
+                texture, spritePosition, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, speed,
                 collisionOffset, timeSinceLastFrame)
         {
         }
 
-        /// <summary>
-        /// Used to set how many milliseconds one frame should be displayed. 
-        /// This gives the possibility to have individual sprites that animates slower/faster
-        /// </summary>
-        /// <param name="texture"></param>
-        /// <param name="position"></param>
-        /// <param name="frameSize"></param>
-        /// <param name="frameCurrent"></param>
-        /// <param name="sheetSize"></param>
-        /// <param name="rotate"></param>
-        /// <param name="origin"></param>
-        /// <param name="scale"></param>
-        /// <param name="spriteEffects"></param>
-        /// <param name="velocity"></param>
-        /// <param name="collisionOffset"></param>
-        /// <param name="millisecondsPerFrame"></param>
-        /// <param name="timeSinceLastFrame"></param>
-        public Player(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
+        public Player(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
                             Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects,
-                            Vector2 velocity, int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame)
+                            Vector2 speed, int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame)
             : base(
-                texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity,
+                texture, spritePosition, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, speed,
                 collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
         }
-        #region properties
-        public Vector2 PlayerSpeed
-        {
-            get { return Velocity; }
-            set { Velocity = value; }
-        }
+        const float playerSpeed = 3.0f;
 
-        public Vector2 PlayerPosition
-        {
-            get { return Position; }
-            set { Position = value; }
-        }
 
-        public bool HasJumped
-        {
-            get { return _hasJumped; }
-            set { _hasJumped = value; }
-        }
-
-        public bool HasHitTheWall
-        {
-            get { return _hasHitTheWall; }
-            set { _hasHitTheWall = value; }
-        }
-
-        public bool HasHitPlatform
-        {
-            get { return _platformHit; }
-            set { _platformHit = value; }
-        }
-
-        public IPlatform OnPlatform
-        {
-            get { return _platform; }
-            set { _platform = value; }
-        }
-
-        public Rectangle Collide { get { return CollisionRectangle; } }
-        public float GetY { get { Console.Write(WhatIsDis); return WhatIsDis; } set { WhatIsDis = value; } }
-        public Texture2D PlayerTexture { get { return this.Texture; } }
-        #endregion
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            if(!_hasHitTheWall)
-                if (KeyboardManager.IsKeyDown(_keyboardMapping.Right)) 
-                    Velocity.X = moveSpeed;
-                else if (KeyboardManager.IsKeyDown(_keyboardMapping.Left)) 
-                    Velocity.X = -moveSpeed;
-                else
-                    Velocity.X = 0f;
 
-            if (KeyboardManager.IsKeyDown(_keyboardMapping.Jump) && _hasJumped == false)
+
+            if (Keyboard.GetState().IsKeyDown(right) && !_hasHitTheWall) Velocity.X = playerSpeed;
+            else if (Keyboard.GetState().IsKeyDown(left) && !_hasHitTheWall) Velocity.X = -playerSpeed;
+            else if (!_hasHitTheWall) Velocity.X = 0f;
+
+            if (Keyboard.GetState().IsKeyDown(up) && _hasJumped == false)
             {
-                Position.Y -= 10f;
+                Position.Y -= _jumpHeight;
                 Velocity.Y = -20f;
                 _hasJumped = true;
+                effect.Play();
             }
 
             if (_hasJumped)
             {
-                Velocity.Y += 0.15f + 1;
-                if (Position.Y < WhatIsDis) 
-                    WhatIsDis = Position.Y;
+                float i = 1;
+                Velocity.Y += _gravity;
+                if (Position.Y < _heightOfJump) _heightOfJump = Position.Y;
             }
             if (Position.Y + Texture.Height >= clientBounds.Height)
             {
-                WhatIsDis = clientBounds.Height;
+                _heightOfJump = clientBounds.Height;
                 _hasJumped = false;
                 _hasHitTheWall = false;
                 Position.Y = clientBounds.Height - Texture.Height;
             }
 
-            if (!_hasJumped )
+            if (_hasJumped == false)
+            {
                 Velocity.Y = 0f;
+            }
+
 
             if (Position.X <= 0)
-                if (_hasJumped)
+            {
+                if (_hasJumped == true)
                 {
-                    Velocity.X = moveSpeed;
-                    Velocity.Y = -moveSpeed - 5;
+                    Velocity.X = playerSpeed;
+                    Velocity.Y = -playerSpeed - 5;
                     _hasHitTheWall = true;
                 }
-                else 
-                    Position.X = 0;
+                else Position.X = 0;
 
+            }
             if (Position.X >= (clientBounds.Width - Texture.Width))
-                if (_hasJumped)
+            {
+                if (_hasJumped == true)
                 {
-                    Velocity.X = -moveSpeed;
-                    Velocity.Y = -moveSpeed - 5;
+                    Velocity.X = -playerSpeed;
+                    Velocity.Y = -playerSpeed - 5;
                     _hasHitTheWall = true;
                 }
-                else 
-                    Position.X = clientBounds.Width - Texture.Width;
-           
+                else Position.X = clientBounds.Width - Texture.Width;
+            }
+
             //Bruker MoveCommand for flyttingen, og gir beskjed til observer
             var cmd = new MoveCommand(this, new Vector2(Velocity.X, Velocity.Y), new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y));
             cmd.Execute();
@@ -194,13 +142,62 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
         public new void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            //Let the sprite class do it
             base.Draw(gameTime, spriteBatch);
         }
 
 
+        public Vector2 PlayerSpeed
+        {
+            get { return Velocity; }
+            set
+            {
+                Velocity = value;
+            }
+        }
 
+        public Vector2 PlayerPosition
+        {
+            get { return Position; }
+            set { Position = value; }
+        }
+
+        public void LandedOnPlatForm(IPlatform floor)
+        {
+            //Må passe på at spilleren blir tegnet på toppen av platformen
+            Vector2 newPosition = new Vector2(PlayerPosition.X, (floor.FloorPosition.Y - this.Texture.Height + 1));
+            PlayerPosition = newPosition;
+
+            _hasJumped = false;
+            _hasHitTheWall = false;
+            _platformHit = true;
+            _heightOfJump = floor.FloorPosition.Y;
+            _platform = floor;
+        }
+
+        public void WalkedOfPlatform()
+        {
+            _platformHit = false;
+            _hasJumped = true;
+        }
+        public bool HasHitPlatform
+        {
+            get { return _platformHit; }
+        }
+
+        public IPlatform OnFloor
+        {
+            get { return _platform; }
+        }
+
+        public Rectangle Collide { get { return CollisionRectangle; } }
+        public float GetY { get { return _heightOfJump; } }
+        public Texture2D PlayerTexture { get { return this.Texture; } }
 
         #region ObserverPatternRelated
+
+
+
 
         public void RegisterObserver(IFont observer)
         {

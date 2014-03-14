@@ -27,12 +27,19 @@ namespace WindowsGame1WithPatterns
         private SpriteBatch _spriteBatch;
         private StateManager _stateManager;
         private InputManager _inputManager;
- 
+
+        public GraphicsDeviceManager Graphics
+        {
+            get { return _graphics; }
+        }
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            _graphics.PreferredBackBufferWidth = 450;
+            _graphics.ApplyChanges();
             //MKeyboardMapping asd = new MKeyboardMapping(@"C:\Users\Magnus Sandgren\Documents\KeyboardMappings.xml");
         }
 
@@ -46,7 +53,7 @@ namespace WindowsGame1WithPatterns
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _stateManager = new StateManager(this, _spriteBatch);
+            _stateManager = new StateManager(this, _spriteBatch, _graphics);
             _inputManager = InputManager.Instance;
 
             base.Initialize();

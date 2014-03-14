@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\CameraConfiguration\CameraManager.cs" />
     <Compile Include="Classes\FileIO\Serializer.cs" />
     <Compile Include="Classes\KeyboardConfiguration\InputManager.cs" />
     <Compile Include="Classes\KeyboardConfiguration\KeyboardManager.cs" />

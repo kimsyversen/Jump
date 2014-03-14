@@ -15,12 +15,12 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player
 
         public override IPlayer CreatePlayerOne()
         {
-            return new Concretes.Player(_game, new KeyboardMapping(Keys.A, Keys.D, Keys.Space));
+            return new Concretes.Player(_game, true, "Figure/lilastoy");
         }
 
         public override IPlayer CreatePlayerTwo()
         {
-            return new Concretes.Player(_game, new KeyboardMapping(Keys.Left, Keys.Right, Keys.Up));
+            return new Concretes.Player(_game, false, "Figure/greenstoy");
         }
     }
 }

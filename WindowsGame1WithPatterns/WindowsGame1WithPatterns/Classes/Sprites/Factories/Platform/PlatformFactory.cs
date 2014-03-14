@@ -14,17 +14,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform
         }
         public override IPlatform CreateFloorSprite()
         {
-            return new PlatformNotFontSprite(_game, _game.Window.ClientBounds.Width/2f, (_game.Window.ClientBounds.Height / 2f) + 100, 100, 5);
-        }
-
-        public  IPlatform CreateFloorSprite1()
-        {
-            return new PlatformNotFontSprite(_game, (_game.Window.ClientBounds.Width / 2f)-200, (_game.Window.ClientBounds.Height / 2f) + 100, 100, 5);
-        }
-
-        public IPlatform CreateFloorSprite2()
-        {
-            return new PlatformNotFontSprite(_game, (_game.Window.ClientBounds.Width / 2f) -200, (_game.Window.ClientBounds.Height / 2f)-20, 100, 5);
+            return new PlatformNotFontSprite(_game, 0, (_game.Window.ClientBounds.Height) - 5, _game.Window.ClientBounds.Width, 5);
         }
 
         public IPlatform CreateFloorSpriteInputs(float startX, float startY, int width, int height)
