@@ -20,15 +20,20 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         private bool _platformHit = false;
         private IPlatform _platform;
         private float _heightOfJump;
-        private float _gravity = 1.15f;
-        private float _jumpHeight = 10f;
-        private Keys left;
-        private Keys right;
-        private Keys up;
+        private const float Gravity = 1.15f;
+        private const float JumpHeight = 10f;
+
+        const float playerSpeed = 3.0f;
+        const float playerSpeedChange = 5.0f;
+
         private SoundEffect effect;
 
+        /// <summary>
+        /// Used to assign keys to players
+        /// </summary>
         private KeyboardMapping _keyboardMapping;
-        //private KeyController _keyController;
+
+
         public Player(Game game, String filnavn, KeyboardMapping keyboardMapping)
             : this(game.Content.Load<Texture2D>(filnavn),
                 new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height - 48), new Point(48, 48), new Point(0, 0),
@@ -61,20 +66,21 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                 collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
         }
-        const float playerSpeed = 3.0f;
+     
 
 
         public new void Update(GameTime gameTime, Rectangle clientBounds)
         {
+            if (InputManager.Instance.IsKeyDown(_keyboardMapping.Right) && !_hasHitTheWall) 
+                Velocity.X = playerSpeed;
+            else if (InputManager.Instance.IsKeyDown(_keyboardMapping.Left) && !_hasHitTheWall) 
+                Velocity.X = -playerSpeed;
+            else if (!_hasHitTheWall)
+                Velocity.X = 0f;
 
-
-            if (InputManager.Instance.IsKeyPressed(_keyboardMapping.Right) && !_hasHitTheWall) Velocity.X = playerSpeed;
-            else if (InputManager.Instance.IsKeyPressed(_keyboardMapping.Left) && !_hasHitTheWall) Velocity.X = -playerSpeed;
-            else if (!_hasHitTheWall) Velocity.X = 0f;
-
-            if (InputManager.Instance.IsKeyPressed(_keyboardMapping.Jump) && _hasJumped == false)
+            if (InputManager.Instance.IsKeyDown(_keyboardMapping.Jump) && !_hasJumped)
             {
-                Position.Y -= _jumpHeight;
+                Position.Y -= JumpHeight;
                 Velocity.Y = -20f;
                 _hasJumped = true;
                 effect.Play();
@@ -82,9 +88,10 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
             if (_hasJumped)
             {
-                Velocity.Y += _gravity;
+                Velocity.Y += Gravity;
                 if (Position.Y < _heightOfJump) _heightOfJump = Position.Y;
             }
+
             if (Position.Y + Texture.Height >= clientBounds.Height)
             {
                 _heightOfJump = clientBounds.Height;
@@ -93,33 +100,30 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                 Position.Y = clientBounds.Height - Texture.Height;
             }
 
-            if (_hasJumped == false)
-            {
+            if (!_hasJumped)
                 Velocity.Y = 0f;
-            }
-
-
+            
             if (Position.X <= 0)
-            {
-                if (_hasJumped == true)
+                if (_hasJumped)
                 {
                     Velocity.X = playerSpeed;
-                    Velocity.Y = -playerSpeed - 5;
+                    Velocity.Y = -playerSpeed - playerSpeedChange;
                     _hasHitTheWall = true;
                 }
-                else Position.X = 0;
+                else 
+                    Position.X = 0;
 
-            }
+            
             if (Position.X >= (clientBounds.Width - Texture.Width))
-            {
-                if (_hasJumped == true)
+                if (_hasJumped)
                 {
                     Velocity.X = -playerSpeed;
-                    Velocity.Y = -playerSpeed - 5;
+                    Velocity.Y = -playerSpeed - playerSpeedChange;
                     _hasHitTheWall = true;
                 }
-                else Position.X = clientBounds.Width - Texture.Width;
-            }
+                else 
+                    Position.X = clientBounds.Width - Texture.Width;
+            
 
             //Bruker MoveCommand for flyttingen, og gir beskjed til observer
             var cmd = new MoveCommand(this, new Vector2(Velocity.X, Velocity.Y), new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y));
@@ -155,7 +159,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         public void LandedOnPlatForm(IPlatform floor)
         {
             //Må passe på at spilleren blir tegnet på toppen av platformen
-            Vector2 newPosition = new Vector2(PlayerPosition.X, (floor.FloorPosition.Y - this.Texture.Height + 1));
+            var newPosition = new Vector2(PlayerPosition.X, (floor.FloorPosition.Y - Texture.Height + 1));
             PlayerPosition = newPosition;
 
             _hasJumped = false;
@@ -182,7 +186,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
 
         public Rectangle Collide { get { return CollisionRectangle; } }
         public float GetY { get { return _heightOfJump; } }
-        public Texture2D PlayerTexture { get { return this.Texture; } }
+        public Texture2D PlayerTexture { get { return Texture; } }
 
         #region ObserverPatternRelated
 
