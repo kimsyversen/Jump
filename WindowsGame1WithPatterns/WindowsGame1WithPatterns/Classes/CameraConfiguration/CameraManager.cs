@@ -44,8 +44,8 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         }
 
         //private Vector2 vector;
-        private bool faster = false;
-        private int test = 0;
+       // private bool faster = false;
+        private int faster = 0;
         public void Update(List<Vector2> position, int xOffset, int yOffset)
         {
             center.X = viewport.Width / 2;
@@ -64,20 +64,18 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
             {
                 if (p.Y < center.Y - 350)
                 {
-                    test = 2;
+                    faster = 2;
                     break;
                 }
                 if (p.Y < center.Y - 200)
                 {
-                    test = 1;
-                    faster = true;
+                    faster = 1;
                     break;
                 }
-                faster = false;
-                test = 0;
+                faster = 0;
             }
-            if (test == 2) velocity = -2.7f;
-            else if (test == 1) velocity = -2.0f;
+            if (faster == 2) velocity = -3.0f;
+            else if (faster == 1) velocity = -2.0f;
             else velocity = -1.2f;
             /* if(faster)velocity = -2.0f;
              else velocity = -1.2f;*/

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 //using WindowsGame1WithPatterns.Classes.CameraConfiguration;
 using System.Xml.Linq;
+using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform;
 using WindowsGame1WithPatterns.Classes.State;
 using Microsoft.Xna.Framework;
@@ -128,7 +129,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         public override void Update(GameTime gameTime)
         {
-           
+           if(InputManager.Instance.IsKeyPressed(Keys.Escape))ChangeStateTo(GameStates.InGameMenu);
 
             foreach (var player in _players)
             {
@@ -154,8 +155,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 if (GameOver(_players, _camera.Center))
                 {
                     ChangeStateTo(GameStates.GameOver);
-
-                    Console.WriteLine("GameOver, you reached level: " + _level);
                     _camera.StartCam = false;
                 }
 
