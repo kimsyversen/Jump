@@ -43,7 +43,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             : base(game, spriteBatch, managerId, GameStates.ChoosePlayerManager)
         {
             //Create menu item list
-            string[] menuItems = { "Single player", "Multiplayer (two player)"};
+            string[] menuItems = { "Single player", "Multiplayer (two player)", "Back to main menu"};
             //Instantiate the MenuComponent
             _menuComponent = new MenuComponent(game,
                 spriteBatch,
@@ -77,6 +77,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                         break;
                     case 1:
                         ChangeStateTo(GameStates.MultiplayerManager);
+                        break;
+                    case 2:
+                        ChangeStateTo(GameStates.MainMenu);
                         break;
                 }
                 //Reset the 
