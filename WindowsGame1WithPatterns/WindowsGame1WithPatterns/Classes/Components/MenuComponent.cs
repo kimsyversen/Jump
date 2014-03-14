@@ -59,7 +59,7 @@ namespace WindowsGame1WithPatterns.Classes.Components
         /// <summary>
         /// The spaceing between each menu item
         /// </summary>
-        private float _menuItemSpaceing = 0f;
+        private float _menuItemSpaceing;
 
         /// <summary>
         /// Property for selectedIndex variable with validation
@@ -110,9 +110,12 @@ namespace WindowsGame1WithPatterns.Classes.Components
             string[] menuItems)
             : base(game)
         {
-            this._spriteBatch = spriteBatch;
-            this._spriteFont = spriteFont;
-            this._menuItems = menuItems;
+            _normal = Color.White;
+            _hilite = Color.Yellow;
+            _menuItemSpaceing = 0f;
+            _spriteBatch = spriteBatch;
+            _spriteFont = spriteFont;
+            _menuItems = menuItems;
             MeasureMenu();
         }
 
