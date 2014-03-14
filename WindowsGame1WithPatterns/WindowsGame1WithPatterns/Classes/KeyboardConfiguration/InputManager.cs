@@ -88,6 +88,26 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         }
 
         /// <summary>
+        /// Check if the key is down this frame
+        /// </summary>
+        /// <param name="key">The key to check</param>
+        /// <returns>True if the key is down, else false</returns>
+        public bool IsKeyDown(Keys key)
+        {
+            return _currentKeyboardState.IsKeyDown(key);
+        }
+
+        /// <summary>
+        /// Check if the key is up this frame
+        /// </summary>
+        /// <param name="key">The key to check</param>
+        /// <returns>True if the key is up this frame, else false</returns>
+        public bool IsKeyUp(Keys key)
+        {
+            return _currentKeyboardState.IsKeyUp(key);
+        }
+
+        /// <summary>
         /// Method to get the current input States of keyboard and mouse
         /// This method should be the first method to run in GameManager.Update.
         /// </summary>
