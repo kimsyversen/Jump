@@ -11,6 +11,8 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
     {
         private float velocity;
         private bool startCam = false;
+        private const float VelocityInc = 0.2f;
+        private float increaseSpeed = 0.0f;
 
         public bool StartCam
         {
@@ -46,7 +48,12 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         //private Vector2 vector;
        // private bool faster = false;
         private int faster = 0;
-        public void Update(List<Vector2> position, int xOffset, int yOffset)
+
+        public void IncreaseSpeed() {
+            increaseSpeed += VelocityInc;
+        }
+
+        public void Update(List<Vector2> position, int xOffset, int yOffset, GameTime gameTime)
         {
             center.X = viewport.Width / 2;
             if (counter > 0)
@@ -74,11 +81,9 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
                 }
                 faster = 0;
             }
-            if (faster == 2) velocity = -3.0f;
-            else if (faster == 1) velocity = -2.0f;
-            else velocity = -1.2f;
-            /* if(faster)velocity = -2.0f;
-             else velocity = -1.2f;*/
+            if (faster == 2) velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds / 15) * 3.0f)+increaseSpeed)* - 1;
+            else if (faster == 1) velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds/15) * 2.0f)+increaseSpeed)* -1;
+            else velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds / 15) * 1.2f) + increaseSpeed) * -1;
 
             if (startCam)
                 center.Y += velocity;

@@ -135,7 +135,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             {
                 player.Update(gameTime, _game.Window.ClientBounds);
                 _playerPosition.Add(player.PlayerPosition);
-                _camera.Update(_playerPosition, _game.Window.ClientBounds.Width, _heightOfBoard);
+                _camera.Update(_playerPosition, _game.Window.ClientBounds.Width, _heightOfBoard, gameTime);
                 foreach (var floor in _floors)
                 {
                     //Sjekker om spilleren har truffet en platform
@@ -189,6 +189,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             _numberOfPlatforms = _numberOfPlatforms + (int)DifficulityFactor / 4;
 
             GeneratePlatforms(_numberOfPlatforms, _minDistance, _maxDistance, _minPlatFormWidth);
+
+            _camera.IncreaseSpeed();
+
             _level++;
         }
         protected void GeneratePlatforms(int antall, int minDistance, int maxDistance, int minWidth)
