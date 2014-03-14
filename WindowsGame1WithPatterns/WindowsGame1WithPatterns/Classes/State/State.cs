@@ -181,6 +181,7 @@ namespace WindowsGame1WithPatterns.Classes.State
             MultiplayerManager,
             SingleplayerManager,
             ChoosePlayerManager,
+            HelpMenu,
         }
     }
 }

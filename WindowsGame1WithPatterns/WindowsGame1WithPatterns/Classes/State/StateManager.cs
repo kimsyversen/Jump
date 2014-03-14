@@ -62,7 +62,10 @@ namespace WindowsGame1WithPatterns.Classes.State
             //the state the manager should start in. The StateManager
             //dont need to know about any of the other states but the
             //current state. The State class takes care of the rest.
-            var menuManager = new MainMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
+            var menuManager = new MainMenu(Game, _spriteBatch, _stateManagerId, 
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
+                Game.Content.Load<SpriteFont>(@"Font\HeaderFont"), 
+                Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
             menuManager.Hide();
             Game.Components.Add(menuManager);
 
@@ -82,7 +85,9 @@ namespace WindowsGame1WithPatterns.Classes.State
             gameManager.Hide();
             Game.Components.Add(gameManager);
 
-
+            var helpMenu = new HelpMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\Ball"));
+            helpMenu.Hide();
+            Game.Components.Add(helpMenu);
 
             var choosePlayerManager = new ChoosePlayerManager(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
             choosePlayerManager.Hide();
@@ -92,17 +97,13 @@ namespace WindowsGame1WithPatterns.Classes.State
             multiplayerManager.Hide();
             Game.Components.Add(multiplayerManager);
 
-
-
-
             //This must be added last on the Game.Components list because it
             //needs to be the last ting to be drawn. 
             var inGameMenuManager = new InGameMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
             inGameMenuManager.Hide();
             Game.Components.Add(inGameMenuManager);
 
-
-
+            //Set the initial state
             _currentState = menuManager;
 
             //At this point all states shall be hidden which is the responsibility 

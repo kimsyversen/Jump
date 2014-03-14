@@ -108,7 +108,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
           
             GeneratePlatforms(_numberOfPlatforms, _minDistance, _maxDistance, _minPlatFormWidth);
 
-            background = _game.Content.Load<Texture2D>("bg");
+            background = _game.Content.Load<Texture2D>(@"Figure\bg");
             mainFrame = new Rectangle(0, -100000, GraphicsDevice.Viewport.Width, 110000);
             base.LoadContent();
         }

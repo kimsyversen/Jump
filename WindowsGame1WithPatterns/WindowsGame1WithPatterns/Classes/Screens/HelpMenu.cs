@@ -9,15 +9,14 @@ namespace WindowsGame1WithPatterns.Classes.Screens
     /// <summary>
     /// Class to handle the GUI and logic of the main menu of the game
     /// </summary>
-    class MainMenu : State.State
+    class HelpMenu : State.State
     {
         /// <summary>
         /// Will handle the menu for the game
         /// </summary>
         private MenuComponent _menuComponent;
 
-
-        private TextBoxComponent _headline;
+        private TextBoxComponent _textBoxComponent;
 
         /// <summary>
         /// Placeholder for the background image of the menu
@@ -40,33 +39,36 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         }
 
         //Constructor...
-        public MainMenu(Game game,
+        public HelpMenu(Game game,
             SpriteBatch spriteBatch,
             string managerId,
-            SpriteFont menuItemFont,
-            SpriteFont headlineFont,
+            SpriteFont spriteFont,
             Texture2D image)
-            : base(game, spriteBatch, managerId, GameStates.MainMenu)
+            : base(game, spriteBatch, managerId, GameStates.HelpMenu)
         {
             //Create menu item list
-            string[] menuItems = { "Start Game", "Highscore", "Options", "Help", "End Game" };
+            string[] menuItems = { "Back to main menu"};
             //Instantiate the MenuComponent
             _menuComponent = new MenuComponent(game,
                 spriteBatch,
-                menuItemFont,
+                spriteFont,
                 menuItems);
             //Add the menu to the components of the main menu screen
             Components.Add(_menuComponent);
 
-            string text = "Main Menu, Motherfucker!";
-            _headline = new TextBoxComponent(game, 
+            string text = "This is how you play:\n" + 
+                "This is a long string to test if the text goes out of the bounds... So I do sure hope it is long enough!";
+            _textBoxComponent = new TextBoxComponent(game,
                 spriteBatch,
-                headlineFont, 
+                spriteFont,
                 text,
-                headlineFont.MeasureString(text).X, 
-                50);
-            _headline.Position = new Vector2(_headline.Position.X, _menuComponent.Position.Y - _headline.Height - 20);
-            Components.Add(_headline);
+                game.Window.ClientBounds.Width - 200,
+                10);
+            Components.Add(_textBoxComponent);
+
+            //Position the components on the screen
+            _menuComponent.Position = new Vector2(_menuComponent.Position.X, _textBoxComponent.Position.Y + _textBoxComponent.Height + _menuComponent.Height + 20);
+            //_textBoxComponent.Position = new Vector2(_textBoxComponent.Position.X, _menuComponent.Position.Y - _textBoxComponent.Height - 20);
 
             //Remember the image pointer for the draw method
             _image = image;
@@ -90,29 +92,16 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 switch (SelectedIndex)
                 {
                     case 0:
-                        ChangeStateTo(GameStates.ChoosePlayerManager);
-                        break;
-                    case 1:
-                        ChangeStateTo(GameStates.Highscore);
-                        break;
-                    case 2:
-                        ChangeStateTo(GameStates.Options);
-                        break;
-                    case 3:
-                        ChangeStateTo(GameStates.HelpMenu);
-                        break;
-                    case 4:
-                        Game.Exit();
+                        ChangeStateTo(GameStates.MainMenu);
                         break;
                 }
-                //TODO: Forbedre reset funksjonen for alle states...
                 //Reset the menu
                 SelectedIndex = 0;
-                _headline.Reset();
+                _textBoxComponent.Reset();
             }
             base.Update(gameTime);
         }
-        
+
         /// <summary>
         /// Draw the menu
         /// </summary>

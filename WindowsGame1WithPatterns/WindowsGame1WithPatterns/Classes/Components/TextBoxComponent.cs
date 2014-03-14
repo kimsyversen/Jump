@@ -94,12 +94,13 @@ namespace WindowsGame1WithPatterns.Classes.Components
             get { return _height; }
         }
 
-        //Constructor... 
+        //Constructor with the typing daly
         public TextBoxComponent(Game game, 
             SpriteBatch spriteBatch,
             SpriteFont spriteFont,
             string text,
-            float width) 
+            float width,
+            int characterTypingDelay) 
             : base(game)
         {
             _spriteBatch = spriteBatch;
@@ -107,8 +108,18 @@ namespace WindowsGame1WithPatterns.Classes.Components
             _width = width;
             _textColor = Color.White;
             _parsedText = parseText(text);
-            _delayInMilliseconds = 0;
+            _delayInMilliseconds = characterTypingDelay;
             _isDoneDrawing = false;
+        }
+
+        //Constructor without the typing daly
+        public TextBoxComponent(Game game,
+            SpriteBatch spriteBatch,
+            SpriteFont spriteFont,
+            string text,
+            float width)
+            : this(game, spriteBatch, spriteFont, text, width, 0)
+        {
         }
 
         /// <summary>
@@ -195,9 +206,13 @@ namespace WindowsGame1WithPatterns.Classes.Components
             _spriteBatch.End();
         }
 
+        /// <summary>
+        /// Reset the component
+        /// </summary>
         public void Reset()
         {
             _typedText = "";
+            _typedTextLength = 0;
             _isDoneDrawing = false;
         }
     }

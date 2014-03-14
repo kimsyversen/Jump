@@ -142,6 +142,14 @@ namespace WindowsGame1WithPatterns.Classes.Components
         }
 
         /// <summary>
+        /// Reset the component
+        /// </summary>
+        public void Reset()
+        {
+            _selectedIndex = 0;
+        }
+
+        /// <summary>
         /// Update the position of the selected menu item
         /// </summary>
         /// <param name="gameTime">Game time</param>

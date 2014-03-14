@@ -118,6 +118,7 @@
     <Compile Include="Classes\Components\MenuComponent.cs" />
     <Compile Include="Classes\KeyboardConfiguration\MKeyboardMapping.cs" />
     <Compile Include="Classes\FileIO\SerializableDictionary.cs" />
+    <Compile Include="Classes\Screens\HelpMenu.cs" />
     <Compile Include="Classes\Screens\MultiplayerManager.cs" />
     <Compile Include="Classes\Screens\SingleplayerManager.cs" />
     <Compile Include="Classes\Screens\GameOver.cs" />
@@ -152,7 +153,6 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Classes\Sprites\Sprite.cs" />
     <Compile Include="Classes\Sprites\Factories\Fonts\Concretes\SimpleFont.cs" />
-    <Compile Include="StateMan.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -189,9 +189,6 @@
       <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
