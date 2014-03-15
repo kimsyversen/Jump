@@ -82,8 +82,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                         //TODO: turn off the draw of the game state
                         ChangeStateTo(GameStates.MainMenu);
                         break;
-                    default:
-                        break;
                 }
             }
             base.Update(gameTime);

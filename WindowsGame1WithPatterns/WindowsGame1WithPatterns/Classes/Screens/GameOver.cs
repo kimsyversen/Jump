@@ -74,8 +74,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                     case 0:
                         ChangeStateTo(GameStates.MainMenu);
                         break;
-                    default:
-                        break;
                 }
             }
             base.Update(gameTime);

@@ -80,7 +80,6 @@ namespace WindowsGame1WithPatterns.Classes
             _floors.Add(new Platform(_game, 0, (_game.Window.ClientBounds.Height) - HeightOfPlatform,
                                                   _game.Window.ClientBounds.Width, HeightOfPlatform));
 
-
             //Singleplayer
             _players.Add(new Player(_game, "Figure/lilastoy", new KeyboardMapping(Keys.A, Keys.D, Keys.Space), 
                 new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
@@ -90,12 +89,13 @@ namespace WindowsGame1WithPatterns.Classes
                 _players.Add(new Player(_game, "Figure/greenstoy", new KeyboardMapping(Keys.Left, Keys.Right, Keys.Up), 
                     new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
 
-
             _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, _graphics.PreferredBackBufferHeight);
 
             GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
 
             _background = _game.Content.Load<Texture2D>(@"Figure\bg");
+
+            //TODO: 110000 og -100000 er?
             _mainFrame = new Rectangle(0, -100000, GraphicsDevice.Viewport.Width, 110000);
             base.LoadContent();
         }
@@ -108,7 +108,6 @@ namespace WindowsGame1WithPatterns.Classes
         {
             // TODO: Unload any non ContentManager content here
         }
-
 
         public override void Update(GameTime gameTime)
         {
@@ -156,7 +155,6 @@ namespace WindowsGame1WithPatterns.Classes
             base.Update(gameTime);
         }
 
-
         protected void LevelUp()
         {
             //TODO: Kan 2 og 4 gjøres om til variabel med forklarende navn?
@@ -174,6 +172,7 @@ namespace WindowsGame1WithPatterns.Classes
 
             _level++;
         }
+
         protected void GeneratePlatforms(int numberOfPlatforms, int minDistance, int maxDistance, int minWidth)
         {
             _randomNumber = new Random();

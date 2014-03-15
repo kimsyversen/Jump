@@ -78,10 +78,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                     case 0:
                         ChangeStateTo(GameStates.MainMenu);
                         break; 
-                    default:
-                        break;
                 }
             }
+
             if (InputManager.Instance.IsKeyPressed(Keys.Escape))
                 ChangeStateTo(GameStates.MainMenu);
 
