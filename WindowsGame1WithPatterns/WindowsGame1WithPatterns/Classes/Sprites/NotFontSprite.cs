@@ -19,8 +19,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         protected int TimeSinceLastFrame = 0; //Milliseconds since last frame was drawn
         protected const int MinX = 0;
         protected const int MinY = 0;
-        private Random _random;
-
+    
         public Rectangle CollisionRectangle
         {
             get
@@ -103,11 +102,5 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
                 Color.White, Rotate, Origin,
                 Scale, SpriteEffects, 0);
         }
-
-        public float RandomFloat(double minimum = 6, double maximum = 25)
-        {
-            _random = new Random();
-            return (float)(_random.NextDouble() * (maximum - minimum) + minimum);
-        }  
     }
 }
