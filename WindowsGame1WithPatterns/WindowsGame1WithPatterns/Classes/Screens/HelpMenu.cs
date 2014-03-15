@@ -66,9 +66,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 10);
             Components.Add(_textBoxComponent);
 
-            //Position the components on the screen
+            //position the components on the screen
             _menuComponent.Position = new Vector2(_menuComponent.Position.X, _textBoxComponent.Position.Y + _textBoxComponent.Height + _menuComponent.Height + 20);
-            //_textBoxComponent.Position = new Vector2(_textBoxComponent.Position.X, _menuComponent.Position.Y - _textBoxComponent.Height - 20);
+            //_textBoxComponent.position = new Vector2(_textBoxComponent.position.X, _menuComponent.position.Y - _textBoxComponent.Height - 20);
 
             //Remember the image pointer for the draw method
             _image = image;

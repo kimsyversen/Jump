@@ -94,7 +94,7 @@ namespace WindowsGame1WithPatterns
         protected override void Draw(GameTime gameTime)
         {
             //TODO: Kanakje gjøre slik at spritebatch.begin og end skal være i game.cs og kun der? Slik:
-            //GraphicsDevice.Clear(Color.AntiqueWhite);
+            //GraphicsDevice.Clear(color.AntiqueWhite);
             //_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
             //base.Draw(gameTime);
             //_spriteBatch.End();

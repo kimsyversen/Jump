@@ -20,8 +20,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes.Movement
 
         public void Execute()
         {
-            _player.PlayerSpeed = _speed;
-            _player.PlayerPosition = _position;
+            _player.Velocity = _speed;
+            _player.Position = _position;
         }  
     }
 }

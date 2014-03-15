@@ -22,12 +22,12 @@ namespace WindowsGame1WithPatterns.Classes.Components
         private int _selectedIndex;
 
         /// <summary>
-        /// Color to draw the normal menu items
+        /// color to draw the normal menu items
         /// </summary>
         private Color _normal = Color.White;
 
         /// <summary>
-        /// Color to draw the currently selected menu item
+        /// color to draw the currently selected menu item
         /// </summary>
         private Color _hilite = Color.Yellow;
 

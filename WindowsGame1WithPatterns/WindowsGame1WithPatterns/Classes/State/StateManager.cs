@@ -40,7 +40,8 @@ namespace WindowsGame1WithPatterns.Classes.State
         /// <param name="game">Referance to the game</param>
         /// <param name="spriteBatch">Referance to the spriteBatch</param>
         /// <param name="graphics">Referance to the graphics</param>
-        public StateManager(Game game, SpriteBatch spriteBatch, GraphicsDeviceManager graphics) : base(game)
+        public StateManager(Game game, SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
+            : base(game)
         {
             _graphics = graphics;
 
@@ -62,9 +63,9 @@ namespace WindowsGame1WithPatterns.Classes.State
             //the state the manager should start in. The StateManager
             //dont need to know about any of the other states but the
             //current state. The State class takes care of the rest.
-            var menuManager = new MainMenu(Game, _spriteBatch, _stateManagerId, 
-                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
-                Game.Content.Load<SpriteFont>(@"Font\HeaderFont"), 
+            var menuManager = new MainMenu(Game, _spriteBatch, _stateManagerId,
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"),
+                Game.Content.Load<SpriteFont>(@"Font\HeaderFont"),
                 Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
             menuManager.Hide();
             Game.Components.Add(menuManager);

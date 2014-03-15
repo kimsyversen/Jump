@@ -11,7 +11,7 @@ namespace WindowsGame1WithPatterns.Classes.Components
     class TextBoxComponent : DrawableGameComponent
     {
         /// <summary>
-        /// Color of the text
+        /// color of the text
         /// </summary>
         private Color _textColor;
 

@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
 using WindowsGame1WithPatterns.Classes.CameraConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Concretes;
-
-//using WindowsGame1WithPatterns.Classes.CameraConfiguration;
-
+using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 
 namespace WindowsGame1WithPatterns.Classes
 {
@@ -19,18 +14,14 @@ namespace WindowsGame1WithPatterns.Classes
     /// </summary>
     abstract class AbstractPlayerManager : State.State
     {
-        SpriteBatch spriteBatch;
-        private Texture2D background;
-        private Rectangle mainFrame;
-
-
+        private Texture2D _background;
+        private Rectangle _mainFrame;
         private CameraManager _camera;
         private List<Vector2> _playerPosition;
 
         private List<Player> _players;
-        private List<SimpleFont> _fonts;
+        private List<Font> _fonts;
         private List<Platform> _floors;
-
 
         //For platform generation and camera following
         private int _heightOfBoard = 0;
@@ -40,12 +31,12 @@ namespace WindowsGame1WithPatterns.Classes
         private int _numberOfPlatforms = 20;
         private const int HeightBetweenPlatforms = 70;
         private int _level = 1;
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
 
 
         private const int DifficulityFactor = 20;
 
-        private int _numberOfPlayers;
+        private readonly int _numberOfPlayers;
 
         protected AbstractPlayerManager(Game game, SpriteBatch spriteBatch, string managerId, GameStates stateId, GraphicsDeviceManager graphics, int numberOfPlayers)
             : base(game, spriteBatch, managerId, stateId)
@@ -58,7 +49,7 @@ namespace WindowsGame1WithPatterns.Classes
         {
 
             _players = new List<Player>();
-            _fonts = new List<SimpleFont>();
+            _fonts = new List<Font>();
             _floors = new List<Platform>();
             _playerPosition = new List<Vector2>();
             base.Initialize();
@@ -71,27 +62,25 @@ namespace WindowsGame1WithPatterns.Classes
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
             _floors.Add(new Platform(_game, 0, (_game.Window.ClientBounds.Height) - 5,
                                                   _game.Window.ClientBounds.Width, 5));
 
 
-           //Singleplayer
-           _players.Add(new Player(_game, "Figure/lilastoy", new KeyboardMapping(Keys.A, Keys.D, Keys.Space)));
-          
+            //Singleplayer
+            _players.Add(new Player(_game, "Figure/lilastoy", new KeyboardMapping(Keys.A, Keys.D, Keys.Space), new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
+
             //If multiplayer
             if (_numberOfPlayers > 1)
-                _players.Add(new Player(_game, "Figure/greenstoy", new KeyboardMapping(Keys.Left, Keys.Right, Keys.Up)));
-           
+                _players.Add(new Player(_game, "Figure/greenstoy", new KeyboardMapping(Keys.Left, Keys.Right, Keys.Up), new Vector2(_game.Window.ClientBounds.Width / 3f, _game.Window.ClientBounds.Height)));
 
-           
 
             _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, _graphics.PreferredBackBufferHeight);
 
             GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _minPlatFormWidth);
 
-            background = _game.Content.Load<Texture2D>(@"Figure\bg");
-            mainFrame = new Rectangle(0, -100000, GraphicsDevice.Viewport.Width, 110000);
+            _background = _game.Content.Load<Texture2D>(@"Figure\bg");
+            _mainFrame = new Rectangle(0, -100000, GraphicsDevice.Viewport.Width, 110000);
             base.LoadContent();
         }
 
@@ -113,18 +102,18 @@ namespace WindowsGame1WithPatterns.Classes
             foreach (var player in _players)
             {
                 player.Update(gameTime, _game.Window.ClientBounds);
-                _playerPosition.Add(player.PlayerPosition);
+                _playerPosition.Add(player.Position);
                 _camera.Update(_playerPosition, _game.Window.ClientBounds.Width, _heightOfBoard, gameTime);
                 foreach (var floor in _floors)
                 {
                     //Sjekker om spilleren har truffet en platform
-                    if (player.Collide.Intersects(floor.Collide) && player.HasHitPlatform == false && (player.GetY + player.PlayerTexture.Height) < floor.FloorPosition.Y)
+                    if (player.CollisionRectangle.Intersects(floor.CollisionRectangle) && player.HasHitPlatform == false && (player.GetY + player.Texture.Height) < floor.Position.Y)
                     {
                         player.LandedOnPlatForm(floor);
                         _camera.StartCam = true;
                     }
                     //Sjekker om spilleren har gått av platformen
-                    if (player.HasHitPlatform && !player.Collide.Intersects(floor.Collide) && floor == player.OnFloor)
+                    if (player.HasHitPlatform && !player.CollisionRectangle.Intersects(floor.CollisionRectangle) && floor == player.OnFloor)
                         player.WalkedOfPlatform();
 
                 }
@@ -137,7 +126,7 @@ namespace WindowsGame1WithPatterns.Classes
                 }
 
                 //Sjekker om spilleren er ferdig med en level, isåfall starter en ny, vanskeligere en.
-                if (player.PlayerPosition.Y < _floors[_floors.Count - 1].FloorPosition.Y)
+                if (player.Position.Y < _floors[_floors.Count - 1].Position.Y)
                     LevelUp();
 
             }
@@ -183,14 +172,14 @@ namespace WindowsGame1WithPatterns.Classes
                 //public Platform(Game game, float x, float y, int width, int height)
                 if (teller + 1 == antall)
                     floor = new Platform(_game, 1,
-                       _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, _game.Window.ClientBounds.Width - 1, 5);
+                       _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, _game.Window.ClientBounds.Width - 1, 5);
 
                 else if (test == 1)
-                    floor = new Platform(_game, _floors[_floors.Count - 1].FloorPosition.X - x,
-                                         _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, width, 5);
+                    floor = new Platform(_game, _floors[_floors.Count - 1].Position.X - x,
+                                         _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, 5);
 
                 else
-                    floor = new Platform(_game, _floors[_floors.Count - 1].FloorPosition.X + x, _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, width, 5);
+                    floor = new Platform(_game, _floors[_floors.Count - 1].Position.X + x, _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, 5);
 
                 if (!CheckOutsideRange(floor))
                 {
@@ -203,7 +192,7 @@ namespace WindowsGame1WithPatterns.Classes
 
         private bool CheckOutsideRange(Platform floor)
         {
-            if (floor.FloorPosition.X <= 0 || floor.FloorPosition.X + floor.FloorTexture.Width >= _game.Window.ClientBounds.Width)
+            if (floor.Position.X <= 0 || floor.Position.X + floor.Texture.Width >= _game.Window.ClientBounds.Width)
                 return true;
 
             return false;
@@ -212,7 +201,7 @@ namespace WindowsGame1WithPatterns.Classes
         private bool GameOver(IEnumerable<Player> players, Vector2 center)
         {
             foreach (Player p in players)
-                if (!(p.PlayerPosition.Y > center.Y + _game.Window.ClientBounds.Height / 2f))
+                if (!(p.Position.Y > center.Y + _game.Window.ClientBounds.Height / 2f))
                     return false;
             return true;
         }
@@ -221,22 +210,22 @@ namespace WindowsGame1WithPatterns.Classes
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred,
+            _spriteBatch.Begin(SpriteSortMode.Deferred,
                          BlendState.AlphaBlend,
                          null, null, null, null,
                          _camera.Transform);
-            spriteBatch.Draw(background, mainFrame, Color.White);
+            _spriteBatch.Draw(_background, _mainFrame, Color.White);
 
             foreach (var player in _players)
-                player.Draw(gameTime, spriteBatch);
+                player.Draw(gameTime, _spriteBatch);
 
             foreach (var font in _fonts)
-                font.Draw(gameTime, spriteBatch);
+                font.Draw(gameTime, _spriteBatch);
 
             foreach (var floor in _floors)
-                floor.Draw(gameTime, spriteBatch);
+                floor.Draw(gameTime, _spriteBatch);
 
-            spriteBatch.End();
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }

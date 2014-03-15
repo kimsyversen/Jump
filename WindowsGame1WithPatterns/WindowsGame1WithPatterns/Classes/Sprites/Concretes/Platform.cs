@@ -25,26 +25,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         {
         }
 
-        public Rectangle Collide
-        {
-            get { return CollisionRectangle; }
-           
-        }
-
-        public Vector2 FloorPosition
-        {
-            get { return Position; }
-            set { Position = value; }
-        }
-
-        public Texture2D FloorTexture
-        {
-            get { return Texture; }
-            set { Texture = value; }
-        }
         public override String ToString()
         {
-            return "X Position: " + this.FloorPosition.X.ToString() + ", Y position: " + this.FloorPosition.Y.ToString();
+            return Position.ToString();
         }
     }
 }
