@@ -8,8 +8,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
     {
         private SpriteFont _font2;
         private String _fontText;
-        public Font() {}
-        public Font(Game game, SpriteFont font2, String fontText, Color color, Vector2 position)
+        
+        public Font(Game game, SpriteFont font2, String fontText, Color color, Vector2 position) : base(game)
         {
             _font2 = font2;
             _fontText = fontText;
@@ -22,6 +22,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         }
 
         public Font(Game game, String fontText, Color color, Vector2 position)
+            : base(game)
         {
             _font2 = game.Content.Load<SpriteFont>(@"Font2\Font2");
             _fontText = fontText;
@@ -32,9 +33,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             spriteEffects = SpriteEffects.None;
             base.position = position;
         }
-
- 
-      
 
         public string FontText
         {

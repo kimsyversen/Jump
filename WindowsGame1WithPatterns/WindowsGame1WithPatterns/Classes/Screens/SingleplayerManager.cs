@@ -26,7 +26,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    internal class SingleplayerManager : AbstractPlayerManager
+    internal class SingleplayerManager : AbstractGameManager
     {
         private const int NumberOfPlayers = 1;
 

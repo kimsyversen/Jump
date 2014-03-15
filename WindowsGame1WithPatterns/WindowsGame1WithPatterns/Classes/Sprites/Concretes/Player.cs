@@ -10,8 +10,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 {
     internal class Player : Sprite
     {
-        private Game _game;
-
         private bool _hasJumped;
         private bool _hasHitTheWall;
         private bool _platformHit;
@@ -31,11 +29,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 
 
         public Player(Game game, String filnavn, KeyboardMapping keyboardMapping, Vector2 position)
-            : this(game.Content.Load<Texture2D>(filnavn),
+            : this(game, game.Content.Load<Texture2D>(filnavn),
                 new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height - 48), new Point(48, 48), new Point(0, 0),
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {
-            _game = game;
+         
 
             _hasJumped = true;
             _hasHitTheWall = false;
@@ -46,19 +44,19 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 
         }
 
-        public Player(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
+        public Player(Game game, Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
                             Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects,
                             Vector2 speed, int collisionOffset, int timeSinceLastFrame)
-            : base(
+            : base(game,
                 texture, spritePosition, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, speed,
                 collisionOffset, timeSinceLastFrame)
         {
         }
 
-        public Player(Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
+        public Player(Game game, Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
                             Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects,
                             Vector2 speed, int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame)
-            : base(
+            : base(game,
                 texture, spritePosition, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, speed,
                 collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
@@ -131,8 +129,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             //Animate sprite
             base.Update(gameTime, clientBounds);
         }
-
- 
 
         public void LandedOnPlatForm(Platform floor)
         {

@@ -4,11 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites
 {
-
-    //TODO: Bad classname, fix
-    abstract class Sprite
+    abstract class Sprite : DrawableGameComponent
     {
-
         protected Vector2 origin; //origin for rotation
         protected Vector2 position; // position of sprite
         protected Color color;
@@ -26,6 +23,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         protected const int MinX = 0;
         protected const int MinY = 0;
         protected const int DefaultMillisecondsPerFrame = 16; //60 times per second
+
+        protected Game game;
         #region Properties
 
         public Vector2 Origin
@@ -98,22 +97,22 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             }
         }
 
-        protected Sprite() {}
-        protected Sprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
+        protected Sprite(Game game) : base(game) {}
+        protected Sprite(Game game, Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
                                    Point sheetSize,
                                    float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity,
                                    int collisionOffset, int timeSinceLastFrame)
-            : this(
+            : this(game,
                 texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity,
                 collisionOffset, timeSinceLastFrame, DefaultMillisecondsPerFrame)
         {
             
         }
 
-        protected Sprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
+        protected Sprite(Game game, Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
                                    Point sheetSize,
                                    float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity,
-                                   int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame)
+                                   int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame) : base(game)
         {
             this.collisionOffset = collisionOffset;
             this.frameCurrent = frameCurrent;
@@ -128,6 +127,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             this.scale = scale;
             this.rotate = rotate;
             this.origin = origin;
+
+            this.game = game;
         }
 
         /// <summary>

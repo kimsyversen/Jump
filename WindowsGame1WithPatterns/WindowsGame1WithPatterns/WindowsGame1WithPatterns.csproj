@@ -118,7 +118,7 @@
     <Compile Include="Classes\Components\MenuComponent.cs" />
     <Compile Include="Classes\KeyboardConfiguration\MKeyboardMapping.cs" />
     <Compile Include="Classes\FileIO\SerializableDictionary.cs" />
-    <Compile Include="Classes\AbstractPlayerManager.cs" />
+    <Compile Include="Classes\AbstractGameManager.cs" />
     <Compile Include="Classes\Screens\HelpMenu.cs" />
     <Compile Include="Classes\Screens\MultiplayerManager.cs" />
     <Compile Include="Classes\Screens\SingleplayerManager.cs" />
@@ -177,7 +177,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

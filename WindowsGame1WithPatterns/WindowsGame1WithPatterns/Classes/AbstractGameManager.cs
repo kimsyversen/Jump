@@ -12,7 +12,7 @@ namespace WindowsGame1WithPatterns.Classes
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    abstract class AbstractPlayerManager : State.State
+    abstract class AbstractGameManager : State.State
     {
         private Texture2D _background;
         private Rectangle _mainFrame;
@@ -38,7 +38,7 @@ namespace WindowsGame1WithPatterns.Classes
 
         private readonly int _numberOfPlayers;
 
-        protected AbstractPlayerManager(Game game, SpriteBatch spriteBatch, string managerId, GameStates stateId, GraphicsDeviceManager graphics, int numberOfPlayers)
+        protected AbstractGameManager(Game game, SpriteBatch spriteBatch, string managerId, GameStates stateId, GraphicsDeviceManager graphics, int numberOfPlayers)
             : base(game, spriteBatch, managerId, stateId)
         {
             _graphics = graphics;
@@ -74,7 +74,7 @@ namespace WindowsGame1WithPatterns.Classes
             //If multiplayer
             if (_numberOfPlayers > 1)
                 _players.Add(new Player(_game, "Figure/greenstoy", new KeyboardMapping(Keys.Left, Keys.Right, Keys.Up), 
-                    new Vector2(_game.Window.ClientBounds.Width / 3f, _game.Window.ClientBounds.Height)));
+                    new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
 
 
             _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, _graphics.PreferredBackBufferHeight);
@@ -117,7 +117,6 @@ namespace WindowsGame1WithPatterns.Classes
                     //Sjekker om spilleren har gått av platformen
                     if (player.HasHitPlatform && !player.CollisionRectangle.Intersects(floor.CollisionRectangle) && floor == player.OnFloor)
                         player.WalkedOfPlatform();
-
                 }
 
                 //Sjekker om alle spillerne er utenfor brettet/synsvinkel
@@ -179,7 +178,6 @@ namespace WindowsGame1WithPatterns.Classes
                 else if (test == 1)
                     floor = new Platform(_game, _floors[_floors.Count - 1].Position.X - x,
                                          _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, 5);
-
                 else
                     floor = new Platform(_game, _floors[_floors.Count - 1].Position.X + x, _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, 5);
 
