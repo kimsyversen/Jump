@@ -68,11 +68,13 @@ namespace WindowsGame1WithPatterns.Classes
 
 
             //Singleplayer
-            _players.Add(new Player(_game, "Figure/lilastoy", new KeyboardMapping(Keys.A, Keys.D, Keys.Space), new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
+            _players.Add(new Player(_game, "Figure/lilastoy", new KeyboardMapping(Keys.A, Keys.D, Keys.Space), 
+                new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
 
             //If multiplayer
             if (_numberOfPlayers > 1)
-                _players.Add(new Player(_game, "Figure/greenstoy", new KeyboardMapping(Keys.Left, Keys.Right, Keys.Up), new Vector2(_game.Window.ClientBounds.Width / 3f, _game.Window.ClientBounds.Height)));
+                _players.Add(new Player(_game, "Figure/greenstoy", new KeyboardMapping(Keys.Left, Keys.Right, Keys.Up), 
+                    new Vector2(_game.Window.ClientBounds.Width / 3f, _game.Window.ClientBounds.Height)));
 
 
             _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, _graphics.PreferredBackBufferHeight);

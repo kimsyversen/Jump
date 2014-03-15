@@ -16,8 +16,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         protected float scale;
         protected SpriteEffects spriteEffects;
         protected int collisionOffset; //pixels outside of texture to not collide with
-        protected Point FrameCurrent; //Index (x,y) for current frame in spritesheet/sprite
-        protected Point FrameSize; //Size for each individual frame in spritesheet/sprite
+        protected Point frameCurrent; //Index (x,y) for current frame in spritesheet/sprite
+        protected Point frameSize; //Size for each individual frame in spritesheet/sprite
         protected int MillisecondsPerFrame; //Milliseconds between framechanges
         protected Texture2D texture;
         protected Point sheetSize; // Number of columns/rows in sprite sheet
@@ -70,34 +70,16 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             set { collisionOffset = value; }
         }
 
-        public Point FrameCurrent1
-        {
-            get { return FrameCurrent; }
-            set { FrameCurrent = value; }
-        }
-
         public Vector2 Velocity
         {
             get { return velocity; }
             set { velocity = value; }
         }
 
-        public Point SheetSize
-        {
-            get { return sheetSize; }
-            set { sheetSize = value; }
-        }
-
         public Texture2D Texture
         {
             get { return texture; }
             set { texture = value; }
-        }
-
-        public Point FrameSize1
-        {
-            get { return FrameSize; }
-            set { FrameSize = value; }
         }
 
         #endregion
@@ -110,8 +92,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
                     (
                     (int)position.X + collisionOffset,
                     (int)position.Y + collisionOffset,
-                    FrameSize.X - (collisionOffset * 2),
-                    FrameSize.Y - (collisionOffset * 2)
+                    frameSize.X - (collisionOffset * 2),
+                    frameSize.Y - (collisionOffset * 2)
                     );
             }
         }
@@ -134,8 +116,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
                                    int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame)
         {
             this.collisionOffset = collisionOffset;
-            FrameCurrent = frameCurrent;
-            FrameSize = frameSize;
+            this.frameCurrent = frameCurrent;
+            this.frameSize = frameSize;
             MillisecondsPerFrame = millisecondsPerFrame;
             this.position = position;
             this.sheetSize = sheetSize;
@@ -166,13 +148,13 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             TimeSinceLastFrame -= MillisecondsPerFrame;
 
             //Logic for choosing frames from spritesheets
-            ++FrameCurrent.X;
-            if (FrameCurrent.X < sheetSize.X) return;
+            ++frameCurrent.X;
+            if (frameCurrent.X < sheetSize.X) return;
 
-            FrameCurrent.X = 0;
-            ++FrameCurrent.Y;
-            if (FrameCurrent.Y >= sheetSize.Y)
-                FrameCurrent.Y = 0;
+            frameCurrent.X = 0;
+            ++frameCurrent.Y;
+            if (frameCurrent.Y >= sheetSize.Y)
+                frameCurrent.Y = 0;
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -180,7 +162,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             spriteBatch.Draw(
                 texture,
                 position,
-                new Rectangle(FrameCurrent.X * FrameSize.X, FrameCurrent.Y * FrameSize.Y, FrameSize.X, FrameSize.Y),
+                new Rectangle(frameCurrent.X * frameSize.X, frameCurrent.Y * frameSize.Y, frameSize.X, frameSize.Y),
                 Color.White, rotate, origin,
                 scale, spriteEffects, 0);
         }
