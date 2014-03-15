@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites
 {
+    /// <summary>
+    /// Everything in this class is common for fonts and player sprites
+    /// </summary>
     abstract class Sprite
     {
         protected Vector2 Origin; //Origin for rotation
@@ -12,41 +15,5 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         protected float Rotate;
         protected float Scale;
         protected SpriteEffects SpriteEffects;
-
-        public Vector2 Origin1
-        {
-            get { return Origin; }
-            set { Origin = value; }
-        }
-
-        public Vector2 Position1
-        {
-            get { return Position; }
-            set { Position = value; }
-        }
-
-        public Color Color1
-        {
-            get { return Color; }
-            set { Color = value; }
-        }
-
-        public float Rotate1
-        {
-            get { return Rotate; }
-            set { Rotate = value; }
-        }
-
-        public float Scale1
-        {
-            get { return Scale; }
-            set { Scale = value; }
-        }
-
-        public SpriteEffects SpriteEffects1
-        {
-            get { return SpriteEffects; }
-            set { SpriteEffects = value; }
-        }
     }
 }

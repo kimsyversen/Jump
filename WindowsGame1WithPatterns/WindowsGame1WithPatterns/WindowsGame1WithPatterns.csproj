@@ -118,6 +118,7 @@
     <Compile Include="Classes\Components\MenuComponent.cs" />
     <Compile Include="Classes\KeyboardConfiguration\MKeyboardMapping.cs" />
     <Compile Include="Classes\FileIO\SerializableDictionary.cs" />
+    <Compile Include="Classes\AbstractPlayerManager.cs" />
     <Compile Include="Classes\Screens\HelpMenu.cs" />
     <Compile Include="Classes\Screens\MultiplayerManager.cs" />
     <Compile Include="Classes\Screens\SingleplayerManager.cs" />
