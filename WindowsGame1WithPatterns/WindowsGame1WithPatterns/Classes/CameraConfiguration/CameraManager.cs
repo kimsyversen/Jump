@@ -19,7 +19,7 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         //TODO: Hva brukes denne til?
         private int _windowHeight;
 
-        private int _faster = 0;
+        private int _faster;
         private Vector2 _center;
         public bool StartCam
         {
@@ -58,20 +58,24 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
 
         public void Update(List<Vector2> position, int xOffset, int yOffset, GameTime gameTime)
         {
+            //TODO: Hva er 40 og 50?
             _center.X = _viewport.Width / 2f;
             if (_counter > 0)
             {
                 _center.Y = position[0].Y - (_viewport.Height / 2f) + 50;
                 _counter--;
             }
+            
+
             if (_center.Y < _viewport.Height + _viewport.Height / 2 - yOffset - 40)
             {
                 _velocity = 0f;
                 return;
             }
 
-            foreach (Vector2 p in position)
+            foreach (var p in position)
             {
+                //TODO: Hva er 350 og 200?
                 if (p.Y < _center.Y - 350)
                 {
                     _faster = 2;

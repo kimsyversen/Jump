@@ -25,12 +25,21 @@ namespace WindowsGame1WithPatterns.Classes
 
         //For platform generation and camera following
         private int _heightOfBoard = 0;
-        private int _minPlatFormWidth = 100;
+
+        private int _platformWidth = 100;
+
         private const int MinDistance = 20;
+
         private int _maxDistance = 100;
+
         private int _numberOfPlatforms = 20;
+
+        private const int MinimumPlatformWidth = 10;
         private const int HeightBetweenPlatforms = 70;
+        private const int DistanceBetweenPlatforms = 225;
+
         private int _level = 1;
+
         private readonly GraphicsDeviceManager _graphics;
 
 
@@ -38,16 +47,21 @@ namespace WindowsGame1WithPatterns.Classes
 
         private readonly int _numberOfPlayers;
 
+        private const int HeightOfPlatform = 5;
+
+        private Random _randomNumber;
+
         protected AbstractGameManager(Game game, SpriteBatch spriteBatch, string managerId, GameStates stateId, GraphicsDeviceManager graphics, int numberOfPlayers)
             : base(game, spriteBatch, managerId, stateId)
         {
             _graphics = graphics;
             _numberOfPlayers = numberOfPlayers;
+
+   
         }
 
         public override void Initialize()
         {
-
             _players = new List<Player>();
             _fonts = new List<Font>();
             _floors = new List<Platform>();
@@ -63,8 +77,8 @@ namespace WindowsGame1WithPatterns.Classes
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _floors.Add(new Platform(_game, 0, (_game.Window.ClientBounds.Height) - 5,
-                                                  _game.Window.ClientBounds.Width, 5));
+            _floors.Add(new Platform(_game, 0, (_game.Window.ClientBounds.Height) - HeightOfPlatform,
+                                                  _game.Window.ClientBounds.Width, HeightOfPlatform));
 
 
             //Singleplayer
@@ -79,7 +93,7 @@ namespace WindowsGame1WithPatterns.Classes
 
             _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, _graphics.PreferredBackBufferHeight);
 
-            GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _minPlatFormWidth);
+            GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
 
             _background = _game.Content.Load<Texture2D>(@"Figure\bg");
             _mainFrame = new Rectangle(0, -100000, GraphicsDevice.Viewport.Width, 110000);
@@ -98,6 +112,8 @@ namespace WindowsGame1WithPatterns.Classes
 
         public override void Update(GameTime gameTime)
         {
+            _playerPosition = new List<Vector2>();
+
             if (InputManager.Instance.IsKeyPressed(Keys.Escape))
                 ChangeStateTo(GameStates.InGameMenu);
 
@@ -129,9 +145,8 @@ namespace WindowsGame1WithPatterns.Classes
                 //Sjekker om spilleren er ferdig med en level, isåfall starter en ny, vanskeligere en.
                 if (player.Position.Y < _floors[_floors.Count - 1].Position.Y)
                     LevelUp();
-
             }
-            _playerPosition = new List<Vector2>();
+
             foreach (var font in _fonts)
                 font.Update(gameTime, _game.Window.ClientBounds);
 
@@ -144,48 +159,50 @@ namespace WindowsGame1WithPatterns.Classes
 
         protected void LevelUp()
         {
-            if (_minPlatFormWidth > 10)
-                _minPlatFormWidth = _minPlatFormWidth - DifficulityFactor / 2;
+            //TODO: Kan 2 og 4 gjøres om til variabel med forklarende navn?
+            if (_platformWidth > MinimumPlatformWidth)
+                _platformWidth = _platformWidth - DifficulityFactor / 2;
 
-            if (_maxDistance < 225)
+            if (_maxDistance < DistanceBetweenPlatforms)
                 _maxDistance = _maxDistance + DifficulityFactor;
 
             _numberOfPlatforms = _numberOfPlatforms + DifficulityFactor / 4;
 
-            GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _minPlatFormWidth);
+            GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
 
             _camera.IncreaseSpeed();
 
             _level++;
         }
-        protected void GeneratePlatforms(int antall, int minDistance, int maxDistance, int minWidth)
+        protected void GeneratePlatforms(int numberOfPlatforms, int minDistance, int maxDistance, int minWidth)
         {
-            var rnd = new Random();
-            int teller = 0;
+            _randomNumber = new Random();
 
-            while (teller < antall)
+            for (var i = 0; i < numberOfPlatforms; i++)
             {
                 Platform floor;
-                int x = rnd.Next(minDistance, maxDistance);
-                int width = rnd.Next(minWidth, 100);
-                int test = rnd.Next(1, 3);
+                //TODO: Hva er x?
+                var x = _randomNumber.Next(minDistance, maxDistance);
+                var width = _randomNumber.Next(minWidth, _platformWidth);
 
-                //public Platform(Game game, float x, float y, int width, int height)
-                if (teller + 1 == antall)
+                //TODO: Hva er test?
+                var test = _randomNumber.Next(1, 3);
+
+                if (i + 1 == numberOfPlatforms)
                     floor = new Platform(_game, 1,
-                       _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, _game.Window.ClientBounds.Width - 1, 5);
+                       _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms,
+                       _game.Window.ClientBounds.Width, HeightOfPlatform);
 
                 else if (test == 1)
                     floor = new Platform(_game, _floors[_floors.Count - 1].Position.X - x,
-                                         _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, 5);
+                                         _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
                 else
-                    floor = new Platform(_game, _floors[_floors.Count - 1].Position.X + x, _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, 5);
+                    floor = new Platform(_game, _floors[_floors.Count - 1].Position.X + x, _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
 
-                if (!CheckOutsideRange(floor))
-                {
-                    _floors.Add(floor);
-                    teller++;
-                }
+                if (CheckOutsideRange(floor))
+                    continue;
+
+                _floors.Add(floor);
             }
             _heightOfBoard = HeightBetweenPlatforms * _floors.Count;
         }
