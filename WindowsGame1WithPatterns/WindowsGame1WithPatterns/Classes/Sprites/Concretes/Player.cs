@@ -8,7 +8,7 @@ using WindowsGame1WithPatterns.Classes.Sprites.Concretes.Movement;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 {
-    internal class Player : NotFontSprite
+    internal class Player : Sprite
     {
         private Game _game;
 

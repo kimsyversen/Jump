@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 {
-    class SimpleFont : NotFontSprite
+    class SimpleFont : Sprite
     {
         private SpriteFont _font;
         private String _fontText;

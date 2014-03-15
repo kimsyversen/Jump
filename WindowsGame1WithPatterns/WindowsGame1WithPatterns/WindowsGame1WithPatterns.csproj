@@ -136,11 +136,9 @@
     <Compile Include="Classes\KeyboardConfiguration\KeyboardMapping.cs" />
     <Compile Include="Classes\State\State.cs" />
     <Compile Include="Classes\Sprites\NotFontSprite.cs" />
-    <Compile Include="Classes\Sprites\ISprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Classes\Sprites\Sprite.cs" />
     <Compile Include="Classes\Sprites\Concretes\SimpleFont.cs" />
   </ItemGroup>
   <ItemGroup>
