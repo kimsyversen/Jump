@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
+
 using WindowsGame1WithPatterns.Classes.CameraConfiguration;
+using WindowsGame1WithPatterns.Classes.Sprites.Concretes;
+
 //using WindowsGame1WithPatterns.Classes.CameraConfiguration;
 
 
@@ -23,16 +23,13 @@ namespace WindowsGame1WithPatterns.Classes
         private Texture2D background;
         private Rectangle mainFrame;
 
-        private SpriteFactory _spriteFactory;
-        private PlayerFactory _playerFactory;
-        private FontFactory _fontFactory;
-        private PlatformFactory _platformFactory;
+
         private CameraManager _camera;
         private List<Vector2> _playerPosition;
 
-        private List<IPlayer> _players;
-        private List<IFont> _fonts;
-        private List<IPlatform> _floors;
+        private List<Player> _players;
+        private List<SimpleFont> _fonts;
+        private List<Platform> _floors;
 
 
         //For platform generation and camera following
@@ -59,10 +56,10 @@ namespace WindowsGame1WithPatterns.Classes
 
         public override void Initialize()
         {
-            _spriteFactory = new SpriteFactory(_game);
-            _players = new List<IPlayer>();
-            _fonts = new List<IFont>();
-            _floors = new List<IPlatform>();
+
+            _players = new List<Player>();
+            _fonts = new List<SimpleFont>();
+            _floors = new List<Platform>();
             _playerPosition = new List<Vector2>();
             base.Initialize();
         }
@@ -75,24 +72,19 @@ namespace WindowsGame1WithPatterns.Classes
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            _playerFactory = _spriteFactory.CreatePlayerFactory();
-
-            _platformFactory = _spriteFactory.CreatePlatformFactory();
-
-            var floor = _platformFactory.CreateFloorSprite();
-            _floors.Add(floor);
+            _floors.Add(new Platform(_game, 0, (_game.Window.ClientBounds.Height) - 5,
+                                                  _game.Window.ClientBounds.Width, 5));
 
 
            //Singleplayer
-           _players.Add(_playerFactory.CreatePlayerOne());
+           _players.Add(new Player(_game, "Figure/lilastoy", new KeyboardMapping(Keys.A, Keys.D, Keys.Space)));
           
             //If multiplayer
-           if(_numberOfPlayers >  1)
-               _players.Add(_playerFactory.CreatePlayerTwo());
+            if (_numberOfPlayers > 1)
+                _players.Add(new Player(_game, "Figure/greenstoy", new KeyboardMapping(Keys.Left, Keys.Right, Keys.Up)));
            
 
-            _fontFactory = _spriteFactory.CreateFontFactory();
+           
 
             _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, _graphics.PreferredBackBufferHeight);
 
@@ -183,21 +175,22 @@ namespace WindowsGame1WithPatterns.Classes
 
             while (teller < antall)
             {
-                IPlatform floor;
+                Platform floor;
                 int x = rnd.Next(minDistance, maxDistance);
                 int width = rnd.Next(minWidth, 100);
                 int test = rnd.Next(1, 3);
 
+                //public Platform(Game game, float x, float y, int width, int height)
                 if (teller + 1 == antall)
-                    floor = _platformFactory.CreateFloorSpriteInputs(1,
+                    floor = new Platform(_game, 1,
                        _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, _game.Window.ClientBounds.Width - 1, 5);
 
                 else if (test == 1)
-                    floor = _platformFactory.CreateFloorSpriteInputs(_floors[_floors.Count - 1].FloorPosition.X - x,
-                        _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, width, 5);
+                    floor = new Platform(_game, _floors[_floors.Count - 1].FloorPosition.X - x,
+                                         _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, width, 5);
 
                 else
-                    floor = _platformFactory.CreateFloorSpriteInputs(_floors[_floors.Count - 1].FloorPosition.X + x, _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, width, 5);
+                    floor = new Platform(_game, _floors[_floors.Count - 1].FloorPosition.X + x, _floors[_floors.Count - 1].FloorPosition.Y - HeightBetweenPlatforms, width, 5);
 
                 if (!CheckOutsideRange(floor))
                 {
@@ -208,7 +201,7 @@ namespace WindowsGame1WithPatterns.Classes
             _heightOfBoard = HeightBetweenPlatforms * _floors.Count;
         }
 
-        private bool CheckOutsideRange(IPlatform floor)
+        private bool CheckOutsideRange(Platform floor)
         {
             if (floor.FloorPosition.X <= 0 || floor.FloorPosition.X + floor.FloorTexture.Width >= _game.Window.ClientBounds.Width)
                 return true;
@@ -216,9 +209,9 @@ namespace WindowsGame1WithPatterns.Classes
             return false;
         }
 
-        private bool GameOver(IEnumerable<IPlayer> players, Vector2 center)
+        private bool GameOver(IEnumerable<Player> players, Vector2 center)
         {
-            foreach (IPlayer p in players)
+            foreach (Player p in players)
                 if (!(p.PlayerPosition.Y > center.Y + _game.Window.ClientBounds.Height / 2f))
                     return false;
             return true;

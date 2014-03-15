@@ -1,24 +1,21 @@
 ﻿using System.Collections.Generic;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Platform;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Movement;
 using System;
+using WindowsGame1WithPatterns.Classes.Sprites.Concretes.Movement;
 
-namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
+namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 {
-    internal class Player : NotFontSprite, IPlayer
+    internal class Player : NotFontSprite
     {
         private Game _game;
-        private readonly List<IFont> _observers;
+
         private bool _hasJumped;
         private bool _hasHitTheWall;
         private bool _platformHit = false;
-        private IPlatform _platform;
+        private Platform _platform;
         private float _heightOfJump;
         private const float Gravity = 1.15f;
         private const float JumpHeight = 10f;
@@ -40,7 +37,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {
             _game = game;
-            _observers = new List<IFont>();
+
             _hasJumped = true;
             _hasHitTheWall = false;
             effect = game.Content.Load<SoundEffect>("Audio/Jump");
@@ -125,10 +122,10 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
                     Position.X = clientBounds.Width - Texture.Width;
             
 
-            //Bruker MoveCommand for flyttingen, og gir beskjed til observer
+            //Bruker MoveCommand for flyttingen
             var cmd = new MoveCommand(this, new Vector2(Velocity.X, Velocity.Y), new Vector2(Position.X + Velocity.X, Position.Y + Velocity.Y));
             cmd.Execute();
-            NotifyObservers();
+        
 
             //Animate sprite
             base.Update(gameTime, clientBounds);
@@ -156,7 +153,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             set { Position = value; }
         }
 
-        public void LandedOnPlatForm(IPlatform floor)
+        public void LandedOnPlatForm(Platform floor)
         {
             //Må passe på at spilleren blir tegnet på toppen av platformen
             var newPosition = new Vector2(PlayerPosition.X, (floor.FloorPosition.Y - Texture.Height + 1));
@@ -179,7 +176,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
             get { return _platformHit; }
         }
 
-        public IPlatform OnFloor
+        public Platform OnFloor
         {
             get { return _platform; }
         }
@@ -188,27 +185,5 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Player.Concretes
         public float GetY { get { return _heightOfJump; } }
         public Texture2D PlayerTexture { get { return Texture; } }
 
-        #region ObserverPatternRelated
-
-
-
-
-        public void RegisterObserver(IFont observer)
-        {
-            _observers.Add(observer);
-        }
-
-        public void RemoveObserver(IFont observer)
-        {
-            _observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in _observers)
-                observer.UpdateCoordinates(this.Position);
-        }
-
-        #endregion
     }
 }

@@ -6,8 +6,15 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
 {
 
     //TODO: Bad classname, fix
-    class NotFontSprite : Sprite, ISprite
+    abstract class Sprite
     {
+        protected Vector2 Origin; //Origin for rotation
+        protected Vector2 Position; // Position of sprite
+        protected Color Color;
+        protected float Rotate;
+        protected float Scale;
+        protected SpriteEffects SpriteEffects;
+
         protected const int DefaultMillisecondsPerFrame = 16; //60 times per second
         protected int CollisionOffset; //pixels outside of texture to not collide with
         protected Point FrameCurrent; //Index (x,y) for current frame in spritesheet/sprite
@@ -34,8 +41,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             }
         }
 
-        protected NotFontSprite() {}
-        protected NotFontSprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
+        protected Sprite() {}
+        protected Sprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
                                    Point sheetSize,
                                    float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity,
                                    int collisionOffset, int timeSinceLastFrame)
@@ -46,7 +53,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             
         }
 
-        protected NotFontSprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
+        protected Sprite(Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
                                    Point sheetSize,
                                    float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity,
                                    int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame)
@@ -71,7 +78,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         /// </summary>
         /// <param name="gameTime"></param>
         /// <param name="clientBounds"></param>
-        public void Update(GameTime gameTime, Rectangle clientBounds)
+        public virtual void Update(GameTime gameTime, Rectangle clientBounds)
         {
             //Animation
 

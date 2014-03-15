@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
+namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 {
-    class SimpleFont : Sprite
+    class SimpleFont : NotFontSprite
     {
         private SpriteFont _font;
         private String _fontText;
@@ -32,6 +32,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts.Concretes
             SpriteEffects = SpriteEffects.None;
             Position = position;
         }
+
+ 
         #region properties
         public Vector2 Origin2
         {

@@ -12,9 +12,7 @@ using Microsoft.Xna.Framework.Media;
 using WindowsGame1WithPatterns.Classes;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Fonts;
-using WindowsGame1WithPatterns.Classes.Sprites.Factories.Player;
+
 
 namespace WindowsGame1WithPatterns
 {
