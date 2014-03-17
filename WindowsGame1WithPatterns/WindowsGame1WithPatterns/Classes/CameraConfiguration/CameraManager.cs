@@ -26,10 +26,22 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         private const float DefaultStartSpeedMiddle = 5.0f;
         private const float DefaultStartSpeedTop = 6.0f;
 
+        public float GetDefaultStartSpeed
+        {
+            get { return DefaultStartSpeed; }
+
+        }
+
         //Velocity increasing
         private const float VelocityInc = 0.3f;
 
+        public float GetVelocityInc
+        {
+            get { return VelocityInc; }
+        }
+
         private int _faster;
+
         private Vector2 _center;
         public bool StartCam
         {
@@ -51,6 +63,8 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
             get { return _center; }
         }
 
+
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -71,7 +85,6 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         {
             _increaseSpeed += VelocityInc;
         }
-
 
         /// <summary>
         /// Updates the camera position depending on where the player is located.
@@ -98,6 +111,7 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
                 _faster = 0;
             }
             //Set the velocity 
+
             switch (_faster)
             {
                 case 2:

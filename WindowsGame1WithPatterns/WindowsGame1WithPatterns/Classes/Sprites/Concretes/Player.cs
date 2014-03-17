@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using WindowsGame1WithPatterns.Classes.Sprites.Concretes.Movement;
+using WindowsGame1WithPatterns.Classes.Sprites.Concretes;
 
 namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 {
@@ -125,14 +125,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 else 
                     position.X = clientBounds.Width - texture.Width;
 
-       
 
-            //Bruker MoveCommand for flyttingen
-            //TODO: REMOVE?
-            var cmd = new MoveCommand(this, new Vector2(velocity.X, velocity.Y), new Vector2(position.X + velocity.X, position.Y + velocity.Y));
-            cmd.Execute();
-        
 
+            Velocity = new Vector2(velocity.X, velocity.Y);
+            Position = new Vector2(position.X + velocity.X, position.Y + velocity.Y);
+ 
             //Animate sprite
             base.Update(gameTime, clientBounds);
         }

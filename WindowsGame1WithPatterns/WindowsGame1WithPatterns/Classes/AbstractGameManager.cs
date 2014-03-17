@@ -42,8 +42,13 @@ namespace WindowsGame1WithPatterns.Classes
         private const int DistanceBetweenPlatforms = 225;
         private const int HeightOfPlatform = 5;
         private const int DifficulityFactor = 20;
+        private const float MaxSpeedLimit = 5.0f;
+        private const int BgImageYMin = -100000;
+        private const int BgImageYMax = 110000;
 
         private int _level;
+
+        private float _gameVelocity;
 
         private readonly GraphicsDeviceManager _graphics;
 
@@ -96,6 +101,7 @@ namespace WindowsGame1WithPatterns.Classes
                     new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
 
             _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f);
+            _gameVelocity = _camera.GetDefaultStartSpeed;
 
             GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
 
@@ -106,8 +112,8 @@ namespace WindowsGame1WithPatterns.Classes
             _startGameSong = _game.Content.Load<Song>("Audio/StartGameSong");
 
 
-            //TODO: 110000 og -100000 er?
-            _mainFrame = new Rectangle(0, -100000, GraphicsDevice.Viewport.Width, 110000);
+            //Background image
+            _mainFrame = new Rectangle(0, BgImageYMin, GraphicsDevice.Viewport.Width, BgImageYMax);
             base.LoadContent();
         }
 
@@ -185,6 +191,7 @@ namespace WindowsGame1WithPatterns.Classes
             foreach (var floor in _platforms)
                 floor.Update(gameTime, _game.Window.ClientBounds);
 
+
             //Update player score
             ScoreFontText();
 
@@ -193,7 +200,7 @@ namespace WindowsGame1WithPatterns.Classes
 
         protected void LevelUp()
         {
-            //TODO: Kan 2 og 4 gjøres om til variabel med forklarende navn?
+            
             if (_platformWidth > MinimumPlatformWidth)
                 _platformWidth = _platformWidth - DifficulityFactor / 2;
 
@@ -204,7 +211,13 @@ namespace WindowsGame1WithPatterns.Classes
 
             GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
 
-            _camera.IncreaseSpeed();
+            if (_gameVelocity <= MaxSpeedLimit)
+            {
+                _camera.IncreaseSpeed();
+                _gameVelocity += _camera.GetVelocityInc;
+            }
+
+            Console.WriteLine(_gameVelocity);
 
             _level++;
         }
