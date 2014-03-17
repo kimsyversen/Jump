@@ -17,8 +17,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         private float _heightOfJump;
         private const float Gravity = 1.15f;
         private const float JumpHeight = 10f;
+        private bool _isDead;
 
-        const float PlayerSpeed = 3.0f;
+        const float PlayerSpeed = 5.0f;
         const float PlayerSpeedChange = 5.0f;
         private readonly SoundEffect _effect;
 
@@ -36,8 +37,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height - 48), new Point(48, 48), new Point(0, 0),
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {
-         
 
+            _isDead = false;
             _hasJumped = true;
             _hasHitTheWall = false;
             _effect = game.Content.Load<SoundEffect>("Audio/Jump");
@@ -65,9 +66,15 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
      
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            if (InputManager.Instance.IsKeyDown(_keyboardMapping.Right) && !_hasHitTheWall) 
+            if (_isDead)
+            {
+                velocity.Y = 0f;
+                velocity.X = 0f;
+                return;
+            }
+            if (InputManager.Instance.IsKeyDown(_keyboardMapping.Right) && !_hasHitTheWall)
                 velocity.X = PlayerSpeed;
-            else if (InputManager.Instance.IsKeyDown(_keyboardMapping.Left) && !_hasHitTheWall) 
+            else if (InputManager.Instance.IsKeyDown(_keyboardMapping.Left) && !_hasHitTheWall)
                 velocity.X = -PlayerSpeed;
             else if (!_hasHitTheWall)
                 velocity.X = 0f;
@@ -117,7 +124,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 }
                 else 
                     position.X = clientBounds.Width - texture.Width;
-            
+
+       
 
             //Bruker MoveCommand for flyttingen
             //TODO: REMOVE?
@@ -129,6 +137,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             base.Update(gameTime, clientBounds);
         }
 
+        /// <summary>
+        /// Runs when a players lands on a platform, making sure it is being displayed on the top of it.
+        /// Also makes sure the variables got the correct value.
+        /// </summary>
+        /// <param name="floor"></param>
         public void LandedOnPlatForm(Platform floor)
         {
             //Må passe på at spilleren blir tegnet på toppen av platformen
@@ -148,6 +161,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             _hasJumped = true;
         }
 
+        public bool IsDead
+        {
+            get { return _isDead; }
+            set { _isDead = value; }
+        }
         public bool HasHitPlatform
         {
             get { return _platformHit; }
