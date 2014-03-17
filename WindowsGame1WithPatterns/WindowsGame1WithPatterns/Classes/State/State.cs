@@ -26,6 +26,12 @@ namespace WindowsGame1WithPatterns.Classes.State
         private State _changeState;
 
         /// <summary>
+        /// Will be used by StateManager to determine if the
+        /// _changeState will be a pop up or not
+        /// </summary>
+        private bool _popUpState;
+
+        /// <summary>
         /// Will hold any child components of the screen
         /// </summary>
         private List<GameComponent> _components = new List<GameComponent>();
@@ -54,10 +60,24 @@ namespace WindowsGame1WithPatterns.Classes.State
                 _changeState = null;
                 return changingState;
             }
-            private set
+            private set { _changeState = value; }
+        }
+
+        /// <summary>
+        /// Will be used by StateManager to determine if the
+        /// _changeState will be a pop up or not. When a state
+        /// (sub-class of this) want a pop-up state, it calls the
+        /// method PupUp with the apropriate enum of the state
+        /// </summary>
+        public bool PupUpState
+        {
+            get
             {
-                _changeState = value; 
+                bool popUp = _popUpState;
+                _popUpState = false;
+                return popUp;
             }
+            private set { _popUpState = value; }
         }
 
         /// <summary>
@@ -167,7 +187,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         /// <summary>
         /// Stop the state
         /// </summary>
-        public virtual void Stop()
+        public virtual void Resume()
         {
             
         }
@@ -182,6 +202,19 @@ namespace WindowsGame1WithPatterns.Classes.State
         {
             Debug.WriteLine("Changing state to: " + gameStateId.ToString());
             ChangeState = States[string.Concat(_managerId, gameStateId.ToString())];
+            PupUpState = false;
+        }
+
+        /// <summary>
+        /// When a state (sub-class of this) 
+        /// wants a state to pup up, it calls the method PopUp
+        /// with the apropriate enum of the state
+        /// </summary>
+        /// <param name="gameStateId"></param>
+        protected void PopUp(GameStates gameStateId)
+        {
+            ChangeState = States[string.Concat(_managerId, gameStateId.ToString())];
+            PupUpState = true;
         }
 
         /// <summary>
