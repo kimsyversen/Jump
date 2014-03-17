@@ -114,6 +114,7 @@
     <Compile Include="Classes\CameraConfiguration\CameraManager.cs" />
     <Compile Include="Classes\Components\TextBoxComponent.cs" />
     <Compile Include="Classes\FileIO\Serializer.cs" />
+    <Compile Include="Classes\Highscores\Score.cs" />
     <Compile Include="Classes\KeyboardConfiguration\InputManager.cs" />
     <Compile Include="Classes\Components\MenuComponent.cs" />
     <Compile Include="Classes\KeyboardConfiguration\MKeyboardMapping.cs" />
@@ -128,8 +129,6 @@
     <Compile Include="Classes\Screens\MainMenu.cs" />
     <Compile Include="Classes\Screens\ChoosePlayerManager.cs" />
     <Compile Include="Classes\Screens\OptionsMenu.cs" />
-    <Compile Include="Classes\Sprites\Concretes\Movement\ICommand.cs" />
-    <Compile Include="Classes\Sprites\Concretes\Movement\MoveCommand.cs" />
     <Compile Include="Classes\Sprites\Concretes\Platform.cs" />
     <Compile Include="Classes\Sprites\Concretes\Player.cs" />
     <Compile Include="Classes\State\StateManager.cs" />

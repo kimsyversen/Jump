@@ -9,19 +9,39 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
 {
     public class CameraManager
     {
+        //The velocity
         private float _velocity;
+        //Start or stop camera.
         private bool _startCam ;
-        private const float VelocityInc = 0.3f;
+
         private float _increaseSpeed;
         private Viewport _viewport;
 
+        //Constants that is used.
+        //Coordinates used to customize the speed
         private const int TopPartOfWindow = 350;
         private const int MiddlePartOfWindow = 200;
+        //Default speed depending on where the player is(the _increasedSpeed is multiplied to this)
         private const float DefaultStartSpeed = 3.0f;
         private const float DefaultStartSpeedMiddle = 5.0f;
         private const float DefaultStartSpeedTop = 6.0f;
 
+        public float GetDefaultStartSpeed
+        {
+            get { return DefaultStartSpeed; }
+
+        }
+
+        //Velocity increasing
+        private const float VelocityInc = 0.3f;
+
+        public float GetVelocityInc
+        {
+            get { return VelocityInc; }
+        }
+
         private int _faster;
+
         private Vector2 _center;
         public bool StartCam
         {
@@ -44,6 +64,12 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         }
 
 
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="newViewport"></param>
+        /// <param name="newVelocity"></param>
         public CameraManager(Viewport newViewport, float newVelocity)
         {
             _velocity = newVelocity;
@@ -52,13 +78,22 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
             _center.X = _viewport.Width / 2f;
         }
     
-
+        /// <summary>
+        /// Increase speed when clearing a level. 
+        /// </summary>
         public void IncreaseSpeed() 
         {
             _increaseSpeed += VelocityInc;
         }
 
-        public void Update(List<Vector2> position, int xOffset, int yOffset, GameTime gameTime)
+        /// <summary>
+        /// Updates the camera position depending on where the player is located.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="xOffset"></param>
+        /// <param name="yOffset"></param>
+        /// <param name="gameTime"></param>
+        public void Update(List<Vector2> position, GameTime gameTime)
         {
             foreach (var p in position)
             {
@@ -76,6 +111,7 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
                 _faster = 0;
             }
             //Set the velocity 
+
             switch (_faster)
             {
                 case 2:

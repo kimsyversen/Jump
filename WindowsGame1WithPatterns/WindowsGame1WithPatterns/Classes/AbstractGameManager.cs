@@ -23,36 +23,38 @@ namespace WindowsGame1WithPatterns.Classes
 
         private List<Player> _players;
         private List<Font> _fonts;
-        private List<Platform> _floors;
+        private List<Platform> _platforms;
 
         private String _fontString = "Empty";
 
         //For platform generation and camera following
         private int _heightOfBoard;
 
-        private int _platformWidth = 100;
+        private int _platformWidth;
+
+        private int _maxDistance;
+
+        private int _numberOfPlatforms;
 
         private const int MinDistance = 20;
-
-        private int _maxDistance = 100;
-
-        private int _numberOfPlatforms = 20;
-
         private const int MinimumPlatformWidth = 10;
         private const int HeightBetweenPlatforms = 70;
         private const int DistanceBetweenPlatforms = 225;
+        private const int HeightOfPlatform = 5;
+        private const int DifficulityFactor = 20;
+        private const float MaxSpeedLimit = 5.0f;
+        private const int BgImageYMin = -100000;
+        private const int BgImageYMax = 110000;
 
         private int _level;
 
-        private readonly GraphicsDeviceManager _graphics;
+        private float _gameVelocity;
 
-        private const int DifficulityFactor = 20;
+        private readonly GraphicsDeviceManager _graphics;
 
         private readonly int _numberOfPlayers;
 
-        private const int HeightOfPlatform = 5;
-
-        private Random _randomNumber;
+        private Random _rnd;
 
         private Song _startGameSong;
 
@@ -66,11 +68,15 @@ namespace WindowsGame1WithPatterns.Classes
         public override void Initialize()
         {
             _players = new List<Player>();
+            _fonts = new List<Font>();
+            _platforms = new List<Platform>();
+            _playerPosition = new List<Vector2>();
+            _rnd = new Random();
             _level = 1;
             _heightOfBoard = 0;
-            _fonts = new List<Font>();
-            _floors = new List<Platform>();
-            _playerPosition = new List<Vector2>();
+            _platformWidth = 100;
+            _maxDistance = 100;
+            _numberOfPlatforms = 20;
             base.Initialize();
         }
 
@@ -82,7 +88,7 @@ namespace WindowsGame1WithPatterns.Classes
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _floors.Add(new Platform(_game, 0, (_game.Window.ClientBounds.Height) - HeightOfPlatform,
+            _platforms.Add(new Platform(_game, 0, (_game.Window.ClientBounds.Height) - HeightOfPlatform,
                                                   _game.Window.ClientBounds.Width, HeightOfPlatform));
 
             //Singleplayer
@@ -95,6 +101,7 @@ namespace WindowsGame1WithPatterns.Classes
                     new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
 
             _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f);
+            _gameVelocity = _camera.GetDefaultStartSpeed;
 
             GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
 
@@ -105,8 +112,8 @@ namespace WindowsGame1WithPatterns.Classes
             _startGameSong = _game.Content.Load<Song>("Audio/StartGameSong");
 
 
-            //TODO: 110000 og -100000 er?
-            _mainFrame = new Rectangle(0, -100000, GraphicsDevice.Viewport.Width, 110000);
+            //Background image
+            _mainFrame = new Rectangle(0, BgImageYMin, GraphicsDevice.Viewport.Width, BgImageYMax);
             base.LoadContent();
         }
 
@@ -146,7 +153,7 @@ namespace WindowsGame1WithPatterns.Classes
                 player.Update(gameTime, _game.Window.ClientBounds);
                 _playerPosition.Add(player.Position);
                 
-                foreach (var floor in _floors)
+                foreach (var floor in _platforms)
                 {
                     //Sjekker om spilleren har truffet en platform
                     if (player.CollisionRectangle.Intersects(floor.CollisionRectangle) && player.HasHitPlatform == false && (player.GetY + player.Texture.Height) < floor.Position.Y)
@@ -165,13 +172,14 @@ namespace WindowsGame1WithPatterns.Classes
                 {
                     ChangeStateTo(GameStates.GameOver);
                     _camera.StartCam = false;
+                    Console.WriteLine(player.Score+ " ");
                 }
 
                 //Sjekker om spilleren er ferdig med en level, isåfall starter en ny, vanskeligere en.
-                if (player.Position.Y < _floors[_floors.Count - 1].Position.Y)
+                if (player.Position.Y < _platforms[_platforms.Count - 1].Position.Y)
                     LevelUp();
             }
-            _camera.Update(_playerPosition, _game.Window.ClientBounds.Width, _heightOfBoard, gameTime);
+            _camera.Update(_playerPosition, gameTime);
             foreach (var font in _fonts)
             {
                 font.FontText = _fontString;
@@ -180,35 +188,46 @@ namespace WindowsGame1WithPatterns.Classes
             }
 
 
-            foreach (var floor in _floors)
+            foreach (var floor in _platforms)
                 floor.Update(gameTime, _game.Window.ClientBounds);
 
-            //Update player score
-            CalculatePlayerScore();
 
-            Console.WriteLine(_camera.Velocity);
+            //Update player score
+            ScoreFontText();
+
             base.Update(gameTime);
         }
 
         protected void LevelUp()
         {
-            //TODO: Kan 2 og 4 gjøres om til variabel med forklarende navn?
+            
             if (_platformWidth > MinimumPlatformWidth)
+                //DifficulityFactor is being divided on 2, so the width is not decreasing too fast.
                 _platformWidth = _platformWidth - DifficulityFactor / 2;
 
             if (_maxDistance < DistanceBetweenPlatforms)
                 _maxDistance = _maxDistance + DifficulityFactor;
 
+            //DifficulityFactor is being divided on 4, so the numberofplatforms isnt increasing too fast
             _numberOfPlatforms = _numberOfPlatforms + DifficulityFactor / 4;
 
             GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
 
-            _camera.IncreaseSpeed();
+            if (_gameVelocity <= MaxSpeedLimit)
+            {
+                _camera.IncreaseSpeed();
+                _gameVelocity += _camera.GetVelocityInc;
+            }
+
+            Console.WriteLine(_gameVelocity);
 
             _level++;
         }
 
-        private void CalculatePlayerScore() {
+        /// <summary>
+        /// Updating the string of the font which displays the players score.
+        /// </summary>
+        private void ScoreFontText() {
             _fontString = "";
             int _playerCounter = 1;
             foreach(var p in _players){
@@ -217,12 +236,15 @@ namespace WindowsGame1WithPatterns.Classes
             }
         }
 
+        /// <summary>
+        /// Updating the scores of all players in the list _players
+        /// </summary>
         private void updateScores()
         {
             int teller = 1;
             foreach (Player pl in _players)
             {
-                foreach (Platform p in _floors)
+                foreach (Platform p in _platforms)
                 {
                     if (pl.OnFloor == p && pl.Score < teller)
                     {
@@ -234,46 +256,55 @@ namespace WindowsGame1WithPatterns.Classes
             }
         }
 
-       
+       /// <summary>
+       /// Generating platforms, based on the arguments. The platforms is being added to the list _platforms.
+       /// </summary>
+       /// <param name="antall"></param>
+       /// <param name="minDistance"></param>
+       /// <param name="maxDistance"></param>
+       /// <param name="minWidth"></param>
        protected void GeneratePlatforms(int antall, int minDistance, int maxDistance, int minWidth)
         {
-            Random rnd = new Random();
             int teller = 0;
 
             while (teller < antall)
             {
-                Platform floor;
+                Platform platform;
                 // The distance between the new and the previous platform in x-direction. 
-                int x = rnd.Next(minDistance, maxDistance);
-                int width = rnd.Next(minWidth, 100);
+                int x = _rnd.Next(minDistance, maxDistance);
+                int width = _rnd.Next(minWidth, 100);
                 //Decides wether the new platform should be added to the left or to the right, therefor random
-                int whichDirection = rnd.Next(1, 3);
+                int whichDirection = _rnd.Next(1, 3);
 
                 if (teller + 1 == antall)
                 {
-                    floor = new Platform(_game, 1,
-                       _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, _game.Window.ClientBounds.Width - 1, HeightOfPlatform);
+                    platform = new Platform(_game, 1,
+                       _platforms[_platforms.Count - 1].Position.Y - HeightBetweenPlatforms, _game.Window.ClientBounds.Width - 1, HeightOfPlatform);
                 }
                 else if (whichDirection == 1)
                 {
-                    floor = new Platform(_game, _floors[_floors.Count - 1].Position.X - x,
-                        _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
+                    platform = new Platform(_game, _platforms[_platforms.Count - 1].Position.X - x,
+                        _platforms[_platforms.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
                 }
                 else
                 {
-                    floor = new Platform(_game, _floors[_floors.Count - 1].Position.X + x, _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
+                    platform = new Platform(_game, _platforms[_platforms.Count - 1].Position.X + x, _platforms[_platforms.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
                 }
 
-                if (!CheckOutsideRange(floor))
+                if (!CheckOutsideRange(platform))
                 {
-                    _floors.Add(floor);
+                    _platforms.Add(platform);
                     teller++;
                 }
             }
-            _heightOfBoard = HeightBetweenPlatforms * _floors.Count;
+            _heightOfBoard = HeightBetweenPlatforms * _platforms.Count;
         }
         
-
+        /// <summary>
+        /// Takes in a platform as argument, to check if its outside the game window. Returning true ifso.
+        /// </summary>
+        /// <param name="floor"></param>
+        /// <returns></returns>
         private bool CheckOutsideRange(Platform floor)
         {
             if (floor.Position.X <= 0 || floor.Position.X + floor.Texture.Width >= _game.Window.ClientBounds.Width)
@@ -282,12 +313,26 @@ namespace WindowsGame1WithPatterns.Classes
             return false;
         }
 
+        /// <summary>
+        /// To check wether all players is outside the game window.
+        ///  If a player is outside, the attribute IsDead is sat to true.
+        /// </summary>
+        /// <param name="players"></param>
+        /// <param name="center"></param>
+        /// <returns></returns>
         private bool GameOver(IEnumerable<Player> players, Vector2 center)
         {
+            bool gameOver = true;
             foreach (Player p in players)
+            {
                 if (!(p.Position.Y > center.Y + _game.Window.ClientBounds.Height / 2f))
-                    return false;
-            return true;
+                {
+                    gameOver = false;
+                }
+                else p.IsDead = true;
+
+            }
+            return gameOver;
         }
 
         public override void Draw(GameTime gameTime)
@@ -306,7 +351,7 @@ namespace WindowsGame1WithPatterns.Classes
             foreach (var font in _fonts)
                 font.Draw(gameTime, _spriteBatch);
 
-            foreach (var floor in _floors)
+            foreach (var floor in _platforms)
                 floor.Draw(gameTime, _spriteBatch);
 
             _spriteBatch.End();
