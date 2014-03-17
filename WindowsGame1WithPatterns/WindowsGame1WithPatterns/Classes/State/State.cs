@@ -196,7 +196,15 @@ namespace WindowsGame1WithPatterns.Classes.State
         /// </summary>
         public virtual void Resume()
         {
-            Show();
+            Visible = true;
+            Enabled = true;
+            foreach (GameComponent component in _components)
+            {
+                component.Enabled = true;
+                var gameComponent = component as DrawableGameComponent;
+                if (gameComponent != null)
+                    gameComponent.Visible = true;
+            }
         }
 
         /// <summary>

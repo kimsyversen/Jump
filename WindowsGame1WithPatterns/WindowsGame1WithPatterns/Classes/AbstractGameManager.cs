@@ -126,6 +126,18 @@ namespace WindowsGame1WithPatterns.Classes
             base.Hide();
         }
 
+        public override void Pause()
+        {
+            MediaPlayer.Pause();
+            base.Pause();
+        }
+
+        public override void Resume()
+        {
+            MediaPlayer.Resume();
+            base.Resume();
+        }
+
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
@@ -140,7 +152,7 @@ namespace WindowsGame1WithPatterns.Classes
             _playerPosition = new List<Vector2>();
 
             if (InputManager.Instance.IsKeyPressed(Keys.Escape))
-                ChangeStateTo(GameStates.InGameMenu);
+                PopUp(GameStates.InGameMenu);
 
             foreach (var player in _players)
             {
