@@ -25,7 +25,7 @@ namespace WindowsGame1WithPatterns.Classes
         private List<Font> _fonts;
         private List<Platform> _platforms;
 
-        private String _fontString = "Empty";
+        private String _fontString = "Initially empty";
 
         //For platform generation and camera following
         private int _heightOfBoard;
@@ -46,12 +46,8 @@ namespace WindowsGame1WithPatterns.Classes
         private const int BgImageYMin = -100000;
         private const int BgImageYMax = 110000;
 
-        private int _level;
 
         private float _gameVelocity;
-
-        private readonly GraphicsDeviceManager _graphics;
-
         private readonly int _numberOfPlayers;
 
         private Random _rnd;
@@ -61,7 +57,7 @@ namespace WindowsGame1WithPatterns.Classes
         protected AbstractGameManager(Game game, SpriteBatch spriteBatch, string managerId, GameStates stateId, GraphicsDeviceManager graphics, int numberOfPlayers)
             : base(game, spriteBatch, managerId, stateId)
         {
-            _graphics = graphics;
+           
             _numberOfPlayers = numberOfPlayers;
         }
 
@@ -72,7 +68,7 @@ namespace WindowsGame1WithPatterns.Classes
             _platforms = new List<Platform>();
             _playerPosition = new List<Vector2>();
             _rnd = new Random();
-            _level = 1;
+            
             _heightOfBoard = 0;
             _platformWidth = 100;
             _maxDistance = 100;
@@ -161,7 +157,7 @@ namespace WindowsGame1WithPatterns.Classes
                     {
                         player.LandedOnPlatForm(floor);
                         _camera.StartCam = true;
-                        updateScores();
+                        UpdateScores();
                     }
                     //Sjekker om spilleren har gått av platformen
                     if (player.HasHitPlatform && !player.CollisionRectangle.Intersects(floor.CollisionRectangle) && floor == player.OnFloor)
@@ -200,9 +196,8 @@ namespace WindowsGame1WithPatterns.Classes
 
         protected void LevelUp()
         {
-            
+            //DifficulityFactor is being divided on 2, so the width is not decreasing too fast.
             if (_platformWidth > MinimumPlatformWidth)
-                //DifficulityFactor is being divided on 2, so the width is not decreasing too fast.
                 _platformWidth = _platformWidth - DifficulityFactor / 2;
 
             if (_maxDistance < DistanceBetweenPlatforms)
@@ -218,90 +213,84 @@ namespace WindowsGame1WithPatterns.Classes
                 _camera.IncreaseSpeed();
                 _gameVelocity += _camera.VelocityDelta;
             }
-
-            Console.WriteLine(_gameVelocity);
-
-            _level++;
         }
 
         /// <summary>
         /// Updating the string of the font which displays the players score.
         /// </summary>
         private void ScoreFontText() {
-            _fontString = "";
-            int _playerCounter = 1;
+            _fontString = String.Empty;
+            var playerCounter = 1;
             foreach(var p in _players){
-                _fontString += "Player "+ _playerCounter + " Score: " + (int)p.Score + System.Environment.NewLine;
-                _playerCounter++;
+                _fontString += "Player " + playerCounter + " Score: " + p.Score + Environment.NewLine;
+                playerCounter++;
             }
         }
 
         /// <summary>
         /// Updating the scores of all players in the list _players
         /// </summary>
-        private void updateScores()
+        private void UpdateScores()
         {
-            int teller = 1;
-            foreach (Player pl in _players)
+            var count = 1;
+            foreach (var pl in _players)
             {
-                foreach (Platform p in _platforms)
+                foreach (var p in _platforms)
                 {
-                    if (pl.OnFloor == p && pl.Score < teller)
-                    {
-                        pl.Score = teller;
-                    }
-                    teller++;
+                    if (pl.OnFloor == p && pl.Score < count)
+                        pl.Score = count;
+                    
+                    count++;
                 }
-                teller = 1;
+                count = 1;
             }
         }
 
        /// <summary>
        /// Generating platforms, based on the arguments. The platforms is being added to the list _platforms.
        /// </summary>
-       /// <param name="antall"></param>
+       /// <param name="numberOfPlatforms"></param>
        /// <param name="minDistance"></param>
        /// <param name="maxDistance"></param>
        /// <param name="minWidth"></param>
-       protected void GeneratePlatforms(int antall, int minDistance, int maxDistance, int minWidth)
+       protected void GeneratePlatforms(int numberOfPlatforms, int minDistance, int maxDistance, int minWidth)
         {
-            int teller = 0;
+            var count = 0;
 
-            while (teller < antall)
+            while (count < numberOfPlatforms)
             {
                 Platform platform;
-                // The distance between the new and the previous platform in x-direction. 
-                int x = _rnd.Next(minDistance, maxDistance);
-                int width = _rnd.Next(minWidth, 100);
-                //Decides wether the new platform should be added to the left or to the right, therefor random
-                int whichDirection = _rnd.Next(1, 3);
 
-                if (teller + 1 == antall)
-                {
+                // The distance between the new and the previous platform in x-direction. 
+                var x = _rnd.Next(minDistance, maxDistance);
+                
+                var width = _rnd.Next(minWidth, 100);
+                //Decides wether the new platform should be added to the left or to the right, therefor random
+                var whichDirection = _rnd.Next(1, 3);
+
+                if (count + 1 == numberOfPlatforms)
                     platform = new Platform(_game, 1,
-                       _platforms[_platforms.Count - 1].Position.Y - HeightBetweenPlatforms, _game.Window.ClientBounds.Width - 1, HeightOfPlatform);
-                }
+                       _platforms[_platforms.Count - 1].Position.Y - HeightBetweenPlatforms, 
+                       _game.Window.ClientBounds.Width - 1, HeightOfPlatform);
                 else if (whichDirection == 1)
-                {
                     platform = new Platform(_game, _platforms[_platforms.Count - 1].Position.X - x,
                         _platforms[_platforms.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
-                }
                 else
-                {
-                    platform = new Platform(_game, _platforms[_platforms.Count - 1].Position.X + x, _platforms[_platforms.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
-                }
+                    platform = new Platform(_game, _platforms[_platforms.Count - 1].Position.X + x, 
+                        _platforms[_platforms.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
 
-                if (!CheckOutsideRange(platform))
-                {
-                    _platforms.Add(platform);
-                    teller++;
-                }
+                //Check if platform is out of the screen
+                if (CheckOutsideRange(platform)) 
+                    continue;
+                
+                _platforms.Add(platform);
+                count++;
             }
             _heightOfBoard = HeightBetweenPlatforms * _platforms.Count;
         }
         
         /// <summary>
-        /// Takes in a platform as argument, to check if its outside the game window. Returning true ifso.
+        /// Takes in a platform as argument, to check if its outside the game window.
         /// </summary>
         /// <param name="floor"></param>
         /// <returns></returns>
@@ -309,32 +298,32 @@ namespace WindowsGame1WithPatterns.Classes
         {
             if (floor.Position.X <= 0 || floor.Position.X + floor.Texture.Width >= _game.Window.ClientBounds.Width)
                 return true;
-
             return false;
         }
 
         /// <summary>
         /// To check wether all players is outside the game window.
-        ///  If a player is outside, the attribute IsDead is sat to true.
+        /// If a player is outside, the attribute IsDead is sat to true.
         /// </summary>
         /// <param name="players"></param>
         /// <param name="center"></param>
         /// <returns></returns>
         private bool GameOver(IEnumerable<Player> players, Vector2 center)
         {
-            bool gameOver = true;
-            foreach (Player p in players)
-            {
+            var gameOver = true;
+            foreach (var p in players)
                 if (!(p.Position.Y > center.Y + _game.Window.ClientBounds.Height / 2f))
-                {
                     gameOver = false;
-                }
-                else p.IsDead = true;
-
-            }
+                else 
+                    p.IsDead = true;
+            
             return gameOver;
         }
 
+        /// <summary>
+        /// Method for drawing
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
