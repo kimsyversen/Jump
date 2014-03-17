@@ -84,6 +84,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
 
         #endregion
 
+        /// <summary>
+        /// Rectangle used for collsion detection
+        /// </summary>
         public Rectangle CollisionRectangle
         {
             get
@@ -192,6 +195,11 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
                 frameCurrent.Y = 0;
         }
 
+        /// <summary>
+        /// Draws sprites
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="spriteBatch"></param>
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(

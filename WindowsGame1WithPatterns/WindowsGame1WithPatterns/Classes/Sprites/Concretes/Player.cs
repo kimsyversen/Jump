@@ -10,8 +10,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 {
     internal class Player : Sprite
     {
-        private bool _hasJumped;
-        private bool _hasHitTheWall;
+        private bool _jumped;
+        private bool _hitWall;
 
         public bool Dead = false;
         public bool HitPlatform { get; set; }
@@ -38,8 +38,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         {
 
              Dead = false;
-            _hasJumped = true;
-            _hasHitTheWall = false;
+            _jumped = true;
+            _hitWall = false;
             _effect = game.Content.Load<SoundEffect>("Audio/Jump");
             Position = position;
             _keyboardMapping = keyboardMapping;
@@ -72,22 +72,22 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 return;
             }
 
-            if (InputManager.Instance.IsKeyDown(_keyboardMapping.Right) && !_hasHitTheWall)
+            if (InputManager.Instance.IsKeyDown(_keyboardMapping.Right) && !_hitWall)
                 velocity.X = PlayerSpeed;
-            else if (InputManager.Instance.IsKeyDown(_keyboardMapping.Left) && !_hasHitTheWall)
+            else if (InputManager.Instance.IsKeyDown(_keyboardMapping.Left) && !_hitWall)
                 velocity.X = -PlayerSpeed;
-            else if (!_hasHitTheWall)
+            else if (!_hitWall)
                 velocity.X = 0f;
 
-            if (InputManager.Instance.IsKeyDown(_keyboardMapping.Jump) && !_hasJumped)
+            if (InputManager.Instance.IsKeyDown(_keyboardMapping.Jump) && !_jumped)
             {
                 position.Y -= JumpHeight;
                 velocity.Y = -20f;
-                _hasJumped = true;
+                _jumped = true;
                 _effect.Play();
             }
 
-            if (_hasJumped)
+            if (_jumped)
             {
                 velocity.Y += Gravity;
                 if (position.Y < HeightOfJump)
@@ -97,32 +97,33 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             if (position.Y + texture.Height >= clientBounds.Height)
             {
                 HeightOfJump = clientBounds.Height;
-                _hasJumped = false;
-                _hasHitTheWall = false;
+                _jumped = false;
+                _hitWall = false;
                 position.Y = clientBounds.Height - texture.Height;
             }
 
-            if (!_hasJumped)
+            if (!_jumped)
                 velocity.Y = 0f;
             
             if (position.X <= 0)
-                if (_hasJumped)
+                if (_jumped)
                 {
                     velocity.X = PlayerSpeed;
                     //TODO: Blir -10 hver gang. Nødvendig med to variabler for dette!
                     velocity.Y = -PlayerSpeed - PlayerSpeedChange;
-                    _hasHitTheWall = true;
+                    _hitWall = true;
                 }
                 else 
                     position.X = 0;
 
             
             if (position.X >= (clientBounds.Width - texture.Width))
-                if (_hasJumped)
+                if (_jumped)
                 {
                     velocity.X = -PlayerSpeed;
+                    //TODO: Blir -10 hver gang. Nødvendig med to variabler for dette!
                     velocity.Y = -PlayerSpeed - PlayerSpeedChange;
-                    _hasHitTheWall = true;
+                    _hitWall = true;
                 }
                 else 
                     position.X = clientBounds.Width - texture.Width;
@@ -147,8 +148,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             var newPosition = new Vector2(Position.X, (platform.Position.Y - texture.Height + 1));
             Position = newPosition;
 
-            _hasJumped = false;
-            _hasHitTheWall = false;
+            _jumped = false;
+            _hitWall = false;
             HitPlatform = true;
             HeightOfJump = platform.Position.Y;
             Platform = platform;
@@ -157,7 +158,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         public void WalkedOfPlatform()
         {
             HitPlatform = false;
-            _hasJumped = true;
+            _jumped = true;
         }
     }
 }
