@@ -17,6 +17,9 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
 
         private const int TopPartOfWindow = 350;
         private const int MiddlePartOfWindow = 200;
+        private const float DefaultStartSpeed = 3.0f;
+        private const float DefaultStartSpeedMiddle = 5.0f;
+        private const float DefaultStartSpeedTop = 6.0f;
 
         private int _faster;
         private Vector2 _center;
@@ -76,13 +79,13 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
             switch (_faster)
             {
                 case 2:
-                    _velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds / 10) * 3.0f) + _increaseSpeed)* - 1;
+                    _velocity = (DefaultStartSpeedTop + _increaseSpeed) * -1;
                     break;
                 case 1:
-                    _velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds/10) * 2.0f) + _increaseSpeed)* -1;
+                    _velocity = (DefaultStartSpeedMiddle + _increaseSpeed) * -1;
                     break;
                 default:
-                    _velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds / 10) * 1.2f) + _increaseSpeed) * -1;
+                    _velocity = (DefaultStartSpeed + _increaseSpeed) * -1;
                     break;
             }
 
