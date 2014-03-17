@@ -46,10 +46,6 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         /// </summary>
         private const float DefaultStartSpeedTop = 6.0f;
 
- 
-
-   
-
         /// <summary>
         /// Describes how much camera velcocity shall be increased
         /// </summary>
