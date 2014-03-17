@@ -193,13 +193,15 @@ namespace WindowsGame1WithPatterns.Classes
 
         protected void LevelUp()
         {
-            //TODO: Kan 2 og 4 gjøres om til variabel med forklarende navn?
+            
             if (_platformWidth > MinimumPlatformWidth)
+                //DifficulityFactor is being divided on 2, so the width is not decreasing too fast.
                 _platformWidth = _platformWidth - DifficulityFactor / 2;
 
             if (_maxDistance < DistanceBetweenPlatforms)
                 _maxDistance = _maxDistance + DifficulityFactor;
 
+            //DifficulityFactor is being divided on 4, so the numberofplatforms isnt increasing too fast
             _numberOfPlatforms = _numberOfPlatforms + DifficulityFactor / 4;
 
             GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
