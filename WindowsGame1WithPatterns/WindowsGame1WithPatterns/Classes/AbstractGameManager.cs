@@ -145,7 +145,7 @@ namespace WindowsGame1WithPatterns.Classes
             {
                 player.Update(gameTime, _game.Window.ClientBounds);
                 _playerPosition.Add(player.Position);
-                _camera.Update(_playerPosition, _game.Window.ClientBounds.Width, _heightOfBoard, gameTime);
+                
                 foreach (var floor in _floors)
                 {
                     //Sjekker om spilleren har truffet en platform
@@ -171,7 +171,7 @@ namespace WindowsGame1WithPatterns.Classes
                 if (player.Position.Y < _floors[_floors.Count - 1].Position.Y)
                     LevelUp();
             }
-
+            _camera.Update(_playerPosition, _game.Window.ClientBounds.Width, _heightOfBoard, gameTime);
             foreach (var font in _fonts)
             {
                 font.FontText = _fontString;
