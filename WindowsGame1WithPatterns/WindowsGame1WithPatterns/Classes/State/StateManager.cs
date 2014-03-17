@@ -78,23 +78,33 @@ namespace WindowsGame1WithPatterns.Classes.State
             menuManager.Hide();
             Game.Components.Add(menuManager);
 
-            var optionsManager = new OptionsMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\Ball"));
+            var optionsManager = new OptionsMenu(Game, _spriteBatch, _stateManagerId, 
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
+                Game.Content.Load<Texture2D>(@"Figure\Ball"));
             optionsManager.Hide();
             Game.Components.Add(optionsManager);
 
-            var gameOverManager = new GameOver(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\Ball"));
+            var gameOverManager = new GameOver(Game, _spriteBatch, _stateManagerId, 
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
+                Game.Content.Load<Texture2D>(@"Figure\Ball"));
             gameOverManager.Hide();
             Game.Components.Add(gameOverManager);
 
-            var highscoreManager = new HighscoreMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\Ball"));
+            var highscoreManager = new HighscoreMenu(Game, _spriteBatch, _stateManagerId, 
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
+                Game.Content.Load<Texture2D>(@"Figure\Ball"));
             highscoreManager.Hide();
             Game.Components.Add(highscoreManager);
 
-            var helpMenu = new HelpMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\Ball"));
+            var helpMenu = new HelpMenu(Game, _spriteBatch, _stateManagerId, 
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
+                Game.Content.Load<Texture2D>(@"Figure\Ball"));
             helpMenu.Hide();
             Game.Components.Add(helpMenu);
 
-            var choosePlayerManager = new ChoosePlayerManager(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
+            var choosePlayerManager = new ChoosePlayerManager(Game, _spriteBatch, _stateManagerId, 
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
+                Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
             choosePlayerManager.Hide();
             Game.Components.Add(choosePlayerManager);
 
@@ -104,7 +114,10 @@ namespace WindowsGame1WithPatterns.Classes.State
 
             //This must be added last on the Game.Components list because it
             //needs to be the last ting to be drawn. 
-            var inGameMenuManager = new InGameMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
+            var inGameMenuManager = new InGameMenu(Game, _spriteBatch, _stateManagerId, 
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
+                Game.Content.Load<SpriteFont>(@"Font\HeaderFont"), 
+                Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
             inGameMenuManager.Hide();
             Game.Components.Add(inGameMenuManager);
 

@@ -57,6 +57,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             //Add the menu to the components of the main menu screen
             Components.Add(_menuComponent);
 
+            //Add a headline
             string text = "Main Menu, Motherfucker!";
             _headline = new TextBoxComponent(game, 
                 spriteBatch,
@@ -104,12 +105,18 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                         Game.Exit();
                         break;
                 }
-                //TODO: Forbedre reset funksjonen for alle states...
-                //Reset the menu
-                SelectedIndex = 0;
-                _headline.Reset();
             }
             base.Update(gameTime);
+        }
+
+        /// <summary>
+        /// Initialize the menu with default values
+        /// </summary>
+        public override void Show()
+        {
+            SelectedIndex = 0;
+            _headline.Reset();
+            base.Show();
         }
         
         /// <summary>

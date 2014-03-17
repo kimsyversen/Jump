@@ -17,6 +17,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// </summary>
         private MenuComponent _menuComponent;
 
+        private TextBoxComponent _headline;
+
         /// <summary>
         /// Placeholder for the background image of the menu
         /// </summary>
@@ -41,6 +43,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             SpriteBatch spriteBatch,
             string managerId,
             SpriteFont spriteFont,
+            SpriteFont headlineFont,
             Texture2D image)
             : base(game, spriteBatch, managerId, GameStates.InGameMenu)
         {
@@ -53,15 +56,35 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 menuItems);
             //Add the menu to the components of the main menu screen
             Components.Add(_menuComponent);
+
+            string text = "Pause";
+            _headline = new TextBoxComponent(game,
+                spriteBatch,
+                headlineFont,
+                text,
+                headlineFont.MeasureString(text).X,
+                0);
+            _headline.Position = new Vector2(_headline.Position.X, _menuComponent.Position.Y - _headline.Height - 20);
+            Components.Add(_headline);
+
             //Remember the image pointer for the draw method
             _image = image;
             //Create a rectangle that fills the whole window. This is for
             //drawing the background image
+            int imageWidth = 600;
+            int imageHeight = 400;
             _imageRectangle = new Rectangle(
-                0,
-                0,
-                Game.Window.ClientBounds.Width,
-                Game.Window.ClientBounds.Height);
+                (Game.Window.ClientBounds.Width - imageWidth) / 2,
+                (Game.Window.ClientBounds.Height - imageHeight) / 2,
+                imageWidth,
+                imageHeight);
+        }
+
+        public override void Show()
+        {
+            SelectedIndex = 0;
+            _headline.Reset();
+            base.Show();
         }
 
         /// <summary>
@@ -78,7 +101,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                         ChangeStateTo(GameStates.GameManager);
                         break;
                     case 1:
-                        //TODO: turn off the draw of the game state
                         ChangeStateTo(GameStates.MainMenu);
                         break;
                 }
