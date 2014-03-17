@@ -101,7 +101,7 @@ namespace WindowsGame1WithPatterns.Classes
                     new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
 
             _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f);
-            _gameVelocity = _camera.GetDefaultStartSpeed;
+            _gameVelocity = _camera.DefaultStartSpeed;
 
             GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
 
@@ -216,7 +216,7 @@ namespace WindowsGame1WithPatterns.Classes
             if (_gameVelocity <= MaxSpeedLimit)
             {
                 _camera.IncreaseSpeed();
-                _gameVelocity += _camera.VelocityInc;
+                _gameVelocity += _camera.VelocityDelta;
             }
 
             Console.WriteLine(_gameVelocity);

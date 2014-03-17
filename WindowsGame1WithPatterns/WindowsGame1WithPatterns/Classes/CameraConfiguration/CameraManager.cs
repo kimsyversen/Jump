@@ -9,38 +9,57 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
 {
     public class CameraManager
     {
-        //The velocity
+        
         private float _velocity;
-        //Start or stop camera.
-        private bool _startCam;
 
+        /// <summary>
+        /// Used to increase the speed of the camera
+        /// </summary>
         private float _increaseSpeed;
+        
+        /// <summary>
+        /// Used to start or stop the camera
+        /// </summary>
+        private bool _startCam;
         private Viewport _viewport;
-
-        //Constants that is used.
-        //Coordinates used to customize the speed
-        private const int TopPartOfWindow = 350;
-        private const int MiddlePartOfWindow = 200;
-        //Default speed depending on where the player is(the _increasedSpeed is multiplied to this)
-        private const float DefaultStartSpeed = 3.0f;
-        private const float DefaultStartSpeedMiddle = 5.0f;
-        private const float DefaultStartSpeedTop = 6.0f;
-        private int _faster;
         private Vector2 _center;
         private Matrix _transform;
-        public float GetDefaultStartSpeed
-        {
-            get { return DefaultStartSpeed; }
 
-        }
+        /// <summary>
+        /// Defines how many pixels that is the top part of the window. Used to customize the speed.
+        /// </summary>
+        private const int TopPartOfWindow = 350;
+        /// <summary>
+        /// Defines how many pixels that is the middle part of the window. Used to customize the speed.
+        /// </summary>
+        private const int MiddlePartOfWindow = 200;
+        /// <summary>
+        /// Default speed depending on where the player is(the _increasedSpeed is multiplied to this)
+        /// </summary>
+        public readonly float DefaultStartSpeed = 3.0f;
+        /// <summary>
+        /// Default speed depending on where the player is(the _increasedSpeed is multiplied to this)
+        /// </summary>
+        private const float DefaultStartSpeedMiddle = 5.0f;
+        /// <summary>
+        /// Default speed depending on where the player is(the _increasedSpeed is multiplied to this)
+        /// </summary>
+        private const float DefaultStartSpeedTop = 6.0f;
 
-        //Velocity increasing
-        public readonly float VelocityInc = 0.3f;
+ 
+
+   
+
+        /// <summary>
+        /// Describes how much camera velcocity shall be increased
+        /// </summary>
+        public readonly float VelocityDelta = 0.3f;
 
         public bool StartCam
         {
             set { _startCam = value; }
         }
+
         public float Velocity
         {
             get { return _velocity; }
@@ -75,7 +94,7 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         /// </summary>
         public void IncreaseSpeed() 
         {
-            _increaseSpeed += VelocityInc;
+            _increaseSpeed += VelocityDelta;
         }
 
         /// <summary>
@@ -85,34 +104,21 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         /// <param name="gameTime"></param>
         public void Update(List<Vector2> position, GameTime gameTime)
         {
-            foreach (var p in position)
+            foreach (var player in position)
             {
                 //Here we check if one player is on the top, middle or bottom part of the screen
-                if (p.Y < _center.Y - TopPartOfWindow)
+                if (player.Y < _center.Y - TopPartOfWindow)
                 {
-                    _faster = 2;
-                    break;
-                }
-                if (p.Y < _center.Y - MiddlePartOfWindow)
-                {
-                    _faster = 1;
-                    break;
-                }
-                _faster = 0;
-            }
-            //Set the velocity 
-
-            switch (_faster)
-            {
-                case 1:
-                    _velocity = (DefaultStartSpeedMiddle + _increaseSpeed) * -1;
-                    break;
-                case 2:
                     _velocity = (DefaultStartSpeedTop + _increaseSpeed) * -1;
                     break;
-                default:
-                    _velocity = (DefaultStartSpeed + _increaseSpeed) * -1;
+                }
+                if (player.Y < _center.Y - MiddlePartOfWindow)
+                {
+                    _velocity = (DefaultStartSpeedMiddle + _increaseSpeed) * -1;
                     break;
+                }
+                _velocity = (DefaultStartSpeed + _increaseSpeed) * -1;
+                break;
             }
 
             if (_startCam)
