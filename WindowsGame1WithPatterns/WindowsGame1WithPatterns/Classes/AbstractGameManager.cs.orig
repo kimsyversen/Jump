@@ -114,8 +114,6 @@ namespace WindowsGame1WithPatterns.Classes
         {
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(_startGameSong);
-            Initialize();
-            LoadContent();
             base.Show();
         }
 
@@ -270,7 +268,12 @@ namespace WindowsGame1WithPatterns.Classes
             }
             _heightOfBoard = HeightBetweenPlatforms * _floors.Count;
         }
-        
+        public override void Show()
+        {
+            Initialize();
+            LoadContent();
+            base.Show();
+        }
 
         private bool CheckOutsideRange(Platform floor)
         {

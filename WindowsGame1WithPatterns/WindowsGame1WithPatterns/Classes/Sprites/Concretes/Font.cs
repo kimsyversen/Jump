@@ -28,7 +28,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             _fontText = fontText;
             base.color = color;
             rotate = 0;
-            origin = new Vector2(_font.MeasureString(_fontText).X / 2f, _font.MeasureString(_fontText).Y / 2f);
+            origin = Vector2.Zero;
             scale = 1.0f;
             spriteEffects = SpriteEffects.None;
             base.position = position;
@@ -45,5 +45,12 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             get { return _font; }
             set { _font = value; }
         }
+
+
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(_font, _fontText, Position, Color);
+        }
     }
 }

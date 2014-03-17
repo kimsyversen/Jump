@@ -7,7 +7,10 @@ Content\Font\SimpleFont.xnb
 Content\Audio\Jump.xnb
 Content\Figure\bg.xnb
 Content\Font\HeaderFont.xnb
+<<<<<<< HEAD
+=======
 Content\Audio\StartGameSong.xnb
 Content\Audio\GameOverSong.xnb
 Content\Audio\StartGameSong.wma
 Content\Audio\GameOverSong.wma
+>>>>>>> 6b8b0941e6f133bd7ce04c2bc678d378564d166a

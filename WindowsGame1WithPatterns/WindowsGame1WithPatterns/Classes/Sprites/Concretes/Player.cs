@@ -22,6 +22,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         const float PlayerSpeedChange = 5.0f;
         private readonly SoundEffect _effect;
 
+        
+        public int Score { get; set; }
+
         /// <summary>
         /// Used to assign keys to players
         /// </summary>
@@ -40,8 +43,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             _effect = game.Content.Load<SoundEffect>("Audio/Jump");
             Position = position;
             _keyboardMapping = keyboardMapping;
-
-
         }
 
         public Player(Game game, Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
@@ -62,8 +63,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         {
         }
      
-
-
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
             if (InputManager.Instance.IsKeyDown(_keyboardMapping.Right) && !_hasHitTheWall) 

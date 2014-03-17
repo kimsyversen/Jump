@@ -33,7 +33,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         public SingleplayerManager(Game game, SpriteBatch spriteBatch, string managerId, GraphicsDeviceManager graphics)
             : base(game, spriteBatch, managerId, GameStates.SingleplayerManager, graphics, NumberOfPlayers)
         {
-
         }
     }
 }

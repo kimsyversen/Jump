@@ -157,6 +157,22 @@ namespace WindowsGame1WithPatterns.Classes.State
         }
 
         /// <summary>
+        /// Pause the state
+        /// </summary>
+        public virtual void Pause()
+        {
+            
+        }
+
+        /// <summary>
+        /// Stop the state
+        /// </summary>
+        public virtual void Stop()
+        {
+            
+        }
+
+        /// <summary>
         /// When a state (sub-class of this) 
         /// wants to change the state, it calls the method ChangeStateTo
         /// with the apropriate enum of the state
@@ -168,6 +184,11 @@ namespace WindowsGame1WithPatterns.Classes.State
             ChangeState = States[string.Concat(_managerId, gameStateId.ToString())];
         }
 
+        /// <summary>
+        /// Get the state with the specified GameState
+        /// </summary>
+        /// <param name="gameStateId">GameState id of the state</param>
+        /// <returns>Returns the state</returns>
         protected State GetState(GameStates gameStateId)
         {
             return States[string.Concat(_managerId, gameStateId.ToString())];
