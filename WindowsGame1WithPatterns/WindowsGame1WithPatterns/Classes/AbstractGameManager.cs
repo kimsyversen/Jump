@@ -23,8 +23,10 @@ namespace WindowsGame1WithPatterns.Classes
         private List<Font> _fonts;
         private List<Platform> _floors;
 
+        private String _fontString = "Empty";
+
         //For platform generation and camera following
-        private int _heightOfBoard = 0;
+        private int _heightOfBoard;
 
         private int _platformWidth = 100;
 
@@ -38,7 +40,7 @@ namespace WindowsGame1WithPatterns.Classes
         private const int HeightBetweenPlatforms = 70;
         private const int DistanceBetweenPlatforms = 225;
 
-        private int _level = 1;
+        private int _level;
 
         private readonly GraphicsDeviceManager _graphics;
 
@@ -63,6 +65,8 @@ namespace WindowsGame1WithPatterns.Classes
         public override void Initialize()
         {
             _players = new List<Player>();
+            _level = 1;
+            _heightOfBoard = 0;
             _fonts = new List<Font>();
             _floors = new List<Platform>();
             _playerPosition = new List<Vector2>();
@@ -89,11 +93,14 @@ namespace WindowsGame1WithPatterns.Classes
                 _players.Add(new Player(_game, "Figure/greenstoy", new KeyboardMapping(Keys.Left, Keys.Right, Keys.Up), 
                     new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
 
-            _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f, _graphics.PreferredBackBufferHeight);
+            _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f);
 
             GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
 
             _background = _game.Content.Load<Texture2D>(@"Figure\bg");
+
+            //Load score spritefont
+            _fonts.Add(new Font(_game, _fontString, Color.Blue, new Vector2(20, 20)));
 
             //TODO: 110000 og -100000 er?
             _mainFrame = new Rectangle(0, -100000, GraphicsDevice.Viewport.Width, 110000);
@@ -128,6 +135,7 @@ namespace WindowsGame1WithPatterns.Classes
                     {
                         player.LandedOnPlatForm(floor);
                         _camera.StartCam = true;
+                        updateScores();
                     }
                     //Sjekker om spilleren har gått av platformen
                     if (player.HasHitPlatform && !player.CollisionRectangle.Intersects(floor.CollisionRectangle) && floor == player.OnFloor)
@@ -147,11 +155,20 @@ namespace WindowsGame1WithPatterns.Classes
             }
 
             foreach (var font in _fonts)
+            {
+                font.FontText = _fontString;
+                font.Position = new Vector2(font.Position.X, font.Position.Y+_camera.Velocity);
                 font.Update(gameTime, _game.Window.ClientBounds);
+            }
+
 
             foreach (var floor in _floors)
                 floor.Update(gameTime, _game.Window.ClientBounds);
 
+            //Update player score
+            CalculatePlayerScore();
+
+            Console.WriteLine(_camera.Velocity);
             base.Update(gameTime);
         }
 
@@ -173,37 +190,73 @@ namespace WindowsGame1WithPatterns.Classes
             _level++;
         }
 
-        protected void GeneratePlatforms(int numberOfPlatforms, int minDistance, int maxDistance, int minWidth)
-        {
-            _randomNumber = new Random();
+        private void CalculatePlayerScore() {
+            _fontString = "";
+            int _playerCounter = 1;
+            foreach(var p in _players){
+                _fontString += "Player "+ _playerCounter + " Score: " + (int)p.Score + System.Environment.NewLine;
+                _playerCounter++;
+            }
+        }
 
-            for (var i = 0; i < numberOfPlatforms; i++)
+        private void updateScores()
+        {
+            int teller = 1;
+            foreach (Player pl in _players)
+            {
+                foreach (Platform p in _floors)
+                {
+                    if (pl.OnFloor == p && pl.Score < teller)
+                    {
+                        pl.Score = teller;
+                    }
+                    teller++;
+                }
+                teller = 1;
+            }
+        }
+
+       
+        protected void GeneratePlatforms(int antall, int minDistance, int maxDistance, int minWidth)
+        {
+            Random rnd = new Random();
+            int teller = 0;
+
+            while (teller < antall)
             {
                 Platform floor;
-                //TODO: Hva er x?
-                var x = _randomNumber.Next(minDistance, maxDistance);
-                var width = _randomNumber.Next(minWidth, _platformWidth);
+                int x = rnd.Next(minDistance, maxDistance);
+                int width = rnd.Next(minWidth, 100);
+                int test = rnd.Next(1, 3);
 
-                //TODO: Hva er test?
-                var test = _randomNumber.Next(1, 3);
-
-                if (i + 1 == numberOfPlatforms)
+                if (teller + 1 == antall)
+                {
                     floor = new Platform(_game, 1,
-                       _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms,
-                       _game.Window.ClientBounds.Width, HeightOfPlatform);
-
+                       _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, _game.Window.ClientBounds.Width - 1, 5);
+                }
                 else if (test == 1)
+                {
                     floor = new Platform(_game, _floors[_floors.Count - 1].Position.X - x,
-                                         _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
+                        _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, 5);
+                }
                 else
-                    floor = new Platform(_game, _floors[_floors.Count - 1].Position.X + x, _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
+                {
+                    floor = new Platform(_game, _floors[_floors.Count - 1].Position.X + x, _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, 5);
+                }
 
-                if (CheckOutsideRange(floor))
-                    continue;
-
-                _floors.Add(floor);
+                if (!CheckOutsideRange(floor))
+                {
+                    _floors.Add(floor);
+                    teller++;
+                }
             }
             _heightOfBoard = HeightBetweenPlatforms * _floors.Count;
+        }
+        public override void Show()
+        {
+            Initialize();
+            LoadContent();
+            base.Show();
         }
 
         private bool CheckOutsideRange(Platform floor)
@@ -245,6 +298,7 @@ namespace WindowsGame1WithPatterns.Classes
 
             base.Draw(gameTime);
         }
+        
     }
 }
 

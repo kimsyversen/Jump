@@ -22,6 +22,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         const float PlayerSpeedChange = 5.0f;
         private readonly SoundEffect _effect;
 
+        
+        public int Score { get; set; }
+
         /// <summary>
         /// Used to assign keys to players
         /// </summary>

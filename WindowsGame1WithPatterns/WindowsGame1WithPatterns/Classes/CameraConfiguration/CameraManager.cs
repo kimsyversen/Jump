@@ -11,13 +11,12 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
     {
         private float _velocity;
         private bool _startCam ;
-        private const float VelocityInc = 0.2f;
+        private const float VelocityInc = 0.3f;
         private float _increaseSpeed;
         private Viewport _viewport;
-        private int _counter;
 
-        //TODO: Hva brukes denne til?
-        private int _windowHeight;
+        private const int TopPartOfWindow = 350;
+        private const int MiddlePartOfWindow = 200;
 
         private int _faster;
         private Vector2 _center;
@@ -42,12 +41,12 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         }
 
 
-        public CameraManager(Viewport newViewport, float newVelocity, int newWindowHeight)
+        public CameraManager(Viewport newViewport, float newVelocity)
         {
             _velocity = newVelocity;
             _viewport = newViewport;
-            _counter = 1;
-            _windowHeight = newWindowHeight;
+            _center.Y = _viewport.Height / 2f;
+            _center.X = _viewport.Width / 2f;
         }
     
 
@@ -58,52 +57,41 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
 
         public void Update(List<Vector2> position, int xOffset, int yOffset, GameTime gameTime)
         {
-            //TODO: Hva er 40 og 50?
-            _center.X = _viewport.Width / 2f;
-            if (_counter > 0)
-            {
-                _center.Y = position[0].Y - (_viewport.Height / 2f) + 50;
-                _counter--;
-            }
-            
-
-            if (_center.Y < _viewport.Height + _viewport.Height / 2 - yOffset - 40)
-            {
-                _velocity = 0f;
-                return;
-            }
-
             foreach (var p in position)
             {
-                //TODO: Hva er 350 og 200?
-                if (p.Y < _center.Y - 350)
+                //Here we check if one player is on the top, middle or bottom part of the screen
+                if (p.Y < _center.Y - TopPartOfWindow)
                 {
                     _faster = 2;
                     break;
                 }
-                if (p.Y < _center.Y - 200)
+                if (p.Y < _center.Y - MiddlePartOfWindow)
                 {
                     _faster = 1;
                     break;
                 }
                 _faster = 0;
             }
-            //TODO: 3.0, 2.0 og 1.2 - hva er disse?
+            //Set the velocity 
             switch (_faster)
             {
                 case 2:
-                    _velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds / 15) * 3.0f)+_increaseSpeed)* - 1;
+                    _velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds / 10) * 3.0f) + _increaseSpeed)* - 1;
                     break;
                 case 1:
-                    _velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds/15) * 2.0f)+_increaseSpeed)* -1;
+                    _velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds/10) * 2.0f) + _increaseSpeed)* -1;
                     break;
                 default:
-                    _velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds / 15) * 1.2f) + _increaseSpeed) * -1;
+                    _velocity = ((((float)gameTime.ElapsedGameTime.TotalMilliseconds / 10) * 1.2f) + _increaseSpeed) * -1;
                     break;
             }
 
+           
+
             if (_startCam)
                 _center.Y += _velocity;
+            else
+                _velocity = 0f;
 
             _transform = Matrix.CreateTranslation(new Vector3(-_center.X + (_viewport.Width / 2f),
                 -_center.Y + (_viewport.Height / 2f), 0));
