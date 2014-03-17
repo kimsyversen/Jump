@@ -90,10 +90,6 @@ namespace WindowsGame1WithPatterns.Classes.State
             highscoreManager.Hide();
             Game.Components.Add(highscoreManager);
 
-            var gameManager = new SingleplayerManager(Game, _spriteBatch, _stateManagerId, _graphics);
-            gameManager.Hide();
-            Game.Components.Add(gameManager);
-
             var helpMenu = new HelpMenu(Game, _spriteBatch, _stateManagerId, Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), Game.Content.Load<Texture2D>(@"Figure\Ball"));
             helpMenu.Hide();
             Game.Components.Add(helpMenu);
@@ -102,9 +98,9 @@ namespace WindowsGame1WithPatterns.Classes.State
             choosePlayerManager.Hide();
             Game.Components.Add(choosePlayerManager);
 
-            var multiplayerManager = new MultiplayerManager(Game, _spriteBatch, _stateManagerId, _graphics);
-            multiplayerManager.Hide();
-            Game.Components.Add(multiplayerManager);
+            var gameManager = new GameManager(Game, _spriteBatch, _stateManagerId, _graphics);
+            gameManager.Hide();
+            Game.Components.Add(gameManager);
 
             //This must be added last on the Game.Components list because it
             //needs to be the last ting to be drawn. 

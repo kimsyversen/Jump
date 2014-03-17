@@ -6,15 +6,14 @@ using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.CameraConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Concretes;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
-namespace WindowsGame1WithPatterns.Classes
+namespace WindowsGame1WithPatterns.Classes.Screens
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    abstract class AbstractGameManager : State.State
+    class GameManager : State.State
     {
         private Texture2D _background;
         private Rectangle _mainFrame;
@@ -46,19 +45,24 @@ namespace WindowsGame1WithPatterns.Classes
 
 
         private float _gameVelocity;
-        private readonly int _numberOfPlayers;
+
         private const int MaxPlatformWidth = 100;
 
         private Random _rnd;
 
         private Song _startGameSong;
 
-        protected AbstractGameManager(Game game, SpriteBatch spriteBatch, string managerId, GameStates stateId, GraphicsDeviceManager graphics, int numberOfPlayers)
-            : base(game, spriteBatch, managerId, stateId)
+        private int _numberOfPlayers;
+
+        public GameManager(Game game, SpriteBatch spriteBatch, string managerId, GraphicsDeviceManager graphics)
+            : base(game, spriteBatch, managerId, GameStates.GameManager)
+        {
+  
+        }
+        public void NumberOfPlayers(int numberOfPlayers)
         {
             _numberOfPlayers = numberOfPlayers;
         }
-
         public override void Initialize()
         {
             _players = new List<Player>();
@@ -144,7 +148,6 @@ namespace WindowsGame1WithPatterns.Classes
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         public override void Update(GameTime gameTime)

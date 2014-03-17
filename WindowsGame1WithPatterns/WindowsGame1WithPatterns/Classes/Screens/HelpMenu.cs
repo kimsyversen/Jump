@@ -28,7 +28,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// </summary>
         private Rectangle _imageRectangle;
 
-        //TODO: Trenger jeg denne?
         /// <summary>
         /// Gets and sets the SelectedIndex property of the MenuComponent
         /// </summary>

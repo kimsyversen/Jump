@@ -253,8 +253,7 @@ namespace WindowsGame1WithPatterns.Classes.State
             Highscore,
             Options,
             InGameMenu,
-            MultiplayerManager,
-            SingleplayerManager,
+            GameManager,
             ChoosePlayerManager,
             HelpMenu,
         }

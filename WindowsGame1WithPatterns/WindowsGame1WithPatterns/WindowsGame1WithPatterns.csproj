@@ -120,10 +120,8 @@
     <Compile Include="Classes\Components\MenuComponent.cs" />
     <Compile Include="Classes\KeyboardConfiguration\MKeyboardMapping.cs" />
     <Compile Include="Classes\FileIO\SerializableDictionary.cs" />
-    <Compile Include="Classes\AbstractGameManager.cs" />
+    <Compile Include="Classes\Screens\GameManager.cs" />
     <Compile Include="Classes\Screens\HelpMenu.cs" />
-    <Compile Include="Classes\Screens\MultiplayerManager.cs" />
-    <Compile Include="Classes\Screens\SingleplayerManager.cs" />
     <Compile Include="Classes\Screens\GameOver.cs" />
     <Compile Include="Classes\Screens\HighscoreMenu.cs" />
     <Compile Include="Classes\Screens\InGameMenu.cs" />

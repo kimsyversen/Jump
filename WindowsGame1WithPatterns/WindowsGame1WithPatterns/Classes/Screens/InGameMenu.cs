@@ -27,7 +27,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// </summary>
         private Rectangle _imageRectangle;
 
-        //TODO: Trenger jeg denne?
         /// <summary>
         /// Gets and sets the SelectedIndex property of the MenuComponent
         /// </summary>
@@ -76,7 +75,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 switch (SelectedIndex)
                 {
                     case 0:
-                        ChangeStateTo(GameStates.SingleplayerManager);
+                        ChangeStateTo(GameStates.GameManager);
                         break;
                     case 1:
                         //TODO: turn off the draw of the game state

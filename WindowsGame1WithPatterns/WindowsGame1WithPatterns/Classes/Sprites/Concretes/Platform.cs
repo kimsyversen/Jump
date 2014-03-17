@@ -22,10 +22,5 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         public Platform(Game game, Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent, Point sheetSize, float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity, int collisionOffset, int millisecondsPerFrame, int timeSinceLastFrame) : base(game, texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity, collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
         }
-
-        public override String ToString()
-        {
-            return Position.ToString();
-        }
     }
 }

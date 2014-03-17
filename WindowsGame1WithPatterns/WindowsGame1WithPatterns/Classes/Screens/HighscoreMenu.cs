@@ -27,7 +27,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// </summary>
         private Rectangle _imageRectangle;
 
-        //TODO: Trenger jeg denne?
         /// <summary>
         /// Gets and sets the SelectedIndex property of the MenuComponent
         /// </summary>
@@ -37,7 +36,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             set { _menuComponent.SelectedIndex = value; }
         }
 
-        //Constructor...
+        //Constructor
         public HighscoreMenu(Game game,
             SpriteBatch spriteBatch,
             string managerId,
