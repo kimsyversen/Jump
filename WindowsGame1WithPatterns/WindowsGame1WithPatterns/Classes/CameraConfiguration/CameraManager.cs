@@ -12,7 +12,7 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         //The velocity
         private float _velocity;
         //Start or stop camera.
-        private bool _startCam ;
+        private bool _startCam;
 
         private float _increaseSpeed;
         private Viewport _viewport;
@@ -25,7 +25,9 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         private const float DefaultStartSpeed = 3.0f;
         private const float DefaultStartSpeedMiddle = 5.0f;
         private const float DefaultStartSpeedTop = 6.0f;
-
+        private int _faster;
+        private Vector2 _center;
+        private Matrix _transform;
         public float GetDefaultStartSpeed
         {
             get { return DefaultStartSpeed; }
@@ -33,16 +35,8 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         }
 
         //Velocity increasing
-        private const float VelocityInc = 0.3f;
+        public readonly float VelocityInc = 0.3f;
 
-        public float GetVelocityInc
-        {
-            get { return VelocityInc; }
-        }
-
-        private int _faster;
-
-        private Vector2 _center;
         public bool StartCam
         {
             set { _startCam = value; }
@@ -52,7 +46,7 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
             get { return _velocity; }
             set { _velocity = value; }
         }
-        private Matrix _transform;
+
         public Matrix Transform
         {
             get { return _transform; }
@@ -62,8 +56,6 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         {
             get { return _center; }
         }
-
-
 
         /// <summary>
         /// Constructor
@@ -90,8 +82,6 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         /// Updates the camera position depending on where the player is located.
         /// </summary>
         /// <param name="position"></param>
-        /// <param name="xOffset"></param>
-        /// <param name="yOffset"></param>
         /// <param name="gameTime"></param>
         public void Update(List<Vector2> position, GameTime gameTime)
         {
@@ -114,18 +104,16 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
 
             switch (_faster)
             {
-                case 2:
-                    _velocity = (DefaultStartSpeedTop + _increaseSpeed) * -1;
-                    break;
                 case 1:
                     _velocity = (DefaultStartSpeedMiddle + _increaseSpeed) * -1;
+                    break;
+                case 2:
+                    _velocity = (DefaultStartSpeedTop + _increaseSpeed) * -1;
                     break;
                 default:
                     _velocity = (DefaultStartSpeed + _increaseSpeed) * -1;
                     break;
             }
-
-           
 
             if (_startCam)
                 _center.Y += _velocity;

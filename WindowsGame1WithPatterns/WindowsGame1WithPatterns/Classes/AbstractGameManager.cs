@@ -108,7 +108,7 @@ namespace WindowsGame1WithPatterns.Classes
             _background = _game.Content.Load<Texture2D>(@"Figure\bg");
 
             //Load score spritefont
-            _fonts.Add(new Font(_game, _fontString, Color.Blue, new Vector2(20, 20)));
+            _fonts.Add(new Font(_game, _fontString, Color.White, new Vector2(20, 20)));
             _startGameSong = _game.Content.Load<Song>("Audio/StartGameSong");
 
 
@@ -155,8 +155,9 @@ namespace WindowsGame1WithPatterns.Classes
                 
                 foreach (var floor in _platforms)
                 {
-                    //Sjekker om spilleren har truffet en platform
-                    if (player.CollisionRectangle.Intersects(floor.CollisionRectangle) && player.HasHitPlatform == false && (player.GetY + player.Texture.Height) < floor.Position.Y)
+                    //Check if player hits a platform
+                    if (player.CollisionRectangle.Intersects(floor.CollisionRectangle) 
+                        && player.HasHitPlatform == false && (player.GetY + player.Texture.Height) < floor.Position.Y)
                     {
                         player.LandedOnPlatForm(floor);
                         _camera.StartCam = true;
@@ -167,7 +168,7 @@ namespace WindowsGame1WithPatterns.Classes
                         player.WalkedOfPlatform();
                 }
 
-                //Sjekker om alle spillerne er utenfor brettet/synsvinkel
+                //Check if all players is out of sight
                 if (GameOver(_players, _camera.Center))
                 {
                     ChangeStateTo(GameStates.GameOver);
@@ -175,7 +176,7 @@ namespace WindowsGame1WithPatterns.Classes
                     Console.WriteLine(player.Score+ " ");
                 }
 
-                //Sjekker om spilleren er ferdig med en level, isåfall starter en ny, vanskeligere en.
+                //CHeck if player is finished with an level, if, start new level
                 if (player.Position.Y < _platforms[_platforms.Count - 1].Position.Y)
                     LevelUp();
             }
@@ -186,7 +187,6 @@ namespace WindowsGame1WithPatterns.Classes
                 font.Position = new Vector2(font.Position.X, font.Position.Y+_camera.Velocity);
                 font.Update(gameTime, _game.Window.ClientBounds);
             }
-
 
             foreach (var floor in _platforms)
                 floor.Update(gameTime, _game.Window.ClientBounds);
@@ -216,7 +216,7 @@ namespace WindowsGame1WithPatterns.Classes
             if (_gameVelocity <= MaxSpeedLimit)
             {
                 _camera.IncreaseSpeed();
-                _gameVelocity += _camera.GetVelocityInc;
+                _gameVelocity += _camera.VelocityInc;
             }
 
             Console.WriteLine(_gameVelocity);

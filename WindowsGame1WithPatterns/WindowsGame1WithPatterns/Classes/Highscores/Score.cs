@@ -7,23 +7,13 @@ namespace WindowsGame1WithPatterns.Classes.Highscores
 {
     class Score
     {
-        private int points;
-        private string name;
+        public int Points { get; set; }
+        public string Name { get; set; }
 
         public Score(int newPoints, string newName)
         {
-            points = newPoints;
-            name = newName;
-        }
-
-        public int Points
-        {
-            get { return points; }
-        }
-
-        public string Name
-        {
-            get { return name; }
+            Points = newPoints;
+            Name = newName;
         }
     }
 }

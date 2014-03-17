@@ -23,7 +23,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         const float PlayerSpeedChange = 5.0f;
         private readonly SoundEffect _effect;
 
-        
         public int Score { get; set; }
 
         /// <summary>
@@ -126,7 +125,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                     position.X = clientBounds.Width - texture.Width;
 
 
-
+            //Update velocity and position
             Velocity = new Vector2(velocity.X, velocity.Y);
             Position = new Vector2(position.X + velocity.X, position.Y + velocity.Y);
  

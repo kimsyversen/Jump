@@ -23,8 +23,9 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         protected const int MinX = 0;
         protected const int MinY = 0;
         protected const int DefaultMillisecondsPerFrame = 16; //60 times per second
-
         protected Game game;
+
+
         #region Properties
 
         public Vector2 Origin
@@ -98,6 +99,22 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         }
 
         protected Sprite(Game game) : base(game) {}
+        /// <summary>
+        ///  Standard constructor used. Calls the other one.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="texture"></param>
+        /// <param name="position"></param>
+        /// <param name="frameSize"></param>
+        /// <param name="frameCurrent"></param>
+        /// <param name="sheetSize"></param>
+        /// <param name="rotate"></param>
+        /// <param name="origin"></param>
+        /// <param name="scale"></param>
+        /// <param name="spriteEffects"></param>
+        /// <param name="velocity"></param>
+        /// <param name="collisionOffset"></param>
+        /// <param name="timeSinceLastFrame"></param>
         protected Sprite(Game game, Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
                                    Point sheetSize,
                                    float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity,
@@ -109,6 +126,23 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             
         }
 
+        /// <summary>
+        /// Used when you want to have slower/faster animations by adjusting milliseconds per frame.
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="texture"></param>
+        /// <param name="position"></param>
+        /// <param name="frameSize"></param>
+        /// <param name="frameCurrent"></param>
+        /// <param name="sheetSize"></param>
+        /// <param name="rotate"></param>
+        /// <param name="origin"></param>
+        /// <param name="scale"></param>
+        /// <param name="spriteEffects"></param>
+        /// <param name="velocity"></param>
+        /// <param name="collisionOffset"></param>
+        /// <param name="millisecondsPerFrame"></param>
+        /// <param name="timeSinceLastFrame"></param>
         protected Sprite(Game game, Texture2D texture, Vector2 position, Point frameSize, Point frameCurrent,
                                    Point sheetSize,
                                    float rotate, Vector2 origin, float scale, SpriteEffects spriteEffects, Vector2 velocity,
