@@ -1,6 +1,7 @@
 ﻿using WindowsGame1WithPatterns.Classes.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace WindowsGame1WithPatterns.Classes.State
 {
@@ -9,6 +10,11 @@ namespace WindowsGame1WithPatterns.Classes.State
     /// </summary>
     class StateManager : GameComponent
     {
+        /// <summary>
+        /// Will remember all the paused states
+        /// </summary>
+        private Stack<State> _pausedStates;
+
         /// <summary>
         /// Used to be sendt down to the states
         /// </summary>
@@ -43,6 +49,8 @@ namespace WindowsGame1WithPatterns.Classes.State
         public StateManager(Game game, SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
             : base(game)
         {
+            _pausedStates = new Stack<State>();
+
             _graphics = graphics;
 
             _spriteBatch = spriteBatch;
@@ -131,19 +139,56 @@ namespace WindowsGame1WithPatterns.Classes.State
         private void CheckForNewState()
         {
             //Holds the instance of the state that is to
-            //be changed to.
+            //be changed to. And if it should be a popUp
+            //or not
             var newState = _currentState.ChangeState;
+            var popUp = _currentState.PopUpState;
 
             //If the newState is null, there will not be any state change,
-            //and therefor we will return
+            //and therefore we will return
             if (newState == null) return;
+            
+            if (popUp && !_pausedStates.Contains(newState))
+            {
+                //Remember the current state
+                _pausedStates.Push(_currentState);
+                //Pause the current state
+                _currentState.Pause();
+                //Change the state to the new state
+                _currentState = newState;
+                //Show the new state
+                _currentState.Show();
+            }
+            else
+            {
+                //Check if the newState is in the pause stack and hide the
+                //states that is between the current and the new state
+                State pausedState = null;
+                while (_pausedStates.Count > 0)
+                {
+                    pausedState = _pausedStates.Pop();
+                    if (pausedState == newState)
+                        break;
+                    else
+                    {
+                        pausedState.Hide();
+                        pausedState = null;
+                    }
+                }
 
-            //Disable the current state
-            _currentState.Hide();
-            //Change the state to the new state
-            _currentState = newState;
-            //Enable the new state
-            _currentState.Show();
+                //Hide the current state
+                _currentState.Hide();
+                //set the new state to the current state
+                _currentState = newState;
+
+                //Resume the current state if it was found in the paused states
+                //else start it from the begining through show()
+                //If pausedState != null then the newState exists in the _pausedStates
+                if (pausedState != null)
+                    _currentState.Resume();
+                else
+                    _currentState.Show();
+            }
         }
     }
 }

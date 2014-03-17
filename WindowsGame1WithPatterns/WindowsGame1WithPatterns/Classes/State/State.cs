@@ -26,8 +26,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         private State _changeState;
 
         /// <summary>
-        /// Will be used by StateManager to determine if the
-        /// _changeState will be a pop up or not
+        /// See PopUpState property
         /// </summary>
         private bool _popUpState;
 
@@ -67,9 +66,9 @@ namespace WindowsGame1WithPatterns.Classes.State
         /// Will be used by StateManager to determine if the
         /// _changeState will be a pop up or not. When a state
         /// (sub-class of this) want a pop-up state, it calls the
-        /// method PupUp with the apropriate enum of the state
+        /// method PopUp with the apropriate enum of the state
         /// </summary>
-        public bool PupUpState
+        public bool PopUpState
         {
             get
             {
@@ -181,15 +180,23 @@ namespace WindowsGame1WithPatterns.Classes.State
         /// </summary>
         public virtual void Pause()
         {
-            
+            Visible = true;
+            Enabled = false;
+            foreach (GameComponent component in _components)
+            {
+                component.Enabled = Enabled;
+                var gameComponent = component as DrawableGameComponent;
+                if (gameComponent != null)
+                    gameComponent.Visible = Visible;
+            }
         }
 
         /// <summary>
-        /// Stop the state
+        /// Resume the state
         /// </summary>
         public virtual void Resume()
         {
-            
+            Show();
         }
 
         /// <summary>
@@ -202,7 +209,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         {
             Debug.WriteLine("Changing state to: " + gameStateId.ToString());
             ChangeState = States[string.Concat(_managerId, gameStateId.ToString())];
-            PupUpState = false;
+            PopUpState = false;
         }
 
         /// <summary>
@@ -214,7 +221,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         protected void PopUp(GameStates gameStateId)
         {
             ChangeState = States[string.Concat(_managerId, gameStateId.ToString())];
-            PupUpState = true;
+            PopUpState = true;
         }
 
         /// <summary>
