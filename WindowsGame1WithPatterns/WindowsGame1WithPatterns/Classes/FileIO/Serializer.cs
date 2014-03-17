@@ -12,6 +12,8 @@ namespace WindowsGame1WithPatterns.Classes.FileIO
     /// </summary>
     public static class Serializer
     {
+
+        //TODO: Begge metoder kaster unntak. Fanges de?
         /// <summary>
         /// Serializes the data in the object to the designated file path
         /// </summary>
@@ -33,7 +35,6 @@ namespace WindowsGame1WithPatterns.Classes.FileIO
             catch
             {
                 throw;
- 
             }
         }
 
@@ -54,7 +55,6 @@ namespace WindowsGame1WithPatterns.Classes.FileIO
                 {
                     serializedData = (T)serializer.Deserialize(stream);
                 }
-
                 return serializedData;
             }
             catch
