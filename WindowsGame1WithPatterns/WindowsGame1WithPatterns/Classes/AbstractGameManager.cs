@@ -30,13 +30,13 @@ namespace WindowsGame1WithPatterns.Classes
         //For platform generation and camera following
         private int _heightOfBoard;
 
-        private int _platformWidth = 100;
+        private int _platformWidth;
 
         private const int MinDistance = 20;
 
-        private int _maxDistance = 100;
+        private int _maxDistance;
 
-        private int _numberOfPlatforms = 20;
+        private int _numberOfPlatforms;
 
         private const int MinimumPlatformWidth = 10;
         private const int HeightBetweenPlatforms = 70;
@@ -52,8 +52,6 @@ namespace WindowsGame1WithPatterns.Classes
 
         private const int HeightOfPlatform = 5;
 
-        private Random _randomNumber;
-
         private Song _startGameSong;
 
         protected AbstractGameManager(Game game, SpriteBatch spriteBatch, string managerId, GameStates stateId, GraphicsDeviceManager graphics, int numberOfPlayers)
@@ -67,6 +65,9 @@ namespace WindowsGame1WithPatterns.Classes
         {
             _players = new List<Player>();
             _level = 1;
+            _platformWidth = 100;
+            _maxDistance = 100;
+            _numberOfPlatforms = 20;
             _heightOfBoard = 0;
             _fonts = new List<Font>();
             _floors = new List<Platform>();
@@ -165,13 +166,14 @@ namespace WindowsGame1WithPatterns.Classes
                 {
                     ChangeStateTo(GameStates.GameOver);
                     _camera.StartCam = false;
+                    Console.WriteLine(player.Score);
                 }
 
                 //Sjekker om spilleren er ferdig med en level, isåfall starter en ny, vanskeligere en.
                 if (player.Position.Y < _floors[_floors.Count - 1].Position.Y)
                     LevelUp();
             }
-            _camera.Update(_playerPosition, _game.Window.ClientBounds.Width, _heightOfBoard, gameTime);
+            _camera.Update(_playerPosition, gameTime);
             foreach (var font in _fonts)
             {
                 font.FontText = _fontString;
@@ -186,7 +188,7 @@ namespace WindowsGame1WithPatterns.Classes
             //Update player score
             CalculatePlayerScore();
 
-            Console.WriteLine(_camera.Velocity);
+            
             base.Update(gameTime);
         }
 

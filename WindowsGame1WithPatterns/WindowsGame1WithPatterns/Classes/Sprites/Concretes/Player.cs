@@ -18,7 +18,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         private const float Gravity = 1.15f;
         private const float JumpHeight = 10f;
 
-        const float PlayerSpeed = 3.0f;
+        const float PlayerSpeed = 5.0f;
         const float PlayerSpeedChange = 5.0f;
         private readonly SoundEffect _effect;
 
