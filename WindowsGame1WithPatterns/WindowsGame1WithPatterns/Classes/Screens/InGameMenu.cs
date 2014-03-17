@@ -76,7 +76,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 switch (SelectedIndex)
                 {
                     case 0:
-                        ChangeStateTo(GameStates.InGame);
+                        ChangeStateTo(GameStates.SingleplayerManager);
                         break;
                     case 1:
                         //TODO: turn off the draw of the game state
