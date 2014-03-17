@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.CameraConfiguration;
 using WindowsGame1WithPatterns.Classes.Sprites.Concretes;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace WindowsGame1WithPatterns.Classes
 {
@@ -42,7 +44,6 @@ namespace WindowsGame1WithPatterns.Classes
 
         private readonly GraphicsDeviceManager _graphics;
 
-
         private const int DifficulityFactor = 20;
 
         private readonly int _numberOfPlayers;
@@ -51,13 +52,13 @@ namespace WindowsGame1WithPatterns.Classes
 
         private Random _randomNumber;
 
+        private Song _startGameSong;
+
         protected AbstractGameManager(Game game, SpriteBatch spriteBatch, string managerId, GameStates stateId, GraphicsDeviceManager graphics, int numberOfPlayers)
             : base(game, spriteBatch, managerId, stateId)
         {
             _graphics = graphics;
             _numberOfPlayers = numberOfPlayers;
-
-   
         }
 
         public override void Initialize()
@@ -95,9 +96,24 @@ namespace WindowsGame1WithPatterns.Classes
 
             _background = _game.Content.Load<Texture2D>(@"Figure\bg");
 
+            _startGameSong = _game.Content.Load<Song>("Audio/StartGameSong");
+
             //TODO: 110000 og -100000 er?
             _mainFrame = new Rectangle(0, -100000, GraphicsDevice.Viewport.Width, 110000);
             base.LoadContent();
+        }
+
+        public override void Show()
+        {
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(_startGameSong);
+            base.Show();
+        }
+
+        public override void Hide()
+        {
+            MediaPlayer.Stop();
+            base.Hide();
         }
 
         /// <summary>

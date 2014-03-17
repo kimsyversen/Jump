@@ -40,8 +40,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             _effect = game.Content.Load<SoundEffect>("Audio/Jump");
             Position = position;
             _keyboardMapping = keyboardMapping;
-
-
         }
 
         public Player(Game game, Texture2D texture, Vector2 spritePosition, Point frameSize, Point frameCurrent,
@@ -62,8 +60,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         {
         }
      
-
-
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
             if (InputManager.Instance.IsKeyDown(_keyboardMapping.Right) && !_hasHitTheWall) 
