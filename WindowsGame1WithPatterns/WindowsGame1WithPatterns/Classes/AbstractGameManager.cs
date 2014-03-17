@@ -66,6 +66,7 @@ namespace WindowsGame1WithPatterns.Classes
             _fonts = new List<Font>();
             _platforms = new List<Platform>();
             _playerPosition = new List<Vector2>();
+            _rnd = new Random();
             _level = 1;
             _heightOfBoard = 0;
             _platformWidth = 100;
@@ -166,7 +167,6 @@ namespace WindowsGame1WithPatterns.Classes
                     ChangeStateTo(GameStates.GameOver);
                     _camera.StartCam = false;
                     Console.WriteLine(player.Score+ " ");
-                    ;
                 }
 
                 //Sjekker om spilleren er ferdig med en level, isåfall starter en ny, vanskeligere en.
