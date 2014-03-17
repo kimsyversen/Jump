@@ -3,6 +3,7 @@ using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace WindowsGame1WithPatterns.Classes.Screens
 {
@@ -12,6 +13,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// Will handle the menu for the game
         /// </summary>
         private MenuComponent _menuComponent;
+        private Song _gameOverSong;
 
         /// <summary>
         /// Placeholder for the background image of the menu
@@ -61,6 +63,24 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 Game.Window.ClientBounds.Height);
         }
 
+        protected override void LoadContent()
+        {
+            _gameOverSong = _game.Content.Load<Song>("Audio/GameOverSong");
+            base.LoadContent();
+        }
+
+        public override void Show()
+        {
+            MediaPlayer.IsRepeating = false;
+            MediaPlayer.Play(_gameOverSong);
+            base.Show();
+        }
+
+        public override void Hide()
+        {
+            MediaPlayer.Stop();
+            base.Hide();
+        }
         /// <summary>
         /// Take care of the switching between screens 
         /// </summary>
