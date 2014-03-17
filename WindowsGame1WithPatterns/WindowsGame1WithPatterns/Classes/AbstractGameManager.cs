@@ -162,15 +162,15 @@ namespace WindowsGame1WithPatterns.Classes
                 foreach (var floor in _platforms)
                 {
                     //Check if player hits a platform
-                    if (player.CollisionRectangle.Intersects(floor.CollisionRectangle) 
-                        && player.HasHitPlatform == false && (player.GetY + player.Texture.Height) < floor.Position.Y)
+                    if (player.CollisionRectangle.Intersects(floor.CollisionRectangle)
+                        && player.HitPlatform == false && (player.HeightOfJump + player.Texture.Height) < floor.Position.Y)
                     {
                         player.LandedOnPlatForm(floor);
                         _camera.StartCam = true;
                         UpdateScores();
                     }
                     //Sjekker om spilleren har gått av platformen
-                    if (player.HasHitPlatform && !player.CollisionRectangle.Intersects(floor.CollisionRectangle) && floor == player.Platform)
+                    if (player.HitPlatform && !player.CollisionRectangle.Intersects(floor.CollisionRectangle) && floor == player.Platform)
                         player.WalkedOfPlatform();
                 }
 

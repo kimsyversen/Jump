@@ -13,19 +13,17 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         private bool _hasJumped;
         private bool _hasHitTheWall;
 
+        public bool Dead = false;
+        public bool HitPlatform { get; set; }
+        public int Score { get; set; }
         public Platform Platform { get; set; }
-        private float _heightOfJump;
+        public float HeightOfJump { get; set; }
         private const float Gravity = 1.15f;
         private const float JumpHeight = 10f;
-        public bool Dead = false;
+        private const float PlayerSpeed = 5.0f;
+        private const float PlayerSpeedChange = 5.0f;
 
-        const float PlayerSpeed = 5.0f;
-        const float PlayerSpeedChange = 5.0f;
         private readonly SoundEffect _effect;
-
-        public int Score { get; set; }
-
-        public bool HasHitPlatform { get; set; }
 
         /// <summary>
         /// Used to assign keys to players
@@ -39,7 +37,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {
 
-            Dead = false;
+             Dead = false;
             _hasJumped = true;
             _hasHitTheWall = false;
             _effect = game.Content.Load<SoundEffect>("Audio/Jump");
@@ -73,6 +71,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 velocity.X = 0f;
                 return;
             }
+
             if (InputManager.Instance.IsKeyDown(_keyboardMapping.Right) && !_hasHitTheWall)
                 velocity.X = PlayerSpeed;
             else if (InputManager.Instance.IsKeyDown(_keyboardMapping.Left) && !_hasHitTheWall)
@@ -91,12 +90,13 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             if (_hasJumped)
             {
                 velocity.Y += Gravity;
-                if (position.Y < _heightOfJump) _heightOfJump = position.Y;
+                if (position.Y < HeightOfJump)
+                    HeightOfJump = position.Y;
             }
 
             if (position.Y + texture.Height >= clientBounds.Height)
             {
-                _heightOfJump = clientBounds.Height;
+                HeightOfJump = clientBounds.Height;
                 _hasJumped = false;
                 _hasHitTheWall = false;
                 position.Y = clientBounds.Height - texture.Height;
@@ -109,6 +109,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 if (_hasJumped)
                 {
                     velocity.X = PlayerSpeed;
+                    //TODO: Blir -10 hver gang. Nødvendig med to variabler for dette!
                     velocity.Y = -PlayerSpeed - PlayerSpeedChange;
                     _hasHitTheWall = true;
                 }
@@ -139,7 +140,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         /// Runs when a players lands on a platform, making sure it is being displayed on the top of it.
         /// Also makes sure the variables got the correct value.
         /// </summary>
-        /// <param name="floor"></param>
+        /// <param name="platform"></param>
         public void LandedOnPlatForm(Platform platform)
         {
             //Må passe på at spilleren blir tegnet på toppen av platformen
@@ -148,17 +149,15 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 
             _hasJumped = false;
             _hasHitTheWall = false;
-            HasHitPlatform = true;
-            _heightOfJump = platform.Position.Y;
+            HitPlatform = true;
+            HeightOfJump = platform.Position.Y;
             Platform = platform;
         }
 
         public void WalkedOfPlatform()
         {
-            HasHitPlatform = false;
+            HitPlatform = false;
             _hasJumped = true;
         }
-        //On floor == platform
-        public float GetY { get { return _heightOfJump; } }
     }
 }
