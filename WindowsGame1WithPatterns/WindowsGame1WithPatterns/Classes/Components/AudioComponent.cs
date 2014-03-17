@@ -9,6 +9,7 @@ namespace WindowsGame1WithPatterns.Classes.Components
 {
     class AudioComponent : GameComponent
     {
+        //TODO: Implement or remove?
         private SoundEffect _soundEngine;
         public AudioComponent(Game game) : base(game)
         {
