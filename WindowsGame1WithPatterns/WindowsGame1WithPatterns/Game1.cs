@@ -34,7 +34,7 @@ namespace WindowsGame1WithPatterns
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
+            
             _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - _desktopOffset;
             
             _graphics.ApplyChanges();

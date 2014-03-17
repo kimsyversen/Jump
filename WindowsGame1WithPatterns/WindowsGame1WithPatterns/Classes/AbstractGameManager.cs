@@ -27,9 +27,7 @@ namespace WindowsGame1WithPatterns.Classes
 
         private String _fontString = "Initially empty";
 
-        //For platform generation and camera following
-        private int _heightOfBoard;
-
+        //private int _heightOfBoard;
         private int _platformWidth;
 
         private int _maxDistance;
@@ -49,6 +47,7 @@ namespace WindowsGame1WithPatterns.Classes
 
         private float _gameVelocity;
         private readonly int _numberOfPlayers;
+        private const int MaxPlatformWidth = 100;
 
         private Random _rnd;
 
@@ -57,7 +56,6 @@ namespace WindowsGame1WithPatterns.Classes
         protected AbstractGameManager(Game game, SpriteBatch spriteBatch, string managerId, GameStates stateId, GraphicsDeviceManager graphics, int numberOfPlayers)
             : base(game, spriteBatch, managerId, stateId)
         {
-           
             _numberOfPlayers = numberOfPlayers;
         }
 
@@ -69,7 +67,7 @@ namespace WindowsGame1WithPatterns.Classes
             _playerPosition = new List<Vector2>();
             _rnd = new Random();
             
-            _heightOfBoard = 0;
+           // _heightOfBoard = 0;
             _platformWidth = 100;
             _maxDistance = 100;
             _numberOfPlatforms = 20;
@@ -160,7 +158,7 @@ namespace WindowsGame1WithPatterns.Classes
                         UpdateScores();
                     }
                     //Sjekker om spilleren har gått av platformen
-                    if (player.HasHitPlatform && !player.CollisionRectangle.Intersects(floor.CollisionRectangle) && floor == player.OnFloor)
+                    if (player.HasHitPlatform && !player.CollisionRectangle.Intersects(floor.CollisionRectangle) && floor == player.Platform)
                         player.WalkedOfPlatform();
                 }
 
@@ -169,7 +167,6 @@ namespace WindowsGame1WithPatterns.Classes
                 {
                     ChangeStateTo(GameStates.GameOver);
                     _camera.StartCam = false;
-                    Console.WriteLine(player.Score+ " ");
                 }
 
                 //CHeck if player is finished with an level, if, start new level
@@ -237,7 +234,7 @@ namespace WindowsGame1WithPatterns.Classes
             {
                 foreach (var p in _platforms)
                 {
-                    if (pl.OnFloor == p && pl.Score < count)
+                    if (pl.Platform == p && pl.Score < count)
                         pl.Score = count;
                     
                     count++;
@@ -264,7 +261,7 @@ namespace WindowsGame1WithPatterns.Classes
                 // The distance between the new and the previous platform in x-direction. 
                 var x = _rnd.Next(minDistance, maxDistance);
                 
-                var width = _rnd.Next(minWidth, 100);
+                var width = _rnd.Next(minWidth, MaxPlatformWidth);
                 //Decides wether the new platform should be added to the left or to the right, therefor random
                 var whichDirection = _rnd.Next(1, 3);
 
@@ -286,7 +283,7 @@ namespace WindowsGame1WithPatterns.Classes
                 _platforms.Add(platform);
                 count++;
             }
-            _heightOfBoard = HeightBetweenPlatforms * _platforms.Count;
+            //_heightOfBoard = HeightBetweenPlatforms * _platforms.Count;
         }
         
         /// <summary>
@@ -314,8 +311,8 @@ namespace WindowsGame1WithPatterns.Classes
             foreach (var p in players)
                 if (!(p.Position.Y > center.Y + _game.Window.ClientBounds.Height / 2f))
                     gameOver = false;
-                else 
-                    p.IsDead = true;
+                else
+                    p.Dead = true;
             
             return gameOver;
         }

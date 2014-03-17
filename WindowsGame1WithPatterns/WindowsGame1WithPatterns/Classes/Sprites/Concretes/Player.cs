@@ -12,18 +12,20 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
     {
         private bool _hasJumped;
         private bool _hasHitTheWall;
-        private bool _platformHit;
-        private Platform _platform;
+
+        public Platform Platform { get; set; }
         private float _heightOfJump;
         private const float Gravity = 1.15f;
         private const float JumpHeight = 10f;
-        private bool _isDead;
+        public bool Dead = false;
 
         const float PlayerSpeed = 5.0f;
         const float PlayerSpeedChange = 5.0f;
         private readonly SoundEffect _effect;
 
         public int Score { get; set; }
+
+        public bool HasHitPlatform { get; set; }
 
         /// <summary>
         /// Used to assign keys to players
@@ -37,7 +39,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {
 
-            _isDead = false;
+            Dead = false;
             _hasJumped = true;
             _hasHitTheWall = false;
             _effect = game.Content.Load<SoundEffect>("Audio/Jump");
@@ -65,7 +67,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
      
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            if (_isDead)
+            if (Dead)
             {
                 velocity.Y = 0f;
                 velocity.X = 0f;
@@ -138,39 +140,25 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         /// Also makes sure the variables got the correct value.
         /// </summary>
         /// <param name="floor"></param>
-        public void LandedOnPlatForm(Platform floor)
+        public void LandedOnPlatForm(Platform platform)
         {
             //Må passe på at spilleren blir tegnet på toppen av platformen
-            var newPosition = new Vector2(Position.X, (floor.Position.Y - texture.Height + 1));
+            var newPosition = new Vector2(Position.X, (platform.Position.Y - texture.Height + 1));
             Position = newPosition;
 
             _hasJumped = false;
             _hasHitTheWall = false;
-            _platformHit = true;
-            _heightOfJump = floor.Position.Y;
-            _platform = floor;
+            HasHitPlatform = true;
+            _heightOfJump = platform.Position.Y;
+            Platform = platform;
         }
 
         public void WalkedOfPlatform()
         {
-            _platformHit = false;
+            HasHitPlatform = false;
             _hasJumped = true;
         }
-
-        public bool IsDead
-        {
-            get { return _isDead; }
-            set { _isDead = value; }
-        }
-        public bool HasHitPlatform
-        {
-            get { return _platformHit; }
-        }
-
-        public Platform OnFloor
-        {
-            get { return _platform; }
-        }
+        //On floor == platform
         public float GetY { get { return _heightOfJump; } }
     }
 }
