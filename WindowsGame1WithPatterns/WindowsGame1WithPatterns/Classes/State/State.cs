@@ -128,13 +128,14 @@ namespace WindowsGame1WithPatterns.Classes.State
         /// </summary>
         public virtual void Show()
         {
-            this.Visible = true;
-            this.Enabled = true;
+            Visible = true;
+            Enabled = true;
             foreach (GameComponent component in _components)
             {
                 component.Enabled = true;
-                if (component is DrawableGameComponent)
-                    ((DrawableGameComponent)component).Visible = true;
+                var gameComponent = component as DrawableGameComponent;
+                if (gameComponent != null)
+                    gameComponent.Visible = true;
             }
         }
 
@@ -144,13 +145,14 @@ namespace WindowsGame1WithPatterns.Classes.State
         /// </summary>
         public virtual void Hide()
         {
-            this.Visible = false;
-            this.Enabled = false;
+            Visible = false;
+            Enabled = false;
             foreach (GameComponent component in _components)
             {
                 component.Enabled = false;
-                if (component is DrawableGameComponent)
-                    ((DrawableGameComponent)component).Visible = false;
+                var gameComponent = component as DrawableGameComponent;
+                if (gameComponent != null)
+                    gameComponent.Visible = false;
             }
         }
 
@@ -166,13 +168,17 @@ namespace WindowsGame1WithPatterns.Classes.State
             ChangeState = States[string.Concat(_managerId, gameStateId.ToString())];
         }
 
+        protected State GetState(GameStates gameStateId)
+        {
+            return States[string.Concat(_managerId, gameStateId.ToString())];
+        }
+
         /// <summary>
         /// The states available to all sub-classes of this class.
         /// To create a new state, an enum must be apointed to the state.
         /// </summary>
         protected enum GameStates
         {
-            InGame,
             MainMenu,
             GameOver,
             Highscore,
