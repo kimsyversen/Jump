@@ -145,7 +145,7 @@ namespace WindowsGame1WithPatterns.Classes
             {
                 player.Update(gameTime, _game.Window.ClientBounds);
                 _playerPosition.Add(player.Position);
-                _camera.Update(_playerPosition, _game.Window.ClientBounds.Width, _heightOfBoard, gameTime);
+              
                 foreach (var floor in _floors)
                 {
                     //Sjekker om spilleren har truffet en platform
@@ -171,6 +171,7 @@ namespace WindowsGame1WithPatterns.Classes
                 if (player.Position.Y < _floors[_floors.Count - 1].Position.Y)
                     LevelUp();
             }
+            _camera.Update(_playerPosition, _game.Window.ClientBounds.Width, _heightOfBoard, gameTime);
 
             foreach (var font in _fonts)
             {
@@ -235,7 +236,7 @@ namespace WindowsGame1WithPatterns.Classes
         }
 
        
-        protected void GeneratePlatforms(int antall, int minDistance, int maxDistance, int minWidth)
+       protected void GeneratePlatforms(int antall, int minDistance, int maxDistance, int minWidth)
         {
             Random rnd = new Random();
             int teller = 0;
@@ -243,23 +244,25 @@ namespace WindowsGame1WithPatterns.Classes
             while (teller < antall)
             {
                 Platform floor;
+                // The distance between the new and the previous platform in x-direction. 
                 int x = rnd.Next(minDistance, maxDistance);
                 int width = rnd.Next(minWidth, 100);
-                int test = rnd.Next(1, 3);
+                //Decides wether the new platform should be added to the left or to the right, therefor random
+                int whichDirection = rnd.Next(1, 3);
 
                 if (teller + 1 == antall)
                 {
                     floor = new Platform(_game, 1,
-                       _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, _game.Window.ClientBounds.Width - 1, 5);
+                       _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, _game.Window.ClientBounds.Width - 1, HeightOfPlatform);
                 }
-                else if (test == 1)
+                else if (whichDirection == 1)
                 {
                     floor = new Platform(_game, _floors[_floors.Count - 1].Position.X - x,
-                        _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, 5);
+                        _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
                 }
                 else
                 {
-                    floor = new Platform(_game, _floors[_floors.Count - 1].Position.X + x, _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, 5);
+                    floor = new Platform(_game, _floors[_floors.Count - 1].Position.X + x, _floors[_floors.Count - 1].Position.Y - HeightBetweenPlatforms, width, HeightOfPlatform);
                 }
 
                 if (!CheckOutsideRange(floor))
