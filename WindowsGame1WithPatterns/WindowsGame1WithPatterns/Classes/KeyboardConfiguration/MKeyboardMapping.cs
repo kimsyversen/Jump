@@ -16,13 +16,13 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
     /// </summary>
     public abstract class MKeyboardMapping
     {
-        protected SerializableDictionary<GameKey, Keys> _keyboardMaps;
-        protected string _keyboardMapFilePath;
+        protected SerializableDictionary<GameKey, Keys> KeyboardMaps;
+        protected string KeyboardMapFilePath;
 
         public MKeyboardMapping(string keyboardMapFilePath)
         {
-            _keyboardMaps = new SerializableDictionary<GameKey, Keys>();
-            _keyboardMapFilePath = keyboardMapFilePath;
+            KeyboardMaps = new SerializableDictionary<GameKey, Keys>();
+            KeyboardMapFilePath = keyboardMapFilePath;
             Load();
         }
 
@@ -34,7 +34,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         /// <returns>True if the key has been pressed between frames, else false</returns>
         public bool IsKeyPressed(GameKey key)
         {
-            return InputManager.Instance.IsKeyPressed(_keyboardMaps[key]);
+            return InputManager.Instance.IsKeyPressed(KeyboardMaps[key]);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         /// <returns>True if the key has been released between frames, else false</returns>
         public bool IsKeyReleased(GameKey key)
         {
-            return InputManager.Instance.IsKeyReleased(_keyboardMaps[key]);
+            return InputManager.Instance.IsKeyReleased(KeyboardMaps[key]);
         }
 
 
@@ -53,8 +53,8 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         {
             try
             {
-                _keyboardMaps =
-                    Serializer.Deserialize<SerializableDictionary<GameKey, Keys>>(_keyboardMapFilePath);
+                KeyboardMaps =
+                    Serializer.Deserialize<SerializableDictionary<GameKey, Keys>>(KeyboardMapFilePath);
             }
             catch (Exception e)
             {
@@ -70,7 +70,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
         {
             try
             {
-                Serializer.Serialize<SerializableDictionary<GameKey, Keys>>(_keyboardMaps, _keyboardMapFilePath);
+                Serializer.Serialize<SerializableDictionary<GameKey, Keys>>(KeyboardMaps, KeyboardMapFilePath);
             }
             catch (Exception e)
             {
@@ -81,10 +81,10 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
 
         protected void ResetToDefaultMap()
         {
-            _keyboardMaps.Add(GameKey.Up, Keys.W);
-            _keyboardMaps.Add(GameKey.Down, Keys.S);
-            _keyboardMaps.Add(GameKey.Left, Keys.A);
-            _keyboardMaps.Add(GameKey.Right, Keys.D);
+            KeyboardMaps.Add(GameKey.Up, Keys.W);
+            KeyboardMaps.Add(GameKey.Down, Keys.S);
+            KeyboardMaps.Add(GameKey.Left, Keys.A);
+            KeyboardMaps.Add(GameKey.Right, Keys.D);
         }
 
         public enum GameKey
