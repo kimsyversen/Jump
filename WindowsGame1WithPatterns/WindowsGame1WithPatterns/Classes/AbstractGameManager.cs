@@ -173,7 +173,7 @@ namespace WindowsGame1WithPatterns.Classes
                 if (player.Position.Y < _platforms[_platforms.Count - 1].Position.Y)
                     LevelUp();
             }
-            _camera.Update(_playerPosition, _game.Window.ClientBounds.Width, _heightOfBoard, gameTime);
+            _camera.Update(_playerPosition, gameTime);
             foreach (var font in _fonts)
             {
                 font.FontText = _fontString;
