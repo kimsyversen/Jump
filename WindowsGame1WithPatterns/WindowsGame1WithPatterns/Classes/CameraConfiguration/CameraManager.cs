@@ -93,7 +93,6 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
             _increaseSpeed += VelocityDelta;
         }
 
-        //TODO: Hva hvis to spillere er på skjermen samtidig? Ser ut ikke ut som om kamera oppdaterer seg riktig
         /// <summary>
         /// Updates the camera position depending on where the player is located.
         /// </summary>
