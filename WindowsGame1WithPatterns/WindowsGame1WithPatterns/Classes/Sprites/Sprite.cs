@@ -175,8 +175,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         /// <param name="clientBounds"></param>
         public virtual void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            //Animation
-
             //Count time since last frame
             TimeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
 

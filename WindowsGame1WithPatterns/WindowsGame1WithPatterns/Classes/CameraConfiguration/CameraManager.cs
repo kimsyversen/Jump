@@ -9,7 +9,6 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
 {
     public class CameraManager
     {
-        
         private float _velocity;
 
         /// <summary>
