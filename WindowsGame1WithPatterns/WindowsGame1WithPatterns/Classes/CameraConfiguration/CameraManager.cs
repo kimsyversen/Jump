@@ -101,22 +101,22 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         /// <param name="gameTime"></param>
         public void Update(List<Vector2> position, GameTime gameTime)
         {
+            //Check if the list is empty
+            if (position.Count == 0) return;
+
+            //Find the highest player
+            var highestPlayer = position[0];
             foreach (var player in position)
-            {
-                //Here we check if one player is on the top, middle or bottom part of the screen
-                if (player.Y < _center.Y - TopPartOfWindow)
-                {
-                    _velocity = (DefaultStartSpeedTop + _increaseSpeed) * -1;
-                    break;
-                }
-                if (player.Y < _center.Y - MiddlePartOfWindow)
-                {
-                    _velocity = (DefaultStartSpeedMiddle + _increaseSpeed) * -1;
-                    break;
-                }
+                if (highestPlayer.Y > player.Y)
+                    highestPlayer = player;
+
+            //Here we check if player is on the top, middle or bottom part of the screen
+            if (highestPlayer.Y < _center.Y - TopPartOfWindow)
+                _velocity = (DefaultStartSpeedTop + _increaseSpeed) * -1;
+            else if (highestPlayer.Y < _center.Y - MiddlePartOfWindow)
+                _velocity = (DefaultStartSpeedMiddle + _increaseSpeed) * -1;
+            else
                 _velocity = (DefaultStartSpeed + _increaseSpeed) * -1;
-                break;
-            }
 
             if (_startCam)
                 _center.Y += _velocity;
