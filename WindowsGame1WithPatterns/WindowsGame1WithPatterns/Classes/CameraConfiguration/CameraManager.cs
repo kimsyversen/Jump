@@ -93,7 +93,6 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
             _increaseSpeed += VelocityDelta;
         }
 
-        //TODO: Bryr seg bare om første spiller. Spill multiplayer og prøv en og en spiller. Se forskjell
         /// <summary>
         /// Updates the camera position depending on where the player is located.
         /// </summary>
