@@ -10,7 +10,7 @@
   <Class Name="WindowsGame1WithPatterns.Classes.CameraConfiguration.CameraManager" Collapsed="true">
     <Position X="21.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAQAAAAIAAIAAAAAAUAAAAQgAAACAAAgAAAAAAUMEgA=</HashCode>
+      <HashCode>CAwBIAAIABIAAAAAAQAAAAQgAAQCAAAAAAAAAAUMAgA=</HashCode>
       <FileName>Classes\CameraConfiguration\CameraManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -46,7 +46,7 @@
   <Class Name="WindowsGame1WithPatterns.Classes.KeyboardConfiguration.InputManager" Collapsed="true">
     <Position X="25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIBAAAAAAAAAAAAAAAAAAAAAACQERAAQCAAUhACAAA=</HashCode>
+      <HashCode>AAIBAACAAAAAAAAAAAAAAAAAAACQERAAQCAAUhACAAA=</HashCode>
       <FileName>Classes\KeyboardConfiguration\InputManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -60,7 +60,7 @@
   <Class Name="WindowsGame1WithPatterns.Classes.KeyboardConfiguration.MKeyboardMapping" Collapsed="true">
     <Position X="23.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAgBAAAAAAAAAAICAAAAAACAAAAAAAAA=</HashCode>
+      <HashCode>AAAAhIAAAAAAAAAAAAAAAAAAAICAAAAAACAAAAAAABA=</HashCode>
       <FileName>Classes\KeyboardConfiguration\MKeyboardMapping.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -74,7 +74,7 @@
   <Class Name="WindowsGame1WithPatterns.Classes.Screens.GameOver" Collapsed="true">
     <Position X="14.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAAQAAAAIAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAgAAEAIAAAAAEAAEQAAAAIQAAAAAAAQ=</HashCode>
       <FileName>Classes\Screens\GameOver.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -95,14 +95,14 @@
   <Class Name="WindowsGame1WithPatterns.Classes.Screens.InGameMenu" Collapsed="true">
     <Position X="7.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAAQAAAAIAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAEQAAAAIAgAAAAAAA=</HashCode>
       <FileName>Classes\Screens\InGameMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WindowsGame1WithPatterns.Classes.Screens.MainMenu" Collapsed="true">
     <Position X="10" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAAQAAAAIAgAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAEQAAAAIAgAAAAAAA=</HashCode>
       <FileName>Classes\Screens\MainMenu.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -128,23 +128,23 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Concretes.Font" Collapsed="true">
-    <Position X="10.5" Y="10" Width="1.5" />
+    <Position X="11" Y="10" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACgAAAAAAAAAAAAACAAAAAAAAAEAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAACAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\Sprites\Concretes\Font.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Concretes.Platform" Collapsed="true">
     <Position X="12.75" Y="10" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\Sprites\Concretes\Platform.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Concretes.Player" Collapsed="true">
-    <Position X="15" Y="10" Width="1.5" />
+    <Position X="14.5" Y="10" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACQAQAAgAAAIAAAgQCAAAABAAIAAAAABIgBAAAQAAAw=</HashCode>
+      <HashCode>AAQAQAAAAAAIQAggQEAAAABAAIAAAAAACgBACAAAAYA=</HashCode>
       <FileName>Classes\Sprites\Concretes\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -157,23 +157,23 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="WindowsGame1WithPatterns.Classes.Sprites.Sprite" Collapsed="true">
-    <Position X="12.75" Y="7.5" Width="1.5" />
+    <Position X="12.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAUAAAEwQAAQAoAgAAISIAAGUhAAAgCAAQYAgAgEAAA=</HashCode>
+      <HashCode>CAUAAAEwQAAQAoAgAAISIAAGUhAAAgCIAQYAgAgEAAA=</HashCode>
       <FileName>Classes\Sprites\Sprite.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WindowsGame1WithPatterns.Classes.State.State" Collapsed="true">
     <Position X="10" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAIAAAAAAJ4AAEAAAABAAAAAEAAAAAIQABAAAAAQ=</HashCode>
+      <HashCode>AAQgAMAAAAAAJ4AAEAAAABAAAEAEAAAAAIQABAwAAAQ=</HashCode>
       <FileName>Classes\State\State.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WindowsGame1WithPatterns.Classes.State.StateManager" Collapsed="true">
     <Position X="25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAQAAAAAAAAAQAAAAAAACAIAAAEAAABA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAQAAAAAAAAAQAAAAAAACAIAAAEQAABA=</HashCode>
       <FileName>Classes\State\StateManager.cs</FileName>
     </TypeIdentifier>
   </Class>

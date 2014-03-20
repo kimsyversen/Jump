@@ -22,6 +22,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         private List<Player> _players;
         private List<Font> _fonts;
+        private List<Font> _fonts2;
         private List<Platform> _platforms;
 
         private String _fontString = "Initially empty";
@@ -54,6 +55,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         private int _numberOfPlayers;
 
+        //For testing
+        private float frameRate;
+
         public GameManager(Game game, SpriteBatch spriteBatch, string managerId, GraphicsDeviceManager graphics)
             : base(game, spriteBatch, managerId, GameStates.GameManager)
         {
@@ -67,6 +71,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         {
             _players = new List<Player>();
             _fonts = new List<Font>();
+            _fonts2 = new List<Font>();
             _platforms = new List<Platform>();
             _playerPosition = new List<Vector2>();
             _rnd = new Random();
@@ -107,6 +112,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
             //Load score spritefont
             _fonts.Add(new Font(_game, _fontString, Color.White, new Vector2(20, 20)));
+            _fonts2.Add(new Font(_game, frameRate.ToString(), Color.White, new Vector2(100, 50)));
+
             _startGameSong = _game.Content.Load<Song>("Audio/StartGameSong");
 
 
@@ -152,6 +159,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         public override void Update(GameTime gameTime)
         {
+            frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             _playerPosition = new List<Vector2>();
 
             if (InputManager.Instance.IsKeyPressed(Keys.Escape))
@@ -189,12 +198,22 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                     LevelUp();
             }
             _camera.Update(_playerPosition, gameTime);
+
             foreach (var font in _fonts)
             {
                 font.FontText = _fontString;
                 font.Position = new Vector2(font.Position.X, font.Position.Y+_camera.Velocity);
                 font.Update(gameTime, _game.Window.ClientBounds);
             }
+
+            foreach (var font in _fonts2)
+            {
+                font.Update(gameTime, _game.Window.ClientBounds);
+                font.Position = new Vector2(font.Position.X, font.Position.Y + _camera.Velocity);
+                font.FontText = frameRate.ToString();
+            }
+                
+            
 
             foreach (var floor in _platforms)
                 floor.Update(gameTime, _game.Window.ClientBounds);
@@ -350,6 +369,10 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 player.Draw(gameTime, _spriteBatch);
 
             foreach (var font in _fonts)
+                font.Draw(gameTime, _spriteBatch);
+
+
+            foreach (var font in _fonts2)
                 font.Draw(gameTime, _spriteBatch);
 
             foreach (var floor in _platforms)
