@@ -22,6 +22,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         private const float JumpHeight = 10f;
         private const float PlayerSpeed = 5.0f;
         private const float PlayerSpeedChange = 5.0f;
+        private const float BounceBackSpeed = 5.0f;
 
         private readonly SoundEffect _effect;
 
@@ -111,8 +112,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 if (_jumped)
                 {
                     velocity.X = PlayerSpeed;
-                    //TODO: Blir -10 hver gang. Nødvendig med to variabler for dette!
-                    velocity.Y = -PlayerSpeed - PlayerSpeedChange;
+                    velocity.Y = -BounceBackSpeed;
                     _hitWall = true;
                 }
                 else 
@@ -123,8 +123,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 if (_jumped)
                 {
                     velocity.X = -PlayerSpeed;
-                    //TODO: Blir -10 hver gang. Nødvendig med to variabler for dette!
-                    velocity.Y = -PlayerSpeed - PlayerSpeedChange;
+                    velocity.Y = -BounceBackSpeed;
                     _hitWall = true;
                 }
                 else 
@@ -146,8 +145,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         /// <param name="platform"></param>
         public void LandedOnPlatForm(Platform platform)
         {
-            //TODO: engelsk..
-            //Må passe på at spilleren blir tegnet på toppen av platformen
+            //Make sure player is drawn on top of a platform
             var newPosition = new Vector2(Position.X, (platform.Position.Y - texture.Height + 1));
             Position = newPosition;
 
