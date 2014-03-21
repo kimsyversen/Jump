@@ -73,7 +73,7 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void Update(GameTime gameTime)
         {
-            //TODO: What happns here?
+            //Register input
             _inputManager.Begin();
 
             base.Update(gameTime);
