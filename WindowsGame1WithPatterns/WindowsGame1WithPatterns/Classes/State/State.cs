@@ -55,7 +55,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         {
             get
             {
-                State changingState = _changeState;
+                var changingState = _changeState;
                 _changeState = null;
                 return changingState;
             }
@@ -72,7 +72,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         {
             get
             {
-                bool popUp = _popUpState;
+                var popUp = _popUpState;
                 _popUpState = false;
                 return popUp;
             }
@@ -123,7 +123,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            foreach (GameComponent component in _components)
+            foreach (var component in _components)
                 if (component.Enabled)
                     component.Update(gameTime);
         }
@@ -149,7 +149,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         {
             Visible = true;
             Enabled = true;
-            foreach (GameComponent component in _components)
+            foreach (var component in _components)
             {
                 component.Enabled = true;
                 var gameComponent = component as DrawableGameComponent;
@@ -166,7 +166,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         {
             Visible = false;
             Enabled = false;
-            foreach (GameComponent component in _components)
+            foreach (var component in _components)
             {
                 component.Enabled = false;
                 var gameComponent = component as DrawableGameComponent;
@@ -182,7 +182,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         {
             Visible = true;
             Enabled = false;
-            foreach (GameComponent component in _components)
+            foreach (var component in _components)
             {
                 component.Enabled = Enabled;
                 var gameComponent = component as DrawableGameComponent;
@@ -198,7 +198,7 @@ namespace WindowsGame1WithPatterns.Classes.State
         {
             Visible = true;
             Enabled = true;
-            foreach (GameComponent component in _components)
+            foreach (var component in _components)
             {
                 component.Enabled = true;
                 var gameComponent = component as DrawableGameComponent;

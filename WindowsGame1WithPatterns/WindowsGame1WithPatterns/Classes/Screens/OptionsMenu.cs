@@ -103,6 +103,5 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             _spriteBatch.End();
             base.Draw(gameTime);
         }
-
     }
 }

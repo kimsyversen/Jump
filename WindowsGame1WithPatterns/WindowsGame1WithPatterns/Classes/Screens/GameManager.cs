@@ -22,18 +22,12 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         private List<Player> _players;
         private List<Font> _fonts;
-        private List<Font> _fonts2;
         private List<Platform> _platforms;
 
         private String _fontString = "Initially empty";
-
-        //private int _heightOfBoard;
         private int _platformWidth;
-
         private int _maxDistance;
-
         private int _numberOfPlatforms;
-
         private const int MinDistance = 20;
         private const int MinimumPlatformWidth = 10;
         private const int HeightBetweenPlatforms = 70;
@@ -43,20 +37,14 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         private const float MaxSpeedLimit = 5.0f;
         private const int BgImageYMin = -100000;
         private const int BgImageYMax = 110000;
-
-
         private float _gameVelocity;
-
         private const int MaxPlatformWidth = 100;
-
-        private Random _rnd;
-
+        private Random _random;
         private Song _startGameSong;
-
         private int _numberOfPlayers;
 
-        //For testing
-        private float frameRate;
+    
+
 
         public GameManager(Game game, SpriteBatch spriteBatch, string managerId, GraphicsDeviceManager graphics)
             : base(game, spriteBatch, managerId, GameStates.GameManager)
@@ -71,12 +59,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         {
             _players = new List<Player>();
             _fonts = new List<Font>();
-            _fonts2 = new List<Font>();
             _platforms = new List<Platform>();
             _playerPosition = new List<Vector2>();
-            _rnd = new Random();
-            
-           // _heightOfBoard = 0;
+            _random = new Random();
             _platformWidth = 100;
             _maxDistance = 100;
             _numberOfPlatforms = 20;
@@ -112,10 +97,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
             //Load score spritefont
             _fonts.Add(new Font(_game, _fontString, Color.White, new Vector2(20, 20)));
-            _fonts2.Add(new Font(_game, frameRate.ToString(), Color.White, new Vector2(100, 50)));
 
             _startGameSong = _game.Content.Load<Song>("Audio/StartGameSong");
-
 
             //Background image
             _mainFrame = new Rectangle(0, BgImageYMin, GraphicsDevice.Viewport.Width, BgImageYMax);
@@ -159,8 +142,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         public override void Update(GameTime gameTime)
         {
-            frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             _playerPosition = new List<Vector2>();
 
             if (InputManager.Instance.IsKeyPressed(Keys.Escape))
@@ -206,18 +187,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 font.Update(gameTime, _game.Window.ClientBounds);
             }
 
-            foreach (var font in _fonts2)
-            {
-                font.Update(gameTime, _game.Window.ClientBounds);
-                font.Position = new Vector2(font.Position.X, font.Position.Y + _camera.Velocity);
-                font.FontText = frameRate.ToString();
-            }
-                
-            
-
             foreach (var floor in _platforms)
                 floor.Update(gameTime, _game.Window.ClientBounds);
-
 
             //Update player score
             ScoreFontText();
@@ -239,11 +210,11 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
             GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
 
-            if (_gameVelocity <= MaxSpeedLimit)
-            {
-                _camera.IncreaseSpeed();
-                _gameVelocity += _camera.VelocityDelta;
-            }
+            if (!(_gameVelocity <= MaxSpeedLimit)) 
+                return;
+
+            _camera.IncreaseSpeed();
+            _gameVelocity += _camera.VelocityDelta;
         }
 
         /// <summary>
@@ -293,11 +264,11 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 Platform platform;
 
                 // The distance between the new and the previous platform in x-direction. 
-                var x = _rnd.Next(minDistance, maxDistance);
+                var x = _random.Next(minDistance, maxDistance);
                 
-                var width = _rnd.Next(minWidth, MaxPlatformWidth);
+                var width = _random.Next(minWidth, MaxPlatformWidth);
                 //Decides wether the new platform should be added to the left or to the right, therefor random
-                var whichDirection = _rnd.Next(1, 3);
+                var whichDirection = _random.Next(1, 3);
 
                 if (count + 1 == numberOfPlatforms)
                     platform = new Platform(_game, 1,
@@ -369,10 +340,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 player.Draw(gameTime, _spriteBatch);
 
             foreach (var font in _fonts)
-                font.Draw(gameTime, _spriteBatch);
-
-
-            foreach (var font in _fonts2)
                 font.Draw(gameTime, _spriteBatch);
 
             foreach (var floor in _platforms)

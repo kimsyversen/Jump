@@ -28,12 +28,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
 
         #region Properties
 
-        public Vector2 Origin
-        {
-            get { return origin; }
-            set { origin = value; }
-        }
-
         public Vector2 Position
         {
             get { return position; }
@@ -44,30 +38,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
         {
             get { return color; }
             set { color = value; }
-        }
-
-        public float Rotate
-        {
-            get { return rotate; }
-            set { rotate = value; }
-        }
-
-        public float Scale
-        {
-            get { return scale; }
-            set { scale = value; }
-        }
-
-        public SpriteEffects SpriteEffects
-        {
-            get { return spriteEffects; }
-            set { spriteEffects = value; }
-        }
-
-        public int CollisionOffset
-        {
-            get { return collisionOffset; }
-            set { collisionOffset = value; }
         }
 
         public Vector2 Velocity
@@ -164,7 +134,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             this.scale = scale;
             this.rotate = rotate;
             this.origin = origin;
-
             this.game = game;
         }
 

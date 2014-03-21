@@ -65,6 +65,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
      
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
+            //Check if player is dead
             if (Dead)
             {
                 velocity.Y = 0f;
@@ -72,6 +73,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 return;
             }
 
+            //Check player input, decide velocity
             if (InputManager.Instance.IsKeyDown(_keyboardMapping.Right) && !_hitWall)
                 velocity.X = PlayerSpeed;
             else if (InputManager.Instance.IsKeyDown(_keyboardMapping.Left) && !_hitWall)
@@ -144,6 +146,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         /// <param name="platform"></param>
         public void LandedOnPlatForm(Platform platform)
         {
+            //TODO: engelsk..
             //Må passe på at spilleren blir tegnet på toppen av platformen
             var newPosition = new Vector2(Position.X, (platform.Position.Y - texture.Height + 1));
             Position = newPosition;

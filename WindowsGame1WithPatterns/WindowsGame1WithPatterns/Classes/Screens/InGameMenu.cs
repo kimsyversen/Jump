@@ -71,8 +71,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             _image = image;
             //Create a rectangle that fills the whole window. This is for
             //drawing the background image
-            int imageWidth = 600;
-            int imageHeight = 400;
+            const int imageWidth = 600;
+            const int imageHeight = 400;
             _imageRectangle = new Rectangle(
                 (Game.Window.ClientBounds.Width - imageWidth) / 2,
                 (Game.Window.ClientBounds.Height - imageHeight) / 2,

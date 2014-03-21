@@ -19,13 +19,12 @@ namespace WindowsGame1WithPatterns
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private StateManager _stateManager;
         private InputManager _inputManager;
-        private int _desktopOffset = 150;
         public GraphicsDeviceManager Graphics
         {
             get { return _graphics; }
@@ -34,11 +33,13 @@ namespace WindowsGame1WithPatterns
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            
-            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - _desktopOffset;
+
+            //15% offset in height 
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - 
+                Convert.ToInt32(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.15);
             
             _graphics.ApplyChanges();
-            //MKeyboardMapping asd = new MKeyboardMapping(@"C:\Users\Magnus Sandgren\Documents\KeyboardMappings.xml");
+
         }
 
         /// <summary>
@@ -58,15 +59,6 @@ namespace WindowsGame1WithPatterns
         }
 
         /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
-        protected override void LoadContent()
-        {
-            base.LoadContent();
-        }
-
-        /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
         /// </summary>
@@ -81,24 +73,12 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void Update(GameTime gameTime)
         {
+            //TODO: What happns here?
             _inputManager.Begin();
 
             base.Update(gameTime);
             _inputManager.End();
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
-            //TODO: Kanakje gjøre slik at spritebatch.begin og end skal være i game.cs og kun der? Slik:
-            //GraphicsDevice.Clear(color.AntiqueWhite);
-            //_spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend);
-            //base.Draw(gameTime);
-            //_spriteBatch.End();
-            base.Draw(gameTime);
-        }
     }
 }

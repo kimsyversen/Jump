@@ -180,6 +180,7 @@ namespace WindowsGame1WithPatterns.Classes.State
                         break;
                     else
                     {
+                        //TODO: Redudant else
                         pausedState.Hide();
                         pausedState = null;
                     }
