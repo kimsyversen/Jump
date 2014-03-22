@@ -85,7 +85,8 @@ namespace WindowsGame1WithPatterns.Classes.State
             Game.Components.Add(optionsManager);
 
             var gameOverManager = new GameOver(Game, _spriteBatch, _stateManagerId, 
-                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"),
+                Game.Content.Load<SpriteFont>(@"Font\HeaderFont"),
                 Game.Content.Load<Texture2D>(@"Figure\Ball"));
             gameOverManager.Hide();
             Game.Components.Add(gameOverManager);

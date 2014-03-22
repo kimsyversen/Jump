@@ -170,6 +170,12 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 //Check if all players is out of sight
                 if (GameOver(_players, _camera.Center))
                 {
+                    //TODO: fortell game over hva scoren er.
+                    var scoreList = new List<int>();
+                    foreach (var p in _players)
+                        scoreList.Add(p.Score);
+
+                    ((GameOver)GetState(GameStates.GameOver)).GenerateScoreText(scoreList);
                     ChangeStateTo(GameStates.GameOver);
                     _camera.StartCam = false;
                 }

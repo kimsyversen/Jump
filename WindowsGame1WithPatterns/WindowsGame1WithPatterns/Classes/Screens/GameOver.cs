@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Collections.Generic;
 
 namespace WindowsGame1WithPatterns.Classes.Screens
 {
@@ -13,6 +14,13 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// Will handle the menu for the game
         /// </summary>
         private MenuComponent _menuComponent;
+
+        private TextBoxComponent _scoreBoard;
+        private TextBoxComponent _headline;
+
+        /// <summary>
+        /// Holds the game over tune
+        /// </summary>
         private Song _gameOverSong;
 
         /// <summary>
@@ -39,11 +47,30 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             SpriteBatch spriteBatch,
             string managerId,
             SpriteFont spriteFont,
+            SpriteFont headlineFont,
             Texture2D image)
             : base(game, spriteBatch, managerId, GameStates.GameOver)
         {
+            //Add the scoreBoard
+            string scoreBoardText = "Player 1: 1000";
+            _scoreBoard = new TextBoxComponent(game,
+                spriteBatch,
+                spriteFont,
+                scoreBoardText,
+                spriteFont.MeasureString(scoreBoardText).X);
+            Components.Add(_scoreBoard);
+
+            //Add a headline
+            string headlineText = "Game over!";
+            _headline = new TextBoxComponent(game,
+                spriteBatch,
+                headlineFont,
+                headlineText,
+                headlineFont.MeasureString(headlineText).X);
+            Components.Add(_headline);
+
             //Create menu item list
-            string[] menuItems = { "Game over: not implemented." };
+            string[] menuItems = { "Back to main menu" };
             //Instantiate the MenuComponent
             _menuComponent = new MenuComponent(game,
                 spriteBatch,
@@ -51,6 +78,10 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 menuItems);
             //Add the menu to the components of the main menu screen
             Components.Add(_menuComponent);
+
+            //TODO: Fix Positions of the components
+            PositionizeGameOverComponents();
+
             //Remember the image pointer for the draw method
             _image = image;
             //Create a rectangle that fills the whole window. This is for
@@ -60,6 +91,31 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 0,
                 Game.Window.ClientBounds.Width,
                 Game.Window.ClientBounds.Height);
+        }
+
+        public void GenerateScoreText(List<int> scoreList)
+        {
+            var scoreText = "";
+            var playerNumber = 1;
+            foreach (var playerScore in scoreList)
+                scoreText = string.Concat(scoreText, "Player " + (playerNumber++) + ": " + playerScore + "\n");
+
+            _scoreBoard.Text = scoreText;
+            PositionizeGameOverComponents();
+        }
+
+        private void PositionizeGameOverComponents()
+        {
+            var extraSpaceing = 0;
+            _scoreBoard.Position = new Vector2(
+                (Game.Window.ClientBounds.Width - _scoreBoard.Width) / 2,
+                (Game.Window.ClientBounds.Height - _scoreBoard.Height) / 2);
+            _headline.Position = new Vector2(
+                _headline.Position.X,
+                _scoreBoard.Position.Y - _headline.Height - extraSpaceing);
+            _menuComponent.Position = new Vector2(
+                _menuComponent.Position.X,
+                _scoreBoard.Position.Y + _scoreBoard.Height + extraSpaceing);
         }
 
         protected override void LoadContent()
@@ -80,6 +136,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             MediaPlayer.Stop();
             base.Hide();
         }
+
         /// <summary>
         /// Take care of the switching between screens 
         /// </summary>
@@ -99,7 +156,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         }
         
         /// <summary>
-        /// Draw the menu
+        /// Draw the background
         /// </summary>
         /// <param name="gameTime">Game time</param>
         public override void Draw(GameTime gameTime)
