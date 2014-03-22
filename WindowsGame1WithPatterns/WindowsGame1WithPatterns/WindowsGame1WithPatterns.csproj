@@ -113,8 +113,10 @@
   <ItemGroup>
     <Compile Include="Classes\CameraConfiguration\CameraManager.cs" />
     <Compile Include="Classes\Components\TextBoxComponent.cs" />
+    <Compile Include="Classes\Components\TextInputComponent.cs" />
     <Compile Include="Classes\FileIO\Serializer.cs" />
-    <Compile Include="Classes\Highscores\Score.cs" />
+    <Compile Include="Classes\Highscore\Highscore.cs" />
+    <Compile Include="Classes\Highscore\Score.cs" />
     <Compile Include="Classes\KeyboardConfiguration\InputManager.cs" />
     <Compile Include="Classes\Components\MenuComponent.cs" />
     <Compile Include="Classes\KeyboardConfiguration\MKeyboardMapping.cs" />
