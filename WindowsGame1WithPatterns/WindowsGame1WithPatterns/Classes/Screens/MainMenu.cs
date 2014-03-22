@@ -58,7 +58,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             Components.Add(_menuComponent);
 
             //Add a headline
-            string text = "Main Menu, Motherfucker!";
+            string text = "Main Menu";
             _headline = new TextBoxComponent(game, 
                 spriteBatch,
                 headlineFont, 
@@ -93,6 +93,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                         ChangeStateTo(GameStates.ChoosePlayerManager);
                         break;
                     case 1:
+                        //((HighscoreMenu)GetState(GameStates.Highscore)).PrepareHighscoreMenu();
                         ChangeStateTo(GameStates.Highscore);
                         break;
                     case 2:

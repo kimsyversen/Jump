@@ -80,7 +80,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                                                   _game.Window.ClientBounds.Width, HeightOfPlatform));
 
             //Singleplayer
-            _players.Add(new Player(_game, "Figure/lilastoy", new KeyboardMapping(Keys.A, Keys.D, Keys.Space), 
+            _players.Add(new Player(_game, "Figure/lilastoy", new KeyboardMapping(Keys.A, Keys.D, Keys.W), 
                 new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
 
             //If multiplayer
@@ -170,7 +170,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 //Check if all players is out of sight
                 if (GameOver(_players, _camera.Center))
                 {
-                    //TODO: fortell game over hva scoren er.
                     var scoreList = new List<int>();
                     foreach (var p in _players)
                         scoreList.Add(p.Score);

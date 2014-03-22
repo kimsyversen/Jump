@@ -16,7 +16,15 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// </summary>
         private MenuComponent _menuComponent;
 
+        /// <summary>
+        /// Will hold the context of the help menu
+        /// </summary>
         private TextBoxComponent _textBoxComponent;
+
+        /// <summary>
+        /// Will hold the headline of the help menu
+        /// </summary>
+        private TextBoxComponent _headline;
 
         /// <summary>
         /// Placeholder for the background image of the menu
@@ -42,6 +50,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             SpriteBatch spriteBatch,
             string managerId,
             SpriteFont spriteFont,
+            SpriteFont headlineFont,
             Texture2D image)
             : base(game, spriteBatch, managerId, GameStates.HelpMenu)
         {
@@ -55,8 +64,21 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             //Add the menu to the components of the main menu screen
             Components.Add(_menuComponent);
 
-            string text = "This is how you play:\n" + 
-                "This is a long string to test if the text goes out of the bounds... So I do sure hope it is long enough!";
+            //Add a headline
+            string headlineText = "How to play";
+            _headline = new TextBoxComponent(game,
+                spriteBatch,
+                headlineFont,
+                headlineText,
+                headlineFont.MeasureString(headlineText).X);
+            _headline.Position = new Vector2(_headline.Position.X, _menuComponent.Position.Y - _headline.Height - 20);
+            Components.Add(_headline);
+
+            string text = "Mission:\n" +
+                "Jump as high as you can. As you progress towards the sky, the difficulty will increase. Tip: you can bounce of the wall for that extra boost if your surroundings allow it. Good luck! \n\n" +
+                "Controls:\n" +
+                "Player one: W to jump, A to go left and D to go right.\n" +
+                "Player two: Up key to jump, left key to go left and right key to go right.";
             _textBoxComponent = new TextBoxComponent(game,
                 spriteBatch,
                 spriteFont,
@@ -65,9 +87,11 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 10);
             Components.Add(_textBoxComponent);
 
+            var componentOffest = 20;
+
             //position the components on the screen
-            _menuComponent.Position = new Vector2(_menuComponent.Position.X, _textBoxComponent.Position.Y + _textBoxComponent.Height + _menuComponent.Height + 20);
-            //_textBoxComponent.position = new Vector2(_textBoxComponent.position.X, _menuComponent.position.Y - _textBoxComponent.Height - 20);
+            _menuComponent.Position = new Vector2(_menuComponent.Position.X, _textBoxComponent.Position.Y + _textBoxComponent.Height + _menuComponent.Height + componentOffest);
+            _headline.Position = new Vector2(_headline.Position.X, _textBoxComponent.Position.Y - _headline.Height - componentOffest);
 
             //Remember the image pointer for the draw method
             _image = image;

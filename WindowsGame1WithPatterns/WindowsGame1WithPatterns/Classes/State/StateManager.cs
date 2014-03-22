@@ -99,13 +99,15 @@ namespace WindowsGame1WithPatterns.Classes.State
             Game.Components.Add(newHighscoreManager);
 
             var highscoreManager = new HighscoreMenu(Game, _spriteBatch, _stateManagerId, 
-                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"),
+                Game.Content.Load<SpriteFont>(@"Font\HeaderFont"),
                 Game.Content.Load<Texture2D>(@"Figure\Ball"));
             highscoreManager.Hide();
             Game.Components.Add(highscoreManager);
 
             var helpMenu = new HelpMenu(Game, _spriteBatch, _stateManagerId, 
-                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"),
+                Game.Content.Load<SpriteFont>(@"Font\HeaderFont"),
                 Game.Content.Load<Texture2D>(@"Figure\Ball"));
             helpMenu.Hide();
             Game.Components.Add(helpMenu);

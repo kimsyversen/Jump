@@ -30,7 +30,12 @@ namespace WindowsGame1WithPatterns.Classes.Highscores
         private string _filepath = AppDomain.CurrentDomain.BaseDirectory;
 
         private List<Score> _highscores;
-        private int highscoreLimit = 5;
+        private int highscoreLimit = 3;
+
+        public List<Score> Highscores
+        {
+            get { return _highscores.AsReadOnly().ToList(); }
+        }
 
         public bool IsNewHighscore(int score)
         {

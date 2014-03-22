@@ -81,7 +81,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             //Add the menu to the components of the main menu screen
             Components.Add(_menuComponent);
 
-            //TODO: Fix Positions of the components
+            //Fix Positions of the components
             PositionizeGameOverComponents();
 
             //Remember the image pointer for the draw method

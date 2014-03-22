@@ -61,8 +61,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 spriteBatch,
                 headlineFont, 
                 text,
-                headlineFont.MeasureString(text).X, 
-                50);
+                headlineFont.MeasureString(text).X);
             _headline.Position = new Vector2(_headline.Position.X, _menuComponent.Position.Y - _headline.Height - 20);
             Components.Add(_headline);
 
@@ -165,7 +164,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 switch (_menuComponent.SelectedIndex)
                 {
                     case 0:
-                        //TODO: Lagre logikk her...
                         for (int i = 0; i < _scoreList.Count; i++)
                         {
                             _scoreList[i].Name = _inputBoxList[i].inputBox.Text;
