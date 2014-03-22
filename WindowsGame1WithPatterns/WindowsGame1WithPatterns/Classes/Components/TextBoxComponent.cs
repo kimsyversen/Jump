@@ -10,6 +10,7 @@ namespace WindowsGame1WithPatterns.Classes.Components
     //Sorce: http://danieltian.wordpress.com/2008/12/24/xna-tutorial-typewriter-text-box-with-proper-word-wrapping-part-1/
     class TextBoxComponent : DrawableGameComponent
     {
+        #region Members
         /// <summary>
         /// color of the text
         /// </summary>
@@ -19,6 +20,11 @@ namespace WindowsGame1WithPatterns.Classes.Components
         /// Will be used for drawing the text of the menu
         /// </summary>
         private SpriteBatch _spriteBatch;
+
+        /// <summary>
+        /// Sprite front for the text of the menu items
+        /// </summary>
+        private SpriteFont _spriteFont;
 
         /// <summary>
         /// Will be used to position the menu on the screen
@@ -36,9 +42,9 @@ namespace WindowsGame1WithPatterns.Classes.Components
         private float _height = 0f;
 
         /// <summary>
-        /// Sprite front for the text of the menu items
+        /// Will hold the raw text string inputed to this component
         /// </summary>
-        private SpriteFont _spriteFont;
+        private string _rawText;
 
         /// <summary>
         /// Will hold the parsed text that is to be desplayed
@@ -69,7 +75,9 @@ namespace WindowsGame1WithPatterns.Classes.Components
         /// else false.
         /// </summary>
         private bool _isDoneDrawing;
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Get or set the position of the menu
         /// </summary>
@@ -95,6 +103,23 @@ namespace WindowsGame1WithPatterns.Classes.Components
             get { return _height; }
         }
 
+        /// <summary>
+        /// Get or set the text of the textbox
+        /// </summary>
+        public string Text
+        {
+            get { return _rawText; }
+            set
+            {
+                _rawText = value;
+                _parsedText = ParseText(_rawText);
+                _height = MeasureTextBoxHeight(_parsedText);
+                Reset();
+            }
+        }
+        #endregion
+
+        #region Ctor
         //Constructor with the typing daly
         public TextBoxComponent(Game game, 
             SpriteBatch spriteBatch,
@@ -108,9 +133,9 @@ namespace WindowsGame1WithPatterns.Classes.Components
             _spriteFont = spriteFont;
             _width = width;
             _textColor = Color.White;
-            _parsedText = parseText(text);
+            Text = text;
+            _position = Center();
             _delayInMilliseconds = characterTypingDelay;
-            _isDoneDrawing = false;
         }
 
         //Constructor without the typing daly
@@ -122,20 +147,21 @@ namespace WindowsGame1WithPatterns.Classes.Components
             : this(game, spriteBatch, spriteFont, text, width, 0)
         {
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Parse the string to fit it into the _width specified trough
-        /// the constructor, and call the MeasureTextBox to calculate 
-        /// the hight and position.
+        /// the constructor, and call the MeasureTextBoxHeight to calculate 
+        /// the hight.
         /// </summary>
         /// <param name="text">The string to be parsed to fit inside the _width</param>
         /// <returns>Returns the parsed string</returns>
-        private string parseText(string text)
+        private string ParseText(string text)
         {
             string line = string.Empty;
             string returnString = string.Empty;
             string[] wordArray = text.Split(' ');
-            int lineNumbers = 1;
 
             foreach (string word in wordArray)
             {
@@ -143,26 +169,47 @@ namespace WindowsGame1WithPatterns.Classes.Components
                 {
                     returnString = returnString + line + '\n';
                     line = string.Empty;
-                    lineNumbers++;
                 }
 
                 line = line + word + ' ';
             }
-            MeasureTextBox(lineNumbers);
+            
             return returnString + line;
         }
 
         /// <summary>
-        /// Measure the height of the textBox and calculate the position
-        /// so that the text is default on the center of the screen.
+        /// Messure the height of the text box by finding the number of lines of the
+        /// parsed text and miltiplying it with the vertical space (LineSpacing) of
+        /// the font
         /// </summary>
-        /// <param name="lineNumbers">The number of lines that the textbox consist of</param>
-        private void MeasureTextBox(int lineNumbers)
+        /// <param name="parsedText">The text to find the height of</param>
+        /// <returns>The height of the textbox with the specified parsed text</returns>
+        private float MeasureTextBoxHeight(string parsedText)
         {
-            _height = _spriteFont.LineSpacing * lineNumbers;
-            _position = new Vector2(
+            var numberOfLines = parsedText.Split('\n').Length;
+            return _spriteFont.LineSpacing * numberOfLines;
+            
+        }
+
+        /// <summary>
+        /// Calculate the center of the textBox
+        /// </summary>
+        /// <returns>Position that the text box must have to be centered on the screen</returns>
+        private Vector2 Center()
+        {
+            return new Vector2(
                 (Game.Window.ClientBounds.Width - _width) / 2,
                 (Game.Window.ClientBounds.Height - _height) / 2);
+        }
+
+        /// <summary>
+        /// Reset the typing of the component
+        /// </summary>
+        public void Reset()
+        {
+            _typedText = "";
+            _typedTextLength = 0;
+            _isDoneDrawing = false;
         }
 
         /// <summary>
@@ -206,15 +253,6 @@ namespace WindowsGame1WithPatterns.Classes.Components
             _spriteBatch.DrawString(_spriteFont, _typedText, _position, Color.White);
             _spriteBatch.End();
         }
-
-        /// <summary>
-        /// Reset the component
-        /// </summary>
-        public void Reset()
-        {
-            _typedText = "";
-            _typedTextLength = 0;
-            _isDoneDrawing = false;
-        }
+        #endregion
     }
 }
