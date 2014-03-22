@@ -175,7 +175,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                     foreach (var p in _players)
                         scoreList.Add(p.Score);
 
-                    ((GameOver)GetState(GameStates.GameOver)).GenerateScoreText(scoreList);
+                    ((GameOver)GetState(GameStates.GameOver)).PrepareGameOverScreen(scoreList);
                     ChangeStateTo(GameStates.GameOver);
                     _camera.StartCam = false;
                 }

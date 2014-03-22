@@ -6,7 +6,7 @@ using WindowsGame1WithPatterns.Classes.Highscores;
 using WindowsGame1WithPatterns.Classes.FileIO;
 using System.Diagnostics;
 
-namespace WindowsGame1WithPatterns.Classes.Highscore
+namespace WindowsGame1WithPatterns.Classes.Highscores
 {
     class Highscore
     {
@@ -34,6 +34,9 @@ namespace WindowsGame1WithPatterns.Classes.Highscore
 
         public bool IsNewHighscore(int score)
         {
+            if (_highscores.Count < highscoreLimit)
+                return true;
+
             foreach (var highscore in _highscores)
                 if (score > highscore.Points)
                     return true;
@@ -42,6 +45,7 @@ namespace WindowsGame1WithPatterns.Classes.Highscore
 
         public bool AddScore(Score score)
         {
+            //Search where to put the score in the list
             var index = -1;
             foreach (var highscore in _highscores)
                 if (highscore.Points < score.Points)
@@ -51,9 +55,19 @@ namespace WindowsGame1WithPatterns.Classes.Highscore
                 }
 
             //The score was to low to go in the highscore list
-            if (index <= -1) return false;
-
-            _highscores.Insert(index, score);
+            if (index <= -1)
+            {
+                //But it can go in to the highscore if it is not filled up.
+                if (_highscores.Count < highscoreLimit)
+                    _highscores.Add(score);
+                else
+                    return false;
+            }
+            else
+            {
+                _highscores.Insert(index, score);
+            }
+            
 
             //If the highscore is larger than it is allowed to be, remove
             //the last element of the list.

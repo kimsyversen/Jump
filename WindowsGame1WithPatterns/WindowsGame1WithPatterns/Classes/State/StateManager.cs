@@ -91,6 +91,13 @@ namespace WindowsGame1WithPatterns.Classes.State
             gameOverManager.Hide();
             Game.Components.Add(gameOverManager);
 
+            var newHighscoreManager = new NewHighscore(Game, _spriteBatch, _stateManagerId,
+                Game.Content.Load<SpriteFont>(@"Font\SimpleFont"),
+                Game.Content.Load<SpriteFont>(@"Font\HeaderFont"),
+                Game.Content.Load<Texture2D>(@"Figure\Ball"));
+            newHighscoreManager.Hide();
+            Game.Components.Add(newHighscoreManager);
+
             var highscoreManager = new HighscoreMenu(Game, _spriteBatch, _stateManagerId, 
                 Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
                 Game.Content.Load<Texture2D>(@"Figure\Ball"));

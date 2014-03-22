@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework.Input;
+using WindowsGame1WithPatterns.Classes.Highscores;
 
 namespace WindowsGame1WithPatterns.Classes.Screens
 {
@@ -16,6 +17,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// Will handle the menu for the game
         /// </summary>
         private MenuComponent _menuComponent;
+
+        //TODO: Vise highscores
+        private Highscore highscore = Highscore.Instance;
 
         /// <summary>
         /// Placeholder for the background image of the menu

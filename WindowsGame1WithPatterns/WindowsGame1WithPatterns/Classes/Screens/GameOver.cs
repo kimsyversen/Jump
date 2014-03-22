@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
+using WindowsGame1WithPatterns.Classes.Highscores;
 
 namespace WindowsGame1WithPatterns.Classes.Screens
 {
@@ -17,6 +18,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         private TextBoxComponent _scoreBoard;
         private TextBoxComponent _headline;
+        private List<Score> _newHighscores;
 
         /// <summary>
         /// Holds the game over tune
@@ -93,12 +95,19 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 Game.Window.ClientBounds.Height);
         }
 
-        public void GenerateScoreText(List<int> scoreList)
+        public void PrepareGameOverScreen(List<int> scoreList)
         {
             var scoreText = "";
             var playerNumber = 1;
+            _newHighscores = new List<Score>();
+            
             foreach (var playerScore in scoreList)
+            {
+                if (Highscore.Instance.IsNewHighscore(playerScore))
+                    _newHighscores.Add(new Score(playerScore, "Player " + playerNumber));
+
                 scoreText = string.Concat(scoreText, "Player " + (playerNumber++) + ": " + playerScore + "\n");
+            }
 
             _scoreBoard.Text = scoreText;
             PositionizeGameOverComponents();
@@ -128,6 +137,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         {
             MediaPlayer.IsRepeating = false;
             MediaPlayer.Play(_gameOverSong);
+
+
+
             base.Show();
         }
 
@@ -143,6 +155,16 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// <param name="gameTime">Game time</param>
         public override void Update(GameTime gameTime)
         {
+            if (_newHighscores.Count != 0)
+            {
+                //Prepare new highscores screen and show it.
+                ((NewHighscore)GetState(GameStates.NewHighscore)).PrepareNewHighscoreScreen(_newHighscores);
+                PopUp(GameStates.NewHighscore);
+
+                //Reset the list when highscore is sendt to NewHighscore screen
+                _newHighscores = new List<Score>();
+            }
+
             if (InputManager.Instance.IsKeyPressed(Keys.Enter))
             {
                 switch (SelectedIndex)

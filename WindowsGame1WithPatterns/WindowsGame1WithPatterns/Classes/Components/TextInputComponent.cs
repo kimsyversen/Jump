@@ -68,6 +68,8 @@ namespace WindowsGame1WithPatterns.Classes.Components
             }
         }
 
+        public bool Selected { get; set; }
+
         /// <summary>
         /// Get or set the text color of the text component
         /// </summary>
@@ -121,6 +123,7 @@ namespace WindowsGame1WithPatterns.Classes.Components
             _position = position;
             _textColor = textColor;
             _height = _spriteFont.LineSpacing;
+            Selected = false;
         }
         public TextInputComponent(
             Game game,
@@ -172,7 +175,8 @@ namespace WindowsGame1WithPatterns.Classes.Components
 
         public override void Update(GameTime gameTime)
         {
-            Text = InputManager.Instance.KeyboardStream(Text);
+            if (Selected)
+                Text = InputManager.Instance.KeyboardStream(Text);
 
             base.Update(gameTime);
         }

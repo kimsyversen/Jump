@@ -8,7 +8,7 @@ namespace WindowsGame1WithPatterns.Classes.Highscores
     /// <summary>
     /// Used to set/get points and name for a player
     /// </summary>
-    class Score
+    public class Score
     {
         /// <summary>
         /// Get or set points
@@ -25,5 +25,6 @@ namespace WindowsGame1WithPatterns.Classes.Highscores
             Points = newPoints;
             Name = newName;
         }
+        public Score() { }
     }
 }

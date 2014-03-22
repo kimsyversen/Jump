@@ -149,7 +149,7 @@ namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
                 // Escape Sequences 
                 case Keys.Enter: return "\n";                           // Create a new line 
                 //case Keys.Tab: return "\t";                           // Tab to the right 
-                case Keys.Tab: return "   ";                            // Replaced tab with 3 space to avoid faliure.
+                //case Keys.Tab: return "   ";                            // Replaced tab with 3 space to avoid faliure.
 
                 // D-Numerics (strip above the alphabet) 
                 case Keys.D0: return shift ? ")" : "0";
