@@ -254,7 +254,7 @@ namespace WindowsGame1WithPatterns.Classes.State
             Options,
             InGameMenu,
             GameManager,
-            ChoosePlayerManager,
+            ChoosePlayerModeManager,
             HelpMenu,
             NewHighscore
         }

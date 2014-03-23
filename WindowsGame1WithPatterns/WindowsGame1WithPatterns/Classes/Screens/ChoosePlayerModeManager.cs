@@ -39,7 +39,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             string managerId,
             SpriteFont spriteFont,
             Texture2D image)
-            : base(game, spriteBatch, managerId, GameStates.ChoosePlayerManager)
+            : base(game, spriteBatch, managerId, GameStates.ChoosePlayerModeManager)
         {
             //Create menu item list
             string[] menuItems = { "Single player", "Multiplayer (two player)", "Back to main menu"};

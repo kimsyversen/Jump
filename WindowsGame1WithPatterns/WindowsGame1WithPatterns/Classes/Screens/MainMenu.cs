@@ -90,7 +90,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 switch (SelectedIndex)
                 {
                     case 0:
-                        ChangeStateTo(GameStates.ChoosePlayerManager);
+                        ChangeStateTo(GameStates.ChoosePlayerModeManager);
                         break;
                     case 1:
                         //((HighscoreMenu)GetState(GameStates.Highscore)).PrepareHighscoreMenu();
