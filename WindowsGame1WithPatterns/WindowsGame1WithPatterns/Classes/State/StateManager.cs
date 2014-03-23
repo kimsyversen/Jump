@@ -112,7 +112,7 @@ namespace WindowsGame1WithPatterns.Classes.State
             helpMenu.Hide();
             Game.Components.Add(helpMenu);
 
-            var choosePlayerManager = new ChoosePlayerManager(Game, _spriteBatch, _stateManagerId, 
+            var choosePlayerManager = new ChoosePlayerModeManager(Game, _spriteBatch, _stateManagerId, 
                 Game.Content.Load<SpriteFont>(@"Font\SimpleFont"), 
                 Game.Content.Load<Texture2D>(@"Figure\GameThumbnail"));
             choosePlayerManager.Hide();

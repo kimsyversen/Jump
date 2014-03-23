@@ -127,7 +127,7 @@
     <Compile Include="Classes\Screens\HighscoreMenu.cs" />
     <Compile Include="Classes\Screens\InGameMenu.cs" />
     <Compile Include="Classes\Screens\MainMenu.cs" />
-    <Compile Include="Classes\Screens\ChoosePlayerManager.cs" />
+    <Compile Include="Classes\Screens\ChoosePlayerModeManager.cs" />
     <Compile Include="Classes\Screens\NewHighscore.cs" />
     <Compile Include="Classes\Screens\OptionsMenu.cs" />
     <Compile Include="Classes\Sprites\Concretes\Platform.cs" />

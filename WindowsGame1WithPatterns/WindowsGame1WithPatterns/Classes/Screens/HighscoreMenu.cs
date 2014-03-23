@@ -53,6 +53,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             set { _menuComponent.SelectedIndex = value; }
         }
 
+        //TODO: FR9: At the end of the game a final score shall be shown, and a winner is presented on the screen. Possible to start a new game, or quit the game. 
         //Constructor
         public HighscoreMenu(Game game,
             SpriteBatch spriteBatch,

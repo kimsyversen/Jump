@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace WindowsGame1WithPatterns.Classes.Screens
 {
-    class ChoosePlayerManager : State.State
+    class ChoosePlayerModeManager : State.State
     {
         /// <summary>
         /// Will handle the menu for the game
@@ -34,7 +34,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         }
 
         //Constructor...
-        public ChoosePlayerManager(Game game,
+        public ChoosePlayerModeManager(Game game,
             SpriteBatch spriteBatch,
             string managerId,
             SpriteFont spriteFont,
