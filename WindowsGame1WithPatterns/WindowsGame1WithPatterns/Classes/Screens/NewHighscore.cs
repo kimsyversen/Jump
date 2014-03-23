@@ -15,13 +15,14 @@ namespace WindowsGame1WithPatterns.Classes.Screens
     {
         private MenuComponent _menuComponent;
         private TextBoxComponent _headline;
+        private TextBoxComponent _subHeadline;
         private Texture2D _image;
         private Rectangle _imageRectangle;
 
         private SpriteFont _spriteFont;
 
         private const int Inputwidth = 300;
-
+        private const int DescriptionTextWidth = 600;
         private int _selectedInputFieldIndex;
 
         private List<InputField> _inputBoxList;
@@ -62,8 +63,16 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 headlineFont, 
                 text,
                 headlineFont.MeasureString(text).X);
-            _headline.Position = new Vector2(_headline.Position.X, _menuComponent.Position.Y - _headline.Height - 20);
             Components.Add(_headline);
+
+
+            string subHeadlinetext = "Write your name. When finished, press TAB to switch to next player, or ENTER to exit";
+            _subHeadline = new TextBoxComponent(game,
+                spriteBatch,
+                _spriteFont,
+                subHeadlinetext,
+                DescriptionTextWidth);
+            Components.Add(_subHeadline);
 
             //Remember the image pointer for the draw method
             _image = image;
@@ -96,7 +105,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                     Inputwidth);
                 Components.Add(playerNameInput);
 
-                _inputBoxList.Add(new InputField() { InputPlayer = playerName, InputBox = playerNameInput });
+                _inputBoxList.Add(new InputField { InputPlayer = playerName, InputBox = playerNameInput });
             }
 
             _inputBoxList[0].InputBox.Selected = true;
@@ -107,7 +116,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         private void PositionizeNewHighscoreComponents()
         {
-            //TODO: Flyutte ut?
             const int inputBoxVerticalSpace = 10;
             const int inputBoxHorisontalSpace = 10;
 
@@ -131,7 +139,12 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
             _headline.Position = new Vector2(
                 _headline.Position.X,
-                ((Game.Window.ClientBounds.Height - inputBoxHeight) / 2f) - _headline.Height - inputBoxVerticalSpace);
+                ((Game.Window.ClientBounds.Height - inputBoxHeight) / 2f) - _subHeadline.Height - _headline.Height - inputBoxVerticalSpace*2);
+
+            _subHeadline.Position = new Vector2(
+                _subHeadline.Position.X,
+                ((Game.Window.ClientBounds.Height - inputBoxHeight) / 2f) - _subHeadline.Height - inputBoxVerticalSpace);
+
             _menuComponent.Position = new Vector2(
                 _menuComponent.Position.X,
                 ((Game.Window.ClientBounds.Height - inputBoxHeight) / 2f) + inputBoxHeight + inputBoxVerticalSpace);

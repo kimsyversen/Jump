@@ -25,7 +25,6 @@ namespace WindowsGame1WithPatterns.Classes.Highscores
             Load();
         }
         #endregion
-        //TODO: Skal det være highscore.xml?
         private const string FileName = @"highscore";
         private readonly string _filepath = AppDomain.CurrentDomain.BaseDirectory;
 

@@ -28,11 +28,10 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// </summary>
         private TextBoxComponent _highscoreContent;
 
-        //TODO: highscore er aldri brukt?
         /// <summary>
         /// Used to get highscores
         /// </summary>
-        private Highscore highscore = Highscore.Instance;
+        private Highscore _highscore = Highscore.Instance;
       
         /// <summary>
         /// Placeholder for the background image of the menu
@@ -53,7 +52,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             set { _menuComponent.SelectedIndex = value; }
         }
 
-        //TODO: FR9: At the end of the game a final score shall be shown, and a winner is presented on the screen. Possible to start a new game, or quit the game. 
         //Constructor
         public HighscoreMenu(Game game,
             SpriteBatch spriteBatch,
@@ -83,13 +81,13 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             Components.Add(_headline);
 
             //Add a headline
-            //TODO: Hva er magnus sandgren 10000?
+            //Dummy placeholder text to measure width of textbox component
             string highscoreContentText = "1) Magnus Sandgren : 10000";
             _highscoreContent = new TextBoxComponent(game,
                 spriteBatch,
                 spriteFont,
                 highscoreContentText,
-                headlineFont.MeasureString(highscoreContentText).X);
+                spriteFont.MeasureString(highscoreContentText).X);
             Components.Add(_highscoreContent);
 
             //Remember the image pointer for the draw method
@@ -107,8 +105,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         {
             var highscoreText = String.Empty;
             var highscorePosition = 1;
-            //TODO: Lokal highscore gjemmer ekstern (deklarert over)
-            foreach (var highscore in Highscore.Instance.Highscores.OrderByDescending(o => o.Points).ToList())
+            foreach (var highscore in _highscore.Highscores.OrderByDescending(o => o.Points).ToList())
                 highscoreText = string.Concat(highscoreText, (highscorePosition++) + ") " + highscore.Name + " : " + highscore.Points + "\n");
             
             _highscoreContent.Text = highscoreText;
