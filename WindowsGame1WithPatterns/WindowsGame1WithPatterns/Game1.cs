@@ -52,6 +52,7 @@ namespace WindowsGame1WithPatterns
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            //TODO: and do what?
             _stateManager = new StateManager(this, _spriteBatch, _graphics);
             _inputManager = InputManager.Instance;
 
@@ -73,6 +74,7 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         protected override void Update(GameTime gameTime)
         {
+            //TODO: Mer forklaring her
             //Register input
             _inputManager.Begin();
 
