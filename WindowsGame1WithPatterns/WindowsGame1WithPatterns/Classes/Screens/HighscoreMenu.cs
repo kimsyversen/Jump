@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using WindowsGame1WithPatterns.Classes.Components;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework.Input;
 using WindowsGame1WithPatterns.Classes.Highscores;
-
 namespace WindowsGame1WithPatterns.Classes.Screens
 {
     class HighscoreMenu : State.State

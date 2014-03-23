@@ -188,12 +188,10 @@ namespace WindowsGame1WithPatterns.Classes.State
                     pausedState = _pausedStates.Pop();
                     if (pausedState == newState)
                         break;
-                    else
-                    {
-                        //TODO: Redudant else
-                        pausedState.Hide();
-                        pausedState = null;
-                    }
+                    
+                    pausedState.Hide();
+                    pausedState = null;
+                    
                 }
 
                 //Hide the current state

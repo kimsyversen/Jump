@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using WindowsGame1WithPatterns.Classes.Highscores;
 using WindowsGame1WithPatterns.Classes.FileIO;
 using System.Diagnostics;
 

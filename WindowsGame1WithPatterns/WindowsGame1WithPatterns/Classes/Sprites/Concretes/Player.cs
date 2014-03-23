@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
+﻿using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using WindowsGame1WithPatterns.Classes.Sprites.Concretes;
-
 namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 {
     internal class Player : Sprite

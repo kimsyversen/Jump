@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace WindowsGame1WithPatterns.Classes.Highscores
+﻿namespace WindowsGame1WithPatterns.Classes.Highscores
 {
     /// <summary>
     /// Used to set/get points and name for a player
@@ -14,7 +9,6 @@ namespace WindowsGame1WithPatterns.Classes.Highscores
         /// Get or set points
         /// </summary>
         public int Points { get; set; }
-
         /// <summary>
         /// Get or set name
         /// </summary>
