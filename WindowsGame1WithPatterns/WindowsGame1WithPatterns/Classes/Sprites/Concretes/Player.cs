@@ -10,30 +10,61 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 {
     internal class Player : Sprite
     {
+        /// <summary>
+        /// Bool used to check if player jumped
+        /// </summary>
         private bool _jumped;
+        /// <summary>
+        /// Bool used to check if player hits wall
+        /// </summary>
         private bool _hitWall;
-
+        /// <summary>
+        /// Bool used to check if player is dead
+        /// </summary>
         public bool Dead = false;
+        /// <summary>
+        /// Used outside to decide if player hits platform
+        /// </summary>
         public bool HitPlatform { get; set; }
+        /// <summary>
+        /// Contains score for the player
+        /// </summary>
         public int Score { get; set; }
+        /// <summary>
+        /// Used as reference for a platform player lands on
+        /// </summary>
         public Platform Platform { get; set; }
-        public float HeightOfJump { get; set; }
+        /// <summary>
+        /// Used to set/get height position from the position of a platform
+        /// </summary>
+        public float JumpHeight { get; set; }
+        /// <summary>
+        /// Gravity in the game. Higher positive value makes it harder to jump
+        /// </summary>
         private const float Gravity = 1.15f;
-        private const float JumpHeight = 10f;
-        private const float PlayerSpeed = 5.0f;
-        private const float PlayerSpeedChange = 5.0f;
-        private const float BounceBackSpeed = 5.0f;
-
+        /// <summary>
+        /// How high a player may jump
+        /// </summary>
+        private const float PlayerJumpHeight = 10f;     
+        /// <summary>
+        /// Velocity the player moves with
+        /// </summary>
+        private const float PlayerVelocity = 5.0f;
+        /// <summary>
+        /// When player hits wall, player bounces back with velocity
+        /// </summary>
+        private const float BounceBackVelocity = 5.0f;
+        /// <summary>
+        /// Reference for sound effect
+        /// </summary>
         private readonly SoundEffect _effect;
-
         /// <summary>
         /// Used to assign keys to players
         /// </summary>
         private readonly KeyboardMapping _keyboardMapping;
 
-
-        public Player(Game game, String filnavn, KeyboardMapping keyboardMapping, Vector2 position)
-            : this(game, game.Content.Load<Texture2D>(filnavn),
+        public Player(Game game, String textureName, KeyboardMapping keyboardMapping, Vector2 position)
+            : this(game, game.Content.Load<Texture2D>(textureName),
                 new Vector2(game.Window.ClientBounds.Width / 2f, game.Window.ClientBounds.Height - 48), new Point(48, 48), new Point(0, 0),
                 new Point(0, 0), 0f, Vector2.Zero, 1f, SpriteEffects.None, new Vector2(0, 0), 0, 100)
         {
@@ -63,7 +94,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 collisionOffset, millisecondsPerFrame, timeSinceLastFrame)
         {
         }
-     
+
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
             //Check if player is dead
@@ -76,30 +107,31 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 
             //Check player input, decide velocity
             if (InputManager.Instance.IsKeyDown(_keyboardMapping.Right) && !_hitWall)
-                velocity.X = PlayerSpeed;
+                velocity.X = PlayerVelocity;
             else if (InputManager.Instance.IsKeyDown(_keyboardMapping.Left) && !_hitWall)
-                velocity.X = -PlayerSpeed;
+                velocity.X = -PlayerVelocity;
             else if (!_hitWall)
                 velocity.X = 0f;
 
+            //Check if player can jump
             if (InputManager.Instance.IsKeyDown(_keyboardMapping.Jump) && !_jumped)
             {
-                position.Y -= JumpHeight;
+                position.Y -= PlayerJumpHeight;
                 velocity.Y = -20f;
                 _jumped = true;
                 _effect.Play();
             }
-
+            //Check if player have jumped
             if (_jumped)
             {
                 velocity.Y += Gravity;
-                if (position.Y < HeightOfJump)
-                    HeightOfJump = position.Y;
+                if (position.Y < JumpHeight)
+                    JumpHeight = position.Y;
             }
-
+            //Check if player is within screen
             if (position.Y + texture.Height >= clientBounds.Height)
             {
-                HeightOfJump = clientBounds.Height;
+                JumpHeight = clientBounds.Height;
                 _jumped = false;
                 _hitWall = false;
                 position.Y = clientBounds.Height - texture.Height;
@@ -107,28 +139,27 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
 
             if (!_jumped)
                 velocity.Y = 0f;
-            
+            //Check if player is within screen
             if (position.X <= 0)
                 if (_jumped)
                 {
-                    velocity.X = PlayerSpeed;
-                    velocity.Y = -BounceBackSpeed;
+                    velocity.X = PlayerVelocity;
+                    velocity.Y = -BounceBackVelocity;
                     _hitWall = true;
                 }
                 else 
                     position.X = 0;
 
-            
+            //Check if player is within screen
             if (position.X >= (clientBounds.Width - texture.Width))
                 if (_jumped)
                 {
-                    velocity.X = -PlayerSpeed;
-                    velocity.Y = -BounceBackSpeed;
+                    velocity.X = -PlayerVelocity;
+                    velocity.Y = -BounceBackVelocity;
                     _hitWall = true;
                 }
                 else 
                     position.X = clientBounds.Width - texture.Width;
-
 
             //Update velocity and position
             Velocity = new Vector2(velocity.X, velocity.Y);
@@ -148,11 +179,10 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
             //Make sure player is drawn on top of a platform
             var newPosition = new Vector2(Position.X, (platform.Position.Y - texture.Height + 1));
             Position = newPosition;
-
             _jumped = false;
             _hitWall = false;
             HitPlatform = true;
-            HeightOfJump = platform.Position.Y;
+            JumpHeight = platform.Position.Y;
             Platform = platform;
         }
 

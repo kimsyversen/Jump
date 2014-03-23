@@ -10,20 +10,18 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
     public class CameraManager
     {
         private float _velocity;
-
-        /// <summary>
-        /// Used to increase the speed of the camera
-        /// </summary>
-        private float _increaseSpeed;
-        
-        /// <summary>
-        /// Used to start or stop the camera
-        /// </summary>
-        private bool _startCam;
         private Viewport _viewport;
         private Vector2 _center;
         private Matrix _transform;
 
+        /// <summary>
+        /// Used to increase the speed of the camera
+        /// </summary>
+        private float _increaseVelocity;
+        /// <summary>
+        /// Used to start or stop the camera
+        /// </summary>
+        private bool _startCam;
         /// <summary>
         /// Defines how many pixels that is the top part of the window. Used to customize the speed.
         /// </summary>
@@ -49,7 +47,7 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         /// Describes how much camera velcocity shall be increased
         /// </summary>
         public readonly float VelocityDelta = 0.3f;
-
+        #region properties
         public bool StartCam
         {
             set { _startCam = value; }
@@ -70,7 +68,7 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         {
             get { return _center; }
         }
-
+        #endregion
         /// <summary>
         /// Constructor
         /// </summary>
@@ -89,7 +87,7 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
         /// </summary>
         public void IncreaseSpeed() 
         {
-            _increaseSpeed += VelocityDelta;
+            _increaseVelocity += VelocityDelta;
         }
 
         /// <summary>
@@ -110,11 +108,11 @@ namespace WindowsGame1WithPatterns.Classes.CameraConfiguration
 
             //Here we check if player is on the top, middle or bottom part of the screen
             if (highestPlayer.Y < _center.Y - TopPartOfWindow)
-                _velocity = (DefaultStartSpeedTop + _increaseSpeed) * -1;
+                _velocity = (DefaultStartSpeedTop + _increaseVelocity) * -1;
             else if (highestPlayer.Y < _center.Y - MiddlePartOfWindow)
-                _velocity = (DefaultStartSpeedMiddle + _increaseSpeed) * -1;
+                _velocity = (DefaultStartSpeedMiddle + _increaseVelocity) * -1;
             else
-                _velocity = (DefaultStartSpeed + _increaseSpeed) * -1;
+                _velocity = (DefaultStartSpeed + _increaseVelocity) * -1;
 
             if (_startCam)
                 _center.Y += _velocity;

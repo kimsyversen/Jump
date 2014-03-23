@@ -28,11 +28,12 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// </summary>
         private TextBoxComponent _highscoreContent;
 
+        //TODO: highscore er aldri brukt?
         /// <summary>
         /// Used to get highscores
         /// </summary>
         private Highscore highscore = Highscore.Instance;
-
+      
         /// <summary>
         /// Placeholder for the background image of the menu
         /// </summary>
@@ -72,7 +73,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             Components.Add(_menuComponent);
 
             //Add a headline
-            string text = "Highscore";
+            const string text = "Highscore";
             _headline = new TextBoxComponent(game,
                 spriteBatch,
                 headlineFont,
@@ -81,6 +82,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             Components.Add(_headline);
 
             //Add a headline
+            //TODO: Hva er magnus sandgren 10000?
             string highscoreContentText = "1) Magnus Sandgren : 10000";
             _highscoreContent = new TextBoxComponent(game,
                 spriteBatch,
@@ -102,20 +104,19 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         public void PrepareHighscoreMenu()
         {
-            var highscoreText = "";
+            var highscoreText = String.Empty;
             var highscorePosition = 1;
-
+            //TODO: Lokal highscore gjemmer ekstern (deklarert over)
             foreach (var highscore in Highscore.Instance.Highscores.OrderByDescending(o => o.Points).ToList())
-            {
                 highscoreText = string.Concat(highscoreText, (highscorePosition++) + ") " + highscore.Name + " : " + highscore.Points + "\n");
-            }
+            
             _highscoreContent.Text = highscoreText;
             PositionizeHighscoreComponents();
         }
 
         private void PositionizeHighscoreComponents()
         {
-            var extraSpaceing = 0;
+            const int extraSpaceing = 0;
             _highscoreContent.Position = new Vector2(
                 (Game.Window.ClientBounds.Width - _highscoreContent.Width) / 2,
                 (Game.Window.ClientBounds.Height - _highscoreContent.Height) / 2);
@@ -140,15 +141,13 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         public override void Update(GameTime gameTime)
         {
             if (InputManager.Instance.IsKeyPressed(Keys.Enter))
-            {
                 switch (SelectedIndex)
                 {
                     case 0:
                         ChangeStateTo(GameStates.MainMenu);
                         break; 
                 }
-            }
-
+            
             if (InputManager.Instance.IsKeyPressed(Keys.Escape))
                 ChangeStateTo(GameStates.MainMenu);
 

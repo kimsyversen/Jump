@@ -10,7 +10,6 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
         /// Text for the sprite
         /// </summary>
         public string FontText { get; set; }
-
         /// <summary>
         /// The sprite itself
         /// </summary>

@@ -6,54 +6,109 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
 {
     abstract class Sprite : DrawableGameComponent
     {
-        protected Vector2 origin; //origin for rotation
-        protected Vector2 position; // position of sprite
+        #region Variables&Properties
+        /// <summary>
+        /// Origin for rotation
+        /// </summary>
+        protected Vector2 origin; 
+        /// <summary>
+        /// Position for sprite
+        /// </summary>
+        protected Vector2 position;
+        /// <summary>
+        /// Color for sprite
+        /// </summary>
         protected Color color;
+        /// <summary>
+        /// Rotate for sprite
+        /// </summary>
         protected float rotate;
+        /// <summary>
+        /// Scale for sprite
+        /// </summary>
         protected float scale;
+        /// <summary>
+        /// Effect for sprite
+        /// </summary>
         protected SpriteEffects spriteEffects;
-        protected int collisionOffset; //pixels outside of texture to not collide with
-        protected Point frameCurrent; //Index (x,y) for current frame in spritesheet/sprite
-        protected Point frameSize; //Size for each individual frame in spritesheet/sprite
-        protected int MillisecondsPerFrame; //Milliseconds between framechanges
+        /// <summary>
+        /// Pixels outside of texture to not collide with
+        /// </summary>
+        protected int collisionOffset; 
+        /// <summary>
+        /// Index (x,y) for current frame in spritesheet/sprite
+        /// </summary>
+        protected Point frameCurrent;
+        /// <summary>
+        /// Size for each individual frame in spritesheet/sprite
+        /// </summary>
+        protected Point frameSize;
+        /// <summary>
+        /// Milliseconds between framechanges
+        /// </summary>
+        protected int MillisecondsPerFrame; 
+        /// <summary>
+        /// The texture (image/sprite)
+        /// </summary>
         protected Texture2D texture;
-        protected Point sheetSize; // Number of columns/rows in sprite sheet
-        protected Vector2 velocity; // PlayerSpeed of sprite
-        protected int TimeSinceLastFrame = 0; //Milliseconds since last frame was drawn
-        protected const int MinX = 0;
-        protected const int MinY = 0;
-        protected const int DefaultMillisecondsPerFrame = 16; //60 times per second
-        protected Game game;
-
-
+        /// <summary>
+        /// Number of columns/rows in spritesheet
+        /// </summary>
+        protected Point sheetSize; 
+        /// <summary>
+        /// Velocity for sprite
+        /// </summary>
+        protected Vector2 velocity; 
+        /// <summary>
+        /// Milliseconds since last frame was drawn
+        /// </summary>
+        protected int TimeSinceLastFrame = 0; 
+        /// <summary>
+        /// Minimum direction in x one sprite can be
+        /// </summary>
+        protected const int MinimumX = 0;
+        /// <summary>
+        /// Minimum direction in y one sprite can be
+        /// </summary>
+        protected const int MinimumY = 0;
+        /// <summary>
+        /// Default ms per frame. 60 times per secondis default.
+        /// </summary>
+        protected const int DefaultMillisecondsPerFrame = 16; 
         #region Properties
 
+        /// <summary>
+        /// Get/set position
+        /// </summary>
         public Vector2 Position
         {
             get { return position; }
             set { position = value; }
         }
-
+        /// <summary>
+        /// Get/set color
+        /// </summary>
         public Color Color
         {
             get { return color; }
             set { color = value; }
         }
-
+        /// <summary>
+        /// Get/set velocity
+        /// </summary>
         public Vector2 Velocity
         {
             get { return velocity; }
             set { velocity = value; }
         }
-
+        /// <summary>
+        /// Get/set texture
+        /// </summary>
         public Texture2D Texture
         {
             get { return texture; }
             set { texture = value; }
         }
-
-        #endregion
-
         /// <summary>
         /// Rectangle used for collsion detection
         /// </summary>
@@ -70,7 +125,8 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
                     );
             }
         }
-
+        #endregion
+        #endregion
         protected Sprite(Game game) : base(game) {}
         /// <summary>
         ///  Standard constructor used. Calls the other one.
@@ -94,10 +150,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
                                    int collisionOffset, int timeSinceLastFrame)
             : this(game,
                 texture, position, frameSize, frameCurrent, sheetSize, rotate, origin, scale, spriteEffects, velocity,
-                collisionOffset, timeSinceLastFrame, DefaultMillisecondsPerFrame)
-        {
-            
-        }
+                collisionOffset, timeSinceLastFrame, DefaultMillisecondsPerFrame){}
 
         /// <summary>
         /// Used when you want to have slower/faster animations by adjusting milliseconds per frame.
@@ -134,7 +187,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites
             this.scale = scale;
             this.rotate = rotate;
             this.origin = origin;
-            this.game = game;
+         
         }
 
         /// <summary>

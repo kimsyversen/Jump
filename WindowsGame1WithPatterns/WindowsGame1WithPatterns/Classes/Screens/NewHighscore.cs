@@ -20,20 +20,20 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         private SpriteFont _spriteFont;
 
-        private int _inputwidth = 300;
+        private const int Inputwidth = 300;
 
-        private int _selectedInputFieldIndex = 0;
+        private int _selectedInputFieldIndex;
 
         private List<InputField> _inputBoxList;
         private List<Score> _scoreList;
 
         private struct InputField
         {
-            public TextInputComponent inputBox;
-            public TextBoxComponent inputPlayer;
+            public TextInputComponent InputBox;
+            public TextBoxComponent InputPlayer;
         };
 
-        //Constructor...
+        //Constructor
         public NewHighscore(Game game,
             SpriteBatch spriteBatch,
             string managerId,
@@ -93,13 +93,13 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 var playerNameInput = new TextInputComponent(_game,
                     _spriteBatch,
                     _spriteFont,
-                    _inputwidth);
+                    Inputwidth);
                 Components.Add(playerNameInput);
 
-                _inputBoxList.Add(new InputField() { inputPlayer = playerName, inputBox = playerNameInput });
+                _inputBoxList.Add(new InputField() { InputPlayer = playerName, InputBox = playerNameInput });
             }
 
-            _inputBoxList[0].inputBox.Selected = true;
+            _inputBoxList[0].InputBox.Selected = true;
 
             //Positionize the components of this screen
             PositionizeNewHighscoreComponents();
@@ -107,8 +107,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
         private void PositionizeNewHighscoreComponents()
         {
-            var inputBoxVerticalSpace = 10;
-            var inputBoxHorisontalSpace = 10;
+            //TODO: Flyutte ut?
+            const int inputBoxVerticalSpace = 10;
+            const int inputBoxHorisontalSpace = 10;
 
             var inputBoxHeight = _inputBoxList.Count * (_spriteFont.LineSpacing + inputBoxVerticalSpace);
 
@@ -116,13 +117,13 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
             foreach (var item in _inputBoxList)
             {
-                var inputLineWidth = item.inputPlayer.Width + item.inputBox.Width + inputBoxHorisontalSpace;
-                item.inputPlayer.Position = new Vector2(
+                var inputLineWidth = item.InputPlayer.Width + item.InputBox.Width + inputBoxHorisontalSpace;
+                item.InputPlayer.Position = new Vector2(
                     (Game.Window.ClientBounds.Width - inputLineWidth) / 2,
                     ((Game.Window.ClientBounds.Height - inputBoxHeight) / 2) + verticalOffset);
 
-                item.inputBox.Position = new Vector2(
-                    item.inputPlayer.Position.X + item.inputPlayer.Width + inputBoxHorisontalSpace,
+                item.InputBox.Position = new Vector2(
+                    item.InputPlayer.Position.X + item.InputPlayer.Width + inputBoxHorisontalSpace,
                     ((Game.Window.ClientBounds.Height - inputBoxHeight) / 2) + verticalOffset);
 
                 verticalOffset += _spriteFont.LineSpacing + inputBoxVerticalSpace;
@@ -130,10 +131,10 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
             _headline.Position = new Vector2(
                 _headline.Position.X,
-                ((Game.Window.ClientBounds.Height - inputBoxHeight) / 2) - _headline.Height - inputBoxVerticalSpace);
+                ((Game.Window.ClientBounds.Height - inputBoxHeight) / 2f) - _headline.Height - inputBoxVerticalSpace);
             _menuComponent.Position = new Vector2(
                 _menuComponent.Position.X,
-                ((Game.Window.ClientBounds.Height - inputBoxHeight) / 2) + inputBoxHeight + inputBoxVerticalSpace);
+                ((Game.Window.ClientBounds.Height - inputBoxHeight) / 2f) + inputBoxHeight + inputBoxVerticalSpace);
         }
         
 
@@ -146,46 +147,43 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             //Change the selected input field
             if (InputManager.Instance.IsKeyPressed(Keys.Tab) && !InputManager.Instance.IsKeyPressed(Keys.RightShift))
             {
-                _inputBoxList[_selectedInputFieldIndex].inputBox.Selected = false;
+                _inputBoxList[_selectedInputFieldIndex].InputBox.Selected = false;
                 if ((++_selectedInputFieldIndex) >= _inputBoxList.Count)
                     _selectedInputFieldIndex = 0;
-                _inputBoxList[_selectedInputFieldIndex].inputBox.Selected = true;
+                _inputBoxList[_selectedInputFieldIndex].InputBox.Selected = true;
             }
             if (InputManager.Instance.IsKeyPressed(Keys.Tab) && InputManager.Instance.IsKeyPressed(Keys.RightShift))
             {
-                _inputBoxList[_selectedInputFieldIndex].inputBox.Selected = false;
+                _inputBoxList[_selectedInputFieldIndex].InputBox.Selected = false;
                 if ((--_selectedInputFieldIndex) < 0)
                     _selectedInputFieldIndex = _inputBoxList.Count - 1;
-                _inputBoxList[_selectedInputFieldIndex].inputBox.Selected = true;
+                _inputBoxList[_selectedInputFieldIndex].InputBox.Selected = true;
             }
 
             if (InputManager.Instance.IsKeyPressed(Keys.Enter))
-            {
                 switch (_menuComponent.SelectedIndex)
                 {
                     case 0:
-                        for (int i = 0; i < _scoreList.Count; i++)
+                        for (var i = 0; i < _scoreList.Count; i++)
                         {
-                            _scoreList[i].Name = _inputBoxList[i].inputBox.Text;
+                            _scoreList[i].Name = _inputBoxList[i].InputBox.Text;
                             Highscore.Instance.AddScore(_scoreList[i]);
                         }
                         ChangeStateTo(GameStates.GameOver);
                         break;
                 }
-            }
             base.Update(gameTime);
         }
 
         public override void Hide()
         {
             if (_inputBoxList != null)
-            {
                 foreach (var inputBox in _inputBoxList)
                 {
-                    Components.Remove(inputBox.inputBox);
-                    Components.Remove(inputBox.inputPlayer);
+                    Components.Remove(inputBox.InputBox);
+                    Components.Remove(inputBox.InputPlayer);
                 }
-            }
+            
             base.Hide();
         }
 

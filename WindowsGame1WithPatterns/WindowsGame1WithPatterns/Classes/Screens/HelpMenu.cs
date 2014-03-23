@@ -45,7 +45,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             set { _menuComponent.SelectedIndex = value; }
         }
 
-        //Constructor...
         public HelpMenu(Game game,
             SpriteBatch spriteBatch,
             string managerId,
@@ -87,7 +86,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 10);
             Components.Add(_textBoxComponent);
 
-            var componentOffest = 20;
+            const int componentOffest = 20;
 
             //position the components on the screen
             _menuComponent.Position = new Vector2(_menuComponent.Position.X, _textBoxComponent.Position.Y + _textBoxComponent.Height + _menuComponent.Height + componentOffest);

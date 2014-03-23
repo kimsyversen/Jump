@@ -11,6 +11,7 @@ using System.IO;
 namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
 {
     //TODO: Tenke mer på mapping mellom virituelle vs ordentlige keys og lage et system for det
+    //TODO: Bruker vi denne?
     /// <summary>
     /// Class is still under development... (Magnus)
     /// </summary>

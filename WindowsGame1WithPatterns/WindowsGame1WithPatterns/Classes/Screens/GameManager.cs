@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -19,32 +20,32 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         private Rectangle _mainFrame;
         private CameraManager _camera;
         private List<Vector2> _playerPosition;
-
         private List<Player> _players;
         private List<Font> _fonts;
         private List<Platform> _platforms;
-
+        private Random _random;
+        private Song _startGameSong;
         private String _fontString = "Initially empty";
         private int _platformWidth;
         private int _maxDistance;
         private int _numberOfPlatforms;
-        private const int MinDistance = 20;
+        private float _gameVelocity;
+        private int _numberOfPlayers;
+
+        private const int MinimumDistancePlatform = 20;
         private const int MinimumPlatformWidth = 10;
         private const int HeightBetweenPlatforms = 70;
         private const int DistanceBetweenPlatforms = 225;
         private const int HeightOfPlatform = 5;
         private const int DifficulityFactor = 20;
-        private const float MaxSpeedLimit = 5.0f;
-        private const int BgImageYMin = -100000;
-        private const int BgImageYMax = 110000;
-        private float _gameVelocity;
-        private const int MaxPlatformWidth = 100;
-        private Random _random;
-        private Song _startGameSong;
-        private int _numberOfPlayers;
-
-    
-
+        private const float MaximumSpeedLimit = 5.0f;
+        private const int BackgroundImageYMinimum = -100000;
+        private const int BackgroundImageYMaximum = 110000;
+        private const int MaximumPlatformWidth = 100;
+        /// <summary>
+        /// Start velocity for camera
+        /// </summary>
+        private const float CameraVelocity = -0.1f;
 
         public GameManager(Game game, SpriteBatch spriteBatch, string managerId, GraphicsDeviceManager graphics)
             : base(game, spriteBatch, managerId, GameStates.GameManager)
@@ -55,6 +56,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         {
             _numberOfPlayers = numberOfPlayers;
         }
+
         public override void Initialize()
         {
             _players = new List<Player>();
@@ -88,10 +90,10 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 _players.Add(new Player(_game, "Figure/greenstoy", new KeyboardMapping(Keys.Left, Keys.Right, Keys.Up), 
                     new Vector2(_game.Window.ClientBounds.Width / 2f, _game.Window.ClientBounds.Height)));
 
-            _camera = new CameraManager(GraphicsDevice.Viewport, -0.1f);
+            _camera = new CameraManager(GraphicsDevice.Viewport, CameraVelocity);
             _gameVelocity = _camera.DefaultStartSpeed;
 
-            GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
+            GeneratePlatforms(_numberOfPlatforms, MinimumDistancePlatform, _maxDistance, _platformWidth);
 
             _background = _game.Content.Load<Texture2D>(@"Figure\bg");
 
@@ -101,7 +103,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             _startGameSong = _game.Content.Load<Song>("Audio/StartGameSong");
 
             //Background image
-            _mainFrame = new Rectangle(0, BgImageYMin, GraphicsDevice.Viewport.Width, BgImageYMax);
+            _mainFrame = new Rectangle(0, BackgroundImageYMinimum, GraphicsDevice.Viewport.Width, BackgroundImageYMaximum);
             base.LoadContent();
         }
 
@@ -156,11 +158,11 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 {
                     //Check if player hits a platform
                     if (player.CollisionRectangle.Intersects(floor.CollisionRectangle)
-                        && player.HitPlatform == false && (player.HeightOfJump + player.Texture.Height) < floor.Position.Y)
+                        && player.HitPlatform == false && (player.JumpHeight + player.Texture.Height) < floor.Position.Y)
                     {
                         player.LandedOnPlatForm(floor);
                         _camera.StartCam = true;
-                        UpdateScores();
+                        UpdatePlayerScores();
                     }
                     //Sjekker om spilleren har gått av platformen
                     if (player.HitPlatform && !player.CollisionRectangle.Intersects(floor.CollisionRectangle) && floor == player.Platform)
@@ -170,9 +172,8 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 //Check if all players is out of sight
                 if (GameOver(_players, _camera.Center))
                 {
-                    var scoreList = new List<int>();
-                    foreach (var p in _players)
-                        scoreList.Add(p.Score);
+                    //Add players to score list
+                    var scoreList = _players.Select(p => p.Score).ToList();
 
                     ((GameOver)GetState(GameStates.GameOver)).PrepareGameOverScreen(scoreList);
                     ChangeStateTo(GameStates.GameOver);
@@ -213,9 +214,9 @@ namespace WindowsGame1WithPatterns.Classes.Screens
             //DifficulityFactor is being divided on 4, so the numberofplatforms isnt increasing too fast
             _numberOfPlatforms = _numberOfPlatforms + DifficulityFactor / 4;
 
-            GeneratePlatforms(_numberOfPlatforms, MinDistance, _maxDistance, _platformWidth);
+            GeneratePlatforms(_numberOfPlatforms, MinimumDistancePlatform, _maxDistance, _platformWidth);
 
-            if (!(_gameVelocity <= MaxSpeedLimit)) 
+            if (!(_gameVelocity <= MaximumSpeedLimit)) 
                 return;
 
             _camera.IncreaseSpeed();
@@ -237,7 +238,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// <summary>
         /// Updating the scores of all players in the list _players
         /// </summary>
-        private void UpdateScores()
+        private void UpdatePlayerScores()
         {
             var count = 1;
             foreach (var pl in _players)
@@ -271,7 +272,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 // The distance between the new and the previous platform in x-direction. 
                 var x = _random.Next(minDistance, maxDistance);
                 
-                var width = _random.Next(minWidth, MaxPlatformWidth);
+                var width = _random.Next(minWidth, MaximumPlatformWidth);
                 //Decides wether the new platform should be added to the left or to the right, therefor random
                 var whichDirection = _random.Next(1, 3);
 
@@ -293,7 +294,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
                 _platforms.Add(platform);
                 count++;
             }
-            //_heightOfBoard = HeightBetweenPlatforms * _platforms.Count;
         }
         
         /// <summary>
@@ -303,9 +303,7 @@ namespace WindowsGame1WithPatterns.Classes.Screens
         /// <returns></returns>
         private bool CheckOutsideRange(Platform floor)
         {
-            if (floor.Position.X <= 0 || floor.Position.X + floor.Texture.Width >= _game.Window.ClientBounds.Width)
-                return true;
-            return false;
+            return floor.Position.X <= 0 || floor.Position.X + floor.Texture.Width >= _game.Window.ClientBounds.Width;
         }
 
         /// <summary>
@@ -354,7 +352,6 @@ namespace WindowsGame1WithPatterns.Classes.Screens
 
             base.Draw(gameTime);
         }
-        
     }
 }
 

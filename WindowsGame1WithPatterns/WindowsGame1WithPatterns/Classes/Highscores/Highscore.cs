@@ -25,12 +25,12 @@ namespace WindowsGame1WithPatterns.Classes.Highscores
             Load();
         }
         #endregion
-
-        private string _fileName = @"highscore";
-        private string _filepath = AppDomain.CurrentDomain.BaseDirectory;
+        //TODO: Skal det være highscore.xml?
+        private const string FileName = @"highscore";
+        private readonly string _filepath = AppDomain.CurrentDomain.BaseDirectory;
 
         private List<Score> _highscores;
-        private int highscoreLimit = 3;
+        private const int HighscoreLimit = 3;
 
         public List<Score> Highscores
         {
@@ -39,7 +39,7 @@ namespace WindowsGame1WithPatterns.Classes.Highscores
 
         public bool IsNewHighscore(int score)
         {
-            if (_highscores.Count < highscoreLimit)
+            if (_highscores.Count < HighscoreLimit)
                 return true;
 
             foreach (var highscore in _highscores)
@@ -61,22 +61,19 @@ namespace WindowsGame1WithPatterns.Classes.Highscores
 
             //The score was to low to go in the highscore list
             if (index <= -1)
-            {
                 //But it can go in to the highscore if it is not filled up.
-                if (_highscores.Count < highscoreLimit)
+                if (_highscores.Count < HighscoreLimit)
                     _highscores.Add(score);
                 else
                     return false;
-            }
             else
-            {
                 _highscores.Insert(index, score);
-            }
+            
             
 
             //If the highscore is larger than it is allowed to be, remove
             //the last element of the list.
-            if (_highscores.Count > highscoreLimit)
+            if (_highscores.Count > HighscoreLimit)
                 _highscores.RemoveAt(_highscores.Count - 1);
 
             //Save the highscore list
@@ -87,14 +84,14 @@ namespace WindowsGame1WithPatterns.Classes.Highscores
 
         private void Save()
         {
-            Serializer.Serialize<List<Score>>(_highscores, _filepath + _fileName);
+            Serializer.Serialize<List<Score>>(_highscores, _filepath + FileName);
         }
 
         private void Load()
         {
             try
             {
-                _highscores = Serializer.Deserialize<List<Score>>(_filepath + _fileName);
+                _highscores = Serializer.Deserialize<List<Score>>(_filepath + FileName);
                 _highscores = _highscores.OrderByDescending(o => o.Points).ToList();
             }
             catch (Exception)
