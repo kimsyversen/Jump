@@ -121,6 +121,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 _jumped = true;
                 _effect.Play();
             }
+
             //Check if player have jumped
             if (_jumped)
             {
@@ -128,6 +129,7 @@ namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
                 if (position.Y < JumpHeight)
                     JumpHeight = position.Y;
             }
+
             //Check if player is within screen
             if (position.Y + texture.Height >= clientBounds.Height)
             {
