@@ -1,42 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Jump.Classes.CameraConfiguration.CameraManager" Collapsed="true">
-    <Position X="6.25" Y="0.75" Width="1.5" />
+    <Position X="1.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAwBIAAAABIAAAAAAQAAAAQgAgQCAAAAAAAAAAUMAgA=</HashCode>
       <FileName>Classes\CameraConfiguration\CameraManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.Components.MenuComponent" Collapsed="true">
-    <Position X="9.5" Y="6" Width="1.5" />
+    <Position X="7.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAQgAAAABgCABgAgAAAAAFBAARAAAAAABIAAgAAAAAA=</HashCode>
       <FileName>Classes\Components\MenuComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.Components.TextBoxComponent" Collapsed="true">
-    <Position X="21.25" Y="3.5" Width="1.5" />
+    <Position X="12.75" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQEAAAABACABgAgABAAgFAAABCAQAADAZAAiAAIAAA=</HashCode>
       <FileName>Classes\Components\TextBoxComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.Components.TextInputComponent" Collapsed="true">
-    <Position X="6.75" Y="7.25" Width="1.5" />
+    <Position X="3.75" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAABACABgAoAAAAAFAAABAAAAAIAJAAiAAIAAI=</HashCode>
       <FileName>Classes\Components\TextInputComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.FileIO.Serializer" Collapsed="true">
-    <Position X="8.75" Y="7.25" Width="1.5" />
+    <Position X="1.75" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACBAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\FileIO\Serializer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.Highscores.Highscore" Collapsed="true">
-    <Position X="9.5" Y="4.25" Width="1.5" />
+    <Position X="1.75" Y="5.75" Width="1.5" />
+    <AssociationLine Name="Instance" Type="Jump.Classes.Highscores.Highscore" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.267" Y="6.312" />
+        <Point X="2.267" Y="6.687" />
+        <Point X="3.625" Y="6.687" />
+        <Point X="3.625" Y="6.062" />
+        <Point X="3.25" Y="6.062" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAgIAAAAAAAAAEAgACAAAAAAAAAAABQAAAABBAAAE=</HashCode>
       <FileName>Classes\Highscores\Highscore.cs</FileName>
@@ -46,14 +55,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.Highscores.Score" Collapsed="true">
-    <Position X="10.75" Y="7.25" Width="1.5" />
+    <Position X="8" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\Highscores\Score.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.KeyboardConfiguration.InputManager" Collapsed="true">
-    <Position X="11.25" Y="4.25" Width="1.5" />
+    <Position X="13.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIBAACAAAAAAAAAAAAAAAAAAACQERAAQCAAUhACAAA=</HashCode>
       <FileName>Classes\KeyboardConfiguration\InputManager.cs</FileName>
@@ -63,14 +72,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.KeyboardConfiguration.KeyboardMapping" Collapsed="true">
-    <Position X="4.75" Y="7.25" Width="1.5" />
+    <Position X="8" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAA=</HashCode>
       <FileName>Classes\KeyboardConfiguration\KeyboardMapping.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.Screens.ChoosePlayerModeManager" Collapsed="true">
-    <Position X="12.25" Y="2" Width="1.5" />
+    <Position X="4.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAAQAAAAIAAAAAAAAA=</HashCode>
       <FileName>Classes\Screens\ChoosePlayerModeManager.cs</FileName>
@@ -80,7 +89,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.Screens.GameManager" Collapsed="true">
-    <Position X="16.75" Y="2" Width="1.5" />
+    <Position X="4.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQqkUAFAEKAAwAAEEAAAIQhARDEAAAMAJAAAWiGQAU=</HashCode>
       <FileName>Classes\Screens\GameManager.cs</FileName>
@@ -90,7 +99,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.Screens.GameOver" Collapsed="true">
-    <Position X="1" Y="2" Width="1.5" />
+    <Position X="1.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAQAAAgAAEAIAAAAAEAAEQAAAAoQgAAEAAAY=</HashCode>
       <FileName>Classes\Screens\GameOver.cs</FileName>
@@ -102,7 +111,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.Screens.HelpMenu" Collapsed="true">
-    <Position X="5.5" Y="2" Width="1.5" />
+    <Position X="5.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAIAAAAgAAAAIAAAAAEAAAQAAAAIAgAAAAAAA=</HashCode>
       <FileName>Classes\Screens\HelpMenu.cs</FileName>
@@ -114,7 +123,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.Screens.HighscoreMenu" Collapsed="true">
-    <Position X="7.75" Y="2" Width="1.5" />
+    <Position X="7.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQQQAAAAAAAAgAAAAIAAAAAEAAEQAABAIAgAAAgAAA=</HashCode>
       <FileName>Classes\Screens\HighscoreMenu.cs</FileName>
@@ -127,7 +136,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.Screens.InGameMenu" Collapsed="true">
-    <Position X="10" Y="2" Width="1.5" />
+    <Position X="9.75" Y="2" Width="1.5" />
     <AssociationLine Name="_menuComponent" Type="Jump.Classes.Components.MenuComponent">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.33" Y="0.091" />
@@ -143,7 +152,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.Screens.MainMenu" Collapsed="true">
-    <Position X="14.5" Y="2" Width="1.5" />
+    <Position X="11.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAEQAAAAIAgAAAAAAA=</HashCode>
       <FileName>Classes\Screens\MainMenu.cs</FileName>
@@ -154,7 +163,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.Screens.NewHighscore" Collapsed="true">
-    <Position X="19" Y="2" Width="1.5" />
+    <Position X="13.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEQBAAAABAAAAhAAEAIAABAAEAAAQAAAAAAhAAIAAgA=</HashCode>
       <FileName>Classes\Screens\NewHighscore.cs</FileName>
@@ -166,7 +175,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.Screens.OptionsMenu" Collapsed="true">
-    <Position X="3.25" Y="2" Width="1.5" />
+    <Position X="3.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAAQAAAAIAAAAAAAAA=</HashCode>
       <FileName>Classes\Screens\OptionsMenu.cs</FileName>
@@ -176,21 +185,21 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.Sprites.Concretes.Font" Collapsed="true">
-    <Position X="0.5" Y="5" Width="1.5" />
+    <Position X="1.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\Sprites\Concretes\Font.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.Sprites.Concretes.Platform" Collapsed="true">
-    <Position X="2.75" Y="5" Width="1.5" />
+    <Position X="3.5" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\Sprites\Concretes\Platform.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.Sprites.Concretes.Player" Collapsed="true">
-    <Position X="5" Y="5" Width="1.5" />
+    <Position X="6" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAQAAAAEAIQAggQEAAAAEAAAIAAAAACgBACAAAAQA=</HashCode>
       <FileName>Classes\Sprites\Concretes\Player.cs</FileName>
@@ -201,14 +210,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.Sprites.Sprite" Collapsed="true">
-    <Position X="2.75" Y="3.5" Width="1.5" />
+    <Position X="1.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAUAAAAAAAAQAoAgAAASIAAGQhAAAgCAAQYAgAAEAAA=</HashCode>
       <FileName>Classes\Sprites\Sprite.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.State.State" Collapsed="true">
-    <Position X="10" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQgAMAAAAAAJ4AAEAAAABAAAEAEAAAAAIQABAwAAAQ=</HashCode>
       <FileName>Classes\State\State.cs</FileName>
@@ -219,7 +228,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Classes.State.StateManager" Collapsed="true">
-    <Position X="16.25" Y="4.25" Width="1.5" />
+    <Position X="9" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAQAAAAAAAAAQAAAAAAACAIAAAEQAABA=</HashCode>
       <FileName>Classes\State\StateManager.cs</FileName>
@@ -229,7 +238,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Jump" Collapsed="true">
-    <Position X="13.5" Y="4.25" Width="1.5" />
+    <Position X="11.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAEAAAAAAAAQAAAAAAAAAACgAAAAACAIAAAIAAAAA=</HashCode>
       <FileName>Jump.cs</FileName>
@@ -240,7 +249,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Jump.Program" Collapsed="true">
-    <Position X="12.75" Y="7.25" Width="1.5" />
+    <Position X="6" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
