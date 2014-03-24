@@ -194,7 +194,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagramSimple.cd" />
+    <None Include="ClassDiagramWithAssosiations.cd" />
     <None Include="Jump_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

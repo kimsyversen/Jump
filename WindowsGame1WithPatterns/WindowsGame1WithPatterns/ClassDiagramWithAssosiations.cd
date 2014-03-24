@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Jump.Classes.CameraConfiguration.CameraManager" Collapsed="true">
+    <Position X="6.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAwBIAAAABIAAAAAAQAAAAQgAgQCAAAAAAAAAAUMAgA=</HashCode>
+      <FileName>Classes\CameraConfiguration\CameraManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jump.Classes.Components.MenuComponent" Collapsed="true">
+    <Position X="9.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQgAAAABgCABgAgAAAAAFBAARAAAAAABIAAgAAAAAA=</HashCode>
+      <FileName>Classes\Components\MenuComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jump.Classes.Components.TextBoxComponent" Collapsed="true">
+    <Position X="21.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAABACABgAgABAAgFAAABCAQAADAZAAiAAIAAA=</HashCode>
+      <FileName>Classes\Components\TextBoxComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jump.Classes.Components.TextInputComponent" Collapsed="true">
+    <Position X="6.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABACABgAoAAAAAFAAABAAAAAIAJAAiAAIAAI=</HashCode>
+      <FileName>Classes\Components\TextInputComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jump.Classes.FileIO.SerializableDictionary&lt;TKey, TValue&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAABAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Classes\FileIO\SerializableDictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Jump.Classes.FileIO.Serializer" Collapsed="true">
+    <Position X="8.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\FileIO\Serializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jump.Classes.Highscores.Highscore" Collapsed="true">
+    <Position X="9.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAEAgACAAAAAAAAAAABQAAAABBAAAE=</HashCode>
+      <FileName>Classes\Highscores\Highscore.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Instance" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.Highscores.Score" Collapsed="true">
+    <Position X="10.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Highscores\Score.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jump.Classes.KeyboardConfiguration.InputManager" Collapsed="true">
+    <Position X="11.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIBAACAAAAAAAAAAAAAAAAAAACQERAAQCAAUhACAAA=</HashCode>
+      <FileName>Classes\KeyboardConfiguration\InputManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Instance" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.KeyboardConfiguration.KeyboardMapping" Collapsed="true">
+    <Position X="4.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAA=</HashCode>
+      <FileName>Classes\KeyboardConfiguration\KeyboardMapping.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jump.Classes.Screens.ChoosePlayerModeManager" Collapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAAQAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Classes\Screens\ChoosePlayerModeManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_menuComponent" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.Screens.GameManager" Collapsed="true">
+    <Position X="16.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQqkUAFAEKAAwAAEEAAAIQhARDEAAAMAJAAAWiGQAU=</HashCode>
+      <FileName>Classes\Screens\GameManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_camera" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.Screens.GameOver" Collapsed="true">
+    <Position X="1" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAQAAAgAAEAIAAAAAEAAEQAAAAoQgAAEAAAY=</HashCode>
+      <FileName>Classes\Screens\GameOver.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_menuComponent" />
+      <Field Name="_scoreBoard" />
+      <Field Name="_headline" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.Screens.HelpMenu" Collapsed="true">
+    <Position X="5.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAIAAAAgAAAAIAAAAAEAAAQAAAAIAgAAAAAAA=</HashCode>
+      <FileName>Classes\Screens\HelpMenu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_menuComponent" />
+      <Field Name="_textBoxComponent" />
+      <Field Name="_headline" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.Screens.HighscoreMenu" Collapsed="true">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQQAAAAAAAAgAAAAIAAAAAEAAEQAABAIAgAAAgAAA=</HashCode>
+      <FileName>Classes\Screens\HighscoreMenu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_menuComponent" />
+      <Field Name="_headline" />
+      <Field Name="_highscoreContent" />
+      <Field Name="_highscore" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.Screens.InGameMenu" Collapsed="true">
+    <Position X="10" Y="2" Width="1.5" />
+    <AssociationLine Name="_menuComponent" Type="Jump.Classes.Components.MenuComponent">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.33" Y="0.091" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAEQAAAAIAgAAAAAAA=</HashCode>
+      <FileName>Classes\Screens\InGameMenu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_menuComponent" />
+      <Field Name="_headline" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.Screens.MainMenu" Collapsed="true">
+    <Position X="14.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAEQAAAAIAgAAAAAAA=</HashCode>
+      <FileName>Classes\Screens\MainMenu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_menuComponent" />
+      <Field Name="_headline" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.Screens.NewHighscore" Collapsed="true">
+    <Position X="19" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQBAAAABAAAAhAAEAIAABAAEAAAQAAAAAAhAAIAAgA=</HashCode>
+      <FileName>Classes\Screens\NewHighscore.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_menuComponent" />
+      <Field Name="_headline" />
+      <Field Name="_subHeadline" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.Screens.OptionsMenu" Collapsed="true">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAIAAAAAEAAAQAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Classes\Screens\OptionsMenu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_menuComponent" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.Sprites.Concretes.Font" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Sprites\Concretes\Font.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jump.Classes.Sprites.Concretes.Platform" Collapsed="true">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Sprites\Concretes\Platform.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jump.Classes.Sprites.Concretes.Player" Collapsed="true">
+    <Position X="5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAAEAIQAggQEAAAAEAAAIAAAAACgBACAAAAQA=</HashCode>
+      <FileName>Classes\Sprites\Concretes\Player.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_keyboardMapping" />
+      <Property Name="Platform" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.Sprites.Sprite" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAUAAAAAAAAQAoAgAAASIAAGQhAAAgCAAQYAgAAEAAA=</HashCode>
+      <FileName>Classes\Sprites\Sprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jump.Classes.State.State" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgAMAAAAAAJ4AAEAAAABAAAEAEAAAAAIQABAwAAAQ=</HashCode>
+      <FileName>Classes\State\State.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_changeState" />
+      <Property Name="ChangeState" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Classes.State.StateManager" Collapsed="true">
+    <Position X="16.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQAAAAAAAAAQAAAAAAACAIAAAEQAABA=</HashCode>
+      <FileName>Classes\State\StateManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_currentState" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Jump" Collapsed="true">
+    <Position X="13.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAAAAQAAAAAAAAAACgAAAAACAIAAAIAAAAA=</HashCode>
+      <FileName>Jump.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_stateManager" />
+      <Field Name="_inputManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Jump.Program" Collapsed="true">
+    <Position X="12.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
