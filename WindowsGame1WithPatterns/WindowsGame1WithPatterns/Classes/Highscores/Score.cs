@@ -1,4 +1,4 @@
-﻿namespace WindowsGame1WithPatterns.Classes.Highscores
+﻿namespace Jump.Classes.Highscores
 {
     /// <summary>
     /// Used to set/get points and name for a player

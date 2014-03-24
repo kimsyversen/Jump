@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="5b4cc43d-af1a-486e-bd94-1004cccb969a" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
+  <layers>
+    <layer Id="f4b7bb5b-2600-4614-b0b1-3419cfb6a4dc" name="Jump.cs">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="d2bc0843-bcb7-480c-ae2e-0a8b62099e61" direction="Forward">
+          <layerMoniker Id="8affeedf-e1e5-44e5-b9b5-ff1504b67d2b" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="d34e4b9b-1cf3-4952-950c-cf7cd6f04f03" name="Jump.cs">
+          <ArtifactNode Label="Jump.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(DesktopUri)/jump/windowsgame1withpatterns/windowsgame1withpatterns/jump.cs&quot;)">
+            <Category Ref="CodeSchema_SourceFile" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump Type=Jump)" Label="Jump" Category="CodeSchema_Class">
+            <LinkCategory Ref="Contains" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="db7f8448-1c17-4a34-82ac-b57884ee7fda" name="Screens">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="bf2554a6-de93-4b5c-948c-591b6616375c" direction="Bidirectional">
+          <layerMoniker Id="8affeedf-e1e5-44e5-b9b5-ff1504b67d2b" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="a27fa093-6fa0-45e4-816f-7eb4db5b597b" direction="Forward">
+          <layerMoniker Id="ad054c64-a136-410a-96f6-a53b414c6207" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="01a91a95-f85a-411e-8983-bd710228cac8" name="Screens">
+          <ArtifactNode Label="Screens" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(DesktopUri)/Jump/WindowsGame1WithPatterns/WindowsGame1WithPatterns/Classes/Screens/&quot;)">
+            <Category Ref="ProjectFolder" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Screens Type=ChoosePlayerModeManager)" Label="ChoosePlayerModeManager" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Screens Type=GameManager)" Label="GameManager" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Screens Type=GameOver)" Label="GameOver" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Screens Type=HelpMenu)" Label="HelpMenu" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Screens Type=HighscoreMenu)" Label="HighscoreMenu" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Screens Type=InGameMenu)" Label="InGameMenu" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Screens Type=MainMenu)" Label="MainMenu" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Screens Type=NewHighscore)" Label="NewHighscore" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Screens Type=(Name=InputField ParentType=NewHighscore))" Label="NewHighscore.InputField" Category="CodeSchema_Struct">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Screens Type=OptionsMenu)" Label="OptionsMenu" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="8affeedf-e1e5-44e5-b9b5-ff1504b67d2b" name="State">
+      <references>
+        <reference Id="4207169c-4998-405d-8f82-cfe8b6e836c1" name="State">
+          <ArtifactNode Label="State" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(DesktopUri)/Jump/WindowsGame1WithPatterns/WindowsGame1WithPatterns/Classes/State/&quot;)">
+            <Category Ref="ProjectFolder" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.State Type=State)" Label="State" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.State Type=(Name=GameStates ParentType=State))" Label="State.GameStates" Category="CodeSchema_Enum">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.State Type=StateManager)" Label="StateManager" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="ad054c64-a136-410a-96f6-a53b414c6207" name="Sprites">
+      <references>
+        <reference Id="f7d299ee-19fe-4f02-80a4-62ca39501313" name="Sprites">
+          <ArtifactNode Label="Sprites" Category="CodeSchema_ProjectItem" Id="(Assembly=&quot;$(DesktopUri)/Jump/WindowsGame1WithPatterns/WindowsGame1WithPatterns/Classes/Sprites/&quot;)">
+            <Category Ref="ProjectFolder" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Sprites.Concretes Type=Font)" Label="Font" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Sprites.Concretes Type=Platform)" Label="Platform" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Sprites.Concretes Type=Player)" Label="Player" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Jump Namespace=Jump.Classes.Sprites Type=Sprite)" Label="Sprite" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+  </layers>
+</layerModel>

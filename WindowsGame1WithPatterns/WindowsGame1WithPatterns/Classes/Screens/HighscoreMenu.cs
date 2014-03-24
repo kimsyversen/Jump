@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
-using WindowsGame1WithPatterns.Classes.Components;
+using Jump.Classes.Components;
+using Jump.Classes.Highscores;
+using Jump.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework.Input;
-using WindowsGame1WithPatterns.Classes.Highscores;
-namespace WindowsGame1WithPatterns.Classes.Screens
+
+namespace Jump.Classes.Screens
 {
     class HighscoreMenu : State.State
     {

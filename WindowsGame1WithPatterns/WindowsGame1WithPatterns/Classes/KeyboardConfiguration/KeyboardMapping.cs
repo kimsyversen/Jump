@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
+namespace Jump.Classes.KeyboardConfiguration
 {
     /// <summary>
     /// Used to create key mappings for players

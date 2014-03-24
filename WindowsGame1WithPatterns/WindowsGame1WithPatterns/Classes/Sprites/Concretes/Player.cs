@@ -1,9 +1,10 @@
-﻿using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
+﻿using Jump.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
+
+namespace Jump.Classes.Sprites.Concretes
 {
     internal class Player : Sprite
     {

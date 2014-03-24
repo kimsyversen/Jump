@@ -1,9 +1,9 @@
-﻿using WindowsGame1WithPatterns.Classes.Screens;
+﻿using Jump.Classes.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace WindowsGame1WithPatterns.Classes.State
+namespace Jump.Classes.State
 {
     /// <summary>
     /// Manager for sub-classes of the state class

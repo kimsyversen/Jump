@@ -1,11 +1,10 @@
-﻿using WindowsGame1WithPatterns.Classes.Components;
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
+﻿using Jump.Classes.Components;
+using Jump.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-
-namespace WindowsGame1WithPatterns.Classes.Screens
+namespace Jump.Classes.Screens
 {
     class ChoosePlayerModeManager : State.State
     {

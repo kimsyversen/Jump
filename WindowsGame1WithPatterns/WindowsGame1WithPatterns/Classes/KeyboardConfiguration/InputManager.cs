@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Input;
 
-namespace WindowsGame1WithPatterns.Classes.KeyboardConfiguration
+namespace Jump.Classes.KeyboardConfiguration
 {
     //Sorce: http://xboxforums.create.msdn.com/forums/p/37393/217007.aspx
     /// <summary>

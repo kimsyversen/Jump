@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WindowsGame1WithPatterns.Classes.Sprites
+namespace Jump.Classes.Sprites
 {
     abstract class Sprite : DrawableGameComponent
     {

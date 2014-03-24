@@ -1,9 +1,9 @@
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
+using Jump.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace WindowsGame1WithPatterns.Classes.Components
+namespace Jump.Classes.Components
 {
     /// <summary>
     /// Class that takes care of a list of choises, highlights the choise the player has selected

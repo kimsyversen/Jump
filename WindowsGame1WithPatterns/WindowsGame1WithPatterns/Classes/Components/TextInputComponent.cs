@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Jump.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 
-namespace WindowsGame1WithPatterns.Classes.Components
+namespace Jump.Classes.Components
 {
     class TextInputComponent : DrawableGameComponent
     {

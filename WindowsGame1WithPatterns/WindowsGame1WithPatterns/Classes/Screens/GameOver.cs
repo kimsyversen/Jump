@@ -1,13 +1,13 @@
-﻿using WindowsGame1WithPatterns.Classes.Components;
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
+﻿using Jump.Classes.Components;
+using Jump.Classes.Highscores;
+using Jump.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
-using WindowsGame1WithPatterns.Classes.Highscores;
 
-namespace WindowsGame1WithPatterns.Classes.Screens
+namespace Jump.Classes.Screens
 {
     class GameOver : State.State
     {

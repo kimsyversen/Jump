@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using Jump.Classes.Components;
+using Jump.Classes.Highscores;
+using Jump.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WindowsGame1WithPatterns.Classes.Components;
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework.Input;
-using WindowsGame1WithPatterns.Classes.Highscores;
 
-namespace WindowsGame1WithPatterns.Classes.Screens
+namespace Jump.Classes.Screens
 {
     class NewHighscore : State.State
     {

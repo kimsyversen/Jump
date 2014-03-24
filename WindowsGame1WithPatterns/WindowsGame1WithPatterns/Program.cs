@@ -1,6 +1,4 @@
-using System;
-
-namespace WindowsGame1WithPatterns
+namespace Jump
 {
 #if WINDOWS || XBOX
     static class Program
@@ -10,7 +8,7 @@ namespace WindowsGame1WithPatterns
         /// </summary>
         static void Main(string[] args)
         {
-            using (Game1 game = new Game1())
+            using (Jump game = new Jump())
             {
                 game.Run();
             }

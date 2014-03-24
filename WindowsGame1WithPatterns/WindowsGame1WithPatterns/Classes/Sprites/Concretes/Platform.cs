@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WindowsGame1WithPatterns.Classes.Sprites.Concretes
+namespace Jump.Classes.Sprites.Concretes
 {
     class Platform : Sprite
     {

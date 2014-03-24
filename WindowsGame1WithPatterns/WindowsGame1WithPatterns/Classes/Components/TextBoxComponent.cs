@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WindowsGame1WithPatterns.Classes.Components
+namespace Jump.Classes.Components
 {
     //Sorce: http://danieltian.wordpress.com/2008/12/24/xna-tutorial-typewriter-text-box-with-proper-word-wrapping-part-1/
     class TextBoxComponent : DrawableGameComponent

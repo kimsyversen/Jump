@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WindowsGame1WithPatterns.Classes.State
+namespace Jump.Classes.State
 {
     /// <summary>
     /// Abstract state class

@@ -1,14 +1,15 @@
 using System;
-using WindowsGame1WithPatterns.Classes.State;
+using Jump.Classes.KeyboardConfiguration;
+using Jump.Classes.State;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
-namespace WindowsGame1WithPatterns
+
+namespace Jump
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Game
+    public class Jump : Game
     {
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -18,7 +19,7 @@ namespace WindowsGame1WithPatterns
         {
             get { return _graphics; }
         }
-        public Game1()
+        public Jump()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WindowsGame1WithPatterns.Classes.FileIO;
 using System.Diagnostics;
+using Jump.Classes.FileIO;
 
-namespace WindowsGame1WithPatterns.Classes.Highscores
+namespace Jump.Classes.Highscores
 {
     class Highscore
     {

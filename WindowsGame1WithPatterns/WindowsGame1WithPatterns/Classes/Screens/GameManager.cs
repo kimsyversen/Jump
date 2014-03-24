@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Jump.Classes.CameraConfiguration;
+using Jump.Classes.KeyboardConfiguration;
+using Jump.Classes.Sprites.Concretes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using WindowsGame1WithPatterns.Classes.CameraConfiguration;
-using WindowsGame1WithPatterns.Classes.Sprites.Concretes;
-using WindowsGame1WithPatterns.Classes.KeyboardConfiguration;
 using Microsoft.Xna.Framework.Media;
 
-namespace WindowsGame1WithPatterns.Classes.Screens
+namespace Jump.Classes.Screens
 {
     /// <summary>
     /// This is the main type for your game

@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace WindowsGame1WithPatterns.Classes.FileIO
+namespace Jump.Classes.FileIO
 {
     //Sorce: http://stackoverflow.com/questions/12554186/how-to-serialize-deserialize-to-dictionaryint-string-from-custom-xml-not-us
     [XmlRoot("dictionary")]
-    
+    //TODO: BRukes denne?
     public class SerializableDictionary<TKey, TValue>
         : Dictionary<TKey, TValue>, IXmlSerializable
     {
