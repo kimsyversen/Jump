@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("Jump")]
 [assembly: AssemblyProduct("Jump")]
-[assembly: AssemblyDescription("Made by group X1")]
+[assembly: AssemblyDescription("Made by group 2")]
 [assembly: AssemblyCompany("NTNU")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
