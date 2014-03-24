@@ -226,7 +226,8 @@ namespace Jump.Classes.Screens
         /// <summary>
         /// Updating the string of the font which displays the players score.
         /// </summary>
-        private void ScoreFontText() {
+        private void ScoreFontText() 
+        {
             _fontString = String.Empty;
             var playerCounter = 1;
             foreach(var p in _players){
@@ -247,7 +248,6 @@ namespace Jump.Classes.Screens
                 {
                     if (pl.Platform == p && pl.Score < count)
                         pl.Score = count;
-                    
                     count++;
                 }
                 count = 1;

@@ -28,14 +28,6 @@
       <FileName>Classes\Components\TextInputComponent.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Jump.Classes.FileIO.SerializableDictionary&lt;TKey, TValue&gt;" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="2.5" Y="7.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAABAAAAAAAAAgAAAAAA=</HashCode>
-      <FileName>Classes\FileIO\SerializableDictionary.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="Jump.Classes.FileIO.Serializer" Collapsed="true">
     <Position X="8.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
