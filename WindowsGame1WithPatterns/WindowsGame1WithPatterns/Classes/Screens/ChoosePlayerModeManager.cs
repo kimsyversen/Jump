@@ -66,6 +66,13 @@ namespace Jump.Classes.Screens
         /// <param name="gameTime">Game time</param>
         public override void Update(GameTime gameTime)
         {
+            if (InputManager.Instance.IsKeyPressed(Keys.Escape))
+            {
+                ChangeStateTo(GameStates.MainMenu);
+                //Reset the menu
+                SelectedIndex = 0;
+            }
+
             if (InputManager.Instance.IsKeyPressed(Keys.Enter))
             {
                 switch (SelectedIndex)
@@ -82,7 +89,7 @@ namespace Jump.Classes.Screens
                         ChangeStateTo(GameStates.MainMenu);
                         break;
                 }
-                //Reset the 
+                //Reset the menu
                 SelectedIndex = 0;
             }
             base.Update(gameTime);

@@ -165,6 +165,9 @@ namespace Jump.Classes.Screens
                 _newHighscores = new List<Score>();
             }
 
+            if (InputManager.Instance.IsKeyPressed(Keys.Escape))
+                ChangeStateTo(GameStates.MainMenu);
+
             if (InputManager.Instance.IsKeyPressed(Keys.Enter))
             {
                 switch (SelectedIndex)
