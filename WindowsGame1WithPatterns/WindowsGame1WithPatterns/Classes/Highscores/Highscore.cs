@@ -90,6 +90,11 @@ namespace Jump.Classes.Highscores
             {
                 _highscores = Serializer.Deserialize<List<Score>>(_filepath + FileName);
                 _highscores = _highscores.OrderByDescending(o => o.Points).ToList();
+                if (_highscores.Count > HighscoreLimit)
+                {
+                    _highscores.RemoveRange(HighscoreLimit - 1, _highscores.Count - HighscoreLimit);
+                    Save();
+                }
             }
             catch (Exception)
             {
