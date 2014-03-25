@@ -135,7 +135,6 @@
     <Compile Include="Classes\Highscores\Score.cs" />
     <Compile Include="Classes\KeyboardConfiguration\InputManager.cs" />
     <Compile Include="Classes\Components\MenuComponent.cs" />
-    <Compile Include="Classes\FileIO\SerializableDictionary.cs" />
     <Compile Include="Classes\Screens\GameManager.cs" />
     <Compile Include="Classes\Screens\HelpMenu.cs" />
     <Compile Include="Classes\Screens\GameOver.cs" />

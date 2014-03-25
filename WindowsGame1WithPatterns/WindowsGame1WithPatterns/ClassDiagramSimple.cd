@@ -127,21 +127,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.Sprites.Concretes.Font" Collapsed="true">
-    <Position X="4.25" Y="5.5" Width="1.5" />
+    <Position X="4.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\Sprites\Concretes\Font.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.Sprites.Concretes.Platform" Collapsed="true">
-    <Position X="6" Y="5.5" Width="1.5" />
+    <Position X="6" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Classes\Sprites\Concretes\Platform.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Jump.Classes.Sprites.Concretes.Player" Collapsed="true">
-    <Position X="7.75" Y="5.5" Width="1.5" />
+    <Position X="7.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAQAAAAEAIQAggQEAAAAEAAAIAAAAACgBACAAAAQA=</HashCode>
       <FileName>Classes\Sprites\Concretes\Player.cs</FileName>
