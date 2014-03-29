@@ -17,28 +17,427 @@
         name="StandardProfileL3" />
     </packageHasProfileInstances>
   </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="39a319af-d680-4ecb-992d-8ebc0c70f2bb"
+        name="Class1"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="1bde5b5f-bf22-462d-8580-e7872b68be01"
+            isDerived="false"
+            sourceEndRoleName="Class1"
+            targetEndRoleName="Class2"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="b9974f00-f842-4536-912c-4d2eef00687a"
+              LastKnownName="DrawableGameComponent"
+              LastKnownLocation="Models.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="54b5884b-e786-4f85-b34d-a3c0262e51f3"
+                  name="Class1"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8912ca2b-7a95-4589-9e39-a09d42b98422"
+                  name="Class2"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="b9974f00-f842-4536-912c-4d2eef00687a"
+        name="DrawableGameComponent"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="fca54c8e-2226-4515-af7c-606c41cd51ab"
+            isSubstitutable="false">
+            <classMoniker
+              Id="fe46670e-f7c1-45f4-ae2a-16aba8551f4e"
+              LastKnownName="GameComponent"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="ced5890d-724b-46b9-82e9-8039308a3e2b"
+        name="StateManager"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="228c454d-ae86-457f-aa23-4e55cdbb6c9f"
+            isSubstitutable="false">
+            <classMoniker
+              Id="fe46670e-f7c1-45f4-ae2a-16aba8551f4e"
+              LastKnownName="GameComponent"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association
+            Id="5b6acff0-bc22-44a1-ae7a-cae91d31c44b"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName=""
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a"
+              LastKnownName="State"
+              LastKnownLocation="Models.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="cfed3707-e09f-4948-bb81-eb878d5306e8"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c03d8893-5297-4711-9c0c-c8f6ffc96421"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="4586bbe6-509f-42aa-af74-e67816cba24d"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="cf1145e1-d4cc-4087-97fa-03aefef2f21f"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a"
+        name="State"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="244c937e-bdc0-41e8-829a-d5b8ccd9dd04"
+            isSubstitutable="false">
+            <classMoniker
+              Id="b9974f00-f842-4536-912c-4d2eef00687a"
+              LastKnownName="DrawableGameComponent"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="81247558-c350-4bb6-98f8-46f5cf43707b"
+        LastKnownName="Screens"
+        LastKnownLocation="Package_2020.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="e94ce0e7-9e2a-4b1d-af4a-b9bc5a05ae12"
+        name="MainMenu"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="d9e1e4de-e962-4c3d-8c34-dfc53ea0dcbf"
+            isSubstitutable="false">
+            <classMoniker
+              Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a"
+              LastKnownName="State"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="fe46670e-f7c1-45f4-ae2a-16aba8551f4e"
+        name="GameComponent"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="6996d9d9-4598-4c53-96dd-36c99a8a88ab"
+        name="TextInputComponent"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="8eb84c19-dd30-4abd-9aaf-ebed896f8ffb"
+            isSubstitutable="false">
+            <classMoniker
+              Id="b9974f00-f842-4536-912c-4d2eef00687a"
+              LastKnownName="DrawableGameComponent"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="c219a53f-21c6-4e28-8fec-53129924160c"
+        name="TextBoxComponent"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="cf0aa6bf-5391-44fb-9f6c-dd431cbb2287"
+            isSubstitutable="false">
+            <classMoniker
+              Id="b9974f00-f842-4536-912c-4d2eef00687a"
+              LastKnownName="DrawableGameComponent"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="fdbd6868-a482-47a5-b757-4c0da06050a1"
+        name="MenuComponent"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="b6bcd9a4-d90b-4d1e-a258-247ff467113e"
+            isSubstitutable="false">
+            <classMoniker
+              Id="b9974f00-f842-4536-912c-4d2eef00687a"
+              LastKnownName="DrawableGameComponent"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="066ced50-33ea-4a9a-8fca-e96bdb653fc6"
+        name="ChoosePlayerManager"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="977bc180-812f-4be5-803f-17147584d6b2"
+            isSubstitutable="false">
+            <classMoniker
+              Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a"
+              LastKnownName="State"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="dede4388-d0e9-4daf-9afa-2697bf8540df"
+        name="HighscoreMenu"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="d1818a6a-e7f2-47e3-af20-7d9e3055086c"
+            isSubstitutable="false">
+            <classMoniker
+              Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a"
+              LastKnownName="State"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="fd416b86-ed0f-4e5e-9840-89576faa0ec3"
+        name="OptionMenu"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="0afd334b-2002-413c-9a03-e9545a869409"
+            isSubstitutable="false">
+            <classMoniker
+              Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a"
+              LastKnownName="State"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="bb9ed8ca-63e4-4136-aedb-9ab48f095f1d"
+        name="HelpMenu"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="7b9faef4-a781-4587-9111-86b56bbe0553"
+            isSubstitutable="false">
+            <classMoniker
+              Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a"
+              LastKnownName="State"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="8933ebc1-2c58-47a3-858d-292480bcffc6"
+        name="GameManager"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="c92164c1-b4c3-4d7a-a24f-276da5721359"
+            isSubstitutable="false">
+            <classMoniker
+              Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a"
+              LastKnownName="State"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="7b466eae-83ca-483a-862b-d56467ae3e5a"
+        name="InGameMenu"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="29c899cb-3392-4b76-893f-2d7d6b8917d6"
+            isSubstitutable="false">
+            <classMoniker
+              Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a"
+              LastKnownName="State"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="f128305c-b2c3-4e4c-b9fc-6c9ec81e316e"
+        name="GameOver"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="85159738-a432-4af8-999b-554310fd88d5"
+            isSubstitutable="false">
+            <classMoniker
+              Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a"
+              LastKnownName="State"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="39ef59d8-a98e-40da-9303-20bcd8bbe332"
+        name="NewHighscore"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="f12ca964-96b2-452a-bdc2-de485e1395b9"
+            isSubstitutable="false">
+            <classMoniker
+              Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a"
+              LastKnownName="State"
+              LastKnownLocation="Models.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
   <primitiveType
     Id="220a3521-e091-4221-bae9-3ef9018e845c"
     name="Integer"
     isAbstract="false"
-    isTemplate="false"
     isLeaf="false" />
   <primitiveType
     Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
     name="Boolean"
     isAbstract="false"
-    isTemplate="false"
     isLeaf="false" />
   <primitiveType
     Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
     name="String"
     isAbstract="false"
-    isTemplate="false"
     isLeaf="false" />
   <primitiveType
     Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
     name="UnlimitedNatural"
     isAbstract="false"
-    isTemplate="false"
     isLeaf="false" />
 </modelStoreModel>

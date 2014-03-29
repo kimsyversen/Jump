@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="170e5934-5f44-4a6b-9d58-73f471fd69d8" name="StateSystem" linkedPackageId="bfd28ac0-ec13-414b-97b9-44f0a3e100f9" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="97858671-e1a4-423e-b19e-e0a29597c3d2">
+      <profileInstance Id="45f5dac0-8d77-407b-893d-0d16236e8587" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="fb42e21f-edec-40ae-9c29-37c15830c9d6">
+      <profileInstance Id="237b566a-8929-4117-9d2b-2aa5382b6b2e" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="2d4ac92d-5c4e-4b43-9645-be561c3a127a" name="DrawableGameComponent" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="b9974f00-f842-4536-912c-4d2eef00687a" />
+        <generalsInternal>
+          <generalization Id="18489b07-b135-4f9e-a066-6bda03e0b7e2" isSubstitutable="false">
+            <classMoniker Id="7dbebdf9-a903-4dab-bcc8-9b64e2138db4" LastKnownName="GameComponent" />
+            <elementDefinition Id="fca54c8e-2226-4515-af7c-606c41cd51ab" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="28ca3461-08e9-42fa-9dfe-202ec6f4700c" name="StateManager" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="ced5890d-724b-46b9-82e9-8039308a3e2b" />
+        <generalsInternal>
+          <generalization Id="0690c499-8296-43df-9486-c40573d5813f" isSubstitutable="false">
+            <classMoniker Id="7dbebdf9-a903-4dab-bcc8-9b64e2138db4" LastKnownName="GameComponent" />
+            <elementDefinition Id="228c454d-ae86-457f-aa23-4e55cdbb6c9f" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association Id="8a225d10-a95f-4e6d-bb48-37dd9f1a47ec" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <classMoniker Id="bfdb9f1f-4569-4188-b986-08070c296400" LastKnownName="State" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="116948e3-7c5a-43fa-8518-7b7aee18bfea" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="cfed3707-e09f-4948-bb81-eb878d5306e8" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="de2de11f-a6f8-4fa5-9d28-0e4707247c85" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="2d2a8aa2-c228-4cd5-ae91-c5e7e2b8bbd1" name="Lower" value="1">
+                      <elementDefinition Id="4586bbe6-509f-42aa-af74-e67816cba24d" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="a07af730-efcd-41ef-984f-8cf84632bd76" name="Upper" value="1">
+                      <elementDefinition Id="cf1145e1-d4cc-4087-97fa-03aefef2f21f" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="c03d8893-5297-4711-9c0c-c8f6ffc96421" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="5b6acff0-bc22-44a1-ae7a-cae91d31c44b" />
+          </association>
+        </targetEnds>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="bfdb9f1f-4569-4188-b986-08070c296400" name="State" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="7d826b43-11f3-4525-9ae0-aaa68c9bc40a" />
+        <generalsInternal>
+          <generalization Id="1473711a-5b77-4327-95ef-dfd7ff56bc54" isSubstitutable="false">
+            <classMoniker Id="2d4ac92d-5c4e-4b43-9645-be561c3a127a" LastKnownName="DrawableGameComponent" />
+            <elementDefinition Id="244c937e-bdc0-41e8-829a-d5b8ccd9dd04" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="14af4c5b-6b0b-478e-a63d-285ba1971a86" name="MainMenu" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e94ce0e7-9e2a-4b1d-af4a-b9bc5a05ae12" />
+        <generalsInternal>
+          <generalization Id="6830aaf2-baee-4ce1-9b29-51241f398176" isSubstitutable="false">
+            <classMoniker Id="bfdb9f1f-4569-4188-b986-08070c296400" LastKnownName="State" />
+            <elementDefinition Id="d9e1e4de-e962-4c3d-8c34-dfc53ea0dcbf" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7dbebdf9-a903-4dab-bcc8-9b64e2138db4" name="GameComponent" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="fe46670e-f7c1-45f4-ae2a-16aba8551f4e" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7c9ff482-65f2-4bee-9953-41fe37c597f8" name="TextInputComponent" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="6996d9d9-4598-4c53-96dd-36c99a8a88ab" />
+        <generalsInternal>
+          <generalization Id="775a8034-b485-486e-811c-0b662c70dc72" isSubstitutable="false">
+            <classMoniker Id="2d4ac92d-5c4e-4b43-9645-be561c3a127a" LastKnownName="DrawableGameComponent" />
+            <elementDefinition Id="8eb84c19-dd30-4abd-9aaf-ebed896f8ffb" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="b4fe0b8b-b72d-4bab-926d-a4ed466afcec" name="TextBoxComponent" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="c219a53f-21c6-4e28-8fec-53129924160c" />
+        <generalsInternal>
+          <generalization Id="8084b617-357f-4f5f-ad3f-da4e55569d86" isSubstitutable="false">
+            <classMoniker Id="2d4ac92d-5c4e-4b43-9645-be561c3a127a" LastKnownName="DrawableGameComponent" />
+            <elementDefinition Id="cf0aa6bf-5391-44fb-9f6c-dd431cbb2287" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="d0d6c7a3-11f4-418f-ae85-62ee60b65247" name="MenuComponent" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="fdbd6868-a482-47a5-b757-4c0da06050a1" />
+        <generalsInternal>
+          <generalization Id="15af6b03-cf7a-4387-bd00-1defbd7d9e74" isSubstitutable="false">
+            <classMoniker Id="2d4ac92d-5c4e-4b43-9645-be561c3a127a" LastKnownName="DrawableGameComponent" />
+            <elementDefinition Id="b6bcd9a4-d90b-4d1e-a258-247ff467113e" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="12cf0bc0-1779-498f-b23f-4bbb8988c7ef" name="ChoosePlayerManager" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="066ced50-33ea-4a9a-8fca-e96bdb653fc6" />
+        <generalsInternal>
+          <generalization Id="9f1d697e-147c-4d01-9cf9-438e37b611c1" isSubstitutable="false">
+            <classMoniker Id="bfdb9f1f-4569-4188-b986-08070c296400" LastKnownName="State" />
+            <elementDefinition Id="977bc180-812f-4be5-803f-17147584d6b2" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="57f98eb9-0b9a-4f7a-b93d-36bb1cf78152" name="HighscoreMenu" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="dede4388-d0e9-4daf-9afa-2697bf8540df" />
+        <generalsInternal>
+          <generalization Id="5d64c87b-2613-49a0-82f8-96cc47147ee6" isSubstitutable="false">
+            <classMoniker Id="bfdb9f1f-4569-4188-b986-08070c296400" LastKnownName="State" />
+            <elementDefinition Id="d1818a6a-e7f2-47e3-af20-7d9e3055086c" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7f11743b-dcc4-4cf0-b8e0-0730654471fb" name="OptionMenu" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="fd416b86-ed0f-4e5e-9840-89576faa0ec3" />
+        <generalsInternal>
+          <generalization Id="251a2301-c311-4e73-9ca3-4feadcd1fd4a" isSubstitutable="false">
+            <classMoniker Id="bfdb9f1f-4569-4188-b986-08070c296400" LastKnownName="State" />
+            <elementDefinition Id="0afd334b-2002-413c-9a03-e9545a869409" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="a5904ac6-cb6e-4b30-90fb-e06c7f8888c2" name="HelpMenu" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="bb9ed8ca-63e4-4136-aedb-9ab48f095f1d" />
+        <generalsInternal>
+          <generalization Id="ed6e8e01-df19-4398-856f-6a7855f848a4" isSubstitutable="false">
+            <classMoniker Id="bfdb9f1f-4569-4188-b986-08070c296400" LastKnownName="State" />
+            <elementDefinition Id="7b9faef4-a781-4587-9111-86b56bbe0553" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="c4f1cc89-a419-416f-8b3f-0b89ba2dfad6" name="GameManager" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="8933ebc1-2c58-47a3-858d-292480bcffc6" />
+        <generalsInternal>
+          <generalization Id="2c37d39f-06b2-41cd-b4d8-5d5968fa61ac" isSubstitutable="false">
+            <classMoniker Id="bfdb9f1f-4569-4188-b986-08070c296400" LastKnownName="State" />
+            <elementDefinition Id="c92164c1-b4c3-4d7a-a24f-276da5721359" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="836c4f30-ae39-44f5-b59b-1ff79d4ad469" name="InGameMenu" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="7b466eae-83ca-483a-862b-d56467ae3e5a" />
+        <generalsInternal>
+          <generalization Id="1e3fa8a2-799b-492f-a530-512e28893686" isSubstitutable="false">
+            <classMoniker Id="bfdb9f1f-4569-4188-b986-08070c296400" LastKnownName="State" />
+            <elementDefinition Id="29c899cb-3392-4b76-893f-2d7d6b8917d6" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="630678ac-cd5d-4e1a-a31d-6674cd3f886b" name="GameOver" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="f128305c-b2c3-4e4c-b9fc-6c9ec81e316e" />
+        <generalsInternal>
+          <generalization Id="f9376ee0-172b-4ff1-aadf-6730720d14fc" isSubstitutable="false">
+            <classMoniker Id="bfdb9f1f-4569-4188-b986-08070c296400" LastKnownName="State" />
+            <elementDefinition Id="85159738-a432-4af8-999b-554310fd88d5" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="2c2eb674-a4d1-48d8-8b40-f264f6d0eeb3" name="NewHighscore" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="39ef59d8-a98e-40da-9303-20bcd8bbe332" />
+        <generalsInternal>
+          <generalization Id="1dc6a8be-131f-4f3e-ba55-b436543c99be" isSubstitutable="false">
+            <classMoniker Id="bfdb9f1f-4569-4188-b986-08070c296400" LastKnownName="State" />
+            <elementDefinition Id="f12ca964-96b2-452a-bdc2-de485e1395b9" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="bfd28ac0-ec13-414b-97b9-44f0a3e100f9" name="Models">
+    <elementDefinition Id="ed7cd136-ceef-418a-aa75-ccdee953df7a" />
+  </package>
+</logicalClassDesignerModel>
